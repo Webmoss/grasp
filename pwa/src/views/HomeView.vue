@@ -2,10 +2,7 @@
 <template>
   <div id="app">
     <h2>
-      <a target="_blank" href="https://web3auth.io/docs/sdk/pnp/web/modal" rel="noreferrer">
-        Web3Auth
-      </a>
-      Vue.js Quick Start
+      Grasp
     </h2>
 
     <button v-if="!loggedIn" class="card" @click="login" style="cursor: pointer">
