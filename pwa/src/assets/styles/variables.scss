@@ -2,9 +2,9 @@
 $grasp-blue: #061f3e;
 $grasp-green: #cfdd40;
 $grasp-orange: #e47969;
-$grasp-light-blue: #004B6F;
 $grasp-cyan: #3dcab1;
 $grasp-red : #F47174;
+$grasp-light-blue: #004B6F;
 
 /* Greys, Blacks & Whites */
 $black: #000000;
@@ -21,15 +21,14 @@ $white: #ffffff;
 $cream: #ece5e1;
 
 /* Responsive Breakpoints */
-$break-xxs: 360px !default;
-$break-xs: 479px !default;
-$break-ssm: 769px !default;
-$break-sm: 839px !default;
-$break-md: 959px !default;
-$break-lg: 1023px !default;
-$break-xl: 1279px !default;
-$break-xxl: 1439px !default;
-$break-xxxl: 2872px !default;
+$break-xs: 360px !default;
+$break-ssm: 479px !default;
+$break-sm: 769px !default;
+$break-md: 839px !default;
+$break-lg: 959px !default;
+$break-xl: 1023px !default;
+$break-xxl: 1279px !default;
+$break-xxxl: 1439px !default;
 
 /* Display Settings */
 $max-width: 1280px;
