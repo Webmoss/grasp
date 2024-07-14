@@ -1,7 +1,6 @@
 @import './variables.scss';
 @import './mixins.scss';
-
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
   font-family: inter, -apple-system, system-ui, 'Segoe UI', Helvetica,
@@ -26,8 +25,24 @@ body,
   height: 100%;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;  
+}
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Manrope", sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: $black;
 }
 
 section#content {
@@ -73,66 +88,7 @@ section#content {
           flex-direction: row;
           align-content: center;
           align-items: center;
-          justify-content: space-between;
-          .back-button {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            color: $grasp-blue;
-            color: $white;
-            background-color: $grasp-blue;
-            font-size: 14px;
-            font-weight: bold;
-            width: auto;
-            height: 35px;
-            border: 2px solid $grasp-blue;
-            border-radius: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-            margin-top: 5px;
-            margin-right: 10px;
-            transition: 0.6s;
-            cursor: pointer;
-            .icon-color {
-              margin: 0 5px 0 0;
-            }
-
-            &:hover {
-              color: $grasp-cyan;
-              border: 2px solid $grasp-cyan;
-            }
-          }
-          .create-button {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            color: $grasp-blue;
-            color: $grasp-blue;
-            background-color: $grasp-cyan;
-            font-size: 14px;
-            font-weight: bold;
-            width: auto;
-            height: 35px;
-            border: 2px solid $grasp-cyan;
-            border-radius: 30px;
-            padding-left: 20px;
-            padding-right: 20px;
-            margin-top: 5px;
-            margin-right: 10px;
-            transition: 0.6s;
-            cursor: pointer;
-            .icon-color {
-              margin: 0 5px 0 0;
-            }
-
-            &:hover {
-              border: 2px solid $grasp-blue;
-            }
-          }
+          justify-content: space-between;          
         }
       }
     }
@@ -163,7 +119,7 @@ section#content {
     }
     p {
       font-size: 14px;
-      color: $grasp-blue;
+      color: $black;
       line-height: 16px;
       margin-bottom: 20px;
       font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -172,18 +128,67 @@ section#content {
   }
 }
 
+.back-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: $grasp-blue;
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 14px;
+  font-weight: bold;
+  width: auto;
+  height: 35px;
+  border: 2px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 5px;
+  margin-right: 10px;
+  transition: 0.6s;
+  cursor: pointer;
+  .icon-color {
+    margin: 0 5px 0 0;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+  &:hover {
+    color: $grasp-cyan;
+    border: 2px solid $grasp-cyan;
+  }
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.create-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 14px;
+  font-weight: bold;
+  width: auto;
+  height: 35px;
+  border: 2px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 5px;
+  margin-right: 10px;
+  transition: 0.6s;
+  cursor: pointer;
+  .icon-color {
+    margin: 0 5px 0 0;
+  }
+
+  &:hover {
+    border: 2px solid $grasp-blue;
+  }
 }
-a {
-  color: #42b983;
-}
+
+
+
 
 .card {
   margin: 0.5rem;

@@ -5,7 +5,7 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
-            <h1>Settings</h1>
+            <h1>Privacy</h1>
           </div>
           <div class="title-actions">
             <button class="back-button">Back</button>

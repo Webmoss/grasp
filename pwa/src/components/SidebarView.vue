@@ -1,10 +1,13 @@
 <template>
   <div class="sidebar">
-    <!-- <div class="profile">
-      <img src="../assets/images/0xWebMoss.png" alt="profile_picture" />
-      <h3>{{ currency }} {{ (balance / 1000000000000000000).toFixed(2) }}</h3>
+    <div class="profile">
+      <img
+        :src="user?.profileImage ? user.profileImage : 'Grasp-Icon.png'"
+        :alt="user.name ? user.name : 'Grasp Academy'"
+      />
+      <h3>{{ balance }}</h3>
       <code class="account-address">{{ account }}</code>
-    </div> -->
+    </div>
     <ul>
       <li>
         <router-link :to="{ name: 'dashboard' }" active-class="active" exact>
@@ -34,11 +37,13 @@
     </ul>
   </div>
 </template>
-<script>
-export default {
-  name: "SidebarView",
-  setup() {},
-};
+
+<script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { useStore } from "../store";
+
+const store = useStore();
+const { account, balance, user } = storeToRefs(store);
 </script>
 <style lang="scss">
 @import "../assets/styles/variables.scss";
@@ -58,46 +63,46 @@ export default {
   overflow: hidden;
   transition: all 0.5s ease;
 
-  // .profile {
-  //   width: 75%;
-  //   margin-bottom: 30px;
-  //   text-align: center;
+  .profile {
+    width: 75%;
+    text-align: center;
 
-  //   img {
-  //     display: block;
-  //     width: 80px;
-  //     height: 80px;
-  //     border-radius: 50%;
-  //     margin: 0 0 0 -20px;
-  //   }
-  //   h3 {
-  //     color: $white;
-  //     font-size: 16px;
-  //     margin: 0 0 5px 0;
-  //     text-align: left;
-  //   }
+    img {
+      display: block;
+      width: 60px;
+      height: 60px;
+      border-radius: 6px;
+      margin: 0;
+    }
+    h3 {
+      color: $white;
+      font-size: 16px;
+      margin: 0 0 5px 0;
+      text-align: left;
+    }
 
-  //   .account-address {
-  //     width: 70px;
-  //     color: $white;
-  //     font-size: 14px;
-  //     white-space: nowrap;
-  //     overflow: hidden;
-  //     text-overflow: ellipsis;
-  //   }
-  // }
+    .account-address {
+      width: 70px;
+      color: $white;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
   ul {
     width: 100%;
     list-style: none;
     text-decoration: none;
-    margin-block-start: 0;
+    margin-block-start: 10px;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
-    border-bottom: 0.5px solid $white;
+    border-top: 0.25px solid $white;
+    border-bottom: 0.25px solid $white;
     li {
       width: 100%;
       margin: 0;

@@ -1,0 +1,139 @@
+<template>
+  <div class="search-collection-input">
+    <div class="search-icon">
+      <img src="../../assets/svgs/SearchIcon.svg" height="24" />
+    </div>
+    <input
+      v-model="filter.search_term"
+      name="searchCollectionInput"
+      type="text"
+      class="search-input"
+      placeholder="Search Courses"
+      @input="searchHandle($event)"
+    />
+    <button class="search-clear-button" title="Clear search" @click="clearSearchTerm()">
+      <img src="../../assets/svgs/DeleteIcon.svg" />
+    </button>
+  </div>
+</template>
+<script lang="ts" setup>
+import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
+
+const store = useStore();
+const { filter } = storeToRefs(store);
+
+/**
+ * Update our Filter Search Term in Store
+ */
+function searchHandle(event: Event) {
+  store.setSearchTerm((event.target as HTMLInputElement).value);
+}
+
+/**
+ *  Clear our Search Results in Store
+ */
+function clearSearchTerm() {
+  store.setSearchTerm("");
+}
+</script>
+
+<style lang="scss" scoped>
+@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/mixins.scss";
+
+.search-collection-input {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  background: $grasp-blue;
+  margin-left: 20px;
+  margin-right: 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0 0 0 8px;
+  transition: all 0.5s linear;
+  overflow: hidden;
+  cursor: pointer;
+
+  &:hover,
+  &:focus,
+  &:focus-visible,
+  &:active {
+    border-color: rgb(69, 73, 77);
+    outline: -webkit-focus-ring-color auto 0px;
+  }
+
+  .search-icon {
+    width: 32px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    img,
+    svg {
+      background: transparent;
+      object-fit: contain;
+      overflow: hidden;
+      margin-bottom: -2px;
+      margin-right: 8px;
+    }
+  }
+
+  input.search-input {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    color: $white;
+    font-size: 16px;
+    font-weight: 600;
+    background: $grasp-blue;
+    margin-right: 10px;
+    text-decoration: none;
+    border: none;
+    border-radius: 12px;
+    padding: 7px 0 6px;
+    transition: all 0.5s linear;
+    cursor: pointer;
+
+    &::placeholder {
+      color: $white;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: 0;
+    }
+  }
+
+  .search-clear-button {
+    width: 24px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background: $grasp-blue;
+    border: 0;
+    padding: 7px 0 6px;
+    margin-right: 4px;
+    cursor: pointer;
+    img,
+    svg {
+      width: 20px;
+      background: $grasp-blue;
+      object-fit: contain;
+      overflow: hidden;
+    }
+  }
+}
+</style>

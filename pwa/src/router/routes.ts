@@ -10,6 +10,34 @@ const routes = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
+    path: "/",
+    name: "courses",
+    meta: {
+      guest: true,
+      title: "Courses",
+      description: "",
+    },
+    component: () => import("@/views/CoursesView.vue"),
+  },
+  {
+    path: "/course/:type?/:name?",
+    name: "course",
+    meta: {
+      guest: true,
+      title: "Category",
+    },
+    component: () => import("@/views/CourseView.vue"),
+  },
+  {
+    path: "/category/:type?/:name?",
+    name: "category",
+    meta: {
+      guest: true,
+      title: "Category",
+    },
+    component: () => import("@/views/CourseView.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     meta: {
@@ -28,22 +56,22 @@ const routes = [
     component: () => import("@/views/DashboardView.vue"),
   },
   {
-    path: "/courses",
-    name: "courses",
+    path: "/my-courses",
+    name: "my-courses",
     meta: {
       guest: true,
       title: "Courses",
     },
-    component: () => import("@/views/CoursesView.vue"),
+    component: () => import("@/views/MyCoursesView.vue"),
   },
   {
-    path: "/course/:name",
-    name: "course",
+    path: "/my-course/:name",
+    name: "my-course",
     meta: {
       guest: true,
       title: "Course",
     },
-    component: () => import("@/views/CourseView.vue"),
+    component: () => import("@/views/MyCourseView.vue"),
   },
   {
     path: "/category/:type?/:name?",
@@ -52,7 +80,7 @@ const routes = [
       guest: true,
       title: "Category",
     },
-    component: () => import("@/views/CourseView.vue"),
+    component: () => import("@/views/MyCourseView.vue"),
   },
   {
     path: "/terms",
