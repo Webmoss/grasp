@@ -23,13 +23,12 @@
   justify-content: center;
   align-items: center;
   padding: 1em 44px;
+  color: $white;
+  background: $grasp-blue;
 
   @include breakpoint($break-ssm) {
     padding: 10px 0;
   }
-
-  color: $white;
-  background: $grasp-blue;
 
   .footer-menu {
     display: flex;
