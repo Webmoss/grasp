@@ -5,14 +5,14 @@
         <img src="../../assets/svgs/owl-white.svg" class="intro-logo" />Grasp Academy
       </h1>
       <p>
-        Grasp Academy is a Learning Management System (LMS) built on the innovative EDU
-        Chain and powered by Open Campus. The Grasp web3 platform integrates EduFi
-        allowing users to learn, earn, and be rewarded for excellence.
+        Grasp is the go to content platform where creators can share their work and earn
+        on EDU Chain. The Grasp web3 platform is powered by Open Campus and integrates
+        EduFi allowing users to learn, earn, and be rewarded for excellence.
       </p>
       <p>
-        Grasp is a content platform where creators share their work and earn on EDU Chain.
         We prioritize education and facilitate onboarding for users, students, staff, and
-        web3 community members including DAOs.
+        web3 community members including DAOs. Grasp Academy is a Learning Management
+        System (LMS) built on the innovative EDU Chain.
       </p>
       <p>
         <a href="/#campus" title="Learn More" class="link-button">Open Campus</a>

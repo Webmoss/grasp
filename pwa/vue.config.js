@@ -37,5 +37,6 @@ module.exports = defineConfig({
       })
       return definitions
     })
-  }
+  },
+  crossorigin: "anonymous",
 });

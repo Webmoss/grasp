@@ -11,9 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import CoursesFilterButton from "../CoursesComponents/CoursesFilterButton.vue";
-import CoursesSearchInput from "../CoursesComponents/CoursesSearchInput.vue";
 import CoursesSortBy from "../CoursesComponents/CoursesSortBy.vue";
+import CoursesSearchInput from "../CoursesComponents/CoursesSearchInput.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";

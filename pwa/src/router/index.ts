@@ -10,7 +10,22 @@ const baseTitle = "Grasp Academy";
 const router = createRouter({
   history: createWebHistory(baseURL),
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { top: 0, left: 0 };
+    if (to.hash) {
+      const el = window.location.href.split("#")[1];
+      if (el.length) {
+        setTimeout(() => {
+          document.getElementById(el)?.scrollIntoView({
+            behavior: "smooth",
+          });
+        }, 100);
+      }
+    } else if (savedPosition) {
+      return savedPosition;
+    } else {
+      document
+        .getElementById("app")
+        ?.scrollIntoView({ behavior: "smooth" });
+    } 
   },
   routes,
 });

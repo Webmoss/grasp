@@ -26,6 +26,14 @@
             exact
             >Courses</router-link
           >
+          <!-- <router-link
+            :to="{ path: '#goplus' }"
+            class-active="active"
+            class="link-button"
+            exact
+            >Plus</router-link
+          > -->
+          <a href="/#goplus" title="Learn More" class="link-button">Plus</a>
         </div>
         <div class="right">
           <ConnectWalletButton btnSize="small" />

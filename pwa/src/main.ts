@@ -7,4 +7,7 @@ import router from "./router/index";
 import "./assets/styles/styles.scss";
 import "notyf/notyf.min.css";
 
-createApp(App).use(createPinia()).use(router).mount("#app");
+const app = createApp(App);
+app.use(createPinia());
+app.use(router);
+app.mount("#app");
