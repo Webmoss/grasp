@@ -5,7 +5,13 @@
         <a href="#" alt="Open Campus Hackathon" target="_blank" rel="noopener"
           >showcase</a
         >
-        <a href="#" alt="GitHub" target="_blank" rel="noopener">github</a>
+        <a
+          href="https://github.com/Webmoss/grasp"
+          alt="GitHub"
+          target="_blank"
+          rel="noopener"
+          >github</a
+        >
         <a href="https://x.com/GraspAcademy" alt="Twitter" target="_blank" rel="noopener"
           >twitter</a
         >
