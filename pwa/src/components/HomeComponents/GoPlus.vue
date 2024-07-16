@@ -1,8 +1,8 @@
 <template>
   <section id="goplus">
     <h1>
-      <img src="../../assets/svgs/owl-white.svg" class="intro-logo" />Grasp
-      <span class="blue"> Plus</span>
+      <img src="../../assets/svgs/owl-blue.svg" class="intro-logo" />Grasp
+      <span class="white"> Plus</span>
     </h1>
     <div class="subtitle">Enjoy all our courses FREE and get rewarded for learning</div>
     <div class="slogan">
@@ -19,9 +19,9 @@
 
 section#goplus {
   background: $grasp-cyan;
-  background-image: url("../../assets/images/EduChain.png");
+  background-image: url("../../assets/svgs/goPlus.svg");
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: top 50px left 100px;
   background-size: 35%;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ section#goplus {
   }
 
   h1 {
-    width: 60%;
+    width: 70%;
     color: $white;
     font-size: 38px;
     text-align: center;
@@ -55,7 +55,7 @@ section#goplus {
       margin: 50px auto 10px;
     }
 
-    span.blue {
+    span.white {
       color: $grasp-blue;
     }
 
@@ -69,7 +69,7 @@ section#goplus {
   }
 
   .subtitle {
-    width: 60%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -89,7 +89,7 @@ section#goplus {
     }
   }
   .slogan {
-    width: 60%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-content: center;

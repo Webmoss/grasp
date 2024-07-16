@@ -27,6 +27,7 @@
   justify-content: center;
   align-items: flex-start;
   margin: 20px auto 0;
+
   @include breakpoint($break-lg) {
     width: 100%;
     margin: 20px auto 0;

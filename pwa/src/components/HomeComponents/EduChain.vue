@@ -2,18 +2,18 @@
   <section id="educhain">
     <h1><img src="../../assets/svgs/owl-white.svg" class="intro-logo" />Grasp Academy</h1>
     <div class="subtitle">
-      Grasp Academy allows users to learn, earn, and be rewarded for excellence
+      Grasp Academy allows you to learn, earn, and be rewarded for excellence
     </div>
     <div class="row">
       <div class="educhain-box-one bg-blue">
-        <OpenCampusId />
+        <img src="../../assets/svgs/Open-Campus-ID-White.svg" class="intro-logo" />
       </div>
       <div class="educhain-box-two bg-cyan">
         <h2>EDU Chain</h2>
         <p>
-          EDU Chain is the first L3 Blockchain built for Education. EDU Chain links
-          learning experiences with earning opportunities, making every step of the
-          journey trackable on the blockchain.
+          EDU Chain links learning experiences with earning opportunities, making every
+          step of the journey trackable on the blockchain. EDU Chain is the first L3
+          Blockchain built for Education.
         </p>
       </div>
       <div class="educhain-box-three bg-white">
@@ -31,9 +31,7 @@
     </div>
   </section>
 </template>
-<script setup>
-import OpenCampusId from "../../assets/svgs/OpenCampusId.vue";
-</script>
+<script setup></script>
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
@@ -56,7 +54,7 @@ section#educhain {
     align-content: center;
     align-items: center;
     text-align: center;
-    margin: 40px 0 10px 10px;
+    margin: 30px 0 0 10px;
     z-index: 999;
 
     @include breakpoint($break-sm) {
@@ -82,12 +80,11 @@ section#educhain {
     align-content: center;
     align-items: center;
     justify-content: center;
-    padding: 30px 20%;
+    padding: 30px 20% 0;
     color: $white;
     font-size: 22px;
     line-height: 1.7;
     text-align: center;
-    margin-bottom: 50px;
     z-index: 999;
     @include breakpoint($break-sm) {
       padding: 30px 5%;
@@ -102,7 +99,6 @@ section#educhain {
     align-content: center;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom: 30px;
 
     @include breakpoint($break-sm) {
       width: 100%;
@@ -112,26 +108,20 @@ section#educhain {
       margin-bottom: 0;
     }
     .educhain-box-one {
-      width: 25%;
-      min-height: 320x;
-      padding: 3%;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
+      width: auto;
+      height: inherit;
 
       @include breakpoint($break-sm) {
-        width: 94%;
+        width: 100%;
       }
-
-      .svg-container {
-        width: 300px;
-        margin: 0 auto;
-        padding: 0;
+      img {
+        width: 100%;
       }
     }
     .educhain-box-two {
-      width: 26.3333333%;
-      min-height: 320x;
-      padding: 3%;
+      width: 35%;
+      height: inherit;
+      padding: 2%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
 
@@ -142,9 +132,9 @@ section#educhain {
       }
     }
     .educhain-box-three {
-      width: 28.3333333%;
-      min-height: 320x;
-      padding: 3%;
+      width: 38%;
+      height: inherit;
+      padding: 2%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
 
@@ -159,7 +149,7 @@ section#educhain {
       background-color: $grasp-blue;
       h2 {
         color: $white;
-        font-size: 2.25rem;
+        font-size: 1.7rem;
         margin-bottom: 20px;
         display: flex;
         flex-direction: row;
@@ -193,7 +183,7 @@ section#educhain {
       background-color: $grasp-cyan;
       h2 {
         color: $grasp-blue;
-        font-size: 2.25rem;
+        font-size: 1.7rem;
         margin-bottom: 20px;
         @include breakpoint($break-sm) {
           font-size: 1.85rem;
@@ -216,7 +206,7 @@ section#educhain {
       background-color: $white;
       h2 {
         color: $grasp-blue;
-        font-size: 2.25rem;
+        font-size: 1.7rem;
         margin-bottom: 20px;
         @include breakpoint($break-sm) {
           font-size: 1.85rem;

@@ -105,7 +105,7 @@ section#campus {
     justify-content: center;
     padding: 10px 19%;
     color: $grasp-blue;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.3;
     text-align: center;
