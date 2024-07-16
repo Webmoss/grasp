@@ -30,6 +30,13 @@ section#goplus {
   justify-content: space-between;
   padding: 100px 0 100px 60px;
 
+  @include breakpoint($break-sm) {
+    width: 100%;
+    background-position: bottom;
+    background-size: 80%;
+    padding: 0;
+  }
+
   h1 {
     width: 60%;
     color: $white;
@@ -41,6 +48,12 @@ section#goplus {
     align-content: flex-end;
     align-items: center;
     margin: 0 0 10px 10px;
+
+    @include breakpoint($break-sm) {
+      width: 100%;
+      align-content: center;
+      margin: 50px auto 10px;
+    }
 
     span.blue {
       color: $grasp-blue;
@@ -69,9 +82,9 @@ section#goplus {
     text-align: center;
     margin: 0 0 20px 20px;
 
-    @include breakpoint($break-ssm) {
-      width: 60%;
-      padding: 30px 5%;
+    @include breakpoint($break-sm) {
+      width: 90%;
+      padding: 20px 5%;
       margin-bottom: 0;
     }
   }
@@ -89,9 +102,9 @@ section#goplus {
     text-align: center;
     margin: 0 0 20px 20px;
 
-    @include breakpoint($break-ssm) {
-      width: 60%;
-      padding: 30px 5%;
+    @include breakpoint($break-sm) {
+      width: 84%;
+      padding: 30px 8%;
       margin-bottom: 0;
     }
   }
@@ -111,8 +124,8 @@ section#goplus {
     border-radius: 30px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 30px;
-    margin-right: 10px;
+    margin-top: 40px;
+    margin-bottom: 27px;
     transition: 0.6s;
     cursor: pointer;
     .icon-color {

@@ -46,7 +46,7 @@
 import { ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
-import { userObject } from 'src/models/user';
+import { userObject } from "src/models/user";
 import { useRouter } from "vue-router";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
@@ -70,7 +70,7 @@ let provider = <IProvider | null>null;
 // IMP START - SDK Initialization
 // IMP START - Dashboard Registration
 const clientId =
-  "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ"; // get from https://dashboard.web3auth.io
+  "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
 // IMP END - Dashboard Registration
 
 const chainConfig = {
@@ -233,7 +233,6 @@ onMounted(async () => {
 
   &:hover {
     color: $grasp-cyan;
-    border: 1px solid $grasp-cyan;
   }
 }
 
@@ -254,7 +253,6 @@ onMounted(async () => {
 
   &:hover {
     color: $grasp-cyan;
-    border: 1px solid $grasp-cyan;
   }
 }
 

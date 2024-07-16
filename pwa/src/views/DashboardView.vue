@@ -73,7 +73,7 @@ let provider = <IProvider | null>null;
 // IMP START - SDK Initialization
 // IMP START - Dashboard Registration
 const clientId =
-  "BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ"; // get from https://dashboard.web3auth.io
+  "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
 // IMP END - Dashboard Registration
 
 const chainConfig = {
@@ -144,7 +144,6 @@ onMounted(async () => {
   //   try {
   //     await web3auth.initModal();
   //     provider = web3auth.provider;
-
   //     if (web3auth.connected) {
   //       loggedIn.value = true;
   //     }
@@ -240,7 +239,6 @@ function uiConsole(...args: any[]): void {
   }
   console.log(...args);
 }
-
 </script>
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";

@@ -76,7 +76,7 @@ section#home {
         width: 40px;
         margin-right: 8px;
         @include breakpoint($break-sm) {
-          width: 35px;
+          width: 40px;
         }
       }
     }

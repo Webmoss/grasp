@@ -4,6 +4,7 @@
     class="pagination-sort-by"
     @change="sortByHandle($event)"
   >
+    <option value="null">Select Category</option>
     <option v-for="option in options" :key="option.value" :value="option.value">
       {{ option.label }}
     </option>
@@ -70,23 +71,22 @@ function sortByHandle(event: Event) {
 @import "@/assets/styles/mixins.scss";
 
 select.pagination-sort-by {
-  color: $white;
-  background: $grasp-blue;
-  border: 1px solid transparent;
+  color: $grasp-blue;
+  background: $white;
+  border: 1px solid $grasp-blue;
   border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   min-width: 220px;
-  padding: 6.5px 6px 5px;
+  padding: 6.5px 8px 5px;
   margin: 0;
   text-align: left;
   transition: all 0.5s linear;
   cursor: pointer;
 
   &::placeholder {
-    color: $white;
+    color: $grasp-blue;
   }
-
   &:hover,
   &:focus,
   &:focus-visible,

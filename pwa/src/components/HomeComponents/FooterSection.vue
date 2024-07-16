@@ -32,7 +32,7 @@
   color: $white;
   background: $grasp-blue;
 
-  @include breakpoint($break-ssm) {
+  @include breakpoint($break-sm) {
     padding: 10px 0;
   }
 
@@ -48,7 +48,7 @@
       padding: 0.3em;
       font-size: 0.9rem;
 
-      @include breakpoint($break-ssm) {
+      @include breakpoint($break-sm) {
         padding: 0;
         font-size: 0.8rem;
         justify-content: center;
@@ -64,15 +64,14 @@
         transition: 0.6s;
         cursor: pointer;
 
-        @include breakpoint($break-ssm) {
+        @include breakpoint($break-sm) {
           font-size: 0.7rem;
         }
 
-        &:hover {
-          border-bottom: 0.5px solid $grasp-cyan;
-        }
-
-        &:focus {
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-visible {
           border-bottom: 0.5px solid $grasp-cyan;
         }
       }

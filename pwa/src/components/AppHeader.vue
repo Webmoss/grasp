@@ -137,6 +137,11 @@ import ConnectWalletButton from "../components/ConnectWalletButton.vue";
       align-items: center;
 
       @include breakpoint($break-sm) {
+        width: 100%;
+        align-content: center;
+      }
+
+      @include breakpoint($break-sm) {
         text-align: left;
         padding: 0 8px 6px;
         height: auto;
@@ -151,7 +156,7 @@ import ConnectWalletButton from "../components/ConnectWalletButton.vue";
         align-items: center;
         padding: 0;
 
-        @include breakpoint($break-ssm) {
+        @include breakpoint($break-sm) {
           width: 98%;
           justify-content: space-evenly;
           margin: 1% auto;
@@ -159,33 +164,28 @@ import ConnectWalletButton from "../components/ConnectWalletButton.vue";
       }
 
       a {
+        font-family: "Poppins", sans-serif;
         color: $white;
-        font-size: 20px;
-        margin-right: 20px;
-        font-weight: bold;
+        font-size: 18px;
+        margin-right: 25px;
+        padding-bottom: 1px;
         text-decoration: none;
+        border-bottom: 2px solid transparent;
         transition: 0.6s;
         cursor: pointer;
 
-        &:hover {
-          color: $grasp-cyan;
-          font-weight: bold;
-        }
-
-        &:focus {
-          color: $grasp-cyan;
-          font-weight: bold;
-        }
-
-        &:active {
-          color: $grasp-cyan;
-          font-weight: bold;
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-visible {
+          // color: $grasp-cyan;
+          border-bottom: 2px solid $grasp-cyan;
         }
       }
 
       @include breakpoint($break-sm) {
         > a {
-          font-size: 0.9em;
+          font-size: 0.8em;
           margin-right: 15px;
 
           flex: row;

@@ -59,11 +59,19 @@ section#educhain {
     margin: 40px 0 10px 10px;
     z-index: 999;
 
-    img {
+    @include breakpoint($break-sm) {
+      width: 100%;
+      margin: 40px 0 10px 15%;
+      justify-content: center;
+      text-align: left;
+    }
+
+    img,
+    svg {
       width: 55px;
       margin-right: 10px;
       @include breakpoint($break-sm) {
-        width: 45px;
+        width: 125px;
       }
     }
   }
