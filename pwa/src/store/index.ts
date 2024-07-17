@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { userObject } from 'src/models/user';
+import { courseObject } from "src/models/course";
 import { filterObject } from 'src/models/filter';
 import { paginationObject } from 'src/models/pagination';
 
@@ -31,6 +32,7 @@ export const useStore = defineStore({
       dates: [] as string[] | undefined,
     },
     pagination: <paginationObject>{},
+    courses: [] as courseObject[],
   }),
   getters: {
     getChainId(state) {
@@ -95,6 +97,9 @@ export const useStore = defineStore({
     },
     getContinuation(state) {
       return state.pagination.continuation;
+    },
+    getCourses(state) {
+      return state.courses;
     },
   },
   actions: {
@@ -201,6 +206,9 @@ export const useStore = defineStore({
     },
     resetPagination() {
       this.pagination = <paginationObject>{};
+    },
+    setCourses(tokens: courseObject[]) {
+      this.courses = tokens;
     },
   },
 });

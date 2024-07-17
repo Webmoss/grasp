@@ -10,7 +10,7 @@ const routes = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
-    path: "/",
+    path: "/courses",
     name: "courses",
     meta: {
       guest: true,
