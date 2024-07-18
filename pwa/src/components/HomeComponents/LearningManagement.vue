@@ -2,12 +2,12 @@
   <section id="lms">
     <h1>Learning Management Solutions</h1>
     <div class="subtitle">
-      The Grasp web3 dApp is perfect for delivering and managing educational courses and
+      The Grasp web3 dApp is ideal for delivering and managing educational courses and
       training programs. It facilitates onboarding for learners, staff, and web3 community
-      members, offering structured educational tracks for education and learning.
+      members, offering structured educational tracks for various learning purposes.
     </div>
     <div class="slogan">
-      Grasp is built on the innovative EDU Chain and powered by Open Campus
+      Grasp Academy is built on the innovative EDU Chain and powered by Open Campus
     </div>
   </section>
 </template>
@@ -28,15 +28,23 @@ section#lms {
   justify-content: space-between;
   padding: 100px 0 100px 60px;
 
+  @include breakpoint($break-sm) {
+    background-image: url("../../assets/images/EduChain.png");
+    background-position: top 0 left 10%;
+    background-size: 100%;
+    padding: 120px 0 30px;
+  }
+
   h1 {
     width: 60%;
     color: $white;
-    font-size: 42px;
+    font-size: 38px;
     text-align: center;
     margin-bottom: 20px;
     z-index: 999;
-    @include breakpoint($break-ssm) {
-      font-size: 2.75rem;
+    @include breakpoint($break-sm) {
+      width: 100%;
+      font-size: 32px;
       margin-bottom: 0;
     }
   }
@@ -49,14 +57,14 @@ section#lms {
     align-items: center;
     justify-content: center;
     color: $white;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.7;
     text-align: center;
-    margin: 0 0 20px 20px;
+    margin: 0 0 30px 0;
 
-    @include breakpoint($break-ssm) {
-      width: 60%;
-      padding: 30px 5%;
+    @include breakpoint($break-sm) {
+      width: 90%;
+      padding: 20px 5%;
       margin-bottom: 0;
     }
   }
@@ -68,16 +76,16 @@ section#lms {
     align-items: center;
     justify-content: center;
     color: $grasp-cyan;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.5;
     text-align: center;
     margin: 0 0 20px 20px;
 
-    @include breakpoint($break-ssm) {
-      width: 60%;
-      padding: 30px 5%;
-      margin-bottom: 0;
+    @include breakpoint($break-sm) {
+      width: 90%;
+      padding: 20px 5%;
+      margin: 0;
     }
   }
 }

@@ -126,7 +126,7 @@ section#courses {
   position: relative;
   height: 100%;
   overflow: scroll;
-  background: $grey-20;
+  background: $white;
 
   .main {
     max-width: $max-width;

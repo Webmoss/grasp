@@ -12,7 +12,7 @@
     <div class="header-menu">
       <nav class="header-navbar">
         <div class="menu-button-row">
-          <router-link
+          <!-- <router-link
             :to="{ name: 'home' }"
             class-active="active"
             class="link-button"
@@ -26,14 +26,43 @@
             exact
             >Courses</router-link
           >
-          <!-- <router-link
-            :to="{ path: '#goplus' }"
+          <router-link
+            :to="{ path: '/#goplus' }"
             class-active="active"
             class="link-button"
             exact
             >Plus</router-link
           > -->
-          <a href="/#goplus" title="Learn More" class="link-button">Plus</a>
+          <ul>
+            <li
+              v-if="homeLinks"
+              class="menu-link"
+              @click="navigateAndScroll('home')"
+            >
+              Home
+            </li>
+            <li v-else>
+              <router-link
+                :to="{ name: 'home' }"
+                class="menu-link"
+                >Home</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                :to="{ name: 'courses' }"
+                class="menu-link"
+                >Courses</router-link
+              >
+            </li>
+            <li
+              v-if="homeLinks"
+              class="menu-link"
+              @click="navigateAndScroll('goplus')"
+            >
+              Plus
+            </li>
+          </ul>
         </div>
         <div class="right">
           <ConnectWalletButton btnSize="small" />
@@ -43,8 +72,38 @@
   </header>
 </template>
 <script setup lang="ts">
-/* Components */
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 import ConnectWalletButton from "../components/ConnectWalletButton.vue";
+
+const route = useRoute();
+
+const homeLinks = computed(() => {
+  return route.name === "home" ? true : false;
+});
+
+function scrollPageToTop() {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
+}
+
+function scrolltoId(to: any) {
+  var access = document.getElementById(to);
+  if (access) {
+    access.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+}
+
+function navigateAndScroll(to: any) {
+  if (route.name === to) {
+    scrollPageToTop();
+  } else {
+    scrolltoId(to);
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
@@ -129,7 +188,7 @@ import ConnectWalletButton from "../components/ConnectWalletButton.vue";
     }
 
     nav {
-      width: 60%;
+      width: 65%;
       display: flex;
       flex-direction: row;
       align-content: flex-end;
@@ -161,27 +220,30 @@ import ConnectWalletButton from "../components/ConnectWalletButton.vue";
           justify-content: space-evenly;
           margin: 1% auto;
         }
-      }
 
-      a {
-        font-family: "Poppins", sans-serif;
-        color: $white;
-        font-size: 18px;
-        margin-right: 25px;
-        padding-bottom: 1px;
-        text-decoration: none;
-        border-bottom: 2px solid transparent;
-        transition: 0.6s;
-        cursor: pointer;
+        .menu-link,
+        a.menu-link {
+          font-family: "Poppins", sans-serif;
+          color: $white !important;
+          font-size: 17px !important;
+          margin-right: 25px;
+          padding-bottom: 1px;
+          text-decoration: none;
+          border-bottom: 2px solid transparent;
+          transition: 0.6s;
+          cursor: pointer;
 
-        &:hover,
-        &:active,
-        &:focus,
-        &:focus-visible {
-          // color: $grasp-cyan;
-          border-bottom: 2px solid $grasp-cyan;
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            // color: $grasp-cyan;
+            border-bottom: 2px solid $grasp-cyan;
+          }
         }
       }
+
+     
 
       @include breakpoint($break-sm) {
         > a {

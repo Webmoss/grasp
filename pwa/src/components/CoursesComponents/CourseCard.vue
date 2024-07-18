@@ -116,7 +116,7 @@ const loadCourse = async (course: courseObject) => {
   float: left;
   box-sizing: border-box;
   width: 100%;
-  background: $white;
+  background: $cream;
   border: 0.5px solid $grey-60;
   border-radius: 12px;
   margin: 0 auto;

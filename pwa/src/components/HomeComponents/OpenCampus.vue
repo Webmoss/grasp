@@ -87,7 +87,7 @@ section#campus {
     font-size: 40px;
     text-align: center;
     z-index: 999;
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       font-size: 2.55rem;
       margin-bottom: 0;
     }
@@ -111,7 +111,7 @@ section#campus {
     text-align: center;
     margin-bottom: 80px;
     z-index: 999;
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       padding: 20px 1%;
     }
   }
@@ -125,7 +125,7 @@ section#campus {
     justify-content: space-between;
     margin-bottom: 30px;
 
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       width: 100%;
       flex-direction: column;
       align-content: center;
@@ -146,7 +146,7 @@ section#campus {
       justify-content: center;
       background-color: $grasp-blue;
 
-      @include breakpoint($break-ssm) {
+      @include breakpoint($break-sm) {
         width: 92%;
         padding: 3%;
         margin: 1%;

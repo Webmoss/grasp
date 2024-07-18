@@ -1,10 +1,5 @@
 <template>
-  <button
-    class="vote-button"
-    @click="voteCourse()"
-  >
-    Vote Now
-  </button>
+  <button class="vote-button" @click="voteCourse()">Vote Now</button>
 </template>
 
 <script lang="ts" setup>
@@ -59,7 +54,7 @@ function voteCourse() {
     color: $grasp-cyan;
     border: 0.5px solid $white;
   }
-  @include breakpoint($break-ssm) {
+  @include breakpoint($break-sm) {
     margin: 15px auto;
   }
 }

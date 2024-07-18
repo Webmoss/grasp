@@ -11,45 +11,45 @@
         <img src="../../assets/svgs/LearnEarn.svg" />
       </div>
       <p>
-        With a strong focus on providing a high-quality educational experience and
-        prioritising the needs of learners and educators to ensure effective knowledge
-        transfer.
+        With a strong focus on delivering a high-quality educational experience and
+        prioritizing the needs of both learners and educators, Grasp ensures effective
+        knowledge transfer.
       </p>
     </div>
     <div class="right">
       <div class="solutions-box bg-blue">
         <h3>LMS</h3>
         <p>
-          Grasp is the perfect Learning Management System (LMS) for onboarding users,
-          students, staff, and web3 community members. Create structured educational
-          tracks for various purposes, including students, companies and even
+          Grasp is an ideal Learning Management System (LMS) for onboarding users,
+          students, staff, and web3 community members. It allows you to create structured
+          educational tracks for various purposes, including students, companies, and
           DAOs.
         </p>
       </div>
       <div class="solutions-box bg-cyan">
         <h3>EduFi Integration</h3>
         <p>
-          Grasp allows you to offer incentives for completing courses or general student
-          lessons, or even onboarding into companies and web3 communities. Grasp will
-          provide seamless integration with EduFi for financial support and open up
-          various student financing options through onchain grants and loans.
+          Grasp allows you to offer incentives for completing courses, general student
+          lessons, or even onboarding into companies and web3 communities. Grasp provides
+          seamless integration with EduFi for financial support and opens up various
+          student financing options through onchain grants and loans.
         </p>
       </div>
       <div class="solutions-box bg-cyan">
-        <h3>Reward Learning</h3>
-        <p>
-          Grasp Academy encourages excellence and engagement through tangible rewards.
-          Users and learners can earn additional NFTs and $EDU tokens upon course
-          completion with verifiable proof of completion.
-        </p>
-      </div>
-      <div class="solutions-box bg-blue">
         <h3>Platform for Creators</h3>
         <p>
           Grasp supports a variety of content formats, including video tutorials,
           articles, and interactive courses and enables creators to share their work,
           videos, and educational content. Creators can earn directly from their
           contributions using the Grasp web3 platform.
+        </p>
+      </div>
+      <div class="solutions-box bg-blue">
+        <h3>Reward Learning</h3>
+        <p>
+          Grasp Academy promotes excellence and engagement through tangible rewards. Users
+          and learners can earn additional NFTs and $EDU tokens upon course completion,
+          with verifiable proof of completion.
         </p>
       </div>
     </div>
@@ -70,7 +70,7 @@ section#solutions {
   justify-content: space-between;
   padding: 0;
 
-  @include breakpoint($break-ssm) {
+  @include breakpoint($break-sm) {
     flex-direction: column;
     justify-content: center;
   }
@@ -84,7 +84,7 @@ section#solutions {
     padding: 2%;
     overflow: hidden;
 
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       width: 94%;
       padding: 3%;
       align-content: center;
@@ -130,7 +130,7 @@ section#solutions {
         object-fit: contain;
         overflow: hidden;
         margin: 0 0 0 20px;
-        @include breakpoint($break-ssm) {
+        @include breakpoint($break-sm) {
           width: 220px;
         }
       }
@@ -141,7 +141,7 @@ section#solutions {
     width: 70%;
     float: left;
     padding: 0;
-    @include breakpoint($break-ssm) {
+    @include breakpoint($break-sm) {
       width: 100%;
     }
 
@@ -150,7 +150,7 @@ section#solutions {
       width: 44%;
       min-height: 340px;
       padding: 2% 3% 0;
-      @include breakpoint($break-ssm) {
+      @include breakpoint($break-sm) {
         width: 94%;
       }
     }

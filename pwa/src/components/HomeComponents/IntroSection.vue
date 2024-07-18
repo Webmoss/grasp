@@ -1,9 +1,7 @@
 <template>
   <section id="home">
     <div class="left">
-      <h1>
-        <img src="../../assets/svgs/owl-white.svg" class="intro-logo" />Grasp Academy
-      </h1>
+      <GraspLogo />
       <p>
         Grasp is the go-to content platform where creators can share their work and earn
         on EDU Chain. Powered by Open Campus, the Grasp web3 platform integrates EduFi,
@@ -16,9 +14,19 @@
         for educational advancement.
       </p>
       <p>
-        <a href="/#campus" title="Learn More" class="link-button">Open Campus</a><br />
-        <a href="/#about" title="Learn More" class="link-button">Education Solutions</a><br />
-        <a href="/#educhain" title="Learn More" class="link-button">EduChain</a>
+        <span @click="scrolltoId('solutions')" class="scroll-link"
+          >Learn &amp; Earn
+          <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
+        ><br />
+        <span @click="scrolltoId('campus')" class="scroll-link"
+          >Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
+        ><br />
+        <span @click="scrolltoId('goplus')" class="scroll-link"
+          >Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
+        ><br />
+        <span @click="scrolltoId('educhain')" class="scroll-link"
+          >EduChain <img src="../../assets/svgs/Right.svg" class="link-icon"
+        /></span>
       </p>
     </div>
     <div class="right">
@@ -28,7 +36,16 @@
     </div>
   </section>
 </template>
-<script setup></script>
+<script setup lang="ts">
+import GraspLogo from '../Logo/GraspLogo.vue';
+
+function scrolltoId(to: string) {
+  var access = document.getElementById(to);
+  if (access) {
+    access.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+}
+</script>
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
@@ -63,25 +80,6 @@ section#home {
       width: 100%;
     }
 
-    h1 {
-      color: $white;
-      font-size: 38px;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-content: center;
-      align-items: center;
-      margin: 0 0 10px 10px;
-
-      img {
-        width: 40px;
-        margin-right: 8px;
-        @include breakpoint($break-sm) {
-          width: 40px;
-        }
-      }
-    }
-
     p {
       color: $white;
       line-height: 1.7;
@@ -90,11 +88,6 @@ section#home {
       @include breakpoint($break-sm) {
         padding: 0 0 0 10px;
       }
-    }
-
-    .link-button {
-      color: $white;
-      margin-right: 10px;
     }
   }
 

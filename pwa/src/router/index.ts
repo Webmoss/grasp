@@ -20,7 +20,7 @@ const router = createRouter({
         }, 100);
       }
     } else if (savedPosition) {
-      return savedPosition;
+      return savedPosition || { top: 0, left: 0};
     } else {
       document
         .getElementById("app")

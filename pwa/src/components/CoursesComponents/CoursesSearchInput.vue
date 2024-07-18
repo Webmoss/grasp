@@ -49,7 +49,7 @@ function clearSearchTerm() {
   align-content: center;
   justify-content: space-between;
   align-items: center;
-  background: $white;
+  background: $cream;
   margin-left: 20px;
   margin-right: 10px;
   border: 1px solid $black;
@@ -95,7 +95,7 @@ function clearSearchTerm() {
     color: $grasp-blue;
     font-size: 14px;
     font-weight: 500;
-    background: $white;
+    background: $cream;
     margin-right: 10px;
     text-decoration: none;
     border: none;
@@ -105,7 +105,7 @@ function clearSearchTerm() {
     cursor: pointer;
 
     &::placeholder {
-      color: $white;
+      color: $grey-60;
     }
 
     &:hover,
@@ -123,7 +123,7 @@ function clearSearchTerm() {
     align-content: center;
     justify-content: center;
     align-items: center;
-    background: $white;
+    background: $cream;
     border: 0;
     padding: 7px 0 6px;
     margin-right: 4px;
@@ -131,7 +131,7 @@ function clearSearchTerm() {
     img,
     svg {
       width: 20px;
-      background: $white;
+      background: $cream;
       object-fit: contain;
       overflow: hidden;
     }
