@@ -3,7 +3,7 @@
     :class="btnSize === 'large' ? `${color}-button` : `${color}-small-button`"
     @click="goToCourse()"
   >
-    INFO
+    View
   </button>
 </template>
 <script lang="ts" setup>
@@ -12,7 +12,7 @@ import { useRouter } from "vue-router";
 export interface Props {
   btnSize?: string;
   color?: string;
-  tokenId?: string;
+  courseId?: string;
 }
 
 const props = defineProps({
@@ -27,8 +27,8 @@ const props = defineProps({
     required: false,
   },
   courseId: {
-    type: String,
-    default: "",
+    type: Number,
+    default: null,
     required: false,
   },
 });

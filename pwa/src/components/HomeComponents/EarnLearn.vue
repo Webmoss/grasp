@@ -22,7 +22,7 @@
         <p>
           Grasp is the perfect Learning Management System (LMS) for onboarding users,
           students, staff, and web3 community members. Create structured educational
-          tracks for various purposes, including education, corporate companies and even
+          tracks for various purposes, including students, companies and even
           DAOs.
         </p>
       </div>
@@ -40,7 +40,7 @@
         <p>
           Grasp Academy encourages excellence and engagement through tangible rewards.
           Users and learners can earn additional NFTs and $EDU tokens upon course
-          completion with completion with verifiable proof of completion.
+          completion with verifiable proof of completion.
         </p>
       </div>
       <div class="solutions-box bg-blue">

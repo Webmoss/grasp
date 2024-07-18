@@ -52,7 +52,7 @@ function clearSearchTerm() {
   background: $white;
   margin-left: 20px;
   margin-right: 10px;
-  border: 1px solid $grasp-blue;
+  border: 1px solid $black;
   border-radius: 12px;
   padding: 0 0 0 8px;
   transition: all 0.5s linear;

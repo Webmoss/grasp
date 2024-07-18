@@ -31,7 +31,7 @@ section#courses-search-bar {
   width: 100%;
   max-width: $max-width;
   height: auto;
-  margin: 30px auto 10px;
+  margin: 10px auto;
   padding: 0;
 
   .grid-buttons {

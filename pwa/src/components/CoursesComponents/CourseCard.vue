@@ -5,7 +5,7 @@
     @click="loadCourse(course)"
   >
     <div class="course-image">
-      <img :src="course.image ? course.image : 'rectangle.svg'" />
+      <img :src="course.image !== '' ? course.image : 'rectangle.svg'" />
     </div>
     <div class="course-title">
       {{ course.title ? course.title : "" }}
@@ -41,32 +41,29 @@
       <div class="course-excerpt">
         {{ course.excerpt ? course.excerpt : "" }}
       </div>
-      <div v-if="course && course.price" class="course-price">
-        <div class="course-price-amount">
-          {{ course.price.toFixed(2) }}
-          <div class="course-price-amount-icon">
-            <img src="src/assets/svgs/EduCoin.svg" width="10" />
-          </div>
-        </div>
-      </div>
     </div>
     <div class="course-card-row">
-      <div class="button-column">
-        <ViewButton :btn-size="'small'" :color="'blue'" :course-id="course.id" />
-      </div>
       <div class="course-column">
         <div v-if="course && course.category" class="course-category">
           <span class="grey-label">Category</span>
           <span class="price-indicator">{{ course.category }}</span>
         </div>
         <div v-if="course && course.price" class="course-price">
-          <span class="grey-label">Rarity</span>
-          <span class="price-indicator">{{ course.price }}</span>
+          <div class="course-price-amount">
+            {{ course.price.toFixed(2) }}
+            <div class="course-price-amount-icon">
+              <img src="src/assets/svgs/EduCoin.svg" width="10" />
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="button-column">
+        <ViewButton :btn-size="'small'" :color="'blue'" :course-id="course.id" />
       </div>
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router";
 import { courseObject } from "src/models/course";
@@ -84,6 +81,7 @@ const loadCourse = async (course: courseObject) => {
   });
 };
 </script>
+
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
@@ -118,14 +116,15 @@ const loadCourse = async (course: courseObject) => {
   float: left;
   box-sizing: border-box;
   width: 100%;
-  background: #f4f4f4;
-  border: 2px solid $grasp-blue;
+  background: $white;
+  border: 0.5px solid $grey-60;
   border-radius: 12px;
   margin: 0 auto;
-  padding: 0 0 4px 0;
+  padding: 16px;
   transition: all 0.5s linear;
-  cursor: pointer;
   overflow: hidden;
+  cursor: pointer;
+  
 
   .course-image {
     position: relative;
@@ -146,28 +145,21 @@ const loadCourse = async (course: courseObject) => {
   }
 
   .course-title {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    color: $black;
+    font-family: "Poppins", sans-serif;
+    color: $grasp-blue;
     width: 100%;
     font-size: 16px;
     font-weight: 600;
     text-align: left;
-    margin: 0;
+    margin: 0 0 10px 0;
   }
 
   .course-excerpt {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
     color: $black;
     font-size: 12px;
     font-weight: normal;
-    text-align: center;
+    text-align: left;
     margin: 0;
   }
 

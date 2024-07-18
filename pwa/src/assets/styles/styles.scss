@@ -190,6 +190,171 @@ section#content {
   }
 }
 
+.blue-button {
+  width: auto;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 18px;
+  font-weight: 600;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  @include breakpoint($break-ssm) {
+    margin: 15px auto;
+  }
+}
+
+.blue-small-button {
+  width: auto;
+  height: 35px;
+
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 15px;
+  font-weight: bold;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  img,
+  svg {
+    color: #ffffff;
+    width: 22px;
+    margin-left: -6px;
+    margin-right: 4px;
+  }
+}
+
+.blue-xtra-small-button {
+  width: auto;
+  height: 25px;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 11px;
+  font-weight: bold;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 12px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left: 6px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  img,
+  svg {
+    color: #ffffff;
+    width: 22px;
+    margin-left: -6px;
+    margin-right: 4px;
+  }
+}
+
+.cyan-button {
+  width: auto;
+  height: 40px;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 18px;
+  font-weight: 600;
+  border: 0.5px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $black;
+    border: 0.5px solid $white;
+  }
+
+  @include breakpoint($break-ssm) {
+    margin: 15px auto;
+  }
+}
+
+.cyan-small-button {
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 15px;
+  font-weight: bold;
+  width: auto;
+  height: 35px;
+  border: 0.5px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $black;
+    border: 0.5px solid $white;
+  }
+}
+
 
 
 

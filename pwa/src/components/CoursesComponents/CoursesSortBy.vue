@@ -49,7 +49,7 @@ function sortByHandle(event: Event) {
 select.pagination-sort-by {
   color: $grasp-blue;
   background: $white;
-  border: 1px solid $grasp-blue;
+  border: 1px solid $black;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;

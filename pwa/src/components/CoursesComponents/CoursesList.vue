@@ -1,6 +1,5 @@
 <template>
   <div class="course-page">
-    <div class="courses-list"></div>
     <div :class="`${gridView}-course-list`">
       <template v-for="(course, i) in courses" :key="i">
         <CourseCard :course="course" :grid-view="gridView" />
@@ -36,7 +35,7 @@ defineProps({
 
 .course-page {
   position: relative;
-  height: 100%;
+  height: auto;
   overflow: scroll;
 }
 
@@ -49,25 +48,22 @@ defineProps({
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 20px auto 0;
+  margin: 30px auto 0;
+
   @include breakpoint($break-lg) {
-    width: 100%;
     margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-md) {
-    width: 100%;
     margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-sm) {
-    width: 100%;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    width: 100%;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
 }
@@ -77,30 +73,25 @@ defineProps({
   max-width: $max-width;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 30px;
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 auto;
+  margin: 30px auto 0;
+
   @include breakpoint($break-lg) {
-    width: 100%;
-    margin: 20px auto 0;
     grid-template-columns: repeat(3, 1fr);
   }
   @include breakpoint($break-md) {
-    width: 100%;
-    margin: 20px auto 0;
     grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint($break-sm) {
-    width: 100%;
     margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
+    margin: 10px auto 0;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -113,92 +104,21 @@ defineProps({
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 20px auto 0;
+  margin: 30px auto 0;
 
   @include breakpoint($break-lg) {
-    width: 100%;
-    margin: 20px auto 0;
     grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint($break-md) {
-    width: 100%;
-    margin: 20px auto 0;
     grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint($break-sm) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include breakpoint($break-xs) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.course-list {
-  width: 100%;
-  max-width: $max-width;
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 10px;
-  align-content: flex-start;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 20px auto 0;
-
-  @include breakpoint($break-lg) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(1, 1fr);
-  }
-  @include breakpoint($break-md) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(1, 1fr);
-  }
-  @include breakpoint($break-sm) {
-    width: 100%;
     margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    width: 100%;
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.course-grid {
-  width: 100%;
-  max-width: $max-width;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  align-content: center;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 0 auto;
-  @include breakpoint($break-lg) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @include breakpoint($break-md) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include breakpoint($break-sm) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @include breakpoint($break-xs) {
-    width: 100%;
-    margin: 20px auto 0;
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
