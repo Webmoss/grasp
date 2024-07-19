@@ -31,7 +31,7 @@
     </div>
     <div class="right">
       <div class="home-graphic">
-        <img src="../../assets/svgs/intro.svg" />
+        <img src="../../assets/svgs/Open-Campus-ID.svg" />
       </div>
     </div>
   </section>
@@ -53,19 +53,18 @@ function scrolltoId(to: string) {
 section#home {
   color: $white;
   background: $grasp-blue;
-  border-bottom: 1px solid $grasp-blue;
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 0 60px 80px;
+  padding: 20px 0 40px 80px;
   overflow: hidden;
 
   @include breakpoint($break-sm) {
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 0 20px;
   }
 
   .left {

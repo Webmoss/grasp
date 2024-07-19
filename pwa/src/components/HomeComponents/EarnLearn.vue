@@ -35,7 +35,7 @@
           student financing options through onchain grants and loans.
         </p>
       </div>
-      <div class="solutions-box bg-cyan">
+      <div class="solutions-box bg-cyan hide-mobile">
         <h3>Platform for Creators</h3>
         <p>
           Grasp supports a variety of content formats, including video tutorials,
@@ -50,6 +50,15 @@
           Grasp Academy promotes excellence and engagement through tangible rewards. Users
           and learners can earn additional NFTs and $EDU tokens upon course completion,
           with verifiable proof of completion.
+        </p>
+      </div>
+      <div class="solutions-box bg-cyan show-mobile">
+        <h3>Platform for Creators</h3>
+        <p>
+          Grasp supports a variety of content formats, including video tutorials,
+          articles, and interactive courses and enables creators to share their work,
+          videos, and educational content. Creators can earn directly from their
+          contributions using the Grasp web3 platform.
         </p>
       </div>
     </div>
@@ -85,8 +94,8 @@ section#solutions {
     overflow: hidden;
 
     @include breakpoint($break-sm) {
-      width: 94%;
-      padding: 3%;
+      width: 90%;
+      padding: 3% 5%;
       align-content: center;
       justify-content: center;
     }
@@ -97,6 +106,11 @@ section#solutions {
       margin-block-start: 0.5em;
       margin-block-end: 0.15em;
       z-index: 999;
+      @include breakpoint($break-sm) {
+        font-size: 38px;
+        margin-bottom: 0;
+        margin-block-end: 0;
+      }
     }
     h3 {
       color: $grasp-blue;
@@ -141,6 +155,7 @@ section#solutions {
     width: 70%;
     float: left;
     padding: 0;
+    
     @include breakpoint($break-sm) {
       width: 100%;
     }
@@ -150,8 +165,10 @@ section#solutions {
       width: 44%;
       min-height: 340px;
       padding: 2% 3% 0;
+
       @include breakpoint($break-sm) {
-        width: 94%;
+        width: 90%;
+        padding: 3% 5%;
       }
     }
 
@@ -161,6 +178,10 @@ section#solutions {
         color: $white;
         font-size: 2.25rem;
         margin-bottom: 20px;
+        @include breakpoint($break-sm) {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
       }
 
       a {
@@ -175,12 +196,17 @@ section#solutions {
         margin-bottom: 20px;
       }
     }
+
     .bg-cyan {
       background-color: $grasp-cyan;
       h3 {
         color: $grasp-blue;
         font-size: 2.25rem;
         margin-bottom: 20px;
+        @include breakpoint($break-sm) {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
       }
 
       a {
@@ -195,12 +221,17 @@ section#solutions {
         margin-bottom: 20px;
       }
     }
+    
     .bg-white {
       background-color: $white;
       h3 {
         color: $grasp-blue;
         font-size: 2.25rem;
         margin-bottom: 20px;
+        @include breakpoint($break-sm) {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
       }
 
       a {

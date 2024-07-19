@@ -19,10 +19,10 @@
 
 section#goplus {
   background: $grasp-cyan;
-  background-image: url("../../assets/svgs/goPlus.svg");
-  background-repeat: no-repeat;
-  background-position: top 50px left 100px;
-  background-size: 35%;
+  background-image: url("../../assets/svgs/goPlus.svg"), url("../../assets/images/hexBG.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: top 50px left 100px, top left,;
+  background-size: 35%, 100%,;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -32,9 +32,9 @@ section#goplus {
 
   @include breakpoint($break-sm) {
     width: 100%;
-    background-position: bottom;
-    background-size: 80%;
-    padding: 0;
+    background-position: bottom 20px left 40px;
+    background-size: 85%;
+    padding: 0 0 150px 0;
   }
 
   h1 {
@@ -88,6 +88,7 @@ section#goplus {
       margin-bottom: 0;
     }
   }
+
   .slogan {
     width: 70%;
     display: flex;
@@ -103,9 +104,10 @@ section#goplus {
     margin: 0 0 20px 20px;
 
     @include breakpoint($break-sm) {
-      width: 84%;
-      padding: 30px 8%;
-      margin-bottom: 0;
+      width: 90%;
+      font-size: 16px;
+      padding: 10px 5% 30px;
+      margin: 0 0 20px 0;
     }
   }
   .buy-button {

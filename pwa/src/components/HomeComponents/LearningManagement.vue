@@ -17,22 +17,24 @@
 @import "../../assets/styles/mixins.scss";
 
 section#lms {
-  background-image: url("../../assets/images/EduChain.png");
-  background-repeat: no-repeat;
-  background-position: right;
-  background-size: 35%;
+
+  background-image: url("../../assets/images/hexBG.png"), url("../../assets/images/EduChain.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100%, 40%;
+  background-position: top left, right;
+
   display: flex;
   flex-direction: column;
   align-content: center;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 100px 0 100px 60px;
+  padding: 80px 0 80px 60px;
 
   @include breakpoint($break-sm) {
-    background-image: url("../../assets/images/EduChain.png");
-    background-position: top 0 left 10%;
-    background-size: 100%;
-    padding: 120px 0 30px;
+    background-image: url("../../assets/images/hexBG.png"), url("../../assets/images/EduChain.png");
+    background-position: top 10px left 10%, right;
+    background-size: 100%, 100%;
+    padding: 150px 0 30px;
   }
 
   h1 {
@@ -42,6 +44,7 @@ section#lms {
     text-align: center;
     margin-bottom: 20px;
     z-index: 999;
+    
     @include breakpoint($break-sm) {
       width: 100%;
       font-size: 32px;
@@ -64,6 +67,7 @@ section#lms {
 
     @include breakpoint($break-sm) {
       width: 90%;
+      font-size: 16px;
       padding: 20px 5%;
       margin-bottom: 0;
     }
@@ -84,6 +88,7 @@ section#lms {
 
     @include breakpoint($break-sm) {
       width: 90%;
+      font-size: 18px;
       padding: 20px 5%;
       margin: 0;
     }

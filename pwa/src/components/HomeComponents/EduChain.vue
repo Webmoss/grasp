@@ -45,46 +45,7 @@ section#educhain {
   align-content: center;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 0 0 0;
-
-  h1 {
-    color: $white;
-    font-size: 38px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 30px 0 0 10px;
-    z-index: 999;
-
-    @include breakpoint($break-sm) {
-      width: 90%;
-      font-size: 38px;
-      margin: 40px 0 10px;
-      padding: 0 5%;
-      justify-content: center;
-      text-align: left;
-    }
-
-    span.cyan {
-      font-family: inter, -apple-system, system-ui, "Segoe UI", Helvetica,
-        "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-      color: $grasp-cyan;
-      font-size: 20px;
-      text-transform: uppercase;
-    }
-
-    img,
-    svg {
-      width: 40px;
-      margin-right: 8px;
-      @include breakpoint($break-sm) {
-        width: 90px;
-      }
-    }
-  }
+  padding: 70px 0 0 0;
 
   .subtitle {
     display: flex;
@@ -98,8 +59,10 @@ section#educhain {
     line-height: 1.7;
     text-align: center;
     z-index: 999;
+
     @include breakpoint($break-sm) {
-      padding: 30px 5%;
+      width: 90%;
+      padding: 30px 5% 0;
       margin-bottom: 0;
     }
   }
@@ -138,7 +101,8 @@ section#educhain {
       border-bottom-left-radius: 20px;
 
       @include breakpoint($break-sm) {
-        width: 94%;
+        width: 90%;
+        padding: 2% 5%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
@@ -151,7 +115,8 @@ section#educhain {
       border-bottom-left-radius: 20px;
 
       @include breakpoint($break-sm) {
-        width: 94%;
+        width: 90%;
+        padding: 2% 5%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
       }
@@ -220,12 +185,17 @@ section#educhain {
         color: $grasp-blue;
         font-size: 1.7rem;
         margin-bottom: 20px;
+        
         @include breakpoint($break-sm) {
           font-size: 1.85rem;
         }
 
         img.intro-logo {
           width: 260px;
+
+          @include breakpoint($break-sm) {
+            width: 260px;
+          }
         }
       }
 

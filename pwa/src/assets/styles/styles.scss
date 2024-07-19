@@ -430,3 +430,18 @@ section#content {
   text-align: left;
 }
 
+.hide-mobile {
+  display: inline;
+}
+.show-mobile {
+  display: none;
+}
+/* Mobile Styles */
+@include breakpoint($break-sm) {
+  .hide-mobile {
+    display: none;
+  }
+  .show-mobile {
+    display: inline;
+  }
+}

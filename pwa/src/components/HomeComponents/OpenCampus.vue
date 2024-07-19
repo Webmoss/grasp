@@ -78,8 +78,11 @@ section#campus {
   align-content: center;
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
-  padding-bottom: 80px;
+  padding: 60px 0 80px;
+
+  @include breakpoint($break-sm) {
+    padding: 0 0 60px 0;
+  }
 
   h2 {
     width: 100%;
@@ -87,6 +90,7 @@ section#campus {
     font-size: 40px;
     text-align: center;
     z-index: 999;
+
     @include breakpoint($break-sm) {
       font-size: 2.55rem;
       margin-bottom: 0;
@@ -103,7 +107,7 @@ section#campus {
     align-content: center;
     align-items: center;
     justify-content: center;
-    padding: 10px 19%;
+    padding: 10px 20%;
     color: $grasp-blue;
     font-size: 20px;
     font-weight: 600;
@@ -111,8 +115,13 @@ section#campus {
     text-align: center;
     margin-bottom: 80px;
     z-index: 999;
+
     @include breakpoint($break-sm) {
-      padding: 20px 1%;
+      width: 90%;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 5%;
+      margin-bottom: 20px;
     }
   }
 
@@ -128,15 +137,14 @@ section#campus {
     @include breakpoint($break-sm) {
       width: 100%;
       flex-direction: column;
-      align-content: center;
       justify-content: center;
       margin-bottom: 0;
     }
     .campus-box {
       width: 90%;
-      min-height: 270px;
+      min-height: 260px;
       margin: 0 3%;
-      padding: 2%;
+      padding: 0 3%;
       border-radius: 20px;
 
       display: flex;
@@ -147,23 +155,26 @@ section#campus {
       background-color: $grasp-blue;
 
       @include breakpoint($break-sm) {
-        width: 92%;
-        padding: 3%;
-        margin: 1%;
+        width: 84%;
+        margin: 3% 8%;
       }
 
       h3 {
         color: $white;
         font-size: 1.9rem;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
         margin-bottom: 5px;
         display: flex;
         flex-direction: row;
         align-content: center;
         align-items: center;
         text-align: center;
-        .svg-container {
-          width: 80px;
-          margin-left: 12px;
+
+        @include breakpoint($break-sm) {
+          font-size: 1.8rem;
+          margin-block-start: 0.7em;
+          margin-block-end: 0.2em;
         }
       }
       a {
@@ -180,15 +191,8 @@ section#campus {
 
     .campus-box.bg-cyan {
       background-color: $grasp-cyan;
-
-      h3 {
-        color: $grasp-blue;
-      }
-
-      a {
-        color: $grasp-blue;
-      }
-
+      h3,
+      a,
       p {
         color: $grasp-blue;
       }
@@ -196,15 +200,8 @@ section#campus {
 
     .campus-box.bg-orange {
       background-color: $grasp-orange;
-
-      h3 {
-        color: $white;
-      }
-
-      a {
-        color: $white;
-      }
-
+      h3,
+      a ,
       p {
         color: $white;
       }
@@ -212,15 +209,8 @@ section#campus {
 
     .campus-box.bg-yellow {
       background-color: $grasp-yellow;
-
-      h3 {
-        color: $grasp-blue;
-      }
-
-      a {
-        color: $grasp-blue;
-      }
-
+      h3,
+      a,
       p {
         color: $grasp-blue;
       }
