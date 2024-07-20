@@ -1,12 +1,12 @@
 <template>
-  <section id="courses">
+  <section id="creators">
     <div class="main">
-      <CoursesBanner />
-      <CourseSearch />
-      <CoursesList :courses="courses" />
-      <CoursesPagination
+      <CreatorsBanner />
+      <CreatorsSearch />
+      <CreatorsList :creators="creators" />
+      <CreatorsPagination
         :pagination="pagination"
-        :total="coursesTotal"
+        :total="creatorsTotal"
         :last-page="lastPage"
       />
     </div>
@@ -17,176 +17,316 @@
 import { ref, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
-import { courseObject } from "src/models/course";
-import CoursesBanner from "../components/CoursesComponents/CoursesBanner.vue";
-import CourseSearch from "../components/CoursesComponents/CourseSearch.vue";
-import CoursesList from "../components/CoursesComponents/CoursesList.vue";
-import CoursesPagination from "../components/CoursesComponents/CoursesPagination.vue";
+import { creatorObject } from "src/models/creator";
+import CreatorsBanner from "../components/CreatorsComponents/CreatorsBanner.vue";
+import CreatorsSearch from "../components/CreatorsComponents/CreatorsSearch.vue";
+import CreatorsList from "../components/CreatorsComponents/CreatorsList.vue";
+import CreatorsPagination from "../components/CreatorsComponents/CreatorsPagination.vue";
 
 const store = useStore();
 
-const { courses, pagination } = storeToRefs(store);
+const { creators, pagination } = storeToRefs(store);
 
-/* All Posts stored in a JSON */
-// import courses from "src/data/courses.json";
-const coursesTotal = ref(0);
+const creatorsTotal = ref(0);
 const lastPage = ref(0);
 
-const testCourses = [
+const testCreators = [
   {
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
-    banner: "EduChain.png",
-    image: "EduChain.png",
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
     created_date: "30/03/2023",
-    updated_at: "",
   },
   {
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
     image: "",
-    created_date: "01/06/2024",
-    updated_at: "",
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
-  },
-  {
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_at: "",
-  },
-  {
-    name: "tweet",
-    type: "tweet",
-    category: "learners",
-    title: "Tweet Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/01/2023",
-    updated_at: "20/02/2023",
-  },
-  {
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/05/2023",
-    updated_at: "20/05/2023",
-  },
-  {
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
-    banner: "EduChain.png",
-    image: "EduChain.png",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
     created_date: "30/03/2023",
-    updated_at: "",
   },
   {
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
     image: "",
-    created_date: "01/06/2024",
-    updated_at: "",
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
   },
   {
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
     banner: "",
     image: "",
-    created_date: "06/07/2023",
-    updated_at: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
   },
   {
-    name: "tweet",
-    type: "tweet",
-    category: "learners",
-    title: "Tweet Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
     banner: "",
     image: "",
-    created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
   },
   {
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
     banner: "",
     image: "",
-    created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
+  },
+  {
+    banner: "",
+    image: "",
+    name: "Joe Blog",
+    description: "A creative genius with over 15 years of experience.",
+    email: "example@gmail.com",
+    mobile: "123 456 7890",
+    title: "Web Developer",
+    city: "Montreal",
+    country: "Canada",
+    twitter: "@tweets",
+    linkedin: "article",
+    facebook: "https://www.linkedin.com/",
+    instagram: "https://www.instagram.com/",
+    website: "www.graspacademy.com",
+    followers: 1000,
+    following: 1000,
+    courses: [],
+    lessons: [],
+    projects: [],
+    categories: ['Web3','Design','Develop','Solidity','UI/UX'],
+    isLive: true,
+    created_date: "30/03/2023",
   },
 ];
 
-async function fetchCollections() {
-  store.setCourses((testCourses as unknown) as courseObject[]);
+async function fetchCreators() {
+  store.setCreators((testCreators as unknown) as creatorObject[]);
 }
 
 onBeforeMount(async () => {
-  await fetchCollections();
+  await fetchCreators();
 });
 </script>
 
@@ -194,7 +334,7 @@ onBeforeMount(async () => {
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
 
-section#courses {
+section#creators {
   position: relative;
   height: 100%;
   overflow: scroll;
@@ -229,7 +369,7 @@ section#courses {
 }
 
 @media (min-width: 1024px) {
-  .courses {
+  .creators {
     min-height: $page-height;
     display: flex;
     align-items: center;

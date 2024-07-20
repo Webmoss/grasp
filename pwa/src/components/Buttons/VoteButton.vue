@@ -1,15 +1,32 @@
 <template>
-  <button class="vote-button" @click="voteCourse()">Vote Now</button>
+  <button
+    :class="btnSize === 'large' ? `${color}-button` : `${color}-small-button`"
+    @click="voteCourse()"
+  >
+    Vote Now
+  </button>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 
 export interface Props {
+  btnSize?: string;
+  color?: string;
   courseId?: string;
 }
 
 const props = defineProps({
+  btnSize: {
+    type: String,
+    default: "large",
+    required: false,
+  },
+  color: {
+    type: String,
+    default: "blue",
+    required: false,
+  },
   courseId: {
     type: Number,
     default: null,

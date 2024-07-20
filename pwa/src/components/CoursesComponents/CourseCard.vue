@@ -103,6 +103,7 @@ const loadCourse = async (course: courseObject) => {
   background: $cream;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
   margin: 0 auto;
   padding: 16px;
   transition: all 0.5s linear;
@@ -212,6 +213,7 @@ const loadCourse = async (course: courseObject) => {
   align-items: center;
   background: $white;
   border-radius: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
   margin: 0;
   padding: 0;
   transition: all 0.5s linear;

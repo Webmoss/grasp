@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { userObject } from 'src/models/user';
 import { courseObject } from "src/models/course";
+import { creatorObject } from "src/models/creator";
 import { filterObject } from 'src/models/filter';
 import { paginationObject } from 'src/models/pagination';
 
@@ -33,6 +34,7 @@ export const useStore = defineStore({
     },
     pagination: <paginationObject>{},
     courses: [] as courseObject[],
+    creators: [] as creatorObject[],
   }),
   getters: {
     getChainId(state) {
@@ -100,6 +102,9 @@ export const useStore = defineStore({
     },
     getCourses(state) {
       return state.courses;
+    },
+    getCreators(state) {
+      return state.creators;
     },
   },
   actions: {
@@ -207,8 +212,11 @@ export const useStore = defineStore({
     resetPagination() {
       this.pagination = <paginationObject>{};
     },
-    setCourses(tokens: courseObject[]) {
-      this.courses = tokens;
+    setCourses(courses: courseObject[]) {
+      this.courses = courses;
+    },
+    setCreators(creators: creatorObject[]) {
+      this.creators = creators;
     },
   },
 });

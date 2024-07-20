@@ -1,17 +1,17 @@
 <template>
-  <div class="course-banner">
-    <div class="course-banner-column left">
-      <img src="../../assets/svgs/EduChain-Black.svg" />
+  <div class="creator-banner">
+    <div class="creator-banner-column left">
+      <img src="../../assets/svgs/EduChain-White.svg" />
     </div>
-    <div class="course-banner-column center">
-      <div class="course-banner-title"><img src="../../assets/svgs/owl-blue.svg" /> Latest Courses</div>
-      <div class="course-banner-slogan">Learn, earn and be rewarded for excellence</div>
-      <div class="course-banner-description">
+    <div class="creator-banner-column center">
+      <div class="creator-banner-title"><img src="../../assets/svgs/owl-cyan.svg" /> Top&nbsp;<span class="cyan"> Creators</span></div>
+      <div class="creator-banner-slogan">Learn, earn and be rewarded for excellence</div>
+      <div class="creator-banner-description">
         Vote for your favourite creator to earn OC Points
       </div>
     </div>
-    <div class="course-banner-column right">
-      <VoteButton btnSize="small" color="blue" :creator-id="1" />
+    <div class="creator-banner-column right">
+      <VoteButton btnSize="small" color="cyan" :creator-id="1" />
     </div>
   </div>
 </template>
@@ -24,14 +24,14 @@ import VoteButton from "../Buttons/VoteButton.vue";
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
-.course-banner {
+.creator-banner {
   width: 96%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
   align-items: center;
-  background: $grasp-cyan;
+  background: $grasp-blue;
   background-image: url("../../assets/images/hexBG.png"),url("../../assets/images/EduChain.png");
   background-repeat: no-repeat, no-repeat;
   background-size: 100%, 300px;
@@ -56,7 +56,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     padding: 2% 5%;
   }
 
-  .course-banner-column {
+  .creator-banner-column {
     min-width: 33%;
     height: 100%;
     display: flex;
@@ -97,7 +97,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
 
-  .course-banner-title {
+  .creator-banner-title {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -105,7 +105,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     align-content: center;
     align-items: center;
     font-family: "Poppins", sans-serif;
-    color: $black;
+    color: $white;
     font-size: 24px;
     font-weight: 600;
     text-align: left;
@@ -124,10 +124,14 @@ import VoteButton from "../Buttons/VoteButton.vue";
       margin-right: 8px;
       padding: 0;
     }
+
+    .cyan {
+      color: $grasp-cyan;
+    }
   }
-  .course-banner-slogan {
+  .creator-banner-slogan {
     font-family: "Poppins", sans-serif;
-    color: $black;
+    color: $white;
     width: 100%;
     font-size: 17px;
     font-weight: 600;
@@ -142,8 +146,8 @@ import VoteButton from "../Buttons/VoteButton.vue";
       margin: 0 0 5px 0;
     }
   }
-  .course-banner-description {
-    color: $black;
+  .creator-banner-description {
+    color: $white;
     width: 100%;
     font-size: 15px;
     font-weight: 500;
