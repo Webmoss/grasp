@@ -33,8 +33,8 @@ button {
   background: $grasp-blue;
   border: 0;
   border-radius: 0;
-  border-top-right-radius: 11px;
-  border-bottom-right-radius: 11px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   margin: 0;
   padding: 6px 6px 4px 4px;
   cursor: pointer;

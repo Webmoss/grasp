@@ -83,7 +83,7 @@ async function setLlastPage(page: number) {
   align-content: center;
   align-items: center;
   margin: 20px 0;
-  padding: 0;
+  padding: 0 0 10px 0;
 
   .courses-pagination-page {
     width: 24px;
@@ -93,7 +93,7 @@ async function setLlastPage(page: number) {
     justify-content: center;
     align-content: center;
     align-items: center;
-    color: $grasp-blue;
+    color: $grey-90;
     font-size: 16px;
     font-weight: 600;
     text-align: center;
@@ -106,6 +106,7 @@ async function setLlastPage(page: number) {
     align-items: center;
     color: $white;
     background-color: $grasp-blue;
+    border-radius: 6px;
     border: 0.5px solid $grasp-blue;
     padding: 2px;
     margin: 0 2px;

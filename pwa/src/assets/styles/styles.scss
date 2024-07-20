@@ -195,10 +195,12 @@ section#content {
   align-content: center;
   align-items: center;
   justify-content: center;
+
   color: $grasp-blue;
   background-color: $grasp-cyan;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
+  
   width: auto;
   height: 35px;
   border: 2px solid $grasp-cyan;

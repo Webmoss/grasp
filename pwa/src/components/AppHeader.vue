@@ -55,12 +55,26 @@
                 >Courses</router-link
               >
             </li>
+            <li>
+              <router-link
+                :to="{ name: 'creators' }"
+                class="menu-link"
+                >Creators</router-link
+              >
+            </li>
             <li
               v-if="homeLinks"
               class="menu-link"
               @click="navigateAndScroll('goplus')"
             >
               Plus
+            </li>
+            <li v-else>
+              <router-link
+                :to="{ path: '/#goplus' }"
+                class="menu-link"
+                >Plus</router-link
+              >
             </li>
           </ul>
         </div>
@@ -141,10 +155,10 @@ function navigateAndScroll(to: any) {
       padding-left: 2%;
     }
     @include breakpoint($break-sm) {
-      width: 98%;
+      width: 99%;
       justify-content: flex-start;
       align-items: center;
-      padding-left: 2%;
+      padding-left: 1%;
     }
 
     h1 {
@@ -202,7 +216,7 @@ function navigateAndScroll(to: any) {
 
       @include breakpoint($break-sm) {
         text-align: left;
-        padding: 0 8px 6px;
+        padding: 0;
         height: auto;
         justify-content: center;
         align-items: center;
@@ -218,7 +232,12 @@ function navigateAndScroll(to: any) {
         @include breakpoint($break-sm) {
           width: 98%;
           justify-content: space-evenly;
-          margin: 1% auto;
+          margin: 0 auto;
+        }
+
+        ul {
+          margin-block-start: 0;
+          margin-block-end: 4px;
         }
 
         .menu-link,
@@ -226,19 +245,23 @@ function navigateAndScroll(to: any) {
           font-family: "Poppins", sans-serif;
           color: $white !important;
           font-size: 17px !important;
-          margin-right: 25px;
+          margin-right: 20px;
           padding-bottom: 1px;
           text-decoration: none;
           border-bottom: 2px solid transparent;
           transition: 0.6s;
           cursor: pointer;
 
+          @include breakpoint($break-sm) {
+            font-size: 16px !important;
+            margin-right: 8px;
+          }
+
           &:hover,
           &:active,
           &:focus,
           &:focus-visible {
-            // color: $grasp-cyan;
-            border-bottom: 2px solid $grasp-cyan;
+            border-bottom: 1.2px solid $grasp-cyan;
           }
         }
       }

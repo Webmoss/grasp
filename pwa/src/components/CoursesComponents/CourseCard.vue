@@ -5,71 +5,56 @@
     @click="loadCourse(course)"
   >
     <div class="course-image">
-      <img :src="course.image !== '' ? course.image : 'rectangle.svg'" />
+      <img :src="course.image ? course.image : 'rectangle.svg'" />
     </div>
-    <div class="course-title">
-      {{ course.title ? course.title : "" }}
-    </div>
-    <div v-if="course && course.category" class="course-category">
-      <span class="grey-label">Category</span>
-      <span class="price-indicator">{{ course.category ? course.category : "" }}</span>
-    </div>
-    <div class="course-excerpt">
-      {{ course.excerpt ? course.excerpt : "" }}
-    </div>
-    <div v-if="course && course.price" class="course-floor">
-      <div class="course-price-amount">
-        {{ course.price.toFixed(2) }}
-        <div class="course-price-amount-icon">
-          <img src="src/assets/svgs/EduCoin.svg" />
-        </div>
+    <div class="course-copy">
+      <div class="course-title">
+        {{ course.title ? course.title : "" }}
+      </div>
+      <div class="course-excerpt">
+        {{ course.excerpt ? course.excerpt : "" }}
       </div>
     </div>
-    <div class="button-row">
-      <ViewButton :btn-size="'small'" :color="'blue'" :course-id="course.id" />
+    <div class="course-list-buttons">
+      <div v-if="course && course.category" class="course-category">
+        <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
+        <span class="catgory-indicator">{{ course.category ? course.category : "" }}</span>
+      </div>
+      <div class="button-row">
+        <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
+      </div>
     </div>
   </div>
 
   <div v-else class="course" @click="loadCourse(course)">
-    <div v-if="course && course.image" class="course-image">
-      <img :src="course.image" />
+    <div class="course-image">
+      <img :src="course.image ? course.image : 'rectangle.svg'" />
     </div>
     <div class="course-column">
-      <div v-if="course && course.title" class="course-title">
-        {{ course.title }}
+      <div class="course-title">
+        {{ course.title ? course.title : "" }}
       </div>
       <div class="course-excerpt">
         {{ course.excerpt ? course.excerpt : "" }}
       </div>
     </div>
     <div class="course-card-row">
-      <div class="course-column">
-        <div v-if="course && course.category" class="course-category">
-          <span class="grey-label">Category</span>
-          <span class="price-indicator">{{ course.category }}</span>
-        </div>
-        <div v-if="course && course.price" class="course-price">
-          <div class="course-price-amount">
-            {{ course.price.toFixed(2) }}
-            <div class="course-price-amount-icon">
-              <img src="src/assets/svgs/EduCoin.svg" width="10" />
-            </div>
-          </div>
-        </div>
+      <div class="course-category">
+        <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
+        <div class="catgory-indicator">{{ course.category ? course.category : "" }}</div>
       </div>
       <div class="button-column">
-        <ViewButton :btn-size="'small'" :color="'blue'" :course-id="course.id" />
+        <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { courseObject } from "src/models/course";
-import ViewButton from "../Buttons/ViewButton.vue";
+import BuyButton from "../Buttons/BuyButton.vue";
 
-const route = useRoute();
 const router = useRouter();
 
 defineProps<{ course: courseObject; gridView: string }>();
@@ -91,8 +76,7 @@ const loadCourse = async (course: courseObject) => {
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-  align-items: center;
-  padding: 4px 8px;
+  align-items: flex-end;
 }
 .course-row {
   display: flex;
@@ -117,15 +101,14 @@ const loadCourse = async (course: courseObject) => {
   box-sizing: border-box;
   width: 100%;
   background: $cream;
-  border: 0.5px solid $grey-60;
-  border-radius: 12px;
+  border: 0.5px solid $grey-50;
+  border-radius: 8px;
   margin: 0 auto;
   padding: 16px;
   transition: all 0.5s linear;
   overflow: hidden;
   cursor: pointer;
   
-
   .course-image {
     position: relative;
     width: 100%;
@@ -151,99 +134,57 @@ const loadCourse = async (course: courseObject) => {
     font-size: 16px;
     font-weight: 600;
     text-align: left;
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
   }
 
   .course-excerpt {
     width: 100%;
+    min-height: 77.5px;
     color: $black;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: normal;
     text-align: left;
-    margin: 0;
-  }
-
-  .course-price {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-content: center;
-    align-items: center;
-
-    color: $black;
-    width: 100%;
-    font-size: 16px;
-    font-weight: normal;
-    text-transform: uppercase;
-    margin: 0;
-
-    .grey-label {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $black;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin-right: 8px;
-    }
-
-    .price-indicator {
-      outline: transparent solid 2px;
-      outline-offset: 2px;
-      border-radius: 9999px;
-      transition: background-color 0.2s ease-out 0s;
-      background: transparent;
-      font-size: 14px;
-      padding-inline: 8px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-      --badge-color: $grey-40;
-      color: $black;
-      box-shadow: none;
-      border-width: 1.5px;
-      border-style: solid;
-      border-image: initial;
-      border-color: #4d5358;
-    }
+    margin: 0 0 16px;
   }
 
   .course-category {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
     align-content: center;
     align-items: center;
 
     color: $black;
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 13px;
+    font-weight: 500;
     text-transform: uppercase;
-    margin: 0 0 6px 0;
+    margin: 0;
 
-    .grey-label {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    .course-date {
+      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $black;
-      font-size: 13px;
-      font-weight: 600;
+      color: $grey-60;
+      font-size: 12px;
+      font-weight: 500;
       text-decoration: none;
       text-transform: uppercase;
-      margin-right: 8px;
+      margin: 0 0 4px 0;
     }
 
-    .price-indicator {
+    .catgory-indicator {
+      width: 80%;
       outline: transparent solid 2px;
       outline-offset: 2px;
       border-radius: 9999px;
       transition: background-color 0.2s ease-out 0s;
-      background: transparent;
-      font-size: 14px;
+      background: $grasp-cyan;
+      font-size: 12px;
+      text-align: center;
       padding-inline: 8px;
       padding-top: 1px;
       padding-bottom: 1px;
       --badge-color: $grey-40;
-      color: $black;
+      color: $grey-90;
       box-shadow: none;
       border-width: 1.5px;
       border-style: solid;
@@ -251,54 +192,12 @@ const loadCourse = async (course: courseObject) => {
       border-color: #4d5358;
     }
   }
-
-  .course-price {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    .course-price-amount {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-content: center;
-      align-items: center;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $black;
-      font-size: 18px;
-      font-weight: 600;
-
-      .course-price-amount-icon {
-        width: 18px;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        margin-left: 2px;
-        img,
-        svg {
-          background: transparent;
-          object-fit: contain;
-          overflow: hidden;
-          margin-bottom: -1px;
-        }
-      }
-    }
-  }
   .button-column {
-    width: 50%;
-    height: 51px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-content: center;
-    align-items: flex-end;
+    align-items: center;
     padding: 0;
     margin: 0;
   }
@@ -308,25 +207,26 @@ const loadCourse = async (course: courseObject) => {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-content: center;
   align-items: center;
   background: $white;
-  border-radius: 12px;
+  border-radius: 8px;
   margin: 0;
   padding: 0;
   transition: all 0.5s linear;
   cursor: pointer;
 
   .course-image {
+    width: auto;
     position: relative;
     margin: 0;
-    padding: 0;
+    padding: 6px 6px 2px 6px;
     background: transparent;
 
     img,
     svg {
-      width: 120px;
+      width: 180px;
       height: inherit;
       object-fit: contain;
       overflow: hidden;
@@ -334,179 +234,116 @@ const loadCourse = async (course: courseObject) => {
     }
   }
 
-  .course-title {
-    width: 100%;
+  .course-copy {
+    width: 96%;
+    height: 100%;
+    min-height: 90px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
-    align-content: center;
-    align-items: center;
-
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    color: $grasp-blue;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin: 0;
-  }
-
-  .course-excerpt {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    color: $black;
-    font-size: 12px;
-    font-weight: normal;
-    text-align: center;
-    margin: 0;
-  }
-
-  .course-price {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    color: $black;
-    width: 100%;
-    font-size: 14px;
-    font-weight: normal;
-    text-transform: uppercase;
-    margin: 0;
-
-    .grey-label {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-50;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin-right: 8px;
-    }
-
-    .price-indicator {
-      outline: transparent solid 2px;
-      outline-offset: 2px;
-      border-radius: 9999px;
-      transition: background-color 0.2s ease-out 0s;
-      background: transparent;
-      font-size: 14px;
-      padding-inline: 8px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-      --badge-color: $grey-40;
-      color: $white;
-      box-shadow: none;
-      border-width: 1.5px;
-      border-style: solid;
-      border-image: initial;
-      border-color: #4d5358;
-    }
-  }
-
-  .course-category {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    color: $grasp-cyan;
-    width: 100%;
-    font-size: 14px;
-    font-weight: normal;
-    text-transform: uppercase;
-    margin: 0;
-
-    .grey-label {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-50;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin-right: 8px;
-    }
-
-    .price-indicator {
-      outline: transparent solid 2px;
-      outline-offset: 2px;
-      border-radius: 9999px;
-      transition: background-color 0.2s ease-out 0s;
-      background: transparent;
-      font-size: 14px;
-      padding-inline: 8px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-      --badge-color: $grey-40;
-      color: $white;
-      box-shadow: none;
-      border-width: 1.5px;
-      border-style: solid;
-      border-image: initial;
-      border-color: #4d5358;
-    }
-  }
-
-  .course-price {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-
-    .course-price-amount {
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 0 1%;
+  
+    .course-title {
       width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;    
+
+      font-family: "Poppins", sans-serif;
+      color: $grasp-blue;
+      width: 100%;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      margin: 0 0 5px 0;
+    }
+
+    .course-excerpt {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+
+      width: 100%;
+      color: $black;
+      font-size: 13px;
+      font-weight: normal;
+      text-align: left;
+      margin: 0;
+    }
+  }
+
+  .course-list-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-end;
+    padding: 0 8px;
+  
+    .course-category {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      color: $black;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin: 0;
+
+      .course-date {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grey-60;
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin: 0 0 4px 0;
+      }
+
+      .catgory-indicator {
+        width: 70%;
+        outline: transparent solid 2px;
+        outline-offset: 2px;
+        border-radius: 9999px;
+        transition: background-color 0.2s ease-out 0s;
+        background: $grasp-cyan;
+        font-size: 12px;
+        text-align: center;
+        padding-inline: 8px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        --badge-color: $grey-40;
+        color: $grey-90;
+        box-shadow: none;
+        border-width: 1.5px;
+        border-style: solid;
+        border-image: initial;
+        border-color: #4d5358;
+      }
+    }
+    .button-row {
+      width: auto;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-content: center;
       align-items: center;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $white;
-      font-size: 18px;
-      font-weight: 600;
-      text-decoration: none;
-
-      .course-price-amount-icon {
-        width: 16px;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        justify-content: center;
-        align-items: center;
-        margin-left: 2px;
-        img,
-        svg {
-          background: transparent;
-          object-fit: contain;
-          overflow: hidden;
-          margin-bottom: -1px;
-        }
-      }
+      padding: 0;
+      margin: 8px auto 0;
     }
   }
-  .button-row {
-    width: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    padding: 0 0 0 10px;
-    margin: 0 auto;
-  }
+
 }
 </style>

@@ -49,11 +49,11 @@ function clearSearchTerm() {
   align-content: center;
   justify-content: space-between;
   align-items: center;
-  background: $cream;
+  background: $white;
   margin-left: 20px;
   margin-right: 10px;
-  border: 1px solid $black;
-  border-radius: 12px;
+  border: 0.5px solid $grey-50;
+  border-radius: 8px;
   padding: 0 0 0 8px;
   transition: all 0.5s linear;
   overflow: hidden;
@@ -76,7 +76,7 @@ function clearSearchTerm() {
     align-items: center;
     img,
     svg {
-      color: $grasp-blue;
+      color: $grey-50;
       background: transparent;
       object-fit: contain;
       overflow: hidden;
@@ -92,10 +92,10 @@ function clearSearchTerm() {
     align-content: center;
     justify-content: flex-start;
     align-items: center;
-    color: $grasp-blue;
+    color: $grey-90;
     font-size: 14px;
     font-weight: 500;
-    background: $cream;
+    background: $white;
     margin-right: 10px;
     text-decoration: none;
     border: none;
@@ -113,6 +113,7 @@ function clearSearchTerm() {
     &:focus-visible,
     &:active {
       outline: 0;
+      background: $white;
     }
   }
 
@@ -123,15 +124,16 @@ function clearSearchTerm() {
     align-content: center;
     justify-content: center;
     align-items: center;
-    background: $cream;
+    background: $white;
     border: 0;
     padding: 7px 0 6px;
     margin-right: 4px;
     cursor: pointer;
+
     img,
     svg {
       width: 20px;
-      background: $cream;
+      background: $white;
       object-fit: contain;
       overflow: hidden;
     }

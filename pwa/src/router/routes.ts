@@ -29,6 +29,25 @@ const routes = [
     component: () => import("@/views/CourseView.vue"),
   },
   {
+    path: "/creators",
+    name: "creators",
+    meta: {
+      guest: true,
+      title: "Creators",
+      description: "",
+    },
+    component: () => import("@/views/CreatorsView.vue"),
+  },
+  {
+    path: "/creator/:name?",
+    name: "creator",
+    meta: {
+      guest: true,
+      title: "Creator Profile",
+    },
+    component: () => import("@/views/CreatorView.vue"),
+  },
+  {
     path: "/category/:type?/:name?",
     name: "category",
     meta: {

@@ -44,26 +44,22 @@ defineProps({
   max-width: $max-width;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 10px;
+  gap: 20px;
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 30px auto 0;
+  margin: 10px auto;
 
   @include breakpoint($break-lg) {
-    margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-md) {
-    margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-sm) {
-    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
 }
@@ -77,7 +73,7 @@ defineProps({
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 30px auto 0;
+  margin: 10px auto;
 
   @include breakpoint($break-lg) {
     grid-template-columns: repeat(3, 1fr);
@@ -86,11 +82,9 @@ defineProps({
     grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint($break-sm) {
-    margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
 }
@@ -104,7 +98,7 @@ defineProps({
   align-content: center;
   justify-content: center;
   align-items: flex-start;
-  margin: 30px auto 0;
+  margin: 10px auto;
 
   @include breakpoint($break-lg) {
     grid-template-columns: repeat(2, 1fr);
@@ -113,11 +107,9 @@ defineProps({
     grid-template-columns: repeat(2, 1fr);
   }
   @include breakpoint($break-sm) {
-    margin: 20px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
   @include breakpoint($break-xs) {
-    margin: 10px auto 0;
     grid-template-columns: repeat(1, 1fr);
   }
 }

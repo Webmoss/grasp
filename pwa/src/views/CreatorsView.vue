@@ -42,11 +42,10 @@ const testCourses = [
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     description:
       "",
-    banner: "",
-    image: "",
+    banner: "EduChain.png",
+    image: "EduChain.png",
     created_date: "30/03/2023",
     updated_at: "",
-    price: 10,
   },
   {
     name: "open-campus-id",
@@ -60,7 +59,6 @@ const testCourses = [
     image: "",
     created_date: "01/06/2024",
     updated_at: "",
-    price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
       { url: "https://x.com/opencampus_xyz", title: "Twitter" },
@@ -79,7 +77,6 @@ const testCourses = [
     image: "",
     created_date: "06/07/2023",
     updated_at: "",
-    price: 10,
   },
   {
     name: "tweet",
@@ -94,7 +91,6 @@ const testCourses = [
     image: "",
     created_date: "10/01/2023",
     updated_at: "20/02/2023",
-    price: 10,
   },
   {
     name: "link",
@@ -109,7 +105,6 @@ const testCourses = [
     image: "",
     created_date: "10/05/2023",
     updated_at: "20/05/2023",
-    price: 10,
   },
   {
     name: "introduction",
@@ -120,11 +115,10 @@ const testCourses = [
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     description:
       "",
-    banner: "",
-    image: "",
+    banner: "EduChain.png",
+    image: "EduChain.png",
     created_date: "30/03/2023",
     updated_at: "",
-    price: 10,
   },
   {
     name: "open-campus-id",
@@ -138,7 +132,6 @@ const testCourses = [
     image: "",
     created_date: "01/06/2024",
     updated_at: "",
-    price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
       { url: "https://x.com/opencampus_xyz", title: "Twitter" },
@@ -157,7 +150,6 @@ const testCourses = [
     image: "",
     created_date: "06/07/2023",
     updated_at: "",
-    price: 10,
   },
   {
     name: "tweet",
@@ -172,7 +164,6 @@ const testCourses = [
     image: "",
     created_date: "10/01/2023",
     updated_at: "20/02/2023",
-    price: 10,
   },
   {
     name: "link",
@@ -187,7 +178,6 @@ const testCourses = [
     image: "",
     created_date: "10/05/2023",
     updated_at: "20/05/2023",
-    price: 10,
   },
 ];
 
@@ -208,7 +198,7 @@ section#courses {
   position: relative;
   height: 100%;
   overflow: scroll;
-  background: $cream;
+  background: $white;
 
   .main {
     max-width: $max-width;

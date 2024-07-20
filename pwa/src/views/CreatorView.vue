@@ -2,7 +2,7 @@
   <section id="course">
     <div class="main">
       <section id="page">
-        <h2>Course</h2>
+        <h2>Creator Profile</h2>
       </section>
     </div>
   </section>

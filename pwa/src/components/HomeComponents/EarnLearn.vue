@@ -124,7 +124,6 @@ section#solutions {
       text-decoration: none;
       z-index: 999;
     }
-
     p {
       color: $grasp-blue;
       line-height: 1.7;
@@ -143,7 +142,8 @@ section#solutions {
         width: 240px;
         object-fit: contain;
         overflow: hidden;
-        margin: 0 0 0 20px;
+        margin: 0 0 0 10%;
+        
         @include breakpoint($break-sm) {
           width: 220px;
         }

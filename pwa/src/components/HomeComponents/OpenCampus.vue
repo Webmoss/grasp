@@ -82,6 +82,7 @@ section#campus {
 
   @include breakpoint($break-sm) {
     padding: 0 0 60px 0;
+    background-size: cover;
   }
 
   h2 {

@@ -44,7 +44,7 @@ section#courses-search-bar {
     margin: 0 0 0 10px;
     background: transparent;
     border: 1px solid transparent;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 0;
     transition: all 0.5s linear;
     cursor: pointer;

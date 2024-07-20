@@ -47,10 +47,10 @@ function sortByHandle(event: Event) {
 @import "@/assets/styles/mixins.scss";
 
 select.pagination-sort-by {
-  color: $grasp-blue;
-  background: $cream;
-  border: 1px solid $black;
-  border-radius: 12px;
+  color: $grey-90;
+  background: $white;
+  border: 0.5px solid $grey-50;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   min-width: 220px;
@@ -61,13 +61,13 @@ select.pagination-sort-by {
   cursor: pointer;
 
   &::placeholder {
-    color: $grasp-blue;
+    color: $grey-50;
   }
   &:hover,
   &:focus,
   &:focus-visible,
   &:active {
-    border-color: rgb(69, 73, 77);
+    border: 0.5px solid $grey-50;
     outline: -webkit-focus-ring-color auto 0px;
   }
 }

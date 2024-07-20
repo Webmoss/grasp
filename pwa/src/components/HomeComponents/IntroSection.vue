@@ -77,6 +77,7 @@ section#home {
 
     @include breakpoint($break-sm) {
       width: 100%;
+      padding: 10px 40px 0 40px;
     }
 
     p {
@@ -119,6 +120,13 @@ section#home {
 
     @include breakpoint($break-sm) {
       width: 100%;
+      img,
+      svg {
+        width: 90%;
+        object-fit: cover;
+        overflow: hidden;
+        margin-left: 10%;
+      }
     }
   }
 }
