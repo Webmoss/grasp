@@ -68,6 +68,7 @@
 
         <div class="line-divider"></div>
         <h2>Creators Courses</h2>
+        
         <div class="creator-course-list">
           <template v-for="(course, i) in testCourses" :key="i">
             <div class="course">
@@ -120,6 +121,7 @@ const { creator } = storeToRefs(store);
 
 const testCourses = [
   {
+    id: 1,
     name: "introduction",
     type: "article",
     category: "educhain",
@@ -134,6 +136,7 @@ const testCourses = [
     price: 10,
   },
   {
+    id: 2,
     name: "open-campus-id",
     type: "article",
     category: "educhain",
@@ -153,6 +156,7 @@ const testCourses = [
     ],
   },
   {
+    id: 3,
     name: "quote",
     type: "quote",
     category: "collections",
@@ -168,6 +172,7 @@ const testCourses = [
     price: 10,
   },
   {
+    id: 4,
     name: "tweet",
     type: "tweet",
     category: "learners",
@@ -183,6 +188,23 @@ const testCourses = [
     price: 10,
   },
   {
+    id: 5,
+    name: "link",
+    type: "link",
+    category: "daos",
+    title: "Link Example",
+    excerpt:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    description:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    banner: "",
+    image: "",
+    created_date: "10/05/2023",
+    updated_at: "20/05/2023",
+    price: 10,
+  },
+  {
+    id: 6,
     name: "link",
     type: "link",
     category: "daos",

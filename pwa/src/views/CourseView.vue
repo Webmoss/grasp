@@ -38,6 +38,9 @@
           }}
         </div>
 
+        <div class="line-divider"></div>
+        <h2>Course Lessons</h2>
+
         <div class="course-lesson-list">
           <div class="course-lesson">
             <div class="lesson-title">
@@ -102,6 +105,10 @@ section#course {
   height: 100%;
   overflow: scroll;
   background: $white;
+
+  #page {
+    padding-bottom: 30px;
+  }
 
   .main {
     max-width: $max-width;
@@ -195,7 +202,7 @@ section#course {
       font-size: 15px;
       font-weight: normal;
       text-align: left;
-      margin: 0 0 16px;
+      margin: 0;
     }
 
     .course-category {
@@ -233,6 +240,25 @@ section#course {
       }
     }
 
+    .line-divider {
+      width: 96%;
+      margin: 16px auto 32px;
+      border-bottom: 1px solid $grey-30;
+    }
+
+    h2 {
+      width: 100%;
+      font-family: "Poppins", sans-serif;
+      color: $grasp-blue;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 32px;
+      text-align: left;
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+      margin: 0 0 16px 0;
+    }
+
     .course-lesson-list {
       width: 100%;
       max-width: $max-width;
@@ -242,7 +268,7 @@ section#course {
       align-content: center;
       justify-content: center;
       align-items: flex-start;
-      margin: 10px auto;
+      margin: 10px auto 0;
 
       @include breakpoint($break-lg) {
         grid-template-columns: repeat(3, 1fr);
