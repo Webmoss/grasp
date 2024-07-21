@@ -17,7 +17,7 @@
     <div class="course-list-buttons">
       <div v-if="course && course.category" class="course-category">
         <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
-        <span class="catgory-indicator">{{ course.category ? course.category : "" }}</span>
+        <span class="category-indicator">{{ course.category ? course.category : "" }}</span>
       </div>
       <div class="button-row">
         <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
@@ -40,7 +40,7 @@
     <div class="course-card-row">
       <div class="course-category">
         <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
-        <div class="catgory-indicator">{{ course.category ? course.category : "" }}</div>
+        <div class="category-indicator">{{ course.category ? course.category : "" }}</div>
       </div>
       <div class="button-column">
         <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
@@ -160,7 +160,7 @@ defineProps<{ course: courseObject; gridView: string }>();
       margin: 0 0 4px 0;
     }
 
-    .catgory-indicator {
+    .category-indicator {
       width: 80%;
       outline: transparent solid 2px;
       outline-offset: 2px;
@@ -302,7 +302,7 @@ defineProps<{ course: courseObject; gridView: string }>();
         margin: 0 0 4px 0;
       }
 
-      .catgory-indicator {
+      .category-indicator {
         width: 70%;
         outline: transparent solid 2px;
         outline-offset: 2px;

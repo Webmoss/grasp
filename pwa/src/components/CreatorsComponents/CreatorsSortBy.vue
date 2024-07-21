@@ -54,7 +54,7 @@ select.pagination-sort-by {
   font-size: 14px;
   font-weight: 500;
   min-width: 220px;
-  padding: 6.5px 8px 5px;
+  padding: 7px 8px;
   margin: 0;
   text-align: left;
   transition: all 0.5s linear;

@@ -100,7 +100,7 @@ function clearSearchTerm() {
     text-decoration: none;
     border: none;
     border-radius: 12px;
-    padding: 7px 0 6px;
+    padding: 8px 0 7px;
     transition: all 0.5s linear;
     cursor: pointer;
 

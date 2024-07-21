@@ -40,7 +40,7 @@ section#creators-search-bar {
     align-content: center;
     align-items: center;
     justify-content: center;
-    height: 35px;
+    height: 33px;
     margin: 0 0 0 10px;
     background: transparent;
     border: 1px solid transparent;

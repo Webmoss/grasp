@@ -34,7 +34,9 @@ export const useStore = defineStore({
     },
     pagination: <paginationObject>{},
     courses: [] as courseObject[],
+    course: <courseObject>{},
     creators: [] as creatorObject[],
+    creator: <creatorObject>{},
   }),
   getters: {
     getChainId(state) {
@@ -105,6 +107,12 @@ export const useStore = defineStore({
     },
     getCreators(state) {
       return state.creators;
+    },
+    getCourse(state) {
+      return state.course;
+    },
+    getCreator(state) {
+      return state.creator;
     },
   },
   actions: {
@@ -217,6 +225,12 @@ export const useStore = defineStore({
     },
     setCreators(creators: creatorObject[]) {
       this.creators = creators;
+    },
+    setCourse(course: courseObject) {
+      this.course = course;
+    },
+    setCreator(creator: creatorObject) {
+      this.creator = creator;
     },
   },
 });

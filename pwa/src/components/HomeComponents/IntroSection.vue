@@ -77,7 +77,11 @@ section#home {
 
     @include breakpoint($break-sm) {
       width: 100%;
-      padding: 10px 40px 0 40px;
+      padding: 20px 40px 0 40px;
+
+      .grasp-logo {
+        padding-left: 30px;
+      }
     }
 
     p {

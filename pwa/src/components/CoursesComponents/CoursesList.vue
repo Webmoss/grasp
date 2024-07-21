@@ -37,6 +37,11 @@ defineProps({
   position: relative;
   height: auto;
   overflow: scroll;
+  
+  @include breakpoint($break-sm) {
+    width: 90%;
+    padding: 0 5%;
+  }
 }
 
 .list-course-list {

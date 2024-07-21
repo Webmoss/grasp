@@ -32,8 +32,9 @@ section#lms {
 
   @include breakpoint($break-sm) {
     background-image: url("../../assets/images/hexBG.png"), url("../../assets/images/EduChain.png");
-    background-position: top 10px left 10%, top left;
-    background-size: 100%, 100%;
+    background-position: top left, top left;
+    background-repeat: repeat, no-repeat;
+    background-size: auto, 100%;
     padding: 150px 0 30px;
   }
 

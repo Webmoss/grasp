@@ -37,7 +37,7 @@ const props = defineProps({
   },
   price: {
     type: Number,
-    default: null,
+    default: 0,
     required: false,
   },
 });

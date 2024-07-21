@@ -8,7 +8,7 @@
       name="searchCollectionInput"
       type="text"
       class="search-input"
-      placeholder="Search Courses"
+      placeholder="Search Creators"
       @input="searchHandle($event)"
     />
     <button class="search-clear-button" title="Clear search" @click="clearSearchTerm()">
@@ -100,7 +100,7 @@ function clearSearchTerm() {
     text-decoration: none;
     border: none;
     border-radius: 12px;
-    padding: 7px 0 6px;
+    padding: 7px 0 7px;
     transition: all 0.5s linear;
     cursor: pointer;
 

@@ -1,16 +1,18 @@
+import { lessonObject } from './lesson'
 
 export interface courseObject {
   id: number;
-  name: string | null;
   type: string | null;
   category: string;
+  categories: Array<string>;
+  banner: string;
+  image: string;
   title: string | null;
   excerpt: string | null;
   description: string | null;
-  links: Array<string>;
-  banner: string;
-  image: string;
   price: number;
+  links: Array<string>;
+  lessons: Array<lessonObject>;
   step: number;
   isLive: boolean;
   created_date: string;
