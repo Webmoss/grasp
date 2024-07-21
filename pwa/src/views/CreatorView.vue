@@ -4,9 +4,50 @@
       <CreatorHeader :creator="creator" />
       <section id="page">
         <div class="creator-details-row">
-          <h1 class="creator-title">Creator {{ creator.title ? creator.title : "Joe Soap" }}</h1>
-          <div class="button-column">
-            <ViewCreatorButton :btn-size="'large'" :color="'blue'" :creatorId="creator.id" />
+          <h1 class="creator-title">
+            Creator {{ creator.title ? creator.title : "Joe Soap" }}
+          </h1>
+          <div class="creator-socials">
+            <a
+              v-if="creator.website"
+              :href="creator.website"
+              alt="Website"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/website.svg" alt="Website"
+            /></a>
+            <a
+              v-if="creator.twitter"
+              :href="creator.twitter"
+              alt="Twitter"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/twitter.svg" alt="Twitter"
+            /></a>
+            <a
+              v-if="creator.facebook"
+              :href="creator.facebook"
+              alt="Facebook"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/facebook.svg" alt="Facebook"
+            /></a>
+            <a
+              v-if="creator.linkedin"
+              :href="creator.linkedin"
+              alt="LinkedIn"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/linkedin.svg" alt="LinkedIn"
+            /></a>
+            <a
+              v-if="creator.instagram"
+              :href="creator.instagram"
+              alt="Instagram"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/instagram.svg" alt="Instagram"
+            /></a>
           </div>
         </div>
 
@@ -25,45 +66,42 @@
           }}
         </div>
 
+        <div class="line-divider"></div>
+        <h2>Creators Courses</h2>
         <div class="creator-course-list">
-          <div class="creator-course">
-            <div class="course-title">
-              Course One
+          <template v-for="(course, i) in testCourses" :key="i">
+            <div class="course">
+              <div class="course-image">
+                <img :src="course.image ? course.image : 'rectangle.svg'" />
+              </div>
+              <div class="course-column">
+                <div class="course-title">
+                  {{ course.title ? course.title : "" }}
+                </div>
+                <div class="course-excerpt">
+                  {{ course.excerpt ? course.excerpt : "" }}
+                </div>
+              </div>
+              <div class="course-card-row">
+                <div class="course-category">
+                  <div class="course-date">
+                    {{ course.created_date ? course.created_date : "" }}
+                  </div>
+                  <div class="category-indicator">
+                    {{ course.category ? course.category : "" }}
+                  </div>
+                </div>
+                <div class="button-column">
+                  <BuyButton
+                    :btn-size="'small'"
+                    :color="'blue'"
+                    :course-id="course.id"
+                    :price="course.price"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="course-description">
-              Course description goes here, using some dummy copy for the front-end buidl.
-            </div>
-            <div class="course-category">
-              <div class="category-indicator">DAO</div>
-              <div class="category-indicator">ApeCoin</div>
-            </div>
-          </div>
-
-          <div class="creator-course">
-            <div class="course-title">
-              Course Two
-            </div>
-            <div class="course-description">
-              Course description goes here, using some dummy copy for the front-end buidl.
-            </div>
-            <div class="course-category">
-              <div class="category-indicator">Community</div>
-              <div class="category-indicator">Web3</div>
-            </div>
-          </div>
-
-          <div class="creator-course">
-            <div class="course-title">
-              Course Three
-            </div>
-            <div class="course-description">
-              Course description goes here, using some dummy copy for the front-end buidl.
-            </div>
-            <div class="course-category">
-              <div class="category-indicator">OpenCampus</div>
-              <div class="category-indicator">EduChain</div>
-            </div>
-          </div>
+          </template>
         </div>
       </section>
     </div>
@@ -75,9 +113,91 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import CreatorHeader from "../components/CreatorsComponents/CreatorHeader.vue";
 import ViewCreatorButton from "../components/Buttons/ViewCreatorButton.vue";
+import BuyButton from "../components/Buttons/BuyButton.vue";
 
 const store = useStore();
 const { creator } = storeToRefs(store);
+
+const testCourses = [
+  {
+    name: "introduction",
+    type: "article",
+    category: "educhain",
+    title: "Introduction",
+    excerpt:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    description: "",
+    banner: "",
+    image: "",
+    created_date: "30/03/2023",
+    updated_at: "",
+    price: 10,
+  },
+  {
+    name: "open-campus-id",
+    type: "article",
+    category: "educhain",
+    title: "What is Open Campus ID",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    description:
+      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
+    banner: "",
+    image: "",
+    created_date: "01/06/2024",
+    updated_at: "",
+    price: 10,
+    links: [
+      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
+      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
+    ],
+  },
+  {
+    name: "quote",
+    type: "quote",
+    category: "collections",
+    title: "Time and Energy",
+    excerpt:
+      "Software is like a pebble in a river...it only get's smoother with time and energy",
+    description:
+      "Software is like a pebble in a river...it only get's smoother with time and energy",
+    banner: "",
+    image: "",
+    created_date: "06/07/2023",
+    updated_at: "",
+    price: 10,
+  },
+  {
+    name: "tweet",
+    type: "tweet",
+    category: "learners",
+    title: "Tweet Example",
+    excerpt:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    description:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    banner: "",
+    image: "",
+    created_date: "10/01/2023",
+    updated_at: "20/02/2023",
+    price: 10,
+  },
+  {
+    name: "link",
+    type: "link",
+    category: "daos",
+    title: "Link Example",
+    excerpt:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    description:
+      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
+    banner: "",
+    image: "",
+    created_date: "10/05/2023",
+    updated_at: "20/05/2023",
+    price: 10,
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -89,6 +209,10 @@ section#creator {
   height: 100%;
   overflow: scroll;
   background: $white;
+
+  #page {
+    padding-bottom: 30px;
+  }
 
   .main {
     max-width: $max-width;
@@ -147,6 +271,30 @@ section#creator {
         }
       }
 
+      .creator-socials {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        margin: 0 0 8px 0;
+
+        a {
+          color: $grasp-blue;
+          text-decoration: none;
+          margin: 0 12px 0 0;
+
+          img,
+          svg {
+            width: 16px;
+            @include breakpoint($break-sm) {
+              width: 16px;
+            }
+          }
+        }
+      }
+
       .creator-date {
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -173,7 +321,7 @@ section#creator {
       font-size: 15px;
       font-weight: normal;
       text-align: left;
-      margin: 0 0 16px;
+      margin: 0;
     }
 
     .creator-category {
@@ -211,6 +359,25 @@ section#creator {
       }
     }
 
+    .line-divider {
+      width: 96%;
+      margin: 16px auto 32px;
+      border-bottom: 1px solid $grey-30;
+    }
+
+    h2 {
+      width: 100%;
+      font-family: "Poppins", sans-serif;
+      color: $grasp-blue;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 32px;
+      text-align: left;
+      margin-block-start: 0px;
+      margin-block-end: 0px;
+      margin: 0 0 16px 0;
+    }
+
     .creator-course-list {
       width: 100%;
       max-width: $max-width;
@@ -220,7 +387,7 @@ section#creator {
       align-content: center;
       justify-content: center;
       align-items: flex-start;
-      margin: 10px auto;
+      margin: 10px auto 0;
 
       @include breakpoint($break-lg) {
         grid-template-columns: repeat(3, 1fr);
@@ -234,8 +401,16 @@ section#creator {
       @include breakpoint($break-xs) {
         grid-template-columns: repeat(1, 1fr);
       }
+    }
 
-      .creator-course {
+    .course-card-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      align-items: flex-end;
+    }
+    .course {
         display: inline;
         float: left;
         box-sizing: border-box;
@@ -271,27 +446,26 @@ section#creator {
           font-family: "Poppins", sans-serif;
           color: $grasp-blue;
           width: 100%;
-          font-size: 20px;
+          font-size: 16px;
           font-weight: 600;
-          line-height: normal;
           text-align: left;
           margin: 0 0 5px 0;
         }
 
-        .course-description {
+        .course-excerpt {
           width: 100%;
+          min-height: 77.5px;
           color: $black;
-          font-size: 12px;
+          font-size: 13px;
           font-weight: normal;
           text-align: left;
-          margin: 0 0 30px;
+          margin: 0 0 16px;
         }
 
         .course-category {
-          width: 100%;
           display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
+          flex-direction: column;
+          justify-content: center;
           align-content: center;
           align-items: center;
 
@@ -301,8 +475,20 @@ section#creator {
           text-transform: uppercase;
           margin: 0;
 
+          .course-date {
+            font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            color: $grey-60;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: uppercase;
+            margin: 0 0 4px 0;
+          }
+
           .category-indicator {
-            width: auto;
+            width: 80%;
             outline: transparent solid 2px;
             outline-offset: 2px;
             border-radius: 9999px;
@@ -320,11 +506,18 @@ section#creator {
             border-style: solid;
             border-image: initial;
             border-color: #4d5358;
-            margin: 0 8px 8px 0;
           }
         }
+        .button-column {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-content: center;
+          align-items: center;
+          padding: 0;
+          margin: 0;
+        }
       }
-    }
   }
 }
 
