@@ -45,7 +45,7 @@ const props = defineProps({
 const router = useRouter();
 
 function goToCourse() {
-  router.push({ name: "course", params: { id: props.courseId } });
+  router.push({ name: "course", params: { id: props.courseId, price: props.price } });
 }
 </script>
 

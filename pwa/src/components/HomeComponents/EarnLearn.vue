@@ -1,6 +1,6 @@
 <template>
   <section id="solutions">
-    <div class="left">
+    <div class="left proposal-image">
       <h2>Learn &amp; Earn</h2>
       <h3>Grasp puts learners and education first</h3>
       <p>
@@ -35,7 +35,7 @@
           student financing options through onchain grants and loans.
         </p>
       </div>
-      <div class="solutions-box bg-cyan hide-mobile">
+      <div class="solutions-box bg-cyan hide-mobile dao-image">
         <h3>Platform for Creators</h3>
         <p>
           Grasp supports a variety of content formats, including video tutorials,
@@ -52,7 +52,7 @@
           with verifiable proof of completion.
         </p>
       </div>
-      <div class="solutions-box bg-cyan show-mobile">
+      <div class="solutions-box bg-cyan show-mobile dao-image">
         <h3>Platform for Creators</h3>
         <p>
           Grasp supports a variety of content formats, including video tutorials,
@@ -82,6 +82,13 @@ section#solutions {
   @include breakpoint($break-sm) {
     flex-direction: column;
     justify-content: center;
+  }
+
+  .proposal-image {
+    background-image: url("../../assets/images/Proposal.png");
+    background-repeat: no-repeat;
+    background-position: top 40px right 40px;
+    background-size: 75px;
   }
 
   .left {
@@ -143,7 +150,7 @@ section#solutions {
         object-fit: contain;
         overflow: hidden;
         margin: 0 0 0 10%;
-        
+
         @include breakpoint($break-sm) {
           width: 220px;
         }
@@ -155,7 +162,7 @@ section#solutions {
     width: 70%;
     float: left;
     padding: 0;
-    
+
     @include breakpoint($break-sm) {
       width: 100%;
     }
@@ -170,6 +177,13 @@ section#solutions {
         width: 90%;
         padding: 3% 5%;
       }
+    }
+
+    .dao-image {
+      background-image: url("../../assets/images/DAO.png");
+      background-repeat: no-repeat;
+      background-position: top 15px right 15px;
+      background-size: 60px;
     }
 
     .bg-blue {
@@ -221,7 +235,7 @@ section#solutions {
         margin-bottom: 20px;
       }
     }
-    
+
     .bg-white {
       background-color: $white;
       h3 {

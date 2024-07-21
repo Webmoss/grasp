@@ -100,6 +100,11 @@ section#educhain {
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
 
+      background-image: url("../../assets/images/Dictionary.png");
+      background-repeat: no-repeat;
+      background-position: top 10px right 20px;
+      background-size: 60px;
+
       @include breakpoint($break-sm) {
         width: 90%;
         padding: 2% 5%;

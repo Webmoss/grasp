@@ -1,9 +1,6 @@
 <template>
-  <div
-    v-if="creator && gridView === 'list'"
-    class="creator-list-item"
-    @click="loadCreator(creator)"
-  >
+  <!-- Creator List View -->
+  <div v-if="creator && gridView === 'list'" class="creator-list-item">
     <div class="creator-image">
       <img :src="creator.image ? creator.image : 'rectangle.svg'" />
     </div>
@@ -19,45 +16,45 @@
       </div>
       <div class="creator-socials">
         <a
+          v-if="creator.website"
+          :href="creator.website"
+          alt="Website"
+          target="_blank"
+          rel="noopener"
+          ><img src="../../assets/svgs/socials/website.svg" alt="Website"
+        /></a>
+        <a
           v-if="creator.twitter"
           :href="creator.twitter"
           alt="Twitter"
           target="_blank"
           rel="noopener"
-          >Twitter</a
-        >
-        <a
-          v-if="creator.linkedin"
-          :href="creator.linkedin"
-          alt="LinkedIn"
-          target="_blank"
-          rel="noopener"
-          >LinkedIn</a
-        >
+          ><img src="../../assets/svgs/socials/twitter.svg" alt="Twitter"
+        /></a>
         <a
           v-if="creator.facebook"
           :href="creator.facebook"
           alt="Facebook"
           target="_blank"
           rel="noopener"
-          >Facebook</a
-        >
+          ><img src="../../assets/svgs/socials/facebook.svg" alt="Facebook"
+        /></a>
+        <a
+          v-if="creator.linkedin"
+          :href="creator.linkedin"
+          alt="LinkedIn"
+          target="_blank"
+          rel="noopener"
+          ><img src="../../assets/svgs/socials/linkedin.svg" alt="LinkedIn"
+        /></a>
         <a
           v-if="creator.instagram"
           :href="creator.instagram"
           alt="Instagram"
           target="_blank"
           rel="noopener"
-          >Instagram</a
-        >
-        <a
-          v-if="creator.website"
-          :href="creator.website"
-          alt="Website"
-          target="_blank"
-          rel="noopener"
-          >Website</a
-        >
+          ><img src="../../assets/svgs/socials/instagram.svg" alt="Instagram"
+        /></a>       
       </div>
     </div>
     <div class="creator-list-buttons">
@@ -67,12 +64,13 @@
         </template>
       </div>
       <div class="button-row">
-        <ViewButton :btn-size="'small'" :color="'blue'" :creator-id="creator.id" />
+        <ViewCreatorButton :btn-size="'small'" :color="'blue'" :creatorId="creator.id" />
       </div>
     </div>
   </div>
-
-  <div v-else class="creator" @click="loadCreator(creator)">
+  <!-- END Creator List View -->
+  <!-- Creator Card View -->
+  <div v-else class="creator">
     <div class="creator-image">
       <img :src="creator.image ? creator.image : 'rectangle.svg'" />
     </div>
@@ -88,45 +86,45 @@
       </div>
       <div class="creator-socials">
         <a
+          v-if="creator.website"
+          :href="creator.website"
+          alt="Website"
+          target="_blank"
+          rel="noopener"
+          ><img src="../../assets/svgs/socials/website.svg" alt="Website"
+        /></a>
+        <a
           v-if="creator.twitter"
           :href="creator.twitter"
           alt="Twitter"
           target="_blank"
           rel="noopener"
-          >Twitter</a
-        >
-        <a
-          v-if="creator.linkedin"
-          :href="creator.linkedin"
-          alt="LinkedIn"
-          target="_blank"
-          rel="noopener"
-          >LinkedIn</a
-        >
+          ><img src="../../assets/svgs/socials/twitter.svg" alt="Twitter"
+        /></a>
         <a
           v-if="creator.facebook"
           :href="creator.facebook"
           alt="Facebook"
           target="_blank"
           rel="noopener"
-          >Facebook</a
-        >
+          ><img src="../../assets/svgs/socials/facebook.svg" alt="Facebook"
+        /></a>
+        <a
+          v-if="creator.linkedin"
+          :href="creator.linkedin"
+          alt="LinkedIn"
+          target="_blank"
+          rel="noopener"
+          ><img src="../../assets/svgs/socials/linkedin.svg" alt="LinkedIn"
+        /></a>
         <a
           v-if="creator.instagram"
           :href="creator.instagram"
           alt="Instagram"
           target="_blank"
           rel="noopener"
-          >Instagram</a
-        >
-        <a
-          v-if="creator.website"
-          :href="creator.website"
-          alt="Website"
-          target="_blank"
-          rel="noopener"
-          >Website</a
-        >
+          ><img src="../../assets/svgs/socials/instagram.svg" alt="Instagram"
+        /></a>
       </div>
     </div>
     <div class="creator-card-row">
@@ -136,27 +134,18 @@
         </template>
       </div>
       <div class="button-column">
-        <ViewButton :btn-size="'small'" :color="'blue'" :creator-id="creator.id" />
+        <ViewCreatorButton :btn-size="'small'" :color="'blue'" :creatorId="creator.id" />
       </div>
     </div>
   </div>
+  <!-- END Creator Card View -->
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
 import { creatorObject } from "src/models/creator";
-import ViewButton from "../Buttons/ViewButton.vue";
-
-const router = useRouter();
+import ViewCreatorButton from "../Buttons/ViewCreatorButton.vue";
 
 defineProps<{ creator: creatorObject; gridView: string }>();
-
-const loadCreator = async (creator: creatorObject) => {
-  router.push({
-    name: "creator",
-    params: { creator: creator.id },
-  });
-};
 </script>
 
 <style lang="scss">
@@ -200,7 +189,6 @@ const loadCreator = async (creator: creatorObject) => {
   padding: 16px;
   transition: all 0.5s linear;
   overflow: hidden;
-  cursor: pointer;
 
   .creator-image {
     position: relative;
@@ -259,17 +247,20 @@ const loadCreator = async (creator: creatorObject) => {
     justify-content: flex-start;
     align-content: center;
     align-items: center;
-    margin: 8px 0 8px 0;
+    margin: 0 0 8px 0;
 
     a {
-      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-60;
-      font-size: 12px;
-      font-weight: 500;
+      color: $grasp-blue;
       text-decoration: none;
-      text-transform: uppercase;
       margin: 0 12px 0 0;
+
+      img,
+      svg {
+        width: 16px;
+        @include breakpoint($break-sm) {
+          width: 16px;
+        }
+      }
     }
   }
 
@@ -319,7 +310,7 @@ const loadCreator = async (creator: creatorObject) => {
 }
 
 .creator-list-item {
-  width: 100%;
+  width: 99%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -332,7 +323,6 @@ const loadCreator = async (creator: creatorObject) => {
   margin: 0;
   padding: 0;
   transition: all 0.5s linear;
-  cursor: pointer;
 
   .creator-image {
     width: auto;
@@ -390,7 +380,7 @@ const loadCreator = async (creator: creatorObject) => {
       text-transform: uppercase;
       margin: 0 0 4px 0;
     }
-    
+
     .creator-description {
       width: 100%;
       display: flex;
@@ -414,17 +404,20 @@ const loadCreator = async (creator: creatorObject) => {
       justify-content: flex-start;
       align-content: center;
       align-items: center;
-      margin: 8px 0 0 0;
+      margin: 8px 0 8px 0;
 
       a {
-        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-60;
-        font-size: 12px;
-        font-weight: 500;
+        color: $grasp-blue !important;
         text-decoration: none;
-        text-transform: uppercase;
         margin: 0 12px 0 0;
+
+        img,
+        svg {
+          width: 16px;
+          @include breakpoint($break-sm) {
+            width: 16px;
+          }
+        }
       }
     }
   }
@@ -479,7 +472,7 @@ const loadCreator = async (creator: creatorObject) => {
       align-content: center;
       align-items: center;
       padding: 0;
-      margin: 8px auto 0;
+      margin: 0;
     }
   }
 }

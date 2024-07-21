@@ -2,7 +2,6 @@
   <div
     v-if="course && gridView === 'list'"
     class="course-list-item"
-    @click="loadCourse(course)"
   >
     <div class="course-image">
       <img :src="course.image ? course.image : 'rectangle.svg'" />
@@ -26,7 +25,7 @@
     </div>
   </div>
 
-  <div v-else class="course" @click="loadCourse(course)">
+  <div v-else class="course">
     <div class="course-image">
       <img :src="course.image ? course.image : 'rectangle.svg'" />
     </div>
@@ -51,20 +50,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
 import { courseObject } from "src/models/course";
 import BuyButton from "../Buttons/BuyButton.vue";
 
-const router = useRouter();
-
 defineProps<{ course: courseObject; gridView: string }>();
-
-const loadCourse = async (course: courseObject) => {
-  router.push({
-    name: "course",
-    params: { course: course.id },
-  });
-};
 </script>
 
 <style lang="scss">
@@ -108,7 +97,6 @@ const loadCourse = async (course: courseObject) => {
   padding: 16px;
   transition: all 0.5s linear;
   overflow: hidden;
-  cursor: pointer;
   
   .course-image {
     position: relative;
@@ -205,19 +193,19 @@ const loadCourse = async (course: courseObject) => {
 }
 
 .course-list-item {
-  width: 100%;
+  width: 99%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
   align-items: center;
   background: $white;
+  border: 0.5px solid $grey-50;
   border-radius: 8px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
   margin: 0;
   padding: 0;
   transition: all 0.5s linear;
-  cursor: pointer;
 
   .course-image {
     width: auto;
