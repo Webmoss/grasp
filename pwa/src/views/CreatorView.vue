@@ -5,7 +5,7 @@
       <section id="page">
         <div class="creator-details-row">
           <h1 class="creator-title">
-            Creator {{ creator.title ? creator.title : "Joe Soap" }}
+            {{ creator.name ? creator.name : "" }}
           </h1>
           <div class="creator-socials">
             <a
@@ -53,8 +53,8 @@
 
         <div class="creator-details-row">
           <div class="creator-date">
-            <span class="creator-date-label">Date:</span>
-            {{ creator.created_date ? creator.created_date : "01/06/2024" }}
+            <span class="creator-date-label">Joined</span>
+            {{ creator.created_date ? creator.created_date : "" }}
           </div>
         </div>
 
@@ -62,7 +62,7 @@
           {{
             creator.description
               ? creator.description
-              : "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile."
+              : ""
           }}
         </div>
 
@@ -110,14 +110,42 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "@/store";
-import { storeToRefs } from "pinia";
+// import { storeToRefs } from "pinia";
 import CreatorHeader from "../components/CreatorsComponents/CreatorHeader.vue";
-import ViewCreatorButton from "../components/Buttons/ViewCreatorButton.vue";
 import BuyButton from "../components/Buttons/BuyButton.vue";
 
 const store = useStore();
-const { creator } = storeToRefs(store);
+// const { creator } = storeToRefs(store);
+
+const creator = ref({
+  id: 1,
+  banner: "Grasp-Banner.png",
+  image: "WebMoss.jpg",
+  username: "WebMoss",
+  name: "Craig Moss",
+  description: "A Software Engineer who thrives on creating beautiful web applications. I have fulfilled various roles throughout my career in the Information Technology arena and enjoy new challenges and problem solving... no task is too great or small, if you just take it one byte at a time. I look forward to my next web3 challenge as it will allow me to discover new and exciting technologies that will shape our future.",
+  email: "example@gmail.com",
+  mobile: "012 567 8901",
+  title: "Developer",
+  city: "Cape Town",
+  country: "South Africa",
+  twitter: "https://twitter.com/WebMoss",
+  linkedin: "https://www.linkedin.com/in/craig-moss-21822628/",
+  facebook: "https://www.facebook.com/",
+  instagram: "https://www.instagram.com/",
+  website: "https://www.website.com/",
+  followers: 1400,
+  following: 100,
+  courses: [],
+  lessons: [],
+  projects: [],
+  categories: ["educhain"],
+  isLive: true,
+  created_date: "30/03/2023",
+  updated_at: "",
+});
 
 const testCourses = [
   {
@@ -243,24 +271,6 @@ section#creator {
     margin: 0 auto;
     padding: 0 0 30px 0;
 
-    .creator-image {
-      position: relative;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0;
-      overflow: hidden;
-      background: transparent;
-
-      img,
-      svg {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        overflow: hidden;
-        background: transparent;
-      }
-    }
-
     .creator-details-row {
       display: flex;
       flex-direction: row;
@@ -283,14 +293,6 @@ section#creator {
         align-content: flex-end;
         align-items: flex-end;
         margin: 0;
-
-        img {
-          width: 40px;
-          margin-right: 8px;
-          @include breakpoint($break-sm) {
-            width: 40px;
-          }
-        }
       }
 
       .creator-socials {
@@ -309,9 +311,9 @@ section#creator {
 
           img,
           svg {
-            width: 16px;
+            width: 20px;
             @include breakpoint($break-sm) {
-              width: 16px;
+              width: 20px;
             }
           }
         }
@@ -320,7 +322,7 @@ section#creator {
       .creator-date {
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-70;
+        color: $black;
         font-size: 15px;
         font-weight: 500;
         text-decoration: none;
@@ -328,9 +330,9 @@ section#creator {
         margin: 0 0 4px 0;
 
         .creator-date-label {
-          color: $grey-90;
-          font-size: 16px;
-          font-weight: 600;
+          color: $black;
+          font-size: 15px;
+          font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
         }

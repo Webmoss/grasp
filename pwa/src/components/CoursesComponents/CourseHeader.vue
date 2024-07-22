@@ -19,8 +19,7 @@ defineProps<{ course: courseObject }>();
 
 .course-header {
   width: 100%;
-  height: 100%;
-  max-height: 420px;
+  height: 200px;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -43,12 +42,13 @@ defineProps<{ course: courseObject }>();
     position: absolute;
     top: 0;
     left: 0;
-
     z-index: 999989;
 
-    img,
-    svg {
+    img {
       width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: center;
       margin: 0;
       padding: 0;
       overflow: hidden;

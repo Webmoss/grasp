@@ -1,12 +1,12 @@
 <template>
   <div class="creator-header">
     <div class="creator-banner">
-      <img :src="creator.banner ? creator.banner : ''" />
+      <img :src="creator.banner ? creator.banner : ''" class="profile-banner" />
       <img
         :src="creator.image ? creator.image : 'Grasp-Icon.png'"
         class="profile-image"
       />
-      <div v-if="creator.name" class="creator-name">{{ creator.name }}</div>
+      <div v-if="creator.title" class="creator-name">{{ creator.title }}</div>
     </div>
   </div>
 </template>
@@ -23,8 +23,7 @@ defineProps<{ creator: creatorObject }>();
 
 .creator-header {
   width: 100%;
-  height: 100%;
-  max-height: 200px;
+  height: 200px;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -47,12 +46,11 @@ defineProps<{ creator: creatorObject }>();
     position: absolute;
     top: 0;
     left: 0;
-
     z-index: 999989;
 
-    img,
-    svg {
+    img.profile-banner {
       width: 100%;
+      height: 200px;
       object-fit: cover;
       object-position: center;
       margin: 0;
@@ -66,7 +64,7 @@ defineProps<{ creator: creatorObject }>();
     height: 120px;
     position: absolute;
     bottom: 60px;
-    left: 20px;
+    left: 30px;
     border-radius: 50%;
     border: 0.5px solid $grey-60;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;

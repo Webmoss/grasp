@@ -87,13 +87,31 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "@/store";
-import { storeToRefs } from "pinia";
+// import { storeToRefs } from "pinia";
 import CourseHeader from "../components/CoursesComponents/CourseHeader.vue";
 import BuyButton from "../components/Buttons/BuyButton.vue";
 
 const store = useStore();
-const { course } = storeToRefs(store);
+// const { course } = storeToRefs(store);
+
+const course = ref({
+  id: 1,
+    name: "introduction",
+    type: "article",
+    category: "EduChain",
+    title: "Introduction",
+    excerpt:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    description: "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
+    banner: "Grasp-Banner.png",
+    image: "Grasp-Icon.png",
+    created_date: "30/03/2023",
+    updated_at: "",
+    price: 10,
+});
+
 </script>
 
 <style lang="scss" scoped>

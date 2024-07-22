@@ -3,6 +3,7 @@ export interface creatorObject {
   id: number;
   banner: string;
   image: string;
+  username: string | null;
   name: string | null;
   description: string | null;
   email: string | null;
@@ -23,4 +24,5 @@ export interface creatorObject {
   categories: Array<string>;
   isLive: boolean;
   created_date: string;
+  updated_at: string;
 }
