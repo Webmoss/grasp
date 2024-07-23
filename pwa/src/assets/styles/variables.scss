@@ -1,0 +1,34 @@
+/* Grasp Colours */
+$grasp-blue: #141BEB;
+$grasp-cyan: #00EDBE;
+$grasp-yellow: #fbf500;
+$grasp-orange: #fc662d;
+
+/* Greys, Blacks & Whites */
+$black: #000000;
+$grey-100: #101010;
+$grey-90: #262626;
+$grey-80: #525252;
+$grey-70: #6f6f6f;
+$grey-60: #8d8d8d;
+$grey-50: #a8a8a8;
+$grey-40: #c6c6c6;
+$grey-30: #e0e0e0;
+$grey-20: #f4f4f4;
+$white: #ffffff;
+$cream: #F8F9FA;
+
+/* Responsive Breakpoints */
+$break-xs: 360px !default;
+$break-sm: 479px !default;
+$break-md: 769px !default;
+$break-lg: 959px !default;
+$break-xl: 1023px !default;
+$break-xxl: 1279px !default;
+$break-xxxl: 1439px !default;
+
+/* Display Settings */
+$max-width: 1280px;
+$page-height: 100vh;
+
+$gradient: linear-gradient(to right top, #061f3e 50%, #06294a, #053457, #033f63, #004b6f);

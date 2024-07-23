@@ -1,0 +1,458 @@
+@import './variables.scss';
+@import './mixins.scss';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap');
+
+* {
+  font-family: inter, -apple-system, system-ui, 'Segoe UI', Helvetica,
+    'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+  letter-spacing: 0.05786em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  width: 100%;
+  color: $white;
+  background-color: $grasp-blue;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: $black;
+  text-decoration: none;
+}
+
+.scroll-link {
+  width: auto;
+  color: $white;
+  font-size: 15x;
+  line-height: normal;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: 0.6s;
+  margin-bottom: 4px;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    border-bottom: 1px solid $grasp-cyan;
+  }
+
+  img {
+    width: 14px;
+    margin-bottom: -2px;
+    @include breakpoint($break-sm) {
+      width: 14px;
+    }
+  }
+}
+
+section#content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+
+  .page-layout {
+    width: 96%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: $grasp-blue;
+    background: $white;
+    padding: 1% 2% 2% 2%;
+    overflow: scroll;
+    border-top-left-radius: 16px;
+
+    .title-bar {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 0;
+      .row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+
+        .title-name {
+          font-family: "Poppins", sans-serif;
+          color: $grasp-blue;
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 30px;
+          text-align: left;
+        }
+        .title-actions {
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          align-items: center;
+          justify-content: space-between;          
+        }
+      }
+    }
+    .row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 30px;
+
+      @include breakpoint($break-sm) {
+        width: 100%;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+      }
+
+      .column {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+    }
+    p {
+      font-size: 14px;
+      color: $black;
+      line-height: 16px;
+      margin-bottom: 0;
+      font-family: inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+  }
+}
+
+.back-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: $grasp-blue;
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 14px;
+  font-weight: bold;
+  width: auto;
+  height: 35px;
+  border: 2px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 5px;
+  margin-right: 10px;
+  transition: 0.6s;
+  cursor: pointer;
+
+  .icon-color {
+    margin: 0 5px 0 0;
+  }
+
+  &:hover {
+    color: $grasp-cyan;
+    border: 2px solid $grasp-cyan;
+  }
+}
+
+.create-button {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 14px;
+  font-weight: 600;
+  
+  width: auto;
+  height: 35px;
+  border: 2px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 5px;
+  margin-right: 10px;
+  transition: 0.6s;
+  cursor: pointer;
+  
+  .icon-color {
+    margin: 0 5px 0 0;
+  }
+
+  &:hover {
+    border: 2px solid $grasp-blue;
+  }
+}
+
+.blue-button {
+  width: auto;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 18px;
+  font-weight: 600;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  @include breakpoint($break-sm) {
+    margin: 15px auto;
+  }
+}
+
+.blue-small-button {
+  width: auto;
+  height: 35px;
+
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 15px;
+  font-weight: bold;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 30px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  img,
+  svg {
+    color: #ffffff;
+    width: 22px;
+    margin-left: -6px;
+    margin-right: 4px;
+  }
+}
+
+.blue-xtra-small-button {
+  width: auto;
+  height: 25px;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 11px;
+  font-weight: bold;
+  border: 0.5px solid $grasp-blue;
+  border-radius: 12px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left: 6px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $white;
+    border: 0.5px solid $white;
+  }
+  img,
+  svg {
+    color: #ffffff;
+    width: 22px;
+    margin-left: -6px;
+    margin-right: 4px;
+  }
+}
+
+.cyan-button {
+  width: auto;
+  height: 40px;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 18px;
+  font-weight: 600;
+  border: 0.5px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $black;
+    border: 0.5px solid $white;
+  }
+
+  @include breakpoint($break-sm) {
+    margin: 15px auto;
+  }
+}
+
+.cyan-small-button {
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  color: $grasp-blue;
+  background-color: $grasp-cyan;
+  font-size: 15px;
+  font-weight: bold;
+  width: auto;
+  height: 35px;
+  border: 0.5px solid $grasp-cyan;
+  border-radius: 30px;
+  padding-left: 14px;
+  padding-right: 14px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $black;
+    border: 0.5px solid $white;
+  }
+}
+
+
+
+
+.card {
+  margin: 0.5rem;
+  padding: 0.7rem;
+  text-align: center;
+  color: #0070f3;
+  background-color: #fafafa;
+  text-decoration: none;
+  border: 1px solid #0070f3;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  cursor: pointer;
+  background-color: #f1f1f1;
+}
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.flex-container>div {
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+
+#console {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  word-wrap: break-word;
+  font-size: 16px;
+  font-family: monospace;
+  text-align: left;
+}
+
+.hide-mobile {
+  display: inline;
+}
+.show-mobile {
+  display: none;
+}
+/* Mobile Styles */
+@include breakpoint($break-sm) {
+  .hide-mobile {
+    display: none;
+  }
+  .show-mobile {
+    display: inline;
+  }
+}
