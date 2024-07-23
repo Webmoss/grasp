@@ -1,7 +1,7 @@
 <template>
   <section id="content">
     <SidebarView />
-    <div class="settings">
+    <div class="page-layout">
       <div class="title-bar">
         <div class="row">
           <div class="title-name">

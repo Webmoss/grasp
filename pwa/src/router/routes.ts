@@ -111,15 +111,6 @@ const routes = [
     component: () => import("@/views/MyLessonView.vue"),
   },
   {
-    path: "/my-category/:type?/:name?",
-    name: "my-category",
-    meta: {
-      guest: true,
-      title: "Category",
-    },
-    component: () => import("@/views/MyCourseView.vue"),
-  },
-  {
     path: "/terms",
     name: "terms",
     meta: {

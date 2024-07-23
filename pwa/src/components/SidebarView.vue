@@ -25,16 +25,6 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'my-category' }" active-class="active" exact>
-          <span class="item">Categories</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'privacy' }" active-class="active" exact>
-          <span class="item">Privacy</span>
-        </router-link>
-      </li>
-      <li>
         <router-link :to="{ name: 'terms' }" active-class="active" exact>
           <span class="item">Terms</span>
         </router-link>

@@ -1,18 +1,18 @@
 <template>
   <section id="content">
     <SidebarView />
-    <div class="settings">
+    <div class="page-layout">
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
             <h1>Terms &amp; Conditions</h1>
           </div>
           <div class="title-actions">
-            <button class="back-button">Back</button>
-            <button class="create-button">Create</button>
+            <!-- <button class="back-button">Back</button> -->
+            <!-- <button class="create-button">Create</button> -->
           </div>
         </div>
-        <p>Update your account settings and details.</p>
+        <p>Terms &amp; Conditions of Usage</p>
       </div>
       <div class="row">
         <h2>More coming soon!!!</h2>

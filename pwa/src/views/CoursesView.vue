@@ -191,12 +191,12 @@ const testCourses = [
   },
 ];
 
-async function fetchCollections() {
+async function fetchCourses() {
   store.setCourses((testCourses as unknown) as courseObject[]);
 }
 
 onBeforeMount(async () => {
-  await fetchCollections();
+  await fetchCourses();
 });
 </script>
 

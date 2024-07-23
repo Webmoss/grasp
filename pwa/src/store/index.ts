@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { userObject } from 'src/models/user';
 import { courseObject } from "src/models/course";
+import { lessonObject } from "src/models/lesson";
 import { creatorObject } from "src/models/creator";
 import { filterObject } from 'src/models/filter';
 import { paginationObject } from 'src/models/pagination';
@@ -35,6 +36,8 @@ export const useStore = defineStore({
     pagination: <paginationObject>{},
     courses: [] as courseObject[],
     course: <courseObject>{},
+    lessons: [] as lessonObject[],
+    lesson: <lessonObject>{},
     creators: [] as creatorObject[],
     creator: <creatorObject>{},
   }),
@@ -105,11 +108,17 @@ export const useStore = defineStore({
     getCourses(state) {
       return state.courses;
     },
+    getLessons(state) {
+      return state.lessons;
+    },
     getCreators(state) {
       return state.creators;
     },
     getCourse(state) {
       return state.course;
+    },
+    getLesson(state) {
+      return state.lesson;
     },
     getCreator(state) {
       return state.creator;
@@ -223,11 +232,17 @@ export const useStore = defineStore({
     setCourses(courses: courseObject[]) {
       this.courses = courses;
     },
+    setLessons(lessons: lessonObject[]) {
+      this.lessons = lessons;
+    },
     setCreators(creators: creatorObject[]) {
       this.creators = creators;
     },
     setCourse(course: courseObject) {
       this.course = course;
+    },
+    setLesson(lesson: lessonObject) {
+      this.lesson = lesson;
     },
     setCreator(creator: creatorObject) {
       this.creator = creator;
