@@ -93,8 +93,26 @@ const routes = [
     component: () => import("@/views/MyCourseView.vue"),
   },
   {
-    path: "/category/:type?/:name?",
-    name: "category",
+    path: "/my-lessons",
+    name: "my-lessons",
+    meta: {
+      guest: true,
+      title: "Lessons",
+    },
+    component: () => import("@/views/MyLessonsView.vue"),
+  },
+  {
+    path: "/my-lesson/:name",
+    name: "my-lesson",
+    meta: {
+      guest: true,
+      title: "Lesson",
+    },
+    component: () => import("@/views/MyLessonView.vue"),
+  },
+  {
+    path: "/my-category/:type?/:name?",
+    name: "my-category",
     meta: {
       guest: true,
       title: "Category",

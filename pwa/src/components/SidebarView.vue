@@ -15,12 +15,17 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'courses' }" active-class="active" exact>
+        <router-link :to="{ name: 'my-courses' }" active-class="active" exact>
           <span class="item">Courses</span>
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'category' }" active-class="active" exact>
+        <router-link :to="{ name: 'my-lessons' }" active-class="active" exact>
+          <span class="item">Lessons</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'my-category' }" active-class="active" exact>
           <span class="item">Categories</span>
         </router-link>
       </li>

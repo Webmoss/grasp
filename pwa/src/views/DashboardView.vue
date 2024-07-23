@@ -14,6 +14,7 @@
         </div>
         <p>Update your account settings and details.</p>
       </div>
+
       <div class="row">
         <h2>More coming soon!!!</h2>
 
@@ -93,7 +94,7 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({
 
 const web3auth = new Web3Auth({
   clientId,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 });
 // IMP END - SDK Initialization
