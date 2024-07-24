@@ -192,7 +192,10 @@ section#content {
     margin: 0 5px 0 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
     color: $grasp-cyan;
     border: 2px solid $grasp-cyan;
   }
@@ -225,7 +228,10 @@ section#content {
     margin: 0 5px 0 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
     border: 2px solid $grasp-blue;
   }
 }
@@ -252,7 +258,9 @@ section#content {
   cursor: pointer;
 
   &:hover,
-  &:focus {
+  &:active,
+  &:focus,
+  &:focus-visible {
     color: $white;
     border: 0.5px solid $white;
   }

@@ -11,6 +11,7 @@ export interface courseObject {
   excerpt: string | null;
   description: string | null;
   price: number;
+  token: string;
   links: Array<string>;
   lessons: Array<lessonObject>;
   step: number;

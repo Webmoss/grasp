@@ -24,10 +24,21 @@
               <li>Step 2</li>
               <li>Step 3</li>
               <li>Step 4</li>
+              <li>Step 5</li>
             </ul>
           </div>
-          <div class="form-container">
+          <!-- Step 1 -->
+          <div v-if="step === 1" class="form-container">
             <h2>Create Course</h2>
+            <div class="input-row mb-10">
+              <label for="name">Type</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter a course type, eg. Article, Video, Quiz"
+                :value="course.type"
+              />
+            </div>
             <div class="input-row mb-10">
               <label for="name">Name</label>
               <input
@@ -38,12 +49,12 @@
               />
             </div>
             <div class="input-row mb-10">
-              <label for="name">Category</label>
-              <input
+              <label for="description">Excerpt</label>
+              <textarea
                 type="text"
-                name="name"
-                placeholder="Enter a category, eg. Web3"
-                :value="course.category"
+                name="excerpt"
+                placeholder="Enter a short excerpt"
+                :value="course.excerpt"
               />
             </div>
             <div class="input-row mb-10">
@@ -53,6 +64,94 @@
                 name="description"
                 placeholder="Enter a short description"
                 :value="course.description"
+              />
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div v-if="step === 2" class="form-container">
+            <h2>Upload Course Assets</h2>
+            <div class="input-row mb-10">
+              <label for="name">Banner</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Upload a banner for the course"
+                :value="course.banner"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Image</label>
+              <input
+                type="text"
+                name="image"
+                placeholder="Upload an image for the course"
+                :value="course.image"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="description">Social Links</label>
+              <textarea
+                type="text"
+                name="links"
+                placeholder="Add social links for the course"
+                :value="course.links"
+              />
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div v-if="step === 3" class="form-container">
+            <h2>Assign Categories</h2>
+            <div class="input-row mb-10">
+              <label for="name">Main Category</label>
+              <input
+                type="text"
+                name="category"
+                placeholder="Set the main category for the course"
+                :value="course.category"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Other Categories</label>
+              <input
+                type="text"
+                name="categories"
+                placeholder="Add additional categories"
+                :value="course.categories"
+              />
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div v-if="step === 4" class="form-container">
+            <h2>Add Lessons</h2>
+            <div class="input-row mb-10">
+              <label for="name">Lessons</label>
+              <input
+                type="text"
+                name="lessons"
+                placeholder="Add lessons to your course"
+                :value="course.lessons"
+              />
+            </div>
+          </div>
+          <!-- Step 5 -->
+          <div v-if="step === 5" class="form-container">
+            <h2>Set Price</h2>
+            <div class="input-row mb-10">
+              <label for="name">Price</label>
+              <input
+                type="text"
+                name="price"
+                placeholder="Enter a price for the full course"
+                :value="course.price"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Token</label>
+              <input
+                type="text"
+                name="token"
+                placeholder="Enter the token to charge for the course"
+                :value="course.token"
               />
             </div>
           </div>
@@ -68,8 +167,18 @@
               Cancel
             </button>
             <div class="button-container">
-              <button type="button" class="btn-blue" @click="CreateCourse()">Next</button>
-              <button type="button" class="btn-green" @click="CreateCourse()">
+              <button v-if="step > 1" type="button" class="cancel-blue" @click="goBack()">
+                Back
+              </button>
+              <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
+                Next
+              </button>
+              <button
+                v-if="step === 5"
+                type="button"
+                class="btn-blue"
+                @click="createCourse()"
+              >
                 Done
               </button>
             </div>
@@ -80,11 +189,13 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { reactive } from "vue";
+import { ref, reactive } from "vue";
 import { useStore } from "../../store";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
+
+const step = ref(1);
 
 const props = defineProps({
   showModal: {
@@ -110,6 +221,7 @@ const form: any = reactive({
   excerpt: undefined,
   description: undefined,
   price: undefined,
+  token: undefined,
   links: [],
   lessons: [],
   step: 0,
@@ -118,7 +230,7 @@ const form: any = reactive({
   updated_date: undefined,
 });
 
-const CreateCourse = async () => {
+const createCourse = async () => {
   console.log("Form", form);
   try {
     if (!form.value.name) {
@@ -127,8 +239,16 @@ const CreateCourse = async () => {
   } catch {
     console.log("An error has occurred!");
   } finally {
+    step.value = 1;
     emit("close");
   }
+};
+
+const goBack = () => {
+  step.value -= 1;
+};
+const nextStep = () => {
+  step.value += 1;
 };
 </script>
 
@@ -190,7 +310,7 @@ const CreateCourse = async () => {
   padding: 0;
 
   .form-sidebar {
-    width: 200px;
+    width: 180px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -232,12 +352,12 @@ const CreateCourse = async () => {
   }
 
   .form-container {
-    width: 700px;
+    width: 520px;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     align-content: center;
     padding: 0;
     z-index: 999;
@@ -249,11 +369,12 @@ const CreateCourse = async () => {
       font-weight: 800;
       font-size: 24px;
       line-height: 30px;
-      margin: 0 0 8px 0;
+      margin: 0 0 16px 0;
     }
 
     .input-row {
       width: 100%;
+      max-width: 500px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -265,9 +386,9 @@ const CreateCourse = async () => {
       color: $black;
       font-style: normal;
       font-weight: 800;
-      font-size: 16px;
-      line-height: 20px;
-      margin: 8px 0 2px 8px;
+      font-size: 15px;
+      line-height: 18px;
+      margin: 8px 0 8px 8px;
     }
 
     input {
@@ -281,7 +402,7 @@ const CreateCourse = async () => {
       font-size: 14px;
       line-height: 24px;
       margin-bottom: 5px;
-      padding: 2% 3%;
+      padding: 1% 2%;
       text-align: left;
     }
 
@@ -298,13 +419,13 @@ const CreateCourse = async () => {
     }
 
     input:focus {
-      border: 1px solid $grasp-cyan;
+      border: 1px solid $grasp-blue;
       outline: none;
     }
 
     textarea {
       width: 94%;
-      height: 60px;
+      height: 70px;
       color: $grasp-blue;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
@@ -313,7 +434,7 @@ const CreateCourse = async () => {
       font-size: 14px;
       line-height: 24px;
       margin-bottom: 5px;
-      padding: 2% 3%;
+      padding: 1% 2%;
       text-align: left;
       resize: none;
     }
@@ -324,7 +445,7 @@ const CreateCourse = async () => {
     }
 
     textarea:focus {
-      border: 1px solid $grasp-cyan;
+      border: 1px solid $grasp-blue;
       outline: none;
     }
 
@@ -367,7 +488,7 @@ const CreateCourse = async () => {
   padding: 30px 0 50px 0;
 
   .footer-container {
-    width: 900px;
+    width: 700px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -381,37 +502,44 @@ const CreateCourse = async () => {
 }
 
 .cancel-blue {
+  width: auto;
+  height: 40px;
+
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
   justify-content: center;
+
   color: $black;
   background-color: $white;
   font-size: 14px;
-  font-weight: bold;
-  width: auto;
-  height: 35px;
+  font-weight: 600;
+
   border: 2px solid $black;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 5px;
-  margin-right: 10px;
-  transition: 0.6s;
+  transition: all 0.5s linear;
   cursor: pointer;
 
   .icon-color {
     margin: 0 10px 0 0;
   }
 
-  &:hover {
-    color: $grasp-cyan;
-    border: 2px solid $grasp-cyan;
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $grasp-blue;
+    border: 2px solid $grasp-blue;
   }
 }
 
 .btn-blue {
+  width: auto;
+  height: 40px;
+
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -421,15 +549,12 @@ const CreateCourse = async () => {
   background-color: $grasp-blue;
   font-size: 14px;
   font-weight: bold;
-  width: auto;
-  height: 35px;
   border: 2px solid $grasp-blue;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 5px;
-  margin-right: 10px;
-  transition: 0.6s;
+  margin-left: 8px;
+  transition: all 0.5s linear;
   cursor: pointer;
 
   .icon-color {
@@ -443,6 +568,9 @@ const CreateCourse = async () => {
 }
 
 .btn-green {
+  width: auto;
+  height: 40px;
+
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -452,22 +580,23 @@ const CreateCourse = async () => {
   background-color: $grasp-cyan;
   font-size: 14px;
   font-weight: bold;
-  width: auto;
-  height: 35px;
+
   border: 2px solid $grasp-cyan;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 5px;
-  margin-right: 10px;
-  transition: 0.6s;
+  margin-left: 8px;
+  transition: all 0.5s linear;
   cursor: pointer;
 
   .icon-color {
     margin: 0 5px 0 0;
   }
 
-  &:hover {
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
     border: 2px solid $grasp-blue;
   }
 
