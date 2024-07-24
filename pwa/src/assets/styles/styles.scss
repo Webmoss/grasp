@@ -28,7 +28,7 @@ body,
 
 #app {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -126,7 +126,7 @@ section#content {
           flex-direction: row;
           align-content: center;
           align-items: center;
-          justify-content: space-between;          
+          justify-content: space-between;
         }
       }
     }
@@ -209,7 +209,7 @@ section#content {
   background-color: $grasp-cyan;
   font-size: 14px;
   font-weight: 600;
-  
+
   width: auto;
   height: 35px;
   border: 2px solid $grasp-cyan;
@@ -220,7 +220,7 @@ section#content {
   margin-right: 10px;
   transition: 0.6s;
   cursor: pointer;
-  
+
   .icon-color {
     margin: 0 5px 0 0;
   }

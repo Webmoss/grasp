@@ -4,7 +4,7 @@
       <CourseHeader :course="course" />
       <section id="page">
         <div class="course-details-row">
-          <h1 class="course-title">Course {{ course.title ? course.title : "TEST" }}</h1>
+          <h1 class="course-title">Course {{ course.title ? course.title : "" }}</h1>
           <div class="button-column">
             <BuyButton
               :btn-size="'large'"
@@ -18,7 +18,7 @@
         <div class="course-details-row">
           <div class="course-date">
             <span class="course-date-label">Date:</span>
-            {{ course.created_date ? course.created_date : "01/06/2024" }}
+            {{ course.created_date ? course.created_date : "" }}
           </div>
         </div>
 
@@ -26,7 +26,7 @@
           {{
             course.excerpt
               ? course.excerpt
-              : "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas."
+              : ""
           }}
         </div>
 
@@ -34,7 +34,7 @@
           {{
             course.description
               ? course.description
-              : "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile."
+              : ""
           }}
         </div>
 
@@ -92,19 +92,24 @@ const store = useStore();
 
 const course = ref({
   id: 1,
-  name: "introduction",
   type: "article",
   category: "EduChain",
+  categories: ['Front-end', 'Development', 'Web3'],
+  name: "introduction",
+  banner: "Grasp-Banner.png",
+  image: "Grasp-Icon.png",
   title: "Introduction",
   excerpt:
     "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
   description:
     "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-  banner: "Grasp-Banner.png",
-  image: "Grasp-Icon.png",
-  created_date: "30/03/2023",
-  updated_at: "",
   price: 10,
+  links: [],
+  lessons: [],
+  step: 0,
+  isLive: true,
+  created_date: "30/03/2024",
+  updated_date: "01/07/2024",
 });
 </script>
 

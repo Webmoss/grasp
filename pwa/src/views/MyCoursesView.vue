@@ -2,20 +2,19 @@
   <section id="content">
     <SidebarView />
     <div class="page-layout">
-
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
             <h1>My Courses</h1>
           </div>
           <div class="title-actions">
-            <button class="create-button">Create Course</button>
+            <button class="create-button" @click="showHideModal()">Create Course</button>
             <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
         <p>Create new course or view a list of all your courses.</p>
       </div>
-      
+
       <div class="main">
         <CourseSearch />
         <CoursesList :courses="courses" />
@@ -26,6 +25,7 @@
         />
       </div>
     </div>
+    <CourseModal :showModal="showModal" :course="{}" @close="showHideModal" />
   </section>
 </template>
 
@@ -35,14 +35,16 @@ import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { courseObject } from "src/models/course";
-import SidebarView from "@/components/SidebarView.vue";
+import SidebarView from "../components/SidebarView.vue";
 import CourseSearch from "../components/CoursesComponents/CourseSearch.vue";
 import CoursesList from "../components/CoursesComponents/CoursesList.vue";
 import CoursesPagination from "../components/CoursesComponents/CoursesPagination.vue";
+import CourseModal from "../components/CoursesComponents/CourseModal.vue";
 
 const store = useStore();
 const { courses, pagination } = storeToRefs(store);
 
+const showModal = ref(false);
 const coursesTotal = ref(0);
 const lastPage = ref(0);
 
@@ -54,8 +56,7 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
+    description: "",
     banner: "",
     image: "",
     created_date: "30/03/2023",
@@ -67,7 +68,8 @@ const testCourses = [
     type: "article",
     category: "educhain",
     title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
     description:
       "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
@@ -132,8 +134,7 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
+    description: "",
     banner: "",
     image: "",
     created_date: "30/03/2023",
@@ -145,7 +146,8 @@ const testCourses = [
     type: "article",
     category: "educhain",
     title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
     description:
       "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
@@ -245,6 +247,10 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
 
 async function fetchCourses() {
   store.setCourses((testCourses as unknown) as courseObject[]);
