@@ -5,6 +5,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
+
   // IMP START - Bundler Issues
   configureWebpack: (config) => {
     config.devtool = "source-map";
@@ -28,6 +29,7 @@ module.exports = defineConfig({
       })
     );
   },
+
   chainWebpack: (config) => {
     config.plugin('define').tap((definitions) => {
       Object.assign(definitions[0], {
@@ -38,5 +40,7 @@ module.exports = defineConfig({
       return definitions
     })
   },
+
   crossorigin: "anonymous",
+  assetsDir: 'src/assets/'
 });

@@ -71,21 +71,18 @@ const { loggedIn } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 
-// IMP START - SDK Initialization
-// IMP START - Dashboard Registration
-const clientId =
-  "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
-// IMP END - Dashboard Registration
+const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
+  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
+console.log("clientId", clientId);
 
-const chainConfig = {
-  chainId: "0x1", // Please use 0x1 for Mainnet
-  rpcTarget: "https://rpc.ankr.com/eth",
+const  chainConfig = {
+  chainId: "0xA045C",// Cahin Id 656476 in hex
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  displayName: "Ethereum Mainnet",
-  blockExplorerUrl: "https://etherscan.io/",
-  ticker: "ETH",
-  tickerName: "Ethereum",
-  logo: "https://images.toruswallet.io/eth.svg",
+  rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+  displayName: "Open Campus Codex",
+  blockExplorer: "https://opencampus-codex.blockscout.com/",
+  ticker: "EDU",
+  tickerName: "EDU",
 };
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({
@@ -141,18 +138,18 @@ const NotfyProvider = new Notyf({
 provide("notyf", NotfyProvider);
 
 onMounted(async () => {
-  // const init = async () => {
-  //   try {
-  //     await web3auth.initModal();
-  //     provider = web3auth.provider;
-  //     if (web3auth.connected) {
-  //       loggedIn.value = true;
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  // init();
+  const init = async () => {
+    try {
+      // await web3auth.initModal();
+      provider = web3auth.provider;
+      // if (web3auth.connected) {
+      //   loggedIn.value = true;
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  init();
 });
 
 // const login = async () => {

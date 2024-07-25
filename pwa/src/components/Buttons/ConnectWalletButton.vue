@@ -43,9 +43,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import { useStore } from "../store";
+import { useStore } from "../../store";
 import { userObject } from "src/models/user";
 import { useRouter } from "vue-router";
 import { Web3Auth } from "@web3auth/modal";
@@ -65,23 +65,29 @@ const store = useStore();
 const { account, loggedIn } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
-// const loggedIn = ref<boolean>(false);
 
-// IMP START - SDK Initialization
-// IMP START - Dashboard Registration
-const clientId =
-  "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
-// IMP END - Dashboard Registration
+const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
+  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
+console.log("clientId", clientId);
 
-const chainConfig = {
-  chainId: "0x1", // Please use 0x1 for Mainnet
-  rpcTarget: "https://rpc.ankr.com/eth",
+// const chainConfig = {
+//   chainId: "0x1", // Please use 0x1 for Mainnet
+//   rpcTarget: "https://rpc.ankr.com/eth",
+//   chainNamespace: CHAIN_NAMESPACES.EIP155,
+//   displayName: "Ethereum Mainnet",
+//   blockExplorerUrl: "https://etherscan.io/",
+//   ticker: "ETH",
+//   tickerName: "Ethereum",
+//   logo: "https://images.toruswallet.io/eth.svg",
+// };
+const  chainConfig = {
+  chainId: "0xA045C",// Cahin Id 656476 in hex
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  displayName: "Ethereum Mainnet",
-  blockExplorerUrl: "https://etherscan.io/",
-  ticker: "ETH",
-  tickerName: "Ethereum",
-  logo: "https://images.toruswallet.io/eth.svg",
+  rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+  displayName: "Open Campus Codex",
+  blockExplorer: "https://opencampus-codex.blockscout.com/",
+  ticker: "EDU",
+  tickerName: "EDU",
 };
 
 const privateKeyProvider = new EthereumPrivateKeyProvider({
@@ -127,11 +133,14 @@ const getBalance = async () => {
   const web3 = new Web3(provider as any);
   /* Get user's Ethereum public address */
   const address = (await web3.eth.getAccounts())[0];
+  store.setAccount(address);
+
   /* Get user's balance in ether */
   const balance = web3.utils.fromWei(
     await web3.eth.getBalance(address), // Balance is in wei
     "ether"
   );
+
   store.setBalance(balance);
   uiConsole(balance);
 };
@@ -140,6 +149,7 @@ const logout = async () => {
   await web3auth.logout();
   provider = null;
   store.setLoggedIn(false);
+
   router.push({ name: "home" });
   // uiConsole("Logged out");
 };
@@ -151,6 +161,7 @@ const getAccounts = async () => {
     return;
   }
   const web3 = new Web3(provider as any);
+
   // Get user's Ethereum public address
   const address = await web3.eth.getAccounts();
   uiConsole(address);
@@ -199,13 +210,13 @@ onMounted(async () => {
       console.error(error);
     }
   };
-
   init();
 });
 </script>
+
 <style lang="scss" scoped>
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
+@import "../../assets/styles/variables.scss";
+@import "../../assets/styles/mixins.scss";
 
 .connect-wallet-container {
   display: flex;

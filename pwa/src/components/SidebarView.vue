@@ -2,9 +2,12 @@
   <div class="sidebar">
     <div class="profile">
       <img
-        :src="user?.profileImage ? user.profileImage : 'Grasp-Icon.png'"
-        :alt="user.name ? user.name : 'Grasp Academy'"
+        v-if="user.profileImage"
+        :src="user.profileImage"
+        :alt="user.name ? user.name : ''"
       />
+      <img v-else src="Grasp-Icon.png" alt="Grasp Academy" />
+      <h3>{{ user.name }}</h3>
       <h3>{{ balance }}</h3>
       <code class="account-address">{{ account }}</code>
     </div>
@@ -22,6 +25,11 @@
       <li>
         <router-link :to="{ name: 'my-lessons' }" active-class="active" exact>
           <span class="item">Lessons</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'my-pnfts' }" active-class="active" exact>
+          <span class="item">NFTS</span>
         </router-link>
       </li>
       <li>
@@ -77,9 +85,9 @@ const { account, balance, user } = storeToRefs(store);
     }
 
     .account-address {
-      width: 70px;
+      width: 100%;
       color: $white;
-      font-size: 14px;
+      font-size: 6px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

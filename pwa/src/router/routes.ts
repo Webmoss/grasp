@@ -57,15 +57,6 @@ const routes = [
     component: () => import("@/views/CourseView.vue"),
   },
   {
-    path: "/login",
-    name: "login",
-    meta: {
-      guest: true,
-      title: "Login",
-    },
-    component: () => import("@/views/LoginView.vue"),
-  },
-  {
     path: "/dashboard",
     name: "dashboard",
     meta: {
@@ -107,6 +98,24 @@ const routes = [
     meta: {
       guest: true,
       title: "Lesson",
+    },
+    component: () => import("@/views/MyLessonView.vue"),
+  },
+  {
+    path: "/my-pnfts",
+    name: "my-pnfts",
+    meta: {
+      guest: true,
+      title: "Publisher NFTs",
+    },
+    component: () => import("@/views/MyLessonsView.vue"),
+  },
+  {
+    path: "/my-pnft/:id",
+    name: "my-pnft",
+    meta: {
+      guest: true,
+      title: "Publisher NFT",
     },
     component: () => import("@/views/MyLessonView.vue"),
   },

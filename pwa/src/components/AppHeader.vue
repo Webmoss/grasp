@@ -88,7 +88,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import ConnectWalletButton from "../components/ConnectWalletButton.vue";
+import ConnectWalletButton from "../components/Buttons/ConnectWalletButton.vue";
 
 const route = useRoute();
 
@@ -266,7 +266,7 @@ function navigateAndScroll(to: any) {
         }
       }
 
-     
+
 
       @include breakpoint($break-sm) {
         > a {
