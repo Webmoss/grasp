@@ -2,6 +2,7 @@
   <section id="content">
     <SidebarView />
     <div class="page-layout">
+
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
@@ -17,14 +18,11 @@
 
       <div class="row">
         <h2>More coming soon!!!</h2>
+      </div>
 
+      <div class="row">
         <div v-if="loggedIn">
           <div class="flex-container">
-            <div>
-              <button class="card" @click="getUserInfo" style="cursor: pointer">
-                Get User Info
-              </button>
-            </div>
             <div>
               <button class="card" @click="getAccounts" style="cursor: pointer">
                 Get Accounts
@@ -40,14 +38,7 @@
                 Sign Message
               </button>
             </div>
-            <!-- <div>
-              <button class="card" @click="logout" style="cursor: pointer">Logout</button>
-            </div> -->
           </div>
-        </div>
-
-        <div id="console" style="white-space: pre-line">
-          <p style="white-space: pre-line"></p>
         </div>
       </div>
     </div>
@@ -57,6 +48,7 @@
 import { provide, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
+import { userObject } from "src/models/user";
 import { Notyf } from "notyf";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
@@ -71,8 +63,10 @@ const { loggedIn } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 
+/* Get from https://dashboard.web3auth.io */
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
-  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
+  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
+
 console.log("clientId", clientId);
 
 const  chainConfig = {
@@ -84,17 +78,14 @@ const  chainConfig = {
   ticker: "EDU",
   tickerName: "EDU",
 };
-
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig: chainConfig },
 });
-
 const web3auth = new Web3Auth({
   clientId,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 });
-// IMP END - SDK Initialization
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -137,80 +128,42 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-onMounted(async () => {
-  const init = async () => {
-    try {
-      // await web3auth.initModal();
-      provider = web3auth.provider;
-      // if (web3auth.connected) {
-      //   loggedIn.value = true;
-      // }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  init();
-});
-
-// const login = async () => {
-//   // IMP START - Login
-//   provider = await web3auth.connect();
-//   // IMP END - Login
-//   if (web3auth.connected) {
-//     loggedIn.value = true;
-//   }
-// };
-
 const getUserInfo = async () => {
-  // IMP START - Get User Information
   const user = await web3auth.getUserInfo();
-  // IMP END - Get User Information
-  uiConsole(user);
+  store.setUser(user as userObject);
 };
 
-const logout = async () => {
-  // IMP START - Logout
-  await web3auth.logout();
-  // IMP END - Logout
-  provider = null;
-  loggedIn.value = false;
-  uiConsole("logged out");
-};
-
-// IMP START - Blockchain Calls
 const getAccounts = async () => {
   if (!provider) {
-    uiConsole("provider not initialized yet");
+    NotfyProvider.error("Provider not initialized yet!");
     return;
   }
   const web3 = new Web3(provider as any);
-
-  // Get user's Ethereum public address
+  /* Get user's public address */
   const address = await web3.eth.getAccounts();
-  uiConsole(address);
+  // store.setAccount(address);
+  // uiConsole(address);
 };
 
 const getBalance = async () => {
   if (!provider) {
-    uiConsole("provider not initialized yet");
+    NotfyProvider.error("Provider not initialized yet!");
     return;
   }
   const web3 = new Web3(provider as any);
-
-  // Get user's Ethereum public address
   const address = (await web3.eth.getAccounts())[0];
 
-  // Get user's balance in ether
+  /* Get user's balance in EDU Token */
   const balance = web3.utils.fromWei(
     await web3.eth.getBalance(address), // Balance is in wei
     "ether"
   );
-  uiConsole(balance);
+  store.setBalance(balance);
 };
 
 const signMessage = async () => {
   if (!provider) {
-    uiConsole("provider not initialized yet");
+    NotfyProvider.error("Provider not initialized yet!");
     return;
   }
   const web3 = new Web3(provider as any);
@@ -226,17 +179,27 @@ const signMessage = async () => {
     fromAddress,
     "test password!" // configure your own password here.
   );
-  uiConsole(signedMessage);
+  NotfyProvider.success(`"Message signed:" ${signedMessage}`);
 };
-// IMP END - Blockchain Calls
 
-function uiConsole(...args: any[]): void {
-  const el = document.querySelector("#console>p");
-  if (el) {
-    el.innerHTML = JSON.stringify(args || {}, null, 2);
-  }
-  console.log(...args);
-}
+onMounted(async () => {
+  const init = async () => {
+    try {
+      // await web3auth.initModal();
+      provider = web3auth.provider;
+
+      if (web3auth.connected) {
+        loggedIn.value = true;
+        store.setLoggedIn(true);
+        getUserInfo();
+        getBalance();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  init();
+});
 </script>
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";

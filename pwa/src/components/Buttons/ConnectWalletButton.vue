@@ -21,15 +21,6 @@
       Dashboard
     </button>
     <button
-      v-if="loggedIn && $route.name !== 'home'"
-      @click="$router.push('/')"
-      :class="
-        btnSize === 'large' ? 'profile-wallet-button' : 'profile-wallet-small-button'
-      "
-    >
-      Home
-    </button>
-    <button
       v-if="loggedIn"
       @click="logout()"
       :class="
@@ -43,14 +34,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { provide, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "../../store";
 import { userObject } from "src/models/user";
 import { useRouter } from "vue-router";
 import { Web3Auth } from "@web3auth/modal";
+import { Notyf } from "notyf";
 import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 import Web3 from "web3";
 
 defineProps({
@@ -62,26 +55,39 @@ defineProps({
 
 const router = useRouter();
 const store = useStore();
-const { account, loggedIn } = storeToRefs(store);
+const { loggedIn } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 
+/* Get from https://dashboard.web3auth.io */
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
-  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA"; // get from https://dashboard.web3auth.io
-console.log("clientId", clientId);
 
-// const chainConfig = {
-//   chainId: "0x1", // Please use 0x1 for Mainnet
-//   rpcTarget: "https://rpc.ankr.com/eth",
-//   chainNamespace: CHAIN_NAMESPACES.EIP155,
-//   displayName: "Ethereum Mainnet",
-//   blockExplorerUrl: "https://etherscan.io/",
-//   ticker: "ETH",
-//   tickerName: "Ethereum",
-//   logo: "https://images.toruswallet.io/eth.svg",
-// };
+const metamaskAdapter = new MetamaskAdapter({
+  clientId,
+  sessionTime: 3600, // 1 hour in seconds
+  web3AuthNetwork: "sapphire_devnet",
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "0xA045C",
+    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+  },
+});
+
+/* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
+metamaskAdapter.setAdapterSettings({
+  sessionTime: 86400, // 1 day in seconds
+  chainConfig: {
+    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainId: "0xA045C",
+    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+  },
+  web3AuthNetwork: "sapphire_devnet",
+});
+
 const  chainConfig = {
-  chainId: "0xA045C",// Cahin Id 656476 in hex
+  chainId: "0xA045C", // Cahin Id 656476 in hex
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
   displayName: "Open Campus Codex",
@@ -89,17 +95,55 @@ const  chainConfig = {
   ticker: "EDU",
   tickerName: "EDU",
 };
-
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig: chainConfig },
 });
-
 const web3auth = new Web3Auth({
   clientId,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 });
-// IMP END - SDK Initialization
+
+const NotfyProvider = new Notyf({
+  duration: 2000,
+  position: {
+    x: "center",
+    y: "bottom",
+  },
+  types: [
+    {
+      type: "loading",
+      background: "orange",
+      duration: 0,
+      dismissible: true,
+      icon: {
+        className: "icon icon-loading",
+        tagName: "i",
+      },
+    },
+    {
+      type: "success",
+      background: "green",
+      duration: 20000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-success",
+        tagName: "i",
+      },
+    },
+    {
+      type: "error",
+      background: "indianred",
+      duration: 10000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-error",
+        tagName: "i",
+      },
+    },
+  ],
+});
+provide("notyf", NotfyProvider);
 
 async function connect() {
   store.setLoading(true);
@@ -109,7 +153,6 @@ async function connect() {
       store.setLoggedIn(true);
       getUserInfo();
       getBalance();
-      store.setLoading(false);
       router.push({ name: "dashboard" });
     }
     store.setLoading(false);
@@ -122,72 +165,31 @@ async function connect() {
 const getUserInfo = async () => {
   const user = await web3auth.getUserInfo();
   store.setUser(user as userObject);
-  uiConsole(user);
 };
 
 const getBalance = async () => {
   if (!provider) {
-    uiConsole("Provider not initialized yet");
+    NotfyProvider.error("Provider not initialized yet!");
     return;
   }
   const web3 = new Web3(provider as any);
-  /* Get user's Ethereum public address */
   const address = (await web3.eth.getAccounts())[0];
   store.setAccount(address);
 
-  /* Get user's balance in ether */
+  /* Get user's balance in EDU Token */
   const balance = web3.utils.fromWei(
-    await web3.eth.getBalance(address), // Balance is in wei
+    await web3.eth.getBalance(address),
     "ether"
   );
-
   store.setBalance(balance);
-  uiConsole(balance);
 };
 
 const logout = async () => {
   await web3auth.logout();
   provider = null;
   store.setLoggedIn(false);
-
   router.push({ name: "home" });
-  // uiConsole("Logged out");
 };
-
-// IMP START - Blockchain Calls
-const getAccounts = async () => {
-  if (!provider) {
-    uiConsole("Provider not initialized yet");
-    return;
-  }
-  const web3 = new Web3(provider as any);
-
-  // Get user's Ethereum public address
-  const address = await web3.eth.getAccounts();
-  uiConsole(address);
-};
-
-const signMessage = async () => {
-  if (!provider) {
-    uiConsole("provider not initialized yet");
-    return;
-  }
-  const web3 = new Web3(provider as any);
-
-  // Get user's Ethereum public address
-  const fromAddress = (await web3.eth.getAccounts())[0];
-
-  const originalMessage = "YOUR_MESSAGE";
-
-  // Sign the message
-  const signedMessage = await web3.eth.personal.sign(
-    originalMessage,
-    fromAddress,
-    "test password!" // configure your own password here.
-  );
-  uiConsole(signedMessage);
-};
-// IMP END - Blockchain Calls
 
 function uiConsole(...args: any[]): void {
   const el = document.querySelector("#console>p");
@@ -200,6 +202,8 @@ function uiConsole(...args: any[]): void {
 onMounted(async () => {
   const init = async () => {
     try {
+      // it will add/update  the metamask adapter in to web3auth class
+      web3auth.configureAdapter(metamaskAdapter);
       await web3auth.initModal();
       provider = web3auth.provider;
 
@@ -223,18 +227,15 @@ onMounted(async () => {
   flex-direction: row;
   margin: 0;
   max-width: 550px;
-  img {
-    padding-bottom: 20px;
-  }
 }
 
 .connect-wallet-button {
+  width: auto;
+  height: 55px;
   color: $white;
   background-color: $grasp-blue;
   font-size: 18px;
   font-weight: bold;
-  width: auto;
-  height: 55px;
   border: 1px solid $white;
   border-radius: 30px;
   padding-left: 60px;
@@ -248,18 +249,18 @@ onMounted(async () => {
 }
 
 .connect-wallet-small-button {
-  color: $white;
-  background-color: $grasp-blue;
-  font-size: 15px;
-  font-weight: bold;
   width: auto;
   height: 35px;
+  color: $white;
+  background-color: $grasp-blue;
+  font-size: 16px;
+  font-weight: 600;
   border: 1px solid $white;
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 10px;
-  transition: 0.6s;
+  margin-right: 15px;
+  transition: all 0.5s linear;
   cursor: pointer;
 
   &:hover {
@@ -285,9 +286,6 @@ onMounted(async () => {
     color: $white;
     border: 1px solid $white;
   }
-  svg {
-    margin-bottom: -3px;
-  }
 }
 
 .profile-wallet-small-button {
@@ -308,10 +306,6 @@ onMounted(async () => {
   &:hover {
     color: $white;
     border: 1px solid $white;
-  }
-
-  svg {
-    margin-bottom: -3px;
   }
 }
 </style>
