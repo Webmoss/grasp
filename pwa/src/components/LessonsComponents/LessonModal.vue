@@ -23,7 +23,7 @@
               <li>
                 <img v-if="step >= 1" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" />
-                Course Details
+                Lesson Details
               </li>
               <li>
                 <img v-if="step >= 2" src="../../assets/svgs/Check.svg" height="20" />
@@ -49,14 +49,14 @@
           </div>
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
-            <h2>Course Details</h2>
+            <h2>Lesson Details</h2>
             <div class="input-row mb-10">
               <label for="name">Type</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a course type, eg. Article, Video, Quiz"
-                :value="course.type"
+                placeholder="Enter a lesson type, eg. Article, Video, Quiz"
+                :value="lesson.type"
               />
             </div>
             <div class="input-row mb-10">
@@ -64,8 +64,8 @@
               <input
                 type="text"
                 name="title"
-                placeholder="Enter a title,eg. My Course"
-                :value="course.title"
+                placeholder="Enter a title,eg. My Lesson"
+                :value="lesson.title"
               />
             </div>
             <div class="input-row mb-10">
@@ -74,7 +74,7 @@
                 type="text"
                 name="excerpt"
                 placeholder="Enter a short excerpt"
-                :value="course.excerpt"
+                :value="lesson.excerpt"
               />
             </div>
             <div class="input-row mb-10">
@@ -83,7 +83,7 @@
                 type="text"
                 name="description"
                 placeholder="Enter a long description"
-                :value="course.description"
+                :value="lesson.description"
               />
             </div>
           </div>
@@ -95,8 +95,8 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Upload a banner for the course"
-                :value="course.banner"
+                placeholder="Upload a banner for the lesson"
+                :value="lesson.banner"
               />
             </div>
             <div class="input-row mb-10">
@@ -104,8 +104,8 @@
               <input
                 type="text"
                 name="image"
-                placeholder="Upload an image for the course"
-                :value="course.image"
+                placeholder="Upload an image for the lesson"
+                :value="lesson.image"
               />
             </div>
             <div class="input-row mb-10">
@@ -113,8 +113,8 @@
               <textarea
                 type="text"
                 name="links"
-                placeholder="Add social links for the course"
-                :value="course.links"
+                placeholder="Add social links for the lesson"
+                :value="lesson.links"
               />
             </div>
           </div>
@@ -126,8 +126,8 @@
               <input
                 type="text"
                 name="category"
-                placeholder="Set the main category for the course"
-                :value="course.category"
+                placeholder="Set the main category for the lesson"
+                :value="lesson.category"
               />
             </div>
             <div class="input-row mb-10">
@@ -136,7 +136,7 @@
                 type="text"
                 name="categories"
                 placeholder="Add additional categories"
-                :value="course.categories"
+                :value="lesson.categories"
               />
             </div>
           </div>
@@ -148,8 +148,8 @@
               <input
                 type="text"
                 name="lessons"
-                placeholder="Add lessons to your course"
-                :value="course.lessons"
+                placeholder="Add lessons to your lesson"
+                :value="lesson.lessons"
               />
             </div>
           </div>
@@ -161,8 +161,8 @@
               <input
                 type="text"
                 name="price"
-                placeholder="Enter a price for the full course"
-                :value="course.price"
+                placeholder="Enter a price for the full lesson"
+                :value="lesson.price"
               />
             </div>
             <div class="input-row mb-10">
@@ -170,8 +170,8 @@
               <input
                 type="text"
                 name="token"
-                placeholder="Enter the token to charge for the course"
-                :value="course.token"
+                placeholder="Enter the token to charge for the lesson"
+                :value="lesson.token"
               />
             </div>
           </div>
@@ -197,7 +197,7 @@
                 v-if="step === 5"
                 type="button"
                 class="btn-blue"
-                @click="createCourse()"
+                @click="createLesson()"
               >
                 Done
               </button>
@@ -222,7 +222,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  course: {
+  lesson: {
     type: Object,
     default: {},
     required: false,
@@ -249,11 +249,11 @@ const form: any = reactive({
   updated_date: undefined,
 });
 
-const createCourse = async () => {
+const createLesson = async () => {
   console.log("Form", form);
   try {
     if (!form.value.name) {
-      // await store.createCourse(form);
+      // await store.createLesson(form);
     }
   } catch {
     console.log("An error has occurred!");

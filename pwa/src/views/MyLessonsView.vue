@@ -8,7 +8,7 @@
             <h1>My Lessons</h1>
           </div>
           <div class="title-actions">
-            <button class="create-button">Create Lesson</button>
+            <button class="create-button" @click="showHideModal()">Create Lesson</button>
             <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
@@ -24,6 +24,7 @@
         />
       </div>
     </div>
+    <LessonModal :showModal="showModal" :lesson="{}" @close="showHideModal" />
   </section>
 </template>
 
@@ -37,10 +38,12 @@ import SidebarView from "@/components/SidebarView.vue";
 import LessonSearch from "../components/LessonsComponents/LessonSearch.vue";
 import LessonsList from "../components/LessonsComponents/LessonsList.vue";
 import LessonsPagination from "../components/LessonsComponents/LessonsPagination.vue";
+import LessonModal from "../components/LessonsComponents/LessonModal.vue";
 
 const store = useStore();
 const { lessons, pagination } = storeToRefs(store);
 
+const showModal = ref(false);
 const lessonsTotal = ref(0);
 const lastPage = ref(0);
 
@@ -246,6 +249,10 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
+
 async function fetchLessons() {
   store.setLessons((testLessons as unknown) as lessonObject[]);
 }
@@ -254,8 +261,3 @@ onBeforeMount(async () => {
   await fetchLessons();
 });
 </script>
-
-<style lang="scss" scoped>
-@import "../assets/styles/variables.scss";
-@import "../assets/styles/mixins.scss";
-</style>
