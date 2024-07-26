@@ -9,8 +9,13 @@
             <h1>Dashboard</h1>
           </div>
           <div class="title-actions">
-            <button class="back-button">Back</button>
-            <button class="create-button">Create</button>
+
+            <div class="my-wallet">
+
+              <img src="../assets/svgs/EduCoin.svg" /><span class=""> {{ balance ? balance : "0.00" }}</span>
+              <button class="refresh-button"><img src="../assets/svgs/Refresh.svg" /></button>
+            </div>
+            <div class=""><code class="account-address">{{ account }}</code></div>
           </div>
         </div>
         <p>Update your account settings and details.</p>
@@ -59,15 +64,13 @@ import Web3 from "web3";
 import SidebarView from "@/components/SidebarView.vue";
 
 const store = useStore();
-const { loggedIn } = storeToRefs(store);
+const { loggedIn, account, balance, user } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 
 /* Get from https://dashboard.web3auth.io */
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
-  // "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
-
-console.log("clientId", clientId);
+// console.log("clientId", clientId);
 
 const  chainConfig = {
   chainId: "0xA045C",// Cahin Id 656476 in hex
@@ -204,4 +207,54 @@ onMounted(async () => {
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
+.my-wallet {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: $black;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid $grasp-blue;
+  border-radius: 30px;
+  padding: 4px 0;
+  transition: all 0.5s linear;
+
+  img,
+  svg {
+    width: 22px;
+    background: transparent;
+    object-fit: contain;
+    overflow: hidden;
+    margin-right: 8px;
+    margin-left: 4px;
+    margin-bottom: -1px;
+  }
+
+  .refresh-button {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    color: $grasp-blue;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 0;
+    margin-left: 8px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+}
+.account-address {
+  width: 100%;
+  color: $black;
+  font-size: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>

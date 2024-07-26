@@ -8,8 +8,6 @@
       />
       <img v-else src="Grasp-Icon.png" alt="Grasp Academy" />
       <h3>{{ user.name }}</h3>
-      <h3>{{ balance }}</h3>
-      <code class="account-address">{{ account }}</code>
     </div>
     <ul>
       <li>
@@ -46,7 +44,7 @@ import { storeToRefs } from "pinia";
 import { useStore } from "../store";
 
 const store = useStore();
-const { account, balance, user } = storeToRefs(store);
+const { user } = storeToRefs(store);
 </script>
 <style lang="scss">
 @import "../assets/styles/variables.scss";
@@ -68,6 +66,11 @@ const { account, balance, user } = storeToRefs(store);
 
   .profile {
     width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 
     img {
@@ -82,15 +85,6 @@ const { account, balance, user } = storeToRefs(store);
       font-size: 16px;
       margin: 0 0 5px 0;
       text-align: left;
-    }
-
-    .account-address {
-      width: 100%;
-      color: $white;
-      font-size: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 

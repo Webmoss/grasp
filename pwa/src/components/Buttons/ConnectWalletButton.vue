@@ -60,7 +60,9 @@ const { loggedIn } = storeToRefs(store);
 let provider = <IProvider | null>null;
 
 /* Get from https://dashboard.web3auth.io */
-const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID ? process.env.VUE_APP_WEB3AUTH_CLIENTID : '';
+const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
+  ? process.env.VUE_APP_WEB3AUTH_CLIENTID
+  : "";
 
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
@@ -86,7 +88,7 @@ metamaskAdapter.setAdapterSettings({
   web3AuthNetwork: "sapphire_devnet",
 });
 
-const  chainConfig = {
+const chainConfig = {
   chainId: "0xA045C", // Cahin Id 656476 in hex
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
@@ -177,10 +179,7 @@ const getBalance = async () => {
   store.setAccount(address);
 
   /* Get user's balance in EDU Token */
-  const balance = web3.utils.fromWei(
-    await web3.eth.getBalance(address),
-    "ether"
-  );
+  const balance = web3.utils.fromWei(await web3.eth.getBalance(address), "ether");
   store.setBalance(balance);
 };
 
