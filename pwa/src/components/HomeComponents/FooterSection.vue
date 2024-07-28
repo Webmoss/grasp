@@ -2,7 +2,7 @@
   <section id="footer">
     <div class="footer-menu">
       <nav class="footer-navbar">
-        <a href="#" alt="Open Campus Hackathon" target="_blank" rel="noopener"
+        <a href="https://dorahacks.io/buidl/14231" alt="Open Campus Hackathon" target="_blank" rel="noopener"
           >showcase</a
         >
         <a

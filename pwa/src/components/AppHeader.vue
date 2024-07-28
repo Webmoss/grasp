@@ -6,33 +6,12 @@
         ><h1>Grasp</h1>
       </router-link>
       <div class="mobile-connect">
-        <ConnectWalletButton btnSize="small" />
+        <ConnectButton btnSize="small" />
       </div>
     </div>
     <div class="header-menu">
       <nav class="header-navbar">
         <div class="menu-button-row">
-          <!-- <router-link
-            :to="{ name: 'home' }"
-            class-active="active"
-            class="link-button"
-            exact
-            >Home</router-link
-          >
-          <router-link
-            :to="{ name: 'courses' }"
-            class-active="active"
-            class="link-button"
-            exact
-            >Courses</router-link
-          >
-          <router-link
-            :to="{ path: '/#goplus' }"
-            class-active="active"
-            class="link-button"
-            exact
-            >Plus</router-link
-          > -->
           <ul>
             <li
               v-if="homeLinks"
@@ -79,7 +58,7 @@
           </ul>
         </div>
         <div class="right">
-          <ConnectWalletButton btnSize="small" />
+          <ConnectButton btnSize="small" />
         </div>
       </nav>
     </div>
@@ -88,7 +67,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import ConnectWalletButton from "../components/Buttons/ConnectWalletButton.vue";
+import ConnectButton from "../components/Buttons/ConnectButton.vue";
 
 const route = useRoute();
 
@@ -202,7 +181,7 @@ function navigateAndScroll(to: any) {
     }
 
     nav {
-      width: 65%;
+      width: 80%;
       display: flex;
       flex-direction: row;
       align-content: flex-end;
@@ -245,7 +224,8 @@ function navigateAndScroll(to: any) {
           font-family: "Poppins", sans-serif;
           color: $white !important;
           font-size: 17px !important;
-          margin-right: 20px;
+          font-weight: 500;
+          margin-right: 16px;
           padding-bottom: 1px;
           text-decoration: none;
           border-bottom: 2px solid transparent;
@@ -261,7 +241,8 @@ function navigateAndScroll(to: any) {
           &:active,
           &:focus,
           &:focus-visible {
-            border-bottom: 1.2px solid $grasp-cyan;
+            font-weight: 500;
+            border-bottom: 2px solid $grasp-cyan;
           }
         }
       }
@@ -270,16 +251,10 @@ function navigateAndScroll(to: any) {
 
       @include breakpoint($break-sm) {
         > a {
-          font-size: 0.8em;
-          margin-right: 15px;
-
+          font-size: 16px;
           flex: row;
           display: flex;
           justify-content: center;
-
-          &.active {
-            font-weight: bold;
-          }
         }
 
         .right {
@@ -287,7 +262,7 @@ function navigateAndScroll(to: any) {
             display: none;
           }
 
-          @include breakpoint($break-sm) {
+          @include breakpoint($break-xs) {
             display: none;
           }
         }

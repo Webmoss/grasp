@@ -37,6 +37,11 @@ defineProps({
   position: relative;
   height: auto;
   overflow: scroll;
+
+  @include breakpoint($break-sm) {
+    width: 94%;
+    padding: 0 3%;
+  }
 }
 
 .list-creator-list {

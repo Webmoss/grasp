@@ -55,9 +55,22 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a course type, eg. Article, Video, Quiz"
-                :value="course.type"
+                placeholder="Enter a course type, eg. Activity, Independent Study, etc. "
+                :value="form.type"
               />
+            </div>
+            <div class="input-row mb-10">
+              <label for="name">Main Category</label>
+              <select
+                v-model="form.category"
+                class="category-select"
+                name="category"
+                @change="selectCategory($event)"
+              >
+                <option v-for="option in options" :key="option.value" :value="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
             </div>
             <div class="input-row mb-10">
               <label for="title">Title</label>
@@ -65,7 +78,7 @@
                 type="text"
                 name="title"
                 placeholder="Enter a title,eg. My Course"
-                :value="course.title"
+                :value="form.title"
               />
             </div>
             <div class="input-row mb-10">
@@ -74,7 +87,7 @@
                 type="text"
                 name="excerpt"
                 placeholder="Enter a short excerpt"
-                :value="course.excerpt"
+                :value="form.excerpt"
               />
             </div>
             <div class="input-row mb-10">
@@ -83,7 +96,7 @@
                 type="text"
                 name="description"
                 placeholder="Enter a long description"
-                :value="course.description"
+                :value="form.description"
               />
             </div>
           </div>
@@ -96,7 +109,7 @@
                 type="text"
                 name="name"
                 placeholder="Upload a banner for the course"
-                :value="course.banner"
+                :value="form.banner"
               />
             </div>
             <div class="input-row mb-10">
@@ -105,7 +118,7 @@
                 type="text"
                 name="image"
                 placeholder="Upload an image for the course"
-                :value="course.image"
+                :value="form.image"
               />
             </div>
             <div class="input-row mb-10">
@@ -114,7 +127,7 @@
                 type="text"
                 name="links"
                 placeholder="Add social links for the course"
-                :value="course.links"
+                :value="form.links"
               />
             </div>
           </div>
@@ -127,7 +140,7 @@
                 type="text"
                 name="category"
                 placeholder="Set the main category for the course"
-                :value="course.category"
+                :value="form.category"
               />
             </div>
             <div class="input-row mb-10">
@@ -136,7 +149,7 @@
                 type="text"
                 name="categories"
                 placeholder="Add additional categories"
-                :value="course.categories"
+                :value="form.categories"
               />
             </div>
           </div>
@@ -149,7 +162,7 @@
                 type="text"
                 name="lessons"
                 placeholder="Add lessons to your course"
-                :value="course.lessons"
+                :value="form.lessons"
               />
             </div>
           </div>
@@ -162,7 +175,7 @@
                 type="text"
                 name="price"
                 placeholder="Enter a price for the full course"
-                :value="course.price"
+                :value="form.price"
               />
             </div>
             <div class="input-row mb-10">
@@ -171,7 +184,7 @@
                 type="text"
                 name="token"
                 placeholder="Enter the token to charge for the course"
-                :value="course.token"
+                :value="form.token"
               />
             </div>
           </div>
@@ -232,7 +245,7 @@ const props = defineProps({
 const form: any = reactive({
   id: undefined,
   type: undefined,
-  category: undefined,
+  category: "",
   categories: [],
   banner: undefined,
   image: undefined,
@@ -248,6 +261,29 @@ const form: any = reactive({
   created_date: undefined,
   updated_date: undefined,
 });
+
+const options = ref([
+  { value: "", label: "Choose Category" },
+  { value: "animation", label: "Animation" },
+  { value: "ai", label: "Artificial Intelligence" },
+  { value: "architecture", label: "Architecture & Spaces" },
+  { value: "craft", label: "Craft" },
+  { value: "fashion", label: "Fashion" },
+  { value: "illustration", label: "Illustration" },
+  { value: "marketing", label: "Marketing & Business" },
+  { value: "music", label: "Music & Audio" },
+  { value: "photography", label: "Photography" },
+  { value: "video", label: "Video" },
+  { value: "web", label: "Web" },
+  { value: "writing", label: "Writing" },
+]);
+
+/**
+ * * Update our Course Category
+ */
+ function selectCategory(event: Event) {
+  form.category = (event.target as HTMLInputElement).value;
+}
 
 const createCourse = async () => {
   console.log("Form", form);
@@ -498,6 +534,31 @@ const nextStep = () => {
         letter-spacing: 0.1em;
         margin: 8px 0 2px 15px;
         text-align: left;
+      }
+
+    }
+    .category-select {
+      width: 98%;
+      height: 40px;
+      color: $grey-60;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+      letter-spacing: 1px;
+      font-size: 14px;
+      line-height: 24px;
+      margin-bottom: 5px;
+      padding: 1% 2%;
+      text-align: left;
+      transition: all 0.5s linear;
+  cursor: pointer;
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        color: $grey-90;
+        border: 0.5px solid $grey-50;
+        outline: -webkit-focus-ring-color auto 0px;
       }
     }
 

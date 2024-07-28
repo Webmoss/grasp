@@ -104,6 +104,7 @@ const course = ref({
   description:
     "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
   price: 10,
+  token: "EDU",
   links: [],
   lessons: [],
   step: 0,

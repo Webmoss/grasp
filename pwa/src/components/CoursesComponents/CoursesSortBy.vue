@@ -1,7 +1,8 @@
 <template>
   <select
-    v-model="pagination.sortSelect"
+    v-model="selected"
     class="pagination-sort-by"
+    name="category"
     @change="sortByHandle($event)"
   >
     <option v-for="option in options" :key="option.value" :value="option.value">
@@ -12,12 +13,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useStore } from "@/store";
-import { storeToRefs } from "pinia";
 
 const store = useStore();
-const { pagination } = storeToRefs(store);
+
+const selected = ref("");
 
 const options = ref([
+  { value: "", label: "Choose Category" },
   { value: "animation", label: "Animation" },
   { value: "ai", label: "Artificial Intelligence" },
   { value: "architecture", label: "Architecture & Spaces" },
@@ -30,13 +32,13 @@ const options = ref([
   { value: "video", label: "Video" },
   { value: "web", label: "Web" },
   { value: "writing", label: "Writing" },
-  { value: "all", label: "All Courses" },
 ]);
 
 /**
- * Update our Pagination in Store
+ * * Update our Course Category
  */
 function sortByHandle(event: Event) {
+  selected.value = (event.target as HTMLInputElement).value;
   store.setSortSelect((event.target as HTMLInputElement).value);
   store.setSortBy((event.target as HTMLInputElement).value);
 }
@@ -47,7 +49,7 @@ function sortByHandle(event: Event) {
 @import "@/assets/styles/mixins.scss";
 
 select.pagination-sort-by {
-  color: $grey-90;
+  color: $grey-60;
   background: $white;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
@@ -60,13 +62,11 @@ select.pagination-sort-by {
   transition: all 0.5s linear;
   cursor: pointer;
 
-  &::placeholder {
-    color: $grey-50;
-  }
   &:hover,
   &:focus,
   &:focus-visible,
   &:active {
+    color: $grey-90;
     border: 0.5px solid $grey-50;
     outline: -webkit-focus-ring-color auto 0px;
   }

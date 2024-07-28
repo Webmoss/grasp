@@ -1,4 +1,5 @@
 export interface userObject {
+  campusId: string | null | undefined;
   appState: string | null | undefined;
   email: string | null | undefined;
   name: string | null | undefined;
@@ -9,7 +10,7 @@ export interface userObject {
   verifierId: string | null | undefined;
   dappShare: string | null | undefined;
   oAuthIdToken: string | number | null;
-  oAuthAccessToken: string | number | null;  
+  oAuthAccessToken: string | number | null;
   idToken: string | number | null;
   isMfaEnabled: boolean;
 }

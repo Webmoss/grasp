@@ -92,7 +92,7 @@ section#content {
     justify-content: flex-start;
     color: $grasp-blue;
     background: $white;
-    padding: 1% 2% 2% 2%;
+    padding: 1% 1% 2% 2%;
     overflow: scroll;
     border-top-left-radius: 16px;
 
@@ -116,10 +116,11 @@ section#content {
         .title-name {
           font-family: "Poppins", sans-serif;
           color: $grasp-blue;
-          font-size: 24px;
+          font-size: 30px;
           font-weight: 600;
           line-height: 30px;
           text-align: left;
+          margin: 20px 0 0 0
         }
         .title-actions {
           display: flex;
@@ -135,7 +136,7 @@ section#content {
       display: flex;
       flex-direction: row;
       align-content: center;
-      align-items: center;
+      align-items: flex-start;
       justify-content: flex-start;
       margin-bottom: 30px;
 
@@ -153,6 +154,24 @@ section#content {
         align-content: flex-start;
         align-items: flex-start;
         justify-content: flex-start;
+      }
+
+      .left {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+
+      }
+      .right {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
       }
     }
     p {

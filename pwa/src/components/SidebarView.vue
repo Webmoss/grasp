@@ -65,18 +65,17 @@ const { user } = storeToRefs(store);
   transition: all 0.5s ease;
 
   .profile {
-    width: 75%;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    align-content: center;
-    align-items: center;
     justify-content: center;
-    text-align: center;
+    align-content: center;
+    align-items: flex-start;
 
     img {
       display: block;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 6px;
       margin: 0;
     }
@@ -98,6 +97,7 @@ const { user } = storeToRefs(store);
     margin-inline-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
+    padding: 20px 0;
     border-top: 0.25px solid $white;
     border-bottom: 0.25px solid $white;
     li {

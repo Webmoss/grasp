@@ -3,15 +3,16 @@
     <div class="left">
       <GraspLogo />
       <p>
-        Grasp is the go-to content platform where creators can share their work and earn
-        on EDU Chain. Powered by Open Campus, the Grasp web3 platform integrates EduFi,
-        enabling users to learn, earn, and be rewarded for excellence.
+        Grasp is the premier educational content platform where educators and creators can
+        share their work and earn on EDU Chain. Powered by Open Campus, the Grasp web3
+        platform integrates EduFi, enabling users to learn, earn, and be rewarded for
+        academic excellence.
       </p>
       <p>
-        We prioritize education and facilitate onboarding for users, students, staff, and
-        web3 community members, including DAOs. Grasp Academy, our Learning Management
+        We prioritize education and facilitate onboarding for users, students, educators,
+        and web3 community members, including DAOs. Grasp Academy, our Learning Management
         System (LMS), is built on the innovative EDU Chain, providing a robust foundation
-        for educational advancement.
+        for educational advancement
       </p>
       <p>
         <span @click="scrolltoId('solutions')" class="scroll-link"
@@ -37,7 +38,7 @@
   </section>
 </template>
 <script setup lang="ts">
-import GraspLogo from '../Logo/GraspLogo.vue';
+import GraspLogo from "../Logo/GraspLogo.vue";
 
 function scrolltoId(to: string) {
   var access = document.getElementById(to);
