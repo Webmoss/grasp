@@ -4,9 +4,7 @@
     <div class="page-layout">
       <div class="title-bar">
         <div class="row">
-          <div class="title-name">
-            <h1>My Lessons</h1>
-          </div>
+          <div class="title-name">My Lessons</div>
           <div class="title-actions">
             <button class="create-button" @click="showHideModal()">Create Lesson</button>
             <!-- <button class="back-button">Back</button> -->

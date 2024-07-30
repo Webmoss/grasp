@@ -15,10 +15,19 @@
       v-if="loggedIn && $route.name === 'home'"
       @click="$router.push('/dashboard')"
       :class="
-        btnSize === 'large' ? 'profile-wallet-button' : 'profile-wallet-small-button'
+        btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
       "
     >
       Dashboard
+    </button>
+    <button
+      v-if="loggedIn && $route.name === 'dashboard'"
+      @click="$router.push('/')"
+      :class="
+        btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
+      "
+    >
+      Home
     </button>
     <button
       v-if="loggedIn"
@@ -239,7 +248,7 @@ onMounted(async () => {
   border-radius: 30px;
   padding-left: 60px;
   padding-right: 60px;
-  transition: 0.6s;
+  transition: all 0.5s linear;
   cursor: pointer;
 
   &:hover {
@@ -264,47 +273,6 @@ onMounted(async () => {
 
   &:hover {
     color: $grasp-cyan;
-  }
-}
-
-.profile-wallet-button {
-  color: $grasp-cyan;
-  background-color: $grasp-blue;
-  font-size: 18px;
-  font-weight: bold;
-  width: auto;
-  height: 55px;
-  border: 1px solid $grasp-cyan;
-  border-radius: 30px;
-  padding-left: 60px;
-  padding-right: 60px;
-  transition: 0.6s;
-  cursor: pointer;
-
-  &:hover {
-    color: $white;
-    border: 1px solid $white;
-  }
-}
-
-.profile-wallet-small-button {
-  color: $grasp-cyan;
-  background-color: $grasp-blue;
-  font-size: 15px;
-  font-weight: bold;
-  width: auto;
-  height: 35px;
-  border: 1px solid $grasp-cyan;
-  border-radius: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-right: 10px;
-  transition: 0.6s;
-  cursor: pointer;
-
-  &:hover {
-    color: $white;
-    border: 1px solid $white;
   }
 }
 </style>

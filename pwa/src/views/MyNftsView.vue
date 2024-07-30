@@ -4,26 +4,25 @@
     <div class="page-layout">
       <div class="title-bar">
         <div class="row">
-          <div class="title-name">My Courses</div>
+          <div class="title-name">My EDU NFTs</div>
           <div class="title-actions">
-            <button class="create-button" @click="showHideModal()">Create Course</button>
+            <button class="create-button" @click="showHideModal()">Create NFT</button>
             <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
-        <p>Create new course or view a list of all your courses.</p>
+        <p>View a list of all your EDU NFTs.</p>
       </div>
-
       <div class="main">
-        <CourseSearch />
-        <CoursesList :courses="courses" />
-        <CoursesPagination
+        <LessonSearch />
+        <LessonsList :lessons="lessons" />
+        <LessonsPagination
           :pagination="pagination"
-          :total="coursesTotal"
+          :total="lessonsTotal"
           :last-page="lastPage"
         />
       </div>
     </div>
-    <CourseModal :showModal="showModal" :course="{}" @close="showHideModal" />
+    <LessonModal :showModal="showModal" :lesson="{}" @close="showHideModal" />
   </section>
 </template>
 
@@ -32,21 +31,21 @@ import { ref, onBeforeMount, provide } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
-import { courseObject } from "src/models/course";
-import SidebarView from "../components/SidebarView.vue";
-import CourseSearch from "../components/CoursesComponents/CourseSearch.vue";
-import CoursesList from "../components/CoursesComponents/CoursesList.vue";
-import CoursesPagination from "../components/CoursesComponents/CoursesPagination.vue";
-import CourseModal from "../components/CoursesComponents/CourseModal.vue";
+import { lessonObject } from "src/models/lesson";
+import SidebarView from "@/components/SidebarView.vue";
+import LessonSearch from "../components/LessonsComponents/LessonSearch.vue";
+import LessonsList from "../components/LessonsComponents/LessonsList.vue";
+import LessonsPagination from "../components/LessonsComponents/LessonsPagination.vue";
+import LessonModal from "../components/LessonsComponents/LessonModal.vue";
 
 const store = useStore();
-const { courses, pagination } = storeToRefs(store);
+const { lessons, pagination } = storeToRefs(store);
 
 const showModal = ref(false);
-const coursesTotal = ref(0);
+const lessonsTotal = ref(0);
 const lastPage = ref(0);
 
-const testCourses = [
+const testLessons = [
   {
     name: "introduction",
     type: "article",
@@ -54,7 +53,8 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     banner: "",
     image: "",
     created_date: "30/03/2023",
@@ -132,7 +132,8 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     banner: "",
     image: "",
     created_date: "30/03/2023",
@@ -250,11 +251,11 @@ const showHideModal = () => {
   showModal.value = !showModal.value;
 };
 
-async function fetchCourses() {
-  store.setCourses((testCourses as unknown) as courseObject[]);
+async function fetchLessons() {
+  store.setLessons((testLessons as unknown) as lessonObject[]);
 }
 
 onBeforeMount(async () => {
-  await fetchCourses();
+  await fetchLessons();
 });
 </script>

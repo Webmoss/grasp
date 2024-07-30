@@ -67,7 +67,11 @@
                 name="category"
                 @change="selectCategory($event)"
               >
-                <option v-for="option in options" :key="option.value" :value="option.value">
+                <option
+                  v-for="option in options"
+                  :key="option.value"
+                  :value="option.value"
+                >
                   {{ option.label }}
                 </option>
               </select>
@@ -84,6 +88,8 @@
             <div class="input-row mb-10">
               <label for="description">Excerpt</label>
               <textarea
+                rows="4"
+                cols="50"
                 type="text"
                 name="excerpt"
                 placeholder="Enter a short excerpt"
@@ -93,42 +99,118 @@
             <div class="input-row mb-10">
               <label for="description">Description</label>
               <textarea
+                rows="6"
+                cols="50"
                 type="text"
                 name="description"
-                placeholder="Enter a long description"
+                placeholder="Enter a full description"
                 :value="form.description"
               />
             </div>
           </div>
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
-            <h2>Upload Assets</h2>
+            <h2>Course Assets</h2>
             <div class="input-row mb-10">
-              <label for="name">Banner</label>
+              <label for="banner">Upload a Banner (1500x200px)</label>
               <input
-                type="text"
-                name="name"
-                placeholder="Upload a banner for the course"
+                type="file"
+                name="banner"
+                accept="image/png, image/jpeg"
                 :value="form.banner"
               />
             </div>
             <div class="input-row mb-10">
-              <label for="name">Image</label>
+              <label for="image">Upload a Icon (500x500px)</label>
               <input
-                type="text"
+                type="file"
                 name="image"
-                placeholder="Upload an image for the course"
+                placeholder="Upload an icon image for the course"
                 :value="form.image"
               />
             </div>
             <div class="input-row mb-10">
-              <label for="description">Social Links</label>
-              <textarea
-                type="text"
-                name="links"
-                placeholder="Add social links for the course"
-                :value="form.links"
-              />
+              <label for="description">Add Links</label>
+              {{form.links}}
+              <div v-for="(link, i) in form.links"  :key="i" class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+                <span class="link-text">{{ link }}</span>
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+                <input
+                  type="text"
+                  name="website"
+                  placeholder="Add a link"
+                  v-model="linkText"
+                />
+                <button class="add-link-button" @click="addLink()">
+                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
+                </button>
+              </div>
+              <!-- <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/twitter.svg" alt="Twitter" />
+                <input
+                  type="text"
+                  name="twitter"
+                  placeholder="Twitter"
+                  :value="form.links.twitter"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/facebook.svg" alt="Facebook" />
+                <input
+                  type="text"
+                  name="facebook"
+                  placeholder="Facebook"
+                  :value="form.links.facebook"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/linkedin.svg" alt="Linkedin" />
+                <input
+                  type="text"
+                  name="linkedin"
+                  placeholder="Linkedin"
+                  :value="form.links.linkedin"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/instagram.svg" alt="Instagram" />
+                <input
+                  type="text"
+                  name="instagram"
+                  placeholder="Instagram"
+                  :value="form.links.instagram"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/youtube.svg" alt="Youtube" />
+                <input
+                  type="text"
+                  name="youtube"
+                  placeholder="Youtube"
+                  :value="form.links.youtube"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/telegram.svg" alt="Telegram" />
+                <input
+                  type="text"
+                  name="telegram"
+                  placeholder="Telegram"
+                  :value="form.links.telegram"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/skype.svg" alt="Skype" />
+                <input
+                  type="text"
+                  name="skype"
+                  placeholder="Skype"
+                  :value="form.links.skype"
+                />
+              </div> -->
             </div>
           </div>
           <!-- Step 3 -->
@@ -229,6 +311,7 @@ const emit = defineEmits(["close"]);
 const store = useStore();
 
 const step = ref(1);
+const linkText = ref("");
 
 const props = defineProps({
   showModal: {
@@ -279,9 +362,17 @@ const options = ref([
 ]);
 
 /**
+ * * Add link
+ */
+function addLink() {
+  form.links.push(linkText.value);
+  linkText.value = "";
+}
+
+/**
  * * Update our Course Category
  */
- function selectCategory(event: Event) {
+function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
 
@@ -448,6 +539,68 @@ const nextStep = () => {
       align-items: flex-start;
     }
 
+    .input-box {
+      width: 94%;
+      max-width: 540px;
+      height: 40px;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+      margin-bottom: 5px;
+
+      img,
+      svg {
+        width: 20px;
+        margin: 0 12px;
+      }
+
+      input {
+        width: 100%;
+        height: 40px;
+        color: $grasp-blue;
+        background-color: transparent;
+        border: none;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
+
+      input::placeholder {
+        color: #a8a8a8;
+        letter-spacing: 1px;
+      }
+
+      input:read-only {
+        color: #1a1a1a;
+        border: 1px dashed #e0e0e0;
+        letter-spacing: 1px;
+        cursor: not-allowed;
+      }
+
+      input:focus {
+        border: none;
+        outline: none;
+      }
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
+    }
+
     label {
       color: $black;
       font-style: normal;
@@ -491,7 +644,7 @@ const nextStep = () => {
 
     textarea {
       width: 94%;
-      height: 70px;
+      height: auto;
       color: $grasp-blue;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
@@ -535,7 +688,6 @@ const nextStep = () => {
         margin: 8px 0 2px 15px;
         text-align: left;
       }
-
     }
     .category-select {
       width: 98%;
@@ -551,7 +703,7 @@ const nextStep = () => {
       padding: 1% 2%;
       text-align: left;
       transition: all 0.5s linear;
-  cursor: pointer;
+      cursor: pointer;
 
       &:focus,
       &:focus-visible,
@@ -591,6 +743,24 @@ const nextStep = () => {
     }
   }
 }
+.add-link-button {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: $grasp-cyan;
+  }
+}
 
 .cancel-blue {
   width: 100px;
@@ -613,10 +783,6 @@ const nextStep = () => {
   padding-right: 20px;
   transition: all 0.5s linear;
   cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
 
   &:hover,
   &:active,
@@ -647,10 +813,6 @@ const nextStep = () => {
   margin-left: 8px;
   transition: all 0.5s linear;
   cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
 
   &:hover {
     color: $grasp-cyan;

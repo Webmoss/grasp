@@ -181,7 +181,7 @@ function navigateAndScroll(to: any) {
     }
 
     nav {
-      width: 80%;
+      width: 70%;
       display: flex;
       flex-direction: row;
       align-content: flex-end;
@@ -246,8 +246,6 @@ function navigateAndScroll(to: any) {
           }
         }
       }
-
-
 
       @include breakpoint($break-sm) {
         > a {

@@ -212,13 +212,13 @@ section#solutions {
       }
 
       a {
-        color: $black;
+        color: $grasp-blue;
         font-weight: bold;
         text-decoration: none;
       }
 
       p {
-        color: $black;
+        color: $grasp-blue;
         line-height: 1.7;
         margin-bottom: 20px;
       }

@@ -102,22 +102,22 @@ const routes = [
     component: () => import("@/views/MyLessonView.vue"),
   },
   {
-    path: "/my-pnfts",
-    name: "my-pnfts",
+    path: "/my-nfts",
+    name: "my-nfts",
     meta: {
       guest: true,
-      title: "Publisher NFTs",
+      title: "EDU NFTs",
     },
-    component: () => import("@/views/MyLessonsView.vue"),
+    component: () => import("@/views/MyNftsView.vue"),
   },
   {
-    path: "/my-pnft/:id",
-    name: "my-pnft",
+    path: "/my-nft/:id",
+    name: "my-nft",
     meta: {
       guest: true,
-      title: "Publisher NFT",
+      title: "EDU NFT",
     },
-    component: () => import("@/views/MyLessonView.vue"),
+    component: () => import("@/views/MyNftView.vue"),
   },
   {
     path: "/terms",

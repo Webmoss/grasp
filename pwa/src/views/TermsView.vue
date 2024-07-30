@@ -5,7 +5,7 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
-            <h1>Terms &amp; Conditions</h1>
+            Terms &amp; Conditions
           </div>
           <div class="title-actions">
             <!-- <button class="back-button">Back</button> -->
@@ -15,7 +15,7 @@
         <p>Terms &amp; Conditions of Usage</p>
       </div>
       <div class="row">
-        <h2>More coming soon!!!</h2>
+        <h2>More coming soon so stay tuned...</h2>
       </div>
     </div>
   </section>
