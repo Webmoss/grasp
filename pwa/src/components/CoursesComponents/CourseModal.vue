@@ -32,18 +32,18 @@
               </li>
               <li>
                 <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Assign
-                Categories
-              </li>
-              <li>
-                <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
                 Lessons
               </li>
               <li>
-                <img v-if="step >= 5" src="../../assets/svgs/Check.svg" height="20" />
+                <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Set
-                Price
+                Pricing
+              </li>
+              <li>
+                <img v-if="step >= 5" src="../../assets/svgs/Check.svg" height="20" />
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Course
+                NFT
               </li>
             </ul>
           </div>
@@ -56,7 +56,7 @@
                 type="text"
                 name="name"
                 placeholder="Enter a course type, eg. Activity, Independent Study, etc. "
-                :value="form.type"
+                v-model="form.type"
               />
             </div>
             <div class="input-row mb-10">
@@ -82,18 +82,18 @@
                 type="text"
                 name="title"
                 placeholder="Enter a title,eg. My Course"
-                :value="form.title"
+                v-model="form.title"
               />
             </div>
             <div class="input-row mb-10">
-              <label for="description">Excerpt</label>
+              <label for="excerpt">Excerpt</label>
               <textarea
                 rows="4"
                 cols="50"
                 type="text"
                 name="excerpt"
                 placeholder="Enter a short excerpt"
-                :value="form.excerpt"
+                v-model="form.excerpt"
               />
             </div>
             <div class="input-row mb-10">
@@ -104,7 +104,7 @@
                 type="text"
                 name="description"
                 placeholder="Enter a full description"
-                :value="form.description"
+                v-model="form.description"
               />
             </div>
           </div>
@@ -112,7 +112,7 @@
           <div v-if="step === 2" class="form-container">
             <h2>Course Assets</h2>
             <div class="input-row mb-10">
-              <label for="banner">Upload a Banner (1500x200px)</label>
+              <label for="banner">Upload Course Banner (1500x200px)</label>
               <input
                 type="file"
                 name="banner"
@@ -121,7 +121,7 @@
               />
             </div>
             <div class="input-row mb-10">
-              <label for="image">Upload a Icon (500x500px)</label>
+              <label for="image">Upload Course Icon (500x500px)</label>
               <input
                 type="file"
                 name="image"
@@ -130,9 +130,17 @@
               />
             </div>
             <div class="input-row mb-10">
-              <label for="description">Add Links</label>
-              {{form.links}}
-              <div v-for="(link, i) in form.links"  :key="i" class="input-box mb-10">
+              <label for="image">Course NFT Image (1000x1000px)</label>
+              <input
+                type="file"
+                name="image"
+                accept="image/png, image/jpeg"
+                :value="form.nft.image"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="links">Add Course Links</label>
+              <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <span class="link-text">{{ link }}</span>
               </div>
@@ -140,7 +148,7 @@
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <input
                   type="text"
-                  name="website"
+                  name="links"
                   placeholder="Add a link"
                   v-model="linkText"
                 />
@@ -148,95 +156,10 @@
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
                 </button>
               </div>
-              <!-- <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/twitter.svg" alt="Twitter" />
-                <input
-                  type="text"
-                  name="twitter"
-                  placeholder="Twitter"
-                  :value="form.links.twitter"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/facebook.svg" alt="Facebook" />
-                <input
-                  type="text"
-                  name="facebook"
-                  placeholder="Facebook"
-                  :value="form.links.facebook"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/linkedin.svg" alt="Linkedin" />
-                <input
-                  type="text"
-                  name="linkedin"
-                  placeholder="Linkedin"
-                  :value="form.links.linkedin"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/instagram.svg" alt="Instagram" />
-                <input
-                  type="text"
-                  name="instagram"
-                  placeholder="Instagram"
-                  :value="form.links.instagram"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/youtube.svg" alt="Youtube" />
-                <input
-                  type="text"
-                  name="youtube"
-                  placeholder="Youtube"
-                  :value="form.links.youtube"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/telegram.svg" alt="Telegram" />
-                <input
-                  type="text"
-                  name="telegram"
-                  placeholder="Telegram"
-                  :value="form.links.telegram"
-                />
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/skype.svg" alt="Skype" />
-                <input
-                  type="text"
-                  name="skype"
-                  placeholder="Skype"
-                  :value="form.links.skype"
-                />
-              </div> -->
             </div>
           </div>
           <!-- Step 3 -->
           <div v-if="step === 3" class="form-container">
-            <h2>Assign Categories</h2>
-            <div class="input-row mb-10">
-              <label for="name">Main Category</label>
-              <input
-                type="text"
-                name="category"
-                placeholder="Set the main category for the course"
-                :value="form.category"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="name">Other Categories</label>
-              <input
-                type="text"
-                name="categories"
-                placeholder="Add additional categories"
-                :value="form.categories"
-              />
-            </div>
-          </div>
-          <!-- Step 4 -->
-          <div v-if="step === 4" class="form-container">
             <h2>Add Lessons</h2>
             <div class="input-row mb-10">
               <label for="name">Lessons</label>
@@ -244,23 +167,38 @@
                 type="text"
                 name="lessons"
                 placeholder="Add lessons to your course"
-                :value="form.lessons"
+                v-model="form.lessons"
               />
+            </div>
+
+            <div class="my-lessons-box">
+              <template v-for="(lesson, i) in lessons" :key="i">
+                <div class="list-item">
+                  <div class="lesson-copy">
+                    <div class="lesson-title">
+                      {{ lesson.title ? lesson.title : "" }}
+                    </div>
+                  </div>
+                  <div class="lesson-list-buttons">
+                    <div class="lesson-category">
+                      <span class="category-indicator">{{
+                        lesson.category ? lesson.category : ""
+                      }}</span>
+                    </div>
+                    <div class="actions">
+                      <button class="add-link-button" @click="addLesson(lesson.title)">
+                        <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
-          <!-- Step 5 -->
-          <div v-if="step === 5" class="form-container">
-            <h2>Set Price</h2>
-            <div class="input-row mb-10">
-              <label for="name">Price</label>
-              <input
-                type="text"
-                name="price"
-                placeholder="Enter a price for the full course"
-                :value="form.price"
-              />
-            </div>
-            <div class="input-row mb-10">
+          <!-- Step 4 -->
+          <div v-if="step === 4" class="form-container">
+            <h2>Pricing</h2>
+            <!-- <div class="input-row mb-10">
               <label for="name">Token</label>
               <input
                 type="text"
@@ -268,6 +206,76 @@
                 placeholder="Enter the token to charge for the course"
                 :value="form.token"
               />
+            </div> -->
+            <div class="input-row mb-10">
+              <label for="name">Course Price</label>
+              <input
+                type="text"
+                name="price"
+                placeholder="Enter a price for the full course"
+                v-model="form.price"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="discount">Discount %</label>
+              <input
+                type="text"
+                name="discount"
+                placeholder="Enter a course discount %"
+                v-model="form.discount"
+              />
+            </div>
+            <div class="date-row mb-10">
+              <label for="from_date">Discount Start</label>
+              <div class="date-inputs">
+                <input
+                  type="date"
+                  name="from_date"
+                  placeholder="Enter a course discount from date"
+                  v-model="form.from_date"
+                />
+                <input
+                  type="date"
+                  name="to_date"
+                  placeholder="Enter a course discount to date"
+                  v-model="form.to_date"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Step 5 -->
+          <div v-if="step === 5" class="form-container">
+            <h2>Course NFT Preview</h2>
+            <div class="nft-preview">
+              <div class="nft-image">
+                <img :src="form.image ? form.image : 'rectangle.svg'" />
+              </div>
+              <div class="nft-column">
+                <div class="nft-title">
+                  {{ form.title ? form.title : "" }}
+                </div>
+                <div class="nft-excerpt">
+                  {{ form.excerpt ? form.excerpt : "" }}
+                </div>
+              </div>
+              <div class="nft-card-row">
+                <div class="nft-category">
+                  <div class="nft-date">
+                    {{ form.created_date ? form.created_date : "" }}
+                  </div>
+                  <div v-if="form.category" class="category-indicator">
+                    {{ form.category ? form.category : "" }}
+                  </div>
+                </div>
+                <div class="button-column">
+                  <BuyButton
+                    :btn-size="'small'"
+                    :color="'blue'"
+                    :course-id="form.id"
+                    :price="form.price"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -306,6 +314,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useStore } from "../../store";
+import BuyButton from "../Buttons/BuyButton.vue";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
@@ -336,7 +345,13 @@ const form: any = reactive({
   excerpt: undefined,
   description: undefined,
   price: undefined,
+  discount: undefined,
+  from_date: undefined,
+  to_date: undefined,
+  sales: undefined,
+  total: undefined,
   token: undefined,
+  nft: {},
   links: [],
   lessons: [],
   step: 0,
@@ -361,12 +376,73 @@ const options = ref([
   { value: "writing", label: "Writing" },
 ]);
 
+const lessons = [
+  {
+    id: 1,
+    type: "article",
+    category: "educhain",
+    title: "Introduction",
+    excerpt:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    description: "",
+    banner: "",
+    image: "",
+    created_date: "30/03/2023",
+    updated_at: "",
+    price: 10,
+    sales: 1000,
+  },
+  {
+    id: 2,
+    type: "article",
+    category: "educhain",
+    title: "What is Open Campus ID",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    description:
+      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
+    banner: "",
+    image: "",
+    created_date: "01/06/2024",
+    updated_at: "",
+    price: 10,
+    links: [
+      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
+      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
+    ],
+    sales: 1000,
+  },
+  {
+    id: 3,
+    type: "quote",
+    category: "collections",
+    title: "Time and Energy",
+    excerpt:
+      "Software is like a pebble in a river...it only get's smoother with time and energy",
+    description:
+      "Software is like a pebble in a river...it only get's smoother with time and energy",
+    banner: "",
+    image: "",
+    created_date: "06/07/2023",
+    updated_at: "",
+    price: 10,
+    sales: 1000,
+  },
+];
+
 /**
  * * Add link
  */
 function addLink() {
   form.links.push(linkText.value);
   linkText.value = "";
+}
+
+/**
+ * * Add Lesson to Course
+ */
+function addLesson(title: string) {
+  form.lessons.push(title);
 }
 
 /**
@@ -540,8 +616,7 @@ const nextStep = () => {
     }
 
     .input-box {
-      width: 94%;
-      max-width: 540px;
+      width: 98%;
       height: 40px;
       position: relative;
       display: flex;
@@ -563,7 +638,7 @@ const nextStep = () => {
       input {
         width: 100%;
         height: 40px;
-        color: $grasp-blue;
+        color: $black;
         background-color: transparent;
         border: none;
         border-radius: 10px;
@@ -601,6 +676,67 @@ const nextStep = () => {
       }
     }
 
+    .date-row {
+      width: 100%;
+      max-width: 540px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      label {
+        color: $black;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 15px;
+        line-height: 18px;
+        margin: 8px 0 8px 8px;
+      }
+      .date-inputs {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+          width: 46%;
+          height: 30px;
+          color: #a8a8a8;
+          background-color: #fdfdfd;
+          border: 1px solid #d9d9d9;
+          border-radius: 10px;
+          letter-spacing: 1px;
+          font-size: 14px;
+          line-height: 24px;
+          margin-bottom: 5px;
+          margin-right: 8px;
+          padding: 1% 2%;
+          text-align: left;
+        }
+
+        input::placeholder {
+          color: #a8a8a8;
+          letter-spacing: 1px;
+        }
+
+        input:read-only {
+          height: 40px;
+          color: #a8a8a8;
+          border: 1px dashed #e0e0e0;
+          letter-spacing: 1px;
+          cursor: not-allowed;
+          padding-top: 20px;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
+      }
+    }
+
     label {
       color: $black;
       font-style: normal;
@@ -613,7 +749,7 @@ const nextStep = () => {
     input {
       width: 94%;
       height: 30px;
-      color: $grasp-blue;
+      color: $black;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
       border-radius: 10px;
@@ -631,10 +767,12 @@ const nextStep = () => {
     }
 
     input:read-only {
-      color: #1a1a1a;
+      height: 40px;
+      color: #a8a8a8;
       border: 1px dashed #e0e0e0;
       letter-spacing: 1px;
       cursor: not-allowed;
+      padding-top: 20px;
     }
 
     input:focus {
@@ -645,7 +783,7 @@ const nextStep = () => {
     textarea {
       width: 94%;
       height: auto;
-      color: $grasp-blue;
+      color: $black;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
       border-radius: 10px;
@@ -679,7 +817,7 @@ const nextStep = () => {
 
       label.black {
         width: 100%;
-        color: $grasp-blue;
+        color: $black;
         font-style: normal;
         font-weight: 800;
         font-size: 20px;
@@ -714,6 +852,228 @@ const nextStep = () => {
       }
     }
 
+    .my-lessons-box {
+      width: 94%;
+      margin: 30px 0 30px 0;
+
+      .list-item {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        background: $white;
+        border: 0.5px solid $grey-50;
+        border-radius: 8px;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+        margin: 0 0 8px 0;
+        padding: 6px 0 6px 8px;
+        transition: all 0.5s linear;
+
+        .lesson-copy {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: flex-start;
+          align-items: flex-start;
+          padding: 0;
+
+          .lesson-title {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+
+            font-family: "Poppins", sans-serif;
+            color: $grasp-blue;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            margin: 0;
+          }
+        }
+
+        .lesson-list-buttons {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          padding: 0 8px;
+
+          .lesson-category {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            color: $black !important;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin: 0;
+
+            .category-indicator {
+              width: auto;
+              outline: transparent solid 2px;
+              outline-offset: 2px;
+              border-radius: 9999px;
+              transition: background-color 0.2s ease-out 0s;
+              background: $grasp-cyan;
+              font-size: 12px;
+              text-align: center;
+              padding-inline: 8px;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              --badge-color: $grey-40;
+              color: $grey-90;
+              box-shadow: none;
+              border-width: 1.5px;
+              border-style: solid;
+              border-image: initial;
+              border-color: #4d5358;
+            }
+          }
+
+          .actions {
+            width: 100%;
+            min-width: 50px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 4px 0;
+          }
+        }
+      }
+    }
+
+    .nft-preview {
+      display: inline;
+      float: left;
+      box-sizing: border-box;
+      width: 100%;
+      background: $cream;
+      border: 0.5px solid $grey-50;
+      border-radius: 8px;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+      margin: 0 auto;
+      padding: 16px;
+      transition: all 0.5s linear;
+      overflow: hidden;
+
+      .nft-image {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+
+        img,
+        svg {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          overflow: hidden;
+          background: transparent;
+        }
+      }
+
+      .nft-title {
+        font-family: "Poppins", sans-serif;
+        color: $grasp-blue;
+        width: 100%;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: left;
+        margin: 0 0 5px 0;
+      }
+
+      .nft-excerpt {
+        width: 100%;
+        min-height: 77.5px;
+        color: $black;
+        font-size: 13px;
+        font-weight: normal;
+        text-align: left;
+        margin: 0 0 16px;
+      }
+
+      .nft-card-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        align-items: flex-end;
+      }
+
+      .nft-category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        color: $black;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0;
+
+        .nft-date {
+          font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+            sans-serif;
+          color: $grey-60;
+          font-size: 12px;
+          font-weight: 500;
+          text-decoration: none;
+          text-transform: uppercase;
+          margin: 0 0 4px 0;
+        }
+
+        .category-indicator {
+          width: 80%;
+          outline: transparent solid 2px;
+          outline-offset: 2px;
+          border-radius: 9999px;
+          transition: background-color 0.2s ease-out 0s;
+          background: $grasp-cyan;
+          font-size: 12px;
+          text-align: center;
+          padding-inline: 8px;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          --badge-color: $grey-40;
+          color: $grey-90;
+          box-shadow: none;
+          border-width: 1.5px;
+          border-style: solid;
+          border-image: initial;
+          border-color: #4d5358;
+        }
+      }
+      .button-column {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
     .mb-10 {
       margin-bottom: 10px;
     }
@@ -744,6 +1104,25 @@ const nextStep = () => {
   }
 }
 .add-link-button {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: $grasp-cyan;
+  }
+}
+
+.add-lesson-button {
   width: 26px;
   height: 26px;
   display: flex;

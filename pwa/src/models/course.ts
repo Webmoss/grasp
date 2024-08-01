@@ -11,8 +11,13 @@ export interface courseObject {
   excerpt: string | null;
   description: string | null;
   price: number;
+  discount: number;
+  from_date: string;
+  to_date: string;
   sales: number;
+  total: number;
   token: string;
+  nft: object;
   links: Array<string>;
   lessons: Array<lessonObject>;
   step: number;

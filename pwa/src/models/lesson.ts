@@ -11,6 +11,7 @@ export interface lessonObject {
   excerpt: string | null;
   description: string | null;
   price: number;
+  sales: number;
   token: string;
   links: Array<string>;
   step: number;

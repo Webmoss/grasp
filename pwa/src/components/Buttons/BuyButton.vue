@@ -6,7 +6,8 @@
     Buy
     <div class="course-price-amount-icon">
       <img src="../../assets/svgs/EduCoin.svg" />
-    </div><span class="course-price">{{ price.toFixed(2) }}</span>
+    </div>
+    <span class="course-price">{{ price ? price.toFixed(2) : 0.0 }}</span>
   </button>
 </template>
 <script lang="ts" setup>
@@ -133,7 +134,7 @@ function goToCourse() {
   align-items: center;
   margin: 0;
   padding: 0;
-  
+
   img,
   svg {
     background: transparent;
