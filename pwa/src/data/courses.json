@@ -10,10 +10,10 @@
       "description":
         "At the Ape Inn you will find all the great Yuga Apes and more. Visit our showcase of all the BAYC & MAYC Apes and their unique attributes and traits. Let's ape in now and stop monkeying around!Stake, claim or swap your $APE tokens and BAYC, MAYC and BAKC NFTs all in one slick interface. Our Apecoin $APE liquidity pools are no monkey business with APY's that will drive you bananas, it's where all the big Apes come to play.Visit the ApeSwap to access new Apecoin pairings and more liquidity pools coming soon.The Ape Inn aims to offer the Apecoin community dashboards, analytics, DAO tooling, and so much more, make sure to check out our merch section for some more monkey business.",
       "banner": "banana.png",
-      "image": "Grasp-Icon.png",    
+      "image": "Grasp-Icon.png",
       "price"  : 12,
       "created_date": "30/03/2023",
-      "updated_at": ""
+      "updated_date": ""
     },
     {
       "name": "hv-mtl",
@@ -28,7 +28,7 @@
       "image": "Grasp-Icon.png",
       "price"  : 12,
       "created_date": "29/06/2023",
-      "updated_at": "",
+      "updated_date": "",
       "links": [
         { "url" : "https://hv-mtl.com/forge-game-guide", "title" :"Forge Game Guide"},
         { "url" : "https://garage.hv-mtl.com/", "title" :"HV-MTL Garage"},
@@ -46,7 +46,7 @@
       "image": "Grasp-Icon.png",
       "price"  : 12,
       "created_date": "06/07/2023",
-      "updated_at": ""
+      "updated_date": ""
     },
     {
       "name": "tweet",
@@ -61,7 +61,7 @@
       "image": "Grasp-Icon.png",
       "price"  : 12,
       "created_date": "10/01/2023",
-      "updated_at": "20/02/2023"
+      "updated_date": "20/02/2023"
     },
     {
       "name": "link",
@@ -76,7 +76,7 @@
       "image": "",
       "price"  : 12,
       "created_date": "10/05/2023",
-      "updated_at": "20/05/2023"
+      "updated_date": "20/05/2023"
     }
   ]
 }

@@ -24,5 +24,5 @@ export interface creatorObject {
   categories: Array<string>;
   isLive: boolean;
   created_date: string;
-  updated_at: string;
+  updated_date: string;
 }

@@ -50,7 +50,7 @@ function clearSearchTerm() {
   justify-content: space-between;
   align-items: center;
   background: $white;
-  margin-left: 20px;
+  margin-left: 0;
   margin-right: 10px;
   border: 0.5px solid $grey-50;
   border-radius: 8px;

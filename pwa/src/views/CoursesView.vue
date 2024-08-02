@@ -40,12 +40,11 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
+    description: "",
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -53,13 +52,14 @@ const testCourses = [
     type: "article",
     category: "educhain",
     title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
     description:
       "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -78,7 +78,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -93,7 +93,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    updated_date: "20/02/2023",
     price: 10,
   },
   {
@@ -108,7 +108,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
   {
@@ -118,12 +118,11 @@ const testCourses = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "",
+    description: "",
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -131,13 +130,14 @@ const testCourses = [
     type: "article",
     category: "educhain",
     title: "What is Open Campus ID",
-    excerpt: "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
+    excerpt:
+      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
     description:
       "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -156,7 +156,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -171,7 +171,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    updated_date: "20/02/2023",
     price: 10,
   },
   {
@@ -186,7 +186,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
 ];

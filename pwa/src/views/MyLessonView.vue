@@ -51,7 +51,7 @@ const lesson = ref({
   banner: "Grasp-Banner.png",
   image: "Grasp-Icon.png",
   created_date: "30/03/2023",
-  updated_at: "",
+  updated_date: "",
   price: 10,
 });
 

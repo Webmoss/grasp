@@ -27,7 +27,7 @@ export const useStore = defineStore({
       search_term: "" as string | undefined,
       search_traits: [] as string[] | undefined,
       time_frame: "" as string | undefined,
-      updated_at: "" as string | undefined,
+      updated_date: "" as string | undefined,
       start_date: "" as string | undefined,
       end_date: "" as string | undefined,
       state: "" as string | undefined,
@@ -199,7 +199,7 @@ export const useStore = defineStore({
       this.refreshFilter.search_term = "";
       this.refreshFilter.search_traits = [];
       this.refreshFilter.time_frame = "";
-      this.refreshFilter.updated_at = "";
+      this.refreshFilter.updated_date = "";
       this.refreshFilter.start_date = "";
       this.refreshFilter.end_date = "";
       this.refreshFilter.state = "";

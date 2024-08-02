@@ -58,7 +58,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -73,7 +73,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -92,7 +92,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -107,7 +107,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    updated_date: "20/02/2023",
     price: 10,
   },
   {
@@ -122,7 +122,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
   {
@@ -136,7 +136,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -151,7 +151,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -170,7 +170,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -185,7 +185,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    updated_date: "20/02/2023",
     price: 10,
   },
   {
@@ -200,7 +200,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
 ];

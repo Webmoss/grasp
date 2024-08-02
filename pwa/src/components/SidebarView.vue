@@ -1,38 +1,43 @@
 <template>
   <div class="sidebar">
-    <div class="profile">
+    <!-- <div class="profile">
       <img
         v-if="user.profileImage"
         :src="user.profileImage"
         :alt="user.name ? user.name : ''"
       />
-      <!-- <img v-else src="Grasp-Icon.png" alt="Grasp Academy" /> -->
+      <img v-else src="Grasp-Icon.png" alt="Grasp Academy" />
       <h3 v-if="user.name">{{ user.name }}</h3>
-    </div>
+    </div> -->
     <ul>
       <li>
         <router-link :to="{ name: 'dashboard' }" active-class="active" exact>
-          <img src="../assets/svgs/dashboard-icon.svg" class="icon" /> <span class="item">Dashboard</span>
+          <img src="../assets/svgs/dashboard-icon.svg" class="icon" />
+          <span class="item">Dashboard</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'my-courses' }" active-class="active" exact>
-          <img src="../assets/svgs/courses-icon.svg" class="icon" /> <span class="item">Courses</span>
+          <img src="../assets/svgs/courses-icon.svg" class="icon" />
+          <span class="item">Courses</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'my-lessons' }" active-class="active" exact>
-          <img src="../assets/svgs/lessons-icon.svg" class="icon" /> <span class="item">Lessons</span>
+          <img src="../assets/svgs/lessons-icon.svg" class="icon" />
+          <span class="item">Lessons</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'my-nfts' }" active-class="active" exact>
-          <img src="../assets/svgs/nfts-icon.svg" class="icon" /> <span class="item">EDU NFTS</span>
+          <img src="../assets/svgs/nfts-icon.svg" class="icon" />
+          <span class="item">Edu NFTS</span>
         </router-link>
       </li>
       <li>
         <router-link :to="{ name: 'terms' }" active-class="active" exact>
-          <img src="../assets/svgs/terms-icon.svg" class="icon" /> <span class="item">Terms</span>
+          <img src="../assets/svgs/terms-icon.svg" class="icon" />
+          <span class="item">Terms</span>
         </router-link>
       </li>
     </ul>
@@ -97,7 +102,7 @@ const { user } = storeToRefs(store);
     margin-inline-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
-    padding: 0;
+    padding: 10px 0;
     border-top: 0.25px solid $white;
     border-bottom: 0.25px solid $white;
     li {
@@ -108,18 +113,18 @@ const { user } = storeToRefs(store);
         display: block;
         position: relative;
         color: $white;
-        font-size: 18px;
+        font-size: 17px;
         text-decoration: none;
-        padding: 18px 30px 18px 20px;
+        padding: 12px 30px 12px 20px;
 
         &:hover {
           color: $grasp-cyan;
         }
 
         .icon {
-          width: 24px;
-          height: 24px;
-          margin-bottom: -6px;
+          width: 22px;
+          height: 22px;
+          margin: 0 8px -4px 0;
           display: inline-block;
           background-position: bottom;
           background-size: contain;

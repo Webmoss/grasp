@@ -113,30 +113,63 @@
             <h2>Course Assets</h2>
             <div class="input-row mb-10">
               <label for="banner">Upload Course Banner (1500x200px)</label>
-              <input
+              <div class="input-box">
+                <button class="btn btn-info" @click="onBannerPick">Select file</button>
+                {{ bannerImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileBannerInput"
+                  accept="image/*"
+                  @change="onBannerFilePicked"
+                />
+                <!-- <input
                 type="file"
                 name="banner"
                 accept="image/png, image/jpeg"
                 :value="form.banner"
-              />
+              /> -->
+              </div>
             </div>
             <div class="input-row mb-10">
               <label for="image">Upload Course Icon (500x500px)</label>
-              <input
+              <div class="input-box">
+                <button class="btn btn-info" @click="onIconPick">Select file</button>
+                {{ iconImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileIconInput"
+                  accept="image/*"
+                  @change="onIconFilePicked"
+                />
+                <!-- <input
                 type="file"
                 name="image"
                 placeholder="Upload an icon image for the course"
                 :value="form.image"
-              />
+              /> -->
+              </div>
             </div>
             <div class="input-row mb-10">
               <label for="image">Course NFT Image (1000x1000px)</label>
-              <input
+              <div class="input-box">
+                <button class="btn btn-info" @click="onNftPick">Select file</button>
+                {{ nftImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileNftInput"
+                  accept="image/*"
+                  @change="onNftFilePicked"
+                />
+                <!-- <input
                 type="file"
                 name="image"
                 accept="image/png, image/jpeg"
                 :value="form.nft.image"
-              />
+              /> -->
+              </div>
             </div>
             <div class="input-row mb-10">
               <label for="links">Add Course Links</label>
@@ -167,7 +200,7 @@
                 type="text"
                 name="lessons"
                 placeholder="Add lessons to your course"
-                v-model="form.lessons"
+                :value="selectedLessons"
               />
             </div>
 
@@ -186,7 +219,7 @@
                       }}</span>
                     </div>
                     <div class="actions">
-                      <button class="add-link-button" @click="addLesson(lesson.title)">
+                      <button class="add-link-button" @click="addLesson(lesson)">
                         <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
                       </button>
                     </div>
@@ -312,8 +345,9 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
+import { lessonObject } from "src/models/lesson";
 import BuyButton from "../Buttons/BuyButton.vue";
 
 const emit = defineEmits(["close"]);
@@ -321,6 +355,22 @@ const store = useStore();
 
 const step = ref(1);
 const linkText = ref("");
+const selectedLessons = ref([]);
+
+/* Ref: name must match the ref in the template */
+const fileBannerInput: Ref<HTMLElement | null> = ref(null);
+const bannerImage = ref();
+const bannerImageUrl = ref();
+
+/* Ref: name must match the ref in the template */
+const fileIconInput: Ref<HTMLElement | null> = ref(null);
+const iconImage = ref();
+const iconImageUrl = ref();
+
+/* Ref: name must match the ref in the template */
+const fileNftInput: Ref<HTMLElement | null> = ref(null);
+const nftImage = ref();
+const nftImageUrl = ref();
 
 const props = defineProps({
   showModal: {
@@ -381,54 +431,108 @@ const lessons = [
     id: 1,
     type: "article",
     category: "educhain",
+    categories: [],
+    banner: "",
+    image: "",
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     description: "",
-    banner: "",
-    image: "",
-    created_date: "30/03/2023",
-    updated_at: "",
     price: 10,
     sales: 1000,
+    token: "EDU",
+    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
+    step: 1,
+    isLive: true,
+    created_date: "30/03/2023",
+    updated_date: "",
   },
   {
     id: 2,
     type: "article",
     category: "educhain",
+    categories: [],
+    banner: "",
+    image: "",
     title: "What is Open Campus ID",
     excerpt:
       "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
     description:
       "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    banner: "",
-    image: "",
-    created_date: "01/06/2024",
-    updated_at: "",
     price: 10,
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
     sales: 1000,
+    token: "EDU",
+    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
+    step: 1,
+    isLive: true,
+    created_date: "30/03/2023",
+    updated_date: "",
   },
   {
     id: 3,
     type: "quote",
     category: "collections",
+    categories: [],
+    banner: "",
+    image: "",
     title: "Time and Energy",
     excerpt:
       "Software is like a pebble in a river...it only get's smoother with time and energy",
     description:
       "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_at: "",
     price: 10,
     sales: 1000,
+    token: "EDU",
+    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
+    step: 1,
+    isLive: true,
+    created_date: "30/03/2023",
+    updated_date: "",
   },
 ];
+
+function onBannerPick() {
+  fileBannerInput.value?.click();
+}
+function onIconPick() {
+  fileIconInput.value?.click();
+}
+function onNftPick() {
+  fileNftInput.value?.click();
+}
+
+function onBannerFilePicked(event: any) {
+  const files = event.target.files;
+  let filename = files[0].name;
+  const fileReader = new FileReader();
+  fileReader.addEventListener("load", () => {
+    bannerImageUrl.value = fileReader.result;
+  });
+  fileReader.readAsDataURL(files[0]);
+  bannerImage.value = files[0];
+}
+
+function onIconFilePicked(event: any) {
+  const files = event.target.files;
+  let filename = files[0].name;
+  const fileReader = new FileReader();
+  fileReader.addEventListener("load", () => {
+    iconImageUrl.value = fileReader.result;
+  });
+  fileReader.readAsDataURL(files[0]);
+  iconImage.value = files[0];
+}
+
+function onNftFilePicked(event: any) {
+  const files = event.target.files;
+  let filename = files[0].name;
+  const fileReader = new FileReader();
+  fileReader.addEventListener("load", () => {
+    nftImageUrl.value = fileReader.result;
+  });
+  fileReader.readAsDataURL(files[0]);
+  nftImage.value = files[0];
+}
 
 /**
  * * Add link
@@ -441,8 +545,9 @@ function addLink() {
 /**
  * * Add Lesson to Course
  */
-function addLesson(title: string) {
-  form.lessons.push(title);
+function addLesson(lesson: lessonObject) {
+  selectedLessons.value.push(lesson.title as never);
+  form.lessons.push(lesson);
 }
 
 /**
@@ -624,6 +729,10 @@ const nextStep = () => {
       justify-content: flex-start;
       align-content: center;
       align-items: center;
+      color: $black;
+      font-size: 14px;
+      line-height: 24px;
+      text-align: left;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
       border-radius: 10px;

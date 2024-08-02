@@ -83,6 +83,7 @@
             </template>
           </div>
         </div>
+
         <div class="right">
           <div class="my-wallet-box">
             <div class="open-campus">
@@ -269,7 +270,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     sales: 1000,
   },
@@ -285,7 +286,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -305,7 +306,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     sales: 1000,
   },
@@ -334,6 +335,36 @@ const nfts = [
   },
   {
     id: 3,
+    type: "article",
+    category: "educhain",
+    title: "Publisher NFT",
+    excerpt: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    image: "Grasp-Icon.png",
+  },
+  {
+    id: 4,
+    type: "article",
+    category: "educhain",
+    title: "Publisher NFT",
+    excerpt: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    image: "Grasp-Icon.png",
+  },
+  {
+    id: 5,
+    type: "article",
+    category: "educhain",
+    title: "Publisher NFT",
+    excerpt: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+    image: "Grasp-Icon.png",
+  },
+  {
+    id: 6,
     type: "article",
     category: "educhain",
     title: "Publisher NFT",
@@ -585,7 +616,7 @@ onBeforeMount(async () => {
   }
 
   .my-nfts-box {
-    width: 100%;
+    width: 92%;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -593,7 +624,7 @@ onBeforeMount(async () => {
     align-content: center;
     justify-content: center;
     align-items: flex-start;
-    margin: 10px auto;
+    margin: 10px 0;
 
     @include breakpoint($break-lg) {
       grid-template-columns: repeat(3, 1fr);

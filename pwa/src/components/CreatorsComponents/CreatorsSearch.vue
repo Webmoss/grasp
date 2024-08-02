@@ -1,7 +1,7 @@
 <template>
   <section id="creators-search-bar">
-    <CreatorsSortBy />
     <CreatorsSearchInput />
+    <CreatorsSortBy />
     <div class="grid-buttons">
       <ListViewButton />
       <GridViewButton />

@@ -1,7 +1,7 @@
 <template>
   <section id="courses-search-bar">
-    <CoursesSortBy />
     <CoursesSearchInput />
+    <CoursesSortBy />
     <div class="grid-buttons">
       <ListViewButton />
       <GridViewButton />

@@ -59,16 +59,12 @@
         </div>
 
         <div class="creator-description">
-          {{
-            creator.description
-              ? creator.description
-              : ""
-          }}
+          {{ creator.description ? creator.description : "" }}
         </div>
 
         <div class="line-divider"></div>
         <h2>Creators Courses</h2>
-        
+
         <div class="creator-course-list">
           <template v-for="(course, i) in testCourses" :key="i">
             <div class="course">
@@ -125,7 +121,8 @@ const creator = ref({
   image: "WebMoss.jpg",
   username: "WebMoss",
   name: "Craig Moss",
-  description: "A Software Engineer who thrives on creating beautiful web applications. I have fulfilled various roles throughout my career in the Information Technology arena and enjoy new challenges and problem solving... no task is too great or small, if you just take it one byte at a time. I look forward to my next web3 challenge as it will allow me to discover new and exciting technologies that will shape our future.",
+  description:
+    "A Software Engineer who thrives on creating beautiful web applications. I have fulfilled various roles throughout my career in the Information Technology arena and enjoy new challenges and problem solving... no task is too great or small, if you just take it one byte at a time. I look forward to my next web3 challenge as it will allow me to discover new and exciting technologies that will shape our future.",
   email: "example@gmail.com",
   mobile: "012 567 8901",
   title: "Developer",
@@ -144,7 +141,7 @@ const creator = ref({
   categories: ["educhain"],
   isLive: true,
   created_date: "30/03/2023",
-  updated_at: "",
+  updated_date: "",
 });
 
 const testCourses = [
@@ -160,7 +157,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "30/03/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -176,7 +173,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "01/06/2024",
-    updated_at: "",
+    updated_date: "",
     price: 10,
     links: [
       { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
@@ -196,7 +193,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "06/07/2023",
-    updated_at: "",
+    updated_date: "",
     price: 10,
   },
   {
@@ -212,7 +209,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/01/2023",
-    updated_at: "20/02/2023",
+    updated_date: "20/02/2023",
     price: 10,
   },
   {
@@ -228,7 +225,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
   {
@@ -244,7 +241,7 @@ const testCourses = [
     banner: "",
     image: "",
     created_date: "10/05/2023",
-    updated_at: "20/05/2023",
+    updated_date: "20/05/2023",
     price: 10,
   },
 ];
@@ -435,113 +432,113 @@ section#creator {
       align-items: flex-end;
     }
     .course {
-        display: inline;
-        float: left;
-        box-sizing: border-box;
-        width: 100%;
-        background: $cream;
-        border: 0.5px solid $grey-50;
-        border-radius: 8px;
-        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-        margin: 0 auto;
-        padding: 16px;
-        transition: all 0.5s linear;
-        overflow: hidden;
+      display: inline;
+      float: left;
+      box-sizing: border-box;
+      width: 100%;
+      background: $cream;
+      border: 0.5px solid $grey-50;
+      border-radius: 8px;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+      margin: 0 auto;
+      padding: 16px;
+      transition: all 0.5s linear;
+      overflow: hidden;
 
-        .course-image {
-          position: relative;
+      .course-image {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+
+        img,
+        svg {
           width: 100%;
-          margin: 0 auto;
-          padding: 0;
+          height: 100%;
+          object-fit: contain;
           overflow: hidden;
           background: transparent;
-
-          img,
-          svg {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            overflow: hidden;
-            background: transparent;
-          }
-        }
-
-        .course-title {
-          font-family: "Poppins", sans-serif;
-          color: $grasp-blue;
-          width: 100%;
-          font-size: 16px;
-          font-weight: 600;
-          text-align: left;
-          margin: 0 0 5px 0;
-        }
-
-        .course-excerpt {
-          width: 100%;
-          min-height: 77.5px;
-          color: $black;
-          font-size: 13px;
-          font-weight: normal;
-          text-align: left;
-          margin: 0 0 16px;
-        }
-
-        .course-category {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-content: center;
-          align-items: center;
-
-          color: $black;
-          font-size: 13px;
-          font-weight: 500;
-          text-transform: uppercase;
-          margin: 0;
-
-          .course-date {
-            font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-              sans-serif;
-            color: $grey-60;
-            font-size: 12px;
-            font-weight: 500;
-            text-decoration: none;
-            text-transform: uppercase;
-            margin: 0 0 4px 0;
-          }
-
-          .category-indicator {
-            width: 80%;
-            outline: transparent solid 2px;
-            outline-offset: 2px;
-            border-radius: 9999px;
-            transition: background-color 0.2s ease-out 0s;
-            background: $grasp-cyan;
-            font-size: 12px;
-            text-align: center;
-            padding-inline: 8px;
-            padding-top: 1px;
-            padding-bottom: 1px;
-            --badge-color: $grey-40;
-            color: $grey-90;
-            box-shadow: none;
-            border-width: 1.5px;
-            border-style: solid;
-            border-image: initial;
-            border-color: #4d5358;
-          }
-        }
-        .button-column {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-          align-content: center;
-          align-items: center;
-          padding: 0;
-          margin: 0;
         }
       }
+
+      .course-title {
+        font-family: "Poppins", sans-serif;
+        color: $grasp-blue;
+        width: 100%;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: left;
+        margin: 0 0 5px 0;
+      }
+
+      .course-excerpt {
+        width: 100%;
+        min-height: 77.5px;
+        color: $black;
+        font-size: 13px;
+        font-weight: normal;
+        text-align: left;
+        margin: 0 0 16px;
+      }
+
+      .course-category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        color: $black;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0;
+
+        .course-date {
+          font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+            sans-serif;
+          color: $grey-60;
+          font-size: 12px;
+          font-weight: 500;
+          text-decoration: none;
+          text-transform: uppercase;
+          margin: 0 0 4px 0;
+        }
+
+        .category-indicator {
+          width: 80%;
+          outline: transparent solid 2px;
+          outline-offset: 2px;
+          border-radius: 9999px;
+          transition: background-color 0.2s ease-out 0s;
+          background: $grasp-cyan;
+          font-size: 12px;
+          text-align: center;
+          padding-inline: 8px;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          --badge-color: $grey-40;
+          color: $grey-90;
+          box-shadow: none;
+          border-width: 1.5px;
+          border-style: solid;
+          border-image: initial;
+          border-color: #4d5358;
+        }
+      }
+      .button-column {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+      }
+    }
   }
 }
 
