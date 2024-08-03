@@ -1,10 +1,10 @@
-
+import { categoryObject } from "./category";
 
 export interface lessonObject {
   id: number;
   type: string | null;
   category: string;
-  categories: Array<string>;
+  categories: Array<categoryObject>;
   banner: string;
   image: string;
   title: string | null;

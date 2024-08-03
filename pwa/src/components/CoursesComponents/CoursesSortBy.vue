@@ -15,7 +15,6 @@ import { ref } from "vue";
 import { useStore } from "@/store";
 
 const store = useStore();
-
 const selected = ref("");
 
 const options = ref([
@@ -32,10 +31,12 @@ const options = ref([
   { value: "video", label: "Video" },
   { value: "web", label: "Web" },
   { value: "writing", label: "Writing" },
+  { value: "daos", label: "DAOS" },
+  { value: "onboarding", label: "Onboarding" },
 ]);
 
 /**
- * * Update our Course Category
+ * * Update our Course Category and Pagination in Store
  */
 function sortByHandle(event: Event) {
   selected.value = (event.target as HTMLInputElement).value;

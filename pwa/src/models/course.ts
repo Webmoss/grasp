@@ -1,10 +1,12 @@
+import { categoryObject } from "./category";
 import { lessonObject } from './lesson'
+import { metadataObject } from './metadata'
 
 export interface courseObject {
   id: number;
   type: string | null;
   category: string;
-  categories: Array<string>;
+  categories: Array<categoryObject>;
   banner: string;
   image: string;
   title: string | null;
@@ -17,7 +19,7 @@ export interface courseObject {
   sales: number;
   total: number;
   token: string;
-  nft: object;
+  nft: metadataObject;
   links: Array<string>;
   lessons: Array<lessonObject>;
   step: number;

@@ -10,6 +10,7 @@
     <span class="course-price">{{ price ? price.toFixed(2) : 0.0 }}</span>
   </button>
 </template>
+
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 
@@ -46,7 +47,7 @@ const props = defineProps({
 const router = useRouter();
 
 function goToCourse() {
-  router.push({ name: "course", params: { id: props.courseId, price: props.price } });
+  router.push({ name: "course", params: { id: props.courseId } });
 }
 </script>
 
@@ -137,6 +138,8 @@ function goToCourse() {
 
   img,
   svg {
+    width: 22px;
+    height: 22px;
     background: transparent;
     object-fit: contain;
     overflow: hidden;

@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="course && gridView === 'list'"
-    class="course-list-item"
-  >
+  <div v-if="course && gridView === 'list'" class="course-list-item">
     <div class="course-image">
       <img :src="course.image ? course.image : 'rectangle.svg'" />
     </div>
@@ -16,11 +13,20 @@
     </div>
     <div class="course-list-buttons">
       <div v-if="course && course.category" class="course-category">
-        <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
-        <span class="category-indicator">{{ course.category ? course.category : "" }}</span>
+        <div class="course-date">
+          {{ course.created_date ? course.created_date : "" }}
+        </div>
+        <span class="category-indicator">{{
+          course.category ? course.category : ""
+        }}</span>
       </div>
       <div class="button-row">
-        <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
+        <BuyButton
+          :btn-size="'small'"
+          :color="'blue'"
+          :course-id="course.id"
+          :price="course.price"
+        />
       </div>
     </div>
   </div>
@@ -39,11 +45,18 @@
     </div>
     <div class="course-card-row">
       <div class="course-category">
-        <div class="course-date">{{ course.created_date ? course.created_date : "" }}</div>
+        <div class="course-date">
+          {{ course.created_date ? course.created_date : "" }}
+        </div>
         <div class="category-indicator">{{ course.category ? course.category : "" }}</div>
       </div>
       <div class="button-column">
-        <BuyButton :btn-size="'small'" :color="'blue'" :course-id="course.id" :price="course.price" />
+        <BuyButton
+          :btn-size="'small'"
+          :color="'blue'"
+          :course-id="course.id"
+          :price="course.price"
+        />
       </div>
     </div>
   </div>
@@ -97,7 +110,7 @@ defineProps<{ course: courseObject; gridView: string }>();
   padding: 16px;
   transition: all 0.5s linear;
   overflow: hidden;
-  
+
   .course-image {
     position: relative;
     width: 100%;
@@ -234,14 +247,14 @@ defineProps<{ course: courseObject; gridView: string }>();
     align-content: flex-start;
     align-items: flex-start;
     padding: 0 1%;
-  
+
     .course-title {
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-content: center;
-      align-items: center;    
+      align-items: center;
 
       font-family: "Poppins", sans-serif;
       color: $grasp-blue;
@@ -276,7 +289,7 @@ defineProps<{ course: courseObject; gridView: string }>();
     align-content: center;
     align-items: flex-end;
     padding: 0 8px;
-  
+
     .course-category {
       width: 100%;
       display: flex;
@@ -334,6 +347,5 @@ defineProps<{ course: courseObject; gridView: string }>();
       margin: 8px auto 0;
     }
   }
-
 }
 </style>

@@ -13,47 +13,27 @@
       <nav class="header-navbar">
         <div class="menu-button-row">
           <ul>
-            <li
-              v-if="homeLinks"
-              class="menu-link"
-              @click="navigateAndScroll('home')"
-            >
+            <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('home')">
               Home
             </li>
             <li v-else>
-              <router-link
-                :to="{ name: 'home' }"
-                class="menu-link"
-                >Home</router-link
-              >
+              <router-link :to="{ name: 'home' }" class="menu-link">Home</router-link>
             </li>
             <li>
-              <router-link
-                :to="{ name: 'courses' }"
-                class="menu-link"
+              <router-link :to="{ name: 'courses' }" class="menu-link"
                 >Courses</router-link
               >
             </li>
             <li>
-              <router-link
-                :to="{ name: 'creators' }"
-                class="menu-link"
+              <router-link :to="{ name: 'creators' }" class="menu-link"
                 >Creators</router-link
               >
             </li>
-            <li
-              v-if="homeLinks"
-              class="menu-link"
-              @click="navigateAndScroll('goplus')"
-            >
+            <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('goplus')">
               Plus
             </li>
             <li v-else>
-              <router-link
-                :to="{ path: '/#goplus' }"
-                class="menu-link"
-                >Plus</router-link
-              >
+              <router-link :to="{ path: '/#goplus' }" class="menu-link">Plus</router-link>
             </li>
           </ul>
         </div>
@@ -117,6 +97,7 @@ function navigateAndScroll(to: any) {
   .header-logo {
     margin: 0 8px 4px 16px;
   }
+
   .header-title {
     display: flex;
     justify-content: center;
@@ -216,7 +197,9 @@ function navigateAndScroll(to: any) {
 
         ul {
           margin-block-start: 0;
-          margin-block-end: 4px;
+          margin-block-end: 0;
+          height: 26px;
+          // overflow: hidden;
         }
 
         .menu-link,
@@ -225,16 +208,14 @@ function navigateAndScroll(to: any) {
           color: $white !important;
           font-size: 17px !important;
           font-weight: 500;
-          margin-right: 16px;
-          padding-bottom: 1px;
+          line-height: 20px;
           text-decoration: none;
           border-bottom: 2px solid transparent;
-          transition: 0.6s;
+          transition: 0.6s all linear;
           cursor: pointer;
 
           @include breakpoint($break-sm) {
             font-size: 16px !important;
-            margin-right: 8px;
           }
 
           &:hover,

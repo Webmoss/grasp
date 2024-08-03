@@ -32,7 +32,7 @@
   </section>
 </template>
 <script setup lang="ts">
-import GraspLogo from '../Logo/GraspLogo.vue';
+import GraspLogo from "../Logo/GraspLogo.vue";
 </script>
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
@@ -100,10 +100,10 @@ section#educhain {
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
 
-      background-image: url("../../assets/images/Dictionary.png");
-      background-repeat: no-repeat;
-      background-position: top 10px right 20px;
-      background-size: 60px;
+      // background-image: url("../../assets/images/Dictionary.png");
+      // background-repeat: no-repeat;
+      // background-position: top 10px right 20px;
+      // background-size: 60px;
 
       @include breakpoint($break-sm) {
         width: 90%;
@@ -190,7 +190,7 @@ section#educhain {
         color: $grasp-blue;
         font-size: 1.7rem;
         margin-bottom: 20px;
-        
+
         @include breakpoint($break-sm) {
           font-size: 1.85rem;
         }

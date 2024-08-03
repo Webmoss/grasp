@@ -61,7 +61,7 @@
           </div>
           <h2>Top Publisher NFTS</h2>
           <div class="my-nfts-box">
-            <template v-for="(nft, i) in nfts" :key="i">
+            <template v-for="(nft, i) in nfts.data" :key="i">
               <div class="publisher-nft-item">
                 <div class="nft-image">
                   <img :src="nft.image" />
@@ -162,6 +162,10 @@ import Web3 from "web3";
 import SidebarView from "@/components/SidebarView.vue";
 import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 
+/* All Posts stored in a JSON */
+import testCourses from "../data/courses.json";
+import nfts from "../data/nfts.json";
+
 const store = useStore();
 const { loggedIn, account, balance, user, courses } = storeToRefs(store);
 
@@ -173,7 +177,6 @@ const percentage = ref(0);
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
   ? process.env.VUE_APP_WEB3AUTH_CLIENTID
   : "";
-// console.log("clientId", clientId);
 
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
@@ -258,123 +261,6 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-const testCourses = [
-  {
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description: "",
-    banner: "",
-    image: "",
-    created_date: "30/03/2023",
-    updated_date: "",
-    price: 10,
-    sales: 1000,
-  },
-  {
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt:
-      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    banner: "",
-    image: "",
-    created_date: "01/06/2024",
-    updated_date: "",
-    price: 10,
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
-    sales: 1000,
-  },
-  {
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_date: "",
-    price: 10,
-    sales: 1000,
-  },
-];
-
-const nfts = [
-  {
-    id: 1,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-  {
-    id: 2,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-  {
-    id: 3,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-  {
-    id: 4,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-  {
-    id: 5,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-  {
-    id: 6,
-    type: "article",
-    category: "educhain",
-    title: "Publisher NFT",
-    excerpt: "",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    image: "Grasp-Icon.png",
-  },
-];
-
 /**
  * Copy to Clipboard function
  */
@@ -438,7 +324,7 @@ const signMessage = async () => {
 };
 
 async function fetchCourses() {
-  store.setCourses((testCourses as unknown) as courseObject[]);
+  store.setCourses((testCourses.data as unknown) as courseObject[]);
 }
 
 onMounted(async () => {

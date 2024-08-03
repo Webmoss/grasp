@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="lesson && gridView === 'list'"
-    class="lesson-list-item"
-  >
+  <div v-if="lesson && gridView === 'list'" class="lesson-list-item">
     <div class="lesson-image">
       <img :src="lesson.image ? lesson.image : 'rectangle.svg'" />
     </div>
@@ -16,11 +13,18 @@
     </div>
     <div class="lesson-list-buttons">
       <div class="lesson-category">
-        <div class="lesson-date">{{ lesson.created_date ? lesson.created_date : "" }}</div>
+        <div class="lesson-date">
+          {{ lesson.created_date ? lesson.created_date : "" }}
+        </div>
         <!-- <span class="category-indicator">{{ lesson.category ? lesson.category : "" }}</span> -->
       </div>
       <div class="button-row">
-        <BuyButton :btn-size="'small'" :color="'blue'" :lesson-id="lesson.id" :price="lesson.price" />
+        <BuyButton
+          :btn-size="'small'"
+          :color="'blue'"
+          :lesson-id="lesson.id"
+          :price="lesson.price"
+        />
       </div>
     </div>
   </div>
@@ -39,11 +43,18 @@
     </div>
     <div class="lesson-card-row">
       <div class="lesson-category">
-        <div class="lesson-date">{{ lesson.created_date ? lesson.created_date : "" }}</div>
+        <div class="lesson-date">
+          {{ lesson.created_date ? lesson.created_date : "" }}
+        </div>
         <!-- <div class="category-indicator">{{ lesson.category ? lesson.category : "" }}</div> -->
       </div>
       <div class="button-column">
-        <BuyButton :btn-size="'small'" :color="'blue'" :lesson-id="lesson.id" :price="lesson.price" />
+        <BuyButton
+          :btn-size="'small'"
+          :color="'blue'"
+          :lesson-id="lesson.id"
+          :price="lesson.price"
+        />
       </div>
     </div>
   </div>
@@ -97,7 +108,7 @@ defineProps<{ lesson: lessonObject; gridView: string }>();
   padding: 16px;
   transition: all 0.5s linear;
   overflow: hidden;
-  
+
   .lesson-image {
     position: relative;
     width: 100%;
@@ -234,14 +245,14 @@ defineProps<{ lesson: lessonObject; gridView: string }>();
     align-content: flex-start;
     align-items: flex-start;
     padding: 0 1%;
-  
+
     .lesson-title {
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-content: center;
-      align-items: center;    
+      align-items: center;
 
       font-family: "Poppins", sans-serif;
       color: $grasp-blue;
@@ -276,7 +287,7 @@ defineProps<{ lesson: lessonObject; gridView: string }>();
     align-content: center;
     align-items: flex-end;
     padding: 0 8px;
-  
+
     .lesson-category {
       width: 100%;
       display: flex;
@@ -334,6 +345,5 @@ defineProps<{ lesson: lessonObject; gridView: string }>();
       margin: 8px auto 0;
     }
   }
-
 }
 </style>

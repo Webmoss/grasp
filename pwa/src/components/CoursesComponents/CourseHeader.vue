@@ -1,8 +1,10 @@
 <template>
   <div class="course-header">
     <div class="course-banner">
-      <img :src="course.banner ? course.banner : 'Grasp-Banner.png'" />
-      <span class="category-indicator">{{ course.category ? course.category : "Testing" }}</span>
+      <img v-if="course.banner" :src="course.banner ? course.banner : ''" />
+      <div v-if="course.category" class="category-indicator">
+        {{ course.category }}
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ defineProps<{ course: courseObject }>();
 
 .course-header {
   width: 100%;
-  height: 200px;
+  height: 220px;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -46,7 +48,7 @@ defineProps<{ course: courseObject }>();
 
     img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       object-position: center;
       margin: 0;

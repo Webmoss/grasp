@@ -4,13 +4,13 @@
       <section id="page">
         <div class="page-row">
           <h1 class="page-title">Error Not Found!</h1>
-          <div class="button-column">
-          </div>
+          <div class="button-column"></div>
         </div>
 
         <h2>Page Not Found</h2>
         <div class="page-description">
-          The page you are looking forward could not be found, please return to the home page and try again!
+          The page you are looking forward could not be found, please return to the home
+          page and try again!
         </div>
         <div class="line-divider"></div>
       </section>

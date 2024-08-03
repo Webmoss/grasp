@@ -2,6 +2,7 @@
   <select
     v-model="selected"
     class="pagination-sort-by"
+    name="category"
     @change="sortByHandle($event)"
   >
     <option v-for="option in options" :key="option.value" :value="option.value">
@@ -14,7 +15,6 @@ import { ref } from "vue";
 import { useStore } from "@/store";
 
 const store = useStore();
-
 const selected = ref("");
 
 const options = ref([
@@ -31,7 +31,8 @@ const options = ref([
   { value: "video", label: "Video" },
   { value: "web", label: "Web" },
   { value: "writing", label: "Writing" },
-  { value: "all", label: "All Courses" },
+  { value: "daos", label: "DAOS" },
+  { value: "onboarding", label: "Onboarding" },
 ]);
 
 /**

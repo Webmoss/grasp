@@ -37,11 +37,6 @@
               </li>
               <li>
                 <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
-                Lessons
-              </li>
-              <li>
-                <img v-if="step >= 5" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Set
                 Price
               </li>
@@ -142,19 +137,6 @@
           </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
-            <h2>Add Lessons</h2>
-            <div class="input-row mb-10">
-              <label for="name">Lessons</label>
-              <input
-                type="text"
-                name="lessons"
-                placeholder="Add lessons to your lesson"
-                :value="lesson.lessons"
-              />
-            </div>
-          </div>
-          <!-- Step 5 -->
-          <div v-if="step === 5" class="form-container">
             <h2>Set Price</h2>
             <div class="input-row mb-10">
               <label for="name">Price</label>

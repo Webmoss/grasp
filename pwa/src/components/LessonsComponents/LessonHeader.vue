@@ -2,7 +2,9 @@
   <div class="lesson-header">
     <div class="lesson-banner">
       <img :src="lesson.banner ? lesson.banner : ''" />
-      <span class="category-indicator">{{ lesson.category ? lesson.category : "" }}</span>
+      <div v-if="lesson.category" class="category-indicator">
+        {{ lesson.category }}
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ defineProps<{ lesson: lessonObject }>();
 
 .lesson-header {
   width: 100%;
-  height: 200px;
+  height: 220px;
   position: relative;
   display: flex;
   flex-direction: row;

@@ -4,9 +4,7 @@
     <div class="page-layout">
       <div class="title-bar">
         <div class="row">
-          <div class="title-name">
-            Terms &amp; Conditions
-          </div>
+          <div class="title-name">Terms &amp; Conditions</div>
           <div class="title-actions">
             <!-- <button class="back-button">Back</button> -->
             <!-- <button class="create-button">Create</button> -->

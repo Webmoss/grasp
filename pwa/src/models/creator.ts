@@ -1,3 +1,6 @@
+import { categoryObject } from "src/models/category";
+import { courseObject } from "src/models/course";
+import { lessonObject } from "src/models/lesson";
 
 export interface creatorObject {
   id: number;
@@ -18,10 +21,10 @@ export interface creatorObject {
   website: string | null;
   followers: number | null;
   following: number | null;
-  courses: Array<string>;
-  lessons: Array<string>;
+  categories: Array<categoryObject>;
+  courses: Array<courseObject>;
+  lessons: Array<lessonObject>;
   projects: Array<string>;
-  categories: Array<string>;
   isLive: boolean;
   created_date: string;
   updated_date: string;

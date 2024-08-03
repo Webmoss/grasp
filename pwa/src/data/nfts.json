@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    },
+    {
+      "id": 2,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    },
+    {
+      "id": 3,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    },
+    {
+      "id": 4,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    },
+    {
+      "id": 5,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    },
+    {
+      "id": 6,
+      "type": "article",
+      "category": "educhain",
+      "title": "Publisher NFT",
+      "description":
+        "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
+      "image": "Grasp-Icon.png",
+      "price" : 10,
+      "sales" : 1000
+    }
+  ]
+}

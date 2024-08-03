@@ -4,14 +4,18 @@
       <img src="../../assets/svgs/EduChain-White.svg" />
     </div>
     <div class="creator-banner-column center">
-      <div class="creator-banner-title"><img src="../../assets/svgs/owl-cyan.svg" /> Top&nbsp;<span class="cyan"> Creators</span></div>
+      <div class="creator-banner-title">
+        <img src="../../assets/svgs/owl-cyan.svg" /> Top&nbsp;<span class="cyan">
+          Creators</span
+        >
+      </div>
       <div class="creator-banner-slogan">Learn, earn and be rewarded for excellence</div>
       <div class="creator-banner-description">
         Vote for your favourite creator to earn OC Points
       </div>
     </div>
     <div class="creator-banner-column right">
-      <VoteButton btnSize="small" color="cyan" :creator-id="1" />
+      <VoteButton btnSize="large" color="cyan" :creator-id="1" />
     </div>
   </div>
 </template>
@@ -32,7 +36,8 @@ import VoteButton from "../Buttons/VoteButton.vue";
   align-content: center;
   align-items: center;
   background: $grasp-blue;
-  background-image: url("../../assets/images/hexBG.png"),url("../../assets/images/EduChain.png");
+  background-image: url("../../assets/images/hexBG.png"),
+    url("../../assets/images/EduChain.png");
   background-repeat: no-repeat, no-repeat;
   background-size: 100%, 300px;
   background-position: top left, right 160px top 0;
@@ -46,7 +51,8 @@ import VoteButton from "../Buttons/VoteButton.vue";
   @include breakpoint($break-sm) {
     width: 90%;
     flex-direction: column;
-    background-image: url("../../assets/images/hexBG.png"),url("../../assets/images/EduChain.png");
+    background-image: url("../../assets/images/hexBG.png"),
+      url("../../assets/images/EduChain.png");
     background-repeat: no-repeat, no-repeat;
     background-size: 100%, 100%;
     background-position: top left, bottom -41px left;

@@ -66,7 +66,7 @@
         <h2>Creators Courses</h2>
 
         <div class="creator-course-list">
-          <template v-for="(course, i) in testCourses" :key="i">
+          <template v-for="(course, i) in testCourses.data" :key="i">
             <div class="course">
               <div class="course-image">
                 <img :src="course.image ? course.image : 'rectangle.svg'" />
@@ -106,145 +106,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount } from "vue";
 import { useStore } from "@/store";
-// import { storeToRefs } from "pinia";
-import CreatorHeader from "../components/CreatorsComponents/CreatorHeader.vue";
-import BuyButton from "../components/Buttons/BuyButton.vue";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+
+/* Components */
+import CreatorHeader from "@/components/CreatorsComponents/CreatorHeader.vue";
+import BuyButton from "@/components/Buttons/BuyButton.vue";
+
+/* All Posts stored in a JSON */
+import testCreators from "../data/creators.json";
+import testCourses from "../data/courses.json";
 
 const store = useStore();
-// const { creator } = storeToRefs(store);
+const route = useRoute();
+const { creator } = storeToRefs(store);
 
-const creator = ref({
-  id: 1,
-  banner: "Grasp-Banner.png",
-  image: "WebMoss.jpg",
-  username: "WebMoss",
-  name: "Craig Moss",
-  description:
-    "A Software Engineer who thrives on creating beautiful web applications. I have fulfilled various roles throughout my career in the Information Technology arena and enjoy new challenges and problem solving... no task is too great or small, if you just take it one byte at a time. I look forward to my next web3 challenge as it will allow me to discover new and exciting technologies that will shape our future.",
-  email: "example@gmail.com",
-  mobile: "012 567 8901",
-  title: "Developer",
-  city: "Cape Town",
-  country: "South Africa",
-  twitter: "https://twitter.com/WebMoss",
-  linkedin: "https://www.linkedin.com/in/craig-moss-21822628/",
-  facebook: "https://www.facebook.com/",
-  instagram: "https://www.instagram.com/",
-  website: "https://www.website.com/",
-  followers: 1400,
-  following: 100,
-  courses: [],
-  lessons: [],
-  projects: [],
-  categories: ["educhain"],
-  isLive: true,
-  created_date: "30/03/2023",
-  updated_date: "",
+const creatorId = route.params.id;
+
+async function fetchCreator() {
+  let filteredCreator = testCreators.data.filter((creator) => {
+    return creator.id === Number.parseInt(creatorId as string);
+  });
+  store.setCreator(filteredCreator[0] as any);
+}
+
+onBeforeMount(async () => {
+  await fetchCreator();
 });
-
-const testCourses = [
-  {
-    id: 1,
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description: "",
-    banner: "",
-    image: "",
-    created_date: "30/03/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    id: 2,
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt:
-      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    banner: "",
-    image: "",
-    created_date: "01/06/2024",
-    updated_date: "",
-    price: 10,
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
-  },
-  {
-    id: 3,
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    id: 4,
-    name: "tweet",
-    type: "tweet",
-    category: "learners",
-    title: "Tweet Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/01/2023",
-    updated_date: "20/02/2023",
-    price: 10,
-  },
-  {
-    id: 5,
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/05/2023",
-    updated_date: "20/05/2023",
-    price: 10,
-  },
-  {
-    id: 6,
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/05/2023",
-    updated_date: "20/05/2023",
-    price: 10,
-  },
-];
 </script>
 
 <style lang="scss" scoped>
@@ -259,6 +149,11 @@ section#creator {
 
   #page {
     padding-bottom: 30px;
+
+    @include breakpoint($break-sm) {
+      width: 94%;
+      padding: 0 3%;
+    }
   }
 
   .main {
@@ -276,6 +171,11 @@ section#creator {
       align-items: flex-end;
       margin: 0 0 8px 0;
 
+      @include breakpoint($break-sm) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       h1.creator-title {
         width: 100%;
         font-family: "Poppins", sans-serif;
@@ -290,6 +190,11 @@ section#creator {
         align-content: flex-end;
         align-items: flex-end;
         margin: 0;
+
+        @include breakpoint($break-sm) {
+          font-size: 26px;
+          line-height: 30px;
+        }
       }
 
       .creator-socials {
@@ -300,6 +205,11 @@ section#creator {
         align-content: center;
         align-items: center;
         margin: 0 0 8px 0;
+
+        @include breakpoint($break-sm) {
+          justify-content: flex-start;
+          margin: 12px 0 8px 0;
+        }
 
         a {
           color: $grasp-blue;

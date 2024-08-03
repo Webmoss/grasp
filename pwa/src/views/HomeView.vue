@@ -13,13 +13,13 @@
 </template>
 
 <script setup lang="ts">
-import IntroSection from "../components/HomeComponents/IntroSection.vue";
-import EarnLearn from "../components/HomeComponents/EarnLearn.vue";
-import LearningManagement from "../components/HomeComponents/LearningManagement.vue";
-import OpenCampus from "../components/HomeComponents/OpenCampus.vue";
-import GoPlus from "../components/HomeComponents/GoPlus.vue";
-import EduChain from "../components/HomeComponents/EduChain.vue";
-import FooterSection from "../components/HomeComponents/FooterSection.vue";
+import IntroSection from "@/components/HomeComponents/IntroSection.vue";
+import EarnLearn from "@/components/HomeComponents/EarnLearn.vue";
+import LearningManagement from "@/components/HomeComponents/LearningManagement.vue";
+import OpenCampus from "@/components/HomeComponents/OpenCampus.vue";
+import GoPlus from "@/components/HomeComponents/GoPlus.vue";
+import EduChain from "@/components/HomeComponents/EduChain.vue";
+import FooterSection from "@/components/HomeComponents/FooterSection.vue";
 </script>
 
 <style lang="scss" scoped>

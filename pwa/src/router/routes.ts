@@ -20,7 +20,7 @@ const routes = [
     component: () => import("@/views/CoursesView.vue"),
   },
   {
-    path: "/course/:type?/:name?",
+    path: "/course/:id?/:type?",
     name: "course",
     meta: {
       guest: true,
@@ -39,7 +39,7 @@ const routes = [
     component: () => import("@/views/CreatorsView.vue"),
   },
   {
-    path: "/creator/:name?",
+    path: "/creator/:id?",
     name: "creator",
     meta: {
       guest: true,

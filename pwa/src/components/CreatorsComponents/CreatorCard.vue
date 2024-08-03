@@ -54,7 +54,7 @@
           target="_blank"
           rel="noopener"
           ><img src="../../assets/svgs/socials/instagram.svg" alt="Instagram"
-        /></a>       
+        /></a>
       </div>
     </div>
     <div class="creator-list-buttons">
@@ -130,7 +130,7 @@
     <div class="creator-card-row">
       <div class="creator-category">
         <template v-for="(category, i) in creator.categories" :key="i">
-          <span class="category-indicator">{{ category ? category : "" }}</span>
+          <span class="category-indicator">{{ category.name ? category.name : "" }}</span>
         </template>
       </div>
       <div class="button-column">

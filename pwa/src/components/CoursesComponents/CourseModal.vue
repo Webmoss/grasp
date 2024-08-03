@@ -259,7 +259,7 @@
               />
             </div>
             <div class="date-row mb-10">
-              <label for="from_date">Discount Start</label>
+              <label for="from_date">Discount Period</label>
               <div class="date-inputs">
                 <input
                   type="date"
@@ -437,7 +437,8 @@ const lessons = [
     title: "Introduction",
     excerpt:
       "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description: "",
+    description:
+      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
     price: 10,
     sales: 1000,
     token: "EDU",
@@ -449,7 +450,7 @@ const lessons = [
   },
   {
     id: 2,
-    type: "article",
+    type: "video",
     category: "educhain",
     categories: [],
     banner: "",
@@ -463,15 +464,15 @@ const lessons = [
     sales: 1000,
     token: "EDU",
     links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
-    step: 1,
+    step: 2,
     isLive: true,
     created_date: "30/03/2023",
     updated_date: "",
   },
   {
     id: 3,
-    type: "quote",
-    category: "collections",
+    type: "game",
+    category: "games",
     categories: [],
     banner: "",
     image: "",
@@ -484,7 +485,7 @@ const lessons = [
     sales: 1000,
     token: "EDU",
     links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
-    step: 1,
+    step: 3,
     isLive: true,
     created_date: "30/03/2023",
     updated_date: "",

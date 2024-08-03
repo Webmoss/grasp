@@ -12,7 +12,7 @@
             <button class="create-button">Edit</button>
           </div>
         </div>
-        <p>Update your courses lessons, details and settings.</p>
+        <p>Update your course lessons, details and settings.</p>
       </div>
       <div class="line-divider"></div>
       <div class="course-date">

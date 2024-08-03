@@ -4,7 +4,7 @@
       <CourseHeader :course="course" />
       <section id="page">
         <div class="course-details-row">
-          <h1 class="course-title">Course {{ course.title ? course.title : "" }}</h1>
+          <h1 class="course-title">{{ course.title ? course.title : "" }}</h1>
           <div class="button-column">
             <BuyButton
               :btn-size="'large'"
@@ -23,19 +23,11 @@
         </div>
 
         <div class="course-excerpt">
-          {{
-            course.excerpt
-              ? course.excerpt
-              : ""
-          }}
+          {{ course.excerpt ? course.excerpt : "" }}
         </div>
 
         <div class="course-description">
-          {{
-            course.description
-              ? course.description
-              : ""
-          }}
+          {{ course.description ? course.description : "" }}
         </div>
 
         <div class="line-divider"></div>
@@ -81,36 +73,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount } from "vue";
 import { useStore } from "@/store";
-// import { storeToRefs } from "pinia";
-import CourseHeader from "../components/CoursesComponents/CourseHeader.vue";
-import BuyButton from "../components/Buttons/BuyButton.vue";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+
+/* Components */
+import CourseHeader from "@/components/CoursesComponents/CourseHeader.vue";
+import BuyButton from "@/components/Buttons/BuyButton.vue";
+
+/* All Posts stored in a JSON */
+import testCourses from "../data/courses.json";
 
 const store = useStore();
-// const { course } = storeToRefs(store);
+const route = useRoute();
+const { course } = storeToRefs(store);
 
-const course = ref({
-  id: 1,
-  type: "article",
-  category: "EduChain",
-  categories: ['Front-end', 'Development', 'Web3'],
-  name: "introduction",
-  banner: "Grasp-Banner.png",
-  image: "Grasp-Icon.png",
-  title: "Introduction",
-  excerpt:
-    "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-  description:
-    "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-  price: 10,
-  token: "EDU",
-  links: [],
-  lessons: [],
-  step: 0,
-  isLive: true,
-  created_date: "30/03/2024",
-  updated_date: "01/07/2024",
+const courseId = route.params.id;
+
+async function fetchCourse() {
+  let filteredCourse = testCourses.data.filter((course) => {
+    return course.id === Number.parseInt(courseId as string);
+  });
+  store.setCourse(filteredCourse[0] as any);
+}
+
+onBeforeMount(async () => {
+  await fetchCourse();
 });
 </script>
 
@@ -126,6 +115,11 @@ section#course {
 
   #page {
     padding-bottom: 30px;
+
+    @include breakpoint($break-sm) {
+      width: 94%;
+      padding: 0 3%;
+    }
   }
 
   .main {
@@ -161,6 +155,11 @@ section#course {
       align-items: flex-end;
       margin: 0 0 8px 0;
 
+      @include breakpoint($break-sm) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       h1.course-title {
         width: 100%;
         font-family: "Poppins", sans-serif;
@@ -175,6 +174,11 @@ section#course {
         align-content: flex-end;
         align-items: flex-end;
         margin: 0;
+
+        @include breakpoint($break-sm) {
+          font-size: 24px;
+          line-height: 30px;
+        }
 
         img {
           width: 40px;
