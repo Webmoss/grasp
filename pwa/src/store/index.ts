@@ -3,6 +3,7 @@ import { userObject } from 'src/models/user';
 import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 import { creatorObject } from "src/models/creator";
+import { metadataObject } from "src/models/metadata";
 import { filterObject } from 'src/models/filter';
 import { paginationObject } from 'src/models/pagination';
 
@@ -40,6 +41,8 @@ export const useStore = defineStore({
     lesson: <lessonObject>{},
     creators: [] as creatorObject[],
     creator: <creatorObject>{},
+    nfts: [] as metadataObject[],
+    nft: <metadataObject>{},
   }),
   getters: {
     getChainId(state) {
@@ -114,6 +117,9 @@ export const useStore = defineStore({
     getCreators(state) {
       return state.creators;
     },
+    getNfts(state) {
+      return state.nfts;
+    },
     getCourse(state) {
       return state.course;
     },
@@ -122,6 +128,9 @@ export const useStore = defineStore({
     },
     getCreator(state) {
       return state.creator;
+    },
+    getNft(state) {
+      return state.nft;
     },
   },
   actions: {
@@ -238,6 +247,9 @@ export const useStore = defineStore({
     setCreators(creators: creatorObject[]) {
       this.creators = creators;
     },
+    setNfts(nfts: metadataObject[]) {
+      this.nfts = nfts;
+    },
     setCourse(course: courseObject) {
       this.course = course;
     },
@@ -246,6 +258,9 @@ export const useStore = defineStore({
     },
     setCreator(creator: creatorObject) {
       this.creator = creator;
+    },
+    setNft(nft: metadataObject) {
+      this.nft = nft;
     },
   },
 });

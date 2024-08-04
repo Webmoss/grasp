@@ -89,11 +89,9 @@ const store = useStore();
 const route = useRoute();
 const { course } = storeToRefs(store);
 
-const courseId = route.params.id;
-
 async function fetchCourse() {
   let filteredCourse = testCourses.data.filter((course) => {
-    return course.id === Number.parseInt(courseId as string);
+    return course.id === route.params.id;
   });
   store.setCourse(filteredCourse[0] as any);
 }

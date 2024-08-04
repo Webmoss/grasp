@@ -17,7 +17,7 @@
         <LessonsList :lessons="lessons" />
         <LessonsPagination
           :pagination="pagination"
-          :total="lessonsTotal"
+          :total="total"
           :last-page="lastPage"
         />
       </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, provide } from "vue";
+import { ref, computed, onBeforeMount, provide } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
@@ -47,7 +47,6 @@ const store = useStore();
 const { lessons, pagination } = storeToRefs(store);
 
 const showModal = ref(false);
-const lessonsTotal = ref(0);
 const lastPage = ref(0);
 
 const NotfyProvider = new Notyf({
@@ -90,6 +89,10 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+const total = computed(() => {
+  return lessons.value ? lessons.value.length : 0;
+});
 
 const showHideModal = () => {
   showModal.value = !showModal.value;

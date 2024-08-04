@@ -6,7 +6,7 @@
       <CreatorsList :creators="creators" />
       <CreatorsPagination
         :pagination="pagination"
-        :total="creatorsTotal"
+        :total="total"
         :last-page="lastPage"
       />
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { creatorObject } from "src/models/creator";
@@ -31,8 +31,11 @@ import testCreators from "../data/creators.json";
 const store = useStore();
 const { creators, pagination } = storeToRefs(store);
 
-const creatorsTotal = ref(0);
 const lastPage = ref(0);
+
+const total = computed(() => {
+  return creators.value ? creators.value.length : 0;
+});
 
 async function fetchCreators() {
   store.setCreators((testCreators.data as unknown) as creatorObject[]);

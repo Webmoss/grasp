@@ -33,7 +33,7 @@ const props = defineProps({
     required: false,
   },
   courseId: {
-    type: Number,
+    type: String,
     default: null,
     required: false,
   },

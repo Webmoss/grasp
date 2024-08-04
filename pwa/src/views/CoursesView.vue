@@ -6,7 +6,7 @@
       <CoursesList :courses="courses" />
       <CoursesPagination
         :pagination="pagination"
-        :total="coursesTotal"
+        :total="total"
         :last-page="lastPage"
       />
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { courseObject } from "src/models/course";
@@ -31,8 +31,11 @@ import testCourses from "../data/courses.json";
 const store = useStore();
 const { courses, pagination } = storeToRefs(store);
 
-const coursesTotal = ref(0);
 const lastPage = ref(0);
+
+const total = computed(() => {
+  return courses.value ? courses.value.length : 0;
+});
 
 async function fetchCourses() {
   store.setCourses((testCourses.data as unknown) as courseObject[]);

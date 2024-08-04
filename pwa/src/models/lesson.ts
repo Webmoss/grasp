@@ -1,7 +1,7 @@
 import { categoryObject } from "./category";
 
 export interface lessonObject {
-  id: number;
+  id: string;
   type: string | null;
   category: string;
   categories: Array<categoryObject>;

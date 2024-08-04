@@ -3,7 +3,7 @@ import { lessonObject } from './lesson'
 import { metadataObject } from './metadata'
 
 export interface courseObject {
-  id: number;
+  id: string;
   type: string | null;
   category: string;
   categories: Array<categoryObject>;

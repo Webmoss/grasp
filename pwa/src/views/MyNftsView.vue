@@ -6,205 +6,48 @@
         <div class="row">
           <div class="title-name">My NFTs</div>
           <div class="title-actions">
-            <button class="create-button" @click="showHideModal()">Create NFT</button>
+            <!-- <button class="create-button" @click="showHideModal()">Create NFT</button> -->
             <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
-        <p>View a list of all your EDU NFTs.</p>
+        <p>View a list of all your Education NFTs.</p>
       </div>
       <div class="main">
-        <LessonSearch />
-        <LessonsList :lessons="lessons" />
-        <LessonsPagination
+        <NftSearch />
+        <NftsList :nfts="nfts" />
+        <NftsPagination
           :pagination="pagination"
-          :total="lessonsTotal"
+          :total="total"
           :last-page="lastPage"
         />
       </div>
     </div>
-    <LessonModal :showModal="showModal" :lesson="{}" @close="showHideModal" />
+    <!-- <NftModal :showModal="showModal" :lesson="{}" @close="showHideModal" /> -->
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, provide } from "vue";
+import { ref, computed, onBeforeMount, provide } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
-import { lessonObject } from "src/models/lesson";
+import { metadataObject } from "src/models/metadata";
+
+/* Components */
 import SidebarView from "@/components/SidebarView.vue";
-import LessonSearch from "../components/LessonsComponents/LessonSearch.vue";
-import LessonsList from "../components/LessonsComponents/LessonsList.vue";
-import LessonsPagination from "../components/LessonsComponents/LessonsPagination.vue";
-import LessonModal from "../components/LessonsComponents/LessonModal.vue";
+import NftSearch from "@/components/NftsComponents/NftSearch.vue";
+import NftsList from "@/components/NftsComponents/NftsList.vue";
+import NftsPagination from "@/components/NftsComponents/NftsPagination.vue";
+// import NftModal from "@/components/NftsComponents/NftModal.vue";
+
+/* All Posts stored in a JSON */
+import testNfts from "../data/nfts.json";
 
 const store = useStore();
-const { lessons, pagination } = storeToRefs(store);
+const { nfts, pagination } = storeToRefs(store);
 
-const showModal = ref(false);
-const lessonsTotal = ref(0);
+// const showModal = ref(false);
 const lastPage = ref(0);
-
-const testLessons = [
-  {
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    banner: "",
-    image: "",
-    created_date: "30/03/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt:
-      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    banner: "",
-    image: "",
-    created_date: "01/06/2024",
-    updated_date: "",
-    price: 10,
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
-  },
-  {
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    name: "tweet",
-    type: "tweet",
-    category: "learners",
-    title: "Tweet Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/01/2023",
-    updated_date: "20/02/2023",
-    price: 10,
-  },
-  {
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/05/2023",
-    updated_date: "20/05/2023",
-    price: 10,
-  },
-  {
-    name: "introduction",
-    type: "article",
-    category: "educhain",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    banner: "",
-    image: "",
-    created_date: "30/03/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    name: "open-campus-id",
-    type: "article",
-    category: "educhain",
-    title: "What is Open Campus ID",
-    excerpt:
-      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    banner: "",
-    image: "",
-    created_date: "01/06/2024",
-    updated_date: "",
-    price: 10,
-    links: [
-      { url: "https://id.opencampus.xyz/", title: "open Campus ID" },
-      { url: "https://x.com/opencampus_xyz", title: "Twitter" },
-    ],
-  },
-  {
-    name: "quote",
-    type: "quote",
-    category: "collections",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    banner: "",
-    image: "",
-    created_date: "06/07/2023",
-    updated_date: "",
-    price: 10,
-  },
-  {
-    name: "tweet",
-    type: "tweet",
-    category: "learners",
-    title: "Tweet Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/01/2023",
-    updated_date: "20/02/2023",
-    price: 10,
-  },
-  {
-    name: "link",
-    type: "link",
-    category: "daos",
-    title: "Link Example",
-    excerpt:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    description:
-      "Read the latest news and reviews from the ApeCoin community and frens. We keep you updated on all the latest events, launches, AIP's and more.",
-    banner: "",
-    image: "",
-    created_date: "10/05/2023",
-    updated_date: "20/05/2023",
-    price: 10,
-  },
-];
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -247,15 +90,19 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-const showHideModal = () => {
-  showModal.value = !showModal.value;
-};
+const total = computed(() => {
+  return nfts.value ? nfts.value.length : 0;
+});
 
-async function fetchLessons() {
-  store.setLessons((testLessons as unknown) as lessonObject[]);
+// const showHideModal = () => {
+//   showModal.value = !showModal.value;
+// };
+
+async function fetchNfts() {
+  store.setNfts((testNfts.data as unknown) as metadataObject[]);
 }
 
 onBeforeMount(async () => {
-  await fetchLessons();
+  await fetchNfts();
 });
 </script>

@@ -35,6 +35,8 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
+
+/* Components */
 import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
@@ -43,8 +45,6 @@ import testLessons from "../data/lessons.json";
 const store = useStore();
 const route = useRoute();
 const { lesson } = storeToRefs(store);
-
-const lessonId = route.params.id;
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -89,7 +89,7 @@ provide("notyf", NotfyProvider);
 
 async function fetchLesson() {
   let filteredCourse = testLessons.data.filter((lesson) => {
-    return lesson.id === Number.parseInt(lessonId as string);
+    return lesson.id === route.params.id;
   });
   store.setLesson(filteredCourse[0] as any);
 }

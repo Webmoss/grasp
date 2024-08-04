@@ -124,13 +124,10 @@ const store = useStore();
 const route = useRoute();
 const { creator } = storeToRefs(store);
 
-const creatorId = route.params.id;
-
 async function fetchCreator() {
   let filteredCreator = testCreators.data.filter((creator) => {
-    return creator.id === Number.parseInt(creatorId as string);
+    return creator.id === route.params.id;
   });
-  console.log("filteredCreator[0]", filteredCreator[0]);
   store.setCreator((filteredCreator[0] as unknown) as creatorObject);
 }
 

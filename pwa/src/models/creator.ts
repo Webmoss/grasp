@@ -3,7 +3,7 @@ import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 
 export interface creatorObject {
-  id: number;
+  id: string;
   banner: string;
   image: string;
   username: string | null;

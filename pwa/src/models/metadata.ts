@@ -1,7 +1,9 @@
 import { attributeObject } from "src/models/attribute";
 export interface metadataObject {
+  id: string;
   image: string;
   imageOriginal: string;
+  type: string;
   name: string;
   title: string;
   description: string;
@@ -14,4 +16,6 @@ export interface metadataObject {
   creator_address: string;
   owner: string;
   attributes: Array<attributeObject>;
+  price: number;
+  sales: number;
 }

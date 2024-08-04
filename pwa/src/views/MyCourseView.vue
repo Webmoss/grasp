@@ -74,6 +74,8 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
+
+/* Components */
 import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
@@ -128,7 +130,7 @@ provide("notyf", NotfyProvider);
 
 async function fetchCourse() {
   let filteredCourse = testCourses.data.filter((course) => {
-    return course.id === Number.parseInt(courseId as string);
+    return course.id === courseId;
   });
   store.setCourse(filteredCourse[0] as any);
 }
@@ -137,6 +139,7 @@ onBeforeMount(async () => {
   await fetchCourse();
 });
 </script>
+
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
