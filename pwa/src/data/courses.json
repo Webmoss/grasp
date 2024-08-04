@@ -16,7 +16,7 @@
       "description":
         "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
       "price" : 10,
-      "discount" : 10,
+      "discount" : 0,
       "from_date": "01/08/2024",
       "to_date": "30/08/2024",
       "sales" : 1000,

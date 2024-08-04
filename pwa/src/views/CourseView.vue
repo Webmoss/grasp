@@ -11,14 +11,19 @@
               :color="'blue'"
               :course-id="course.id"
               :price="course.price"
+              :discount="course.discount"
             />
           </div>
         </div>
 
         <div class="course-details-row">
           <div class="course-date">
-            <span class="course-date-label">Date:</span>
+            <span class="course-date-label">Date </span>
             {{ course.created_date ? course.created_date : "" }}
+          </div>
+          <div v-if="course.discount" class="course-discount">
+            <span class="course-discount-label">Discount </span>
+            {{ course.discount + "%" }}
           </div>
         </div>
 
@@ -184,6 +189,25 @@ section#course {
           @include breakpoint($break-sm) {
             width: 40px;
           }
+        }
+      }
+
+      .course-discount {
+        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grasp-orange;
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin: 0 0 4px 0;
+
+        .course-date-label {
+          color: $grasp-orange;
+          font-size: 16px;
+          font-weight: 600;
+          text-decoration: none;
+          text-transform: capitalize;
         }
       }
 

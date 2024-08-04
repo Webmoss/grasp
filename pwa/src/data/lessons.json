@@ -16,57 +16,17 @@
       "description":
         "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
       "price" : 10,
-      "discount" : 10,
-      "from_date": "01/08/2024",
-      "to_date": "30/08/2024",
       "sales" : 1000,
       "total" : 10000,
-      "nft" : {
-        "image" : "Grasp-Icon.png",
-        "imageOriginal" : "Grasp-Icon.png",
-        "name" : "Course NFT",
-        "title" : "Grasp Education",
-        "description" : "Grasp Education course NFT",
-        "mint_date": "01/08/2024",
-        "updated_date": "30/08/2024",
-        "file_url" : "Course NFT",
-        "animation_url" : "Course NFT",
-        "cached_file_url" : "Course NFT",
-        "cached_animation_url" : "Course NFT",
-        "creator_address" : "Course NFT",
-        "owner" : "Course NFT",
-        "attributes" : [
-          {
-            "trait_type" : "",
-            "display_type" : "",
-            "value" : "",
-            "key" : "",
-            "kind" : "",
-            "tokenCount" : 0,
-            "onSaleCount" : 0,
-            "floorAskPrice" : 0,
-            "topBidValue" : 0,
-            "createdAt" : ""
-          }
-        ]
-      },
       "token": "EDU",
       "links": [
         { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
         { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
       ],
-      "lessons": [
-        { "id": 1 },
-        { "id": 2 },
-        { "id": 3 },
-        { "id": 4 },
-        { "id": 5 },
-        { "id": 6 }
-      ],
-      "step": "EDU",
-      "isLive": "EDU",
+      "step": 1,
+      "isLive": true,
       "created_date": "15/07/2024",
-      "updated_date": ""
+      "updated_date": "17/07/2024"
     }
   ]
 }

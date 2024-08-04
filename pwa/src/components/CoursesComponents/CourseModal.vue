@@ -219,7 +219,7 @@
                       }}</span>
                     </div>
                     <div class="actions">
-                      <button class="add-link-button" @click="addLesson(lesson)">
+                      <button class="add-link-button" @click="addLesson(lesson as any)">
                         <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
                       </button>
                     </div>
@@ -306,6 +306,7 @@
                     :color="'blue'"
                     :course-id="form.id"
                     :price="form.price"
+                    :discount="form.discount"
                   />
                 </div>
               </div>

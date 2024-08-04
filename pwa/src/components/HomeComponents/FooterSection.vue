@@ -9,15 +9,15 @@
           rel="noopener"
           >showcase</a
         >
+        <a href="https://x.com/GraspAcademy" alt="Twitter" target="_blank" rel="noopener"
+          >twitter</a
+        >
         <a
           href="https://github.com/Webmoss/grasp"
           alt="GitHub"
           target="_blank"
           rel="noopener"
           >github</a
-        >
-        <a href="https://x.com/GraspAcademy" alt="Twitter" target="_blank" rel="noopener"
-          >twitter</a
         >
       </nav>
     </div>
@@ -50,26 +50,24 @@
       justify-content: flex-end;
       margin: 0;
       padding: 0.3em;
-      font-size: 0.9rem;
 
       @include breakpoint($break-sm) {
-        padding: 0;
-        font-size: 0.8rem;
         justify-content: center;
+        padding: 0.1em;
       }
 
       a {
-        font-size: 0.9rem;
         color: $white;
+        font-size: 16px;
         margin-right: 14px;
         padding-bottom: 1px;
         text-decoration: none;
-        border-bottom: 0.5px solid;
+        border-bottom: 0.5px solid transparent;
         transition: 0.6s;
         cursor: pointer;
 
         @include breakpoint($break-sm) {
-          font-size: 0.7rem;
+          font-size: 14px;
         }
 
         &:hover,

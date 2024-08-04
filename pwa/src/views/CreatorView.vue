@@ -94,6 +94,7 @@
                     :color="'blue'"
                     :course-id="course.id"
                     :price="course.price"
+                    :discount="course.discount"
                   />
                 </div>
               </div>

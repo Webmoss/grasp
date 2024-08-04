@@ -10,6 +10,10 @@
       <div class="course-excerpt">
         {{ course.excerpt ? course.excerpt : "" }}
       </div>
+      <div v-if="course.discount" class="course-discount">
+        <span class="course-discount-label">Discount&nbsp;</span>
+        {{ course.discount + "%" }}
+      </div>
     </div>
     <div class="course-list-buttons">
       <div v-if="course && course.category" class="course-category">
@@ -26,6 +30,7 @@
           :color="'blue'"
           :course-id="course.id"
           :price="course.price"
+          :discount="course.discount"
         />
       </div>
     </div>
@@ -51,11 +56,16 @@
         <div class="category-indicator">{{ course.category ? course.category : "" }}</div>
       </div>
       <div class="button-column">
+        <div v-if="course.discount" class="course-discount">
+          <span class="course-discount-label">Discount&nbsp;</span>
+          {{ course.discount + "%" }}
+        </div>
         <BuyButton
           :btn-size="'small'"
           :color="'blue'"
           :course-id="course.id"
           :price="course.price"
+          :discount="course.discount"
         />
       </div>
     </div>
@@ -196,12 +206,38 @@ defineProps<{ course: courseObject; gridView: string }>();
   }
   .button-column {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-content: center;
     align-items: center;
     padding: 0;
     margin: 0;
+
+    .course-discount {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      color: $grasp-orange;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin: 8px 0 4px 0;
+
+      .course-discount-label {
+        color: $grasp-orange;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: capitalize;
+      }
+    }
   }
 }
 
@@ -267,11 +303,12 @@ defineProps<{ course: courseObject; gridView: string }>();
 
     .course-excerpt {
       width: 100%;
+      min-height: 30px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-content: center;
-      align-items: center;
+      align-items: flex-start;
 
       width: 100%;
       color: $black;
@@ -279,6 +316,32 @@ defineProps<{ course: courseObject; gridView: string }>();
       font-weight: normal;
       text-align: left;
       margin: 0;
+    }
+
+    .course-discount {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: center;
+      align-items: center;
+
+      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      color: $grasp-orange;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin: 8px 0 0 0;
+
+      .course-discount-label {
+        color: $grasp-orange;
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: capitalize;
+      }
     }
   }
 

@@ -7,11 +7,12 @@
     <div class="course-price-amount-icon">
       <img src="../../assets/svgs/EduCoin.svg" />
     </div>
-    <span class="course-price">{{ price ? price.toFixed(2) : 0.0 }}</span>
+    <span class="course-price">{{ buyPrice ? buyPrice.toFixed(2) : 0.0 }}</span>
   </button>
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 export interface Props {
@@ -42,9 +43,23 @@ const props = defineProps({
     default: 0,
     required: false,
   },
+  discount: {
+    type: Number,
+    default: 0,
+    required: false,
+  },
 });
 
 const router = useRouter();
+
+const buyPrice = computed(() => {
+  if(props.price && props.discount) {
+    return props.price - (props.price *(props.discount)/100);
+  } else {
+    return props.price;
+  }
+
+});
 
 function goToCourse() {
   router.push({ name: "course", params: { id: props.courseId } });

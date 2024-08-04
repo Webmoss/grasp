@@ -128,10 +128,10 @@ section#home {
       width: 100%;
       img,
       svg {
-        width: 90%;
+        width: 100%;
         object-fit: cover;
         overflow: hidden;
-        margin-left: 10%;
+        margin: 0;
       }
     }
   }
