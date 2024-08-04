@@ -1,7 +1,7 @@
 <template>
   <div class="course-header">
     <div class="course-banner">
-      <img v-if="course.banner" :src="course.banner ? course.banner : ''" />
+      <img v-if="course.banner" :src="`../${course.banner}`" />
       <div v-if="course.category" class="category-indicator">
         {{ course.category }}
       </div>

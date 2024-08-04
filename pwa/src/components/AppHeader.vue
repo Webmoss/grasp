@@ -13,19 +13,37 @@
       <nav class="header-navbar">
         <div class="menu-button-row">
           <ul>
-            <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('home')">
+            <li
+              v-if="homeLinks"
+              class="menu-link active"
+              @click="navigateAndScroll('home')"
+            >
               Home
             </li>
             <li v-else>
-              <router-link :to="{ name: 'home' }" class="menu-link">Home</router-link>
+              <router-link
+                :to="{ name: 'home' }"
+                class="menu-link"
+                class-active="active"
+                exact
+                >Home</router-link
+              >
             </li>
             <li>
-              <router-link :to="{ name: 'courses' }" class="menu-link"
+              <router-link
+                :to="{ name: 'courses' }"
+                class="menu-link"
+                class-active="active"
+                exact
                 >Courses</router-link
               >
             </li>
             <li>
-              <router-link :to="{ name: 'creators' }" class="menu-link"
+              <router-link
+                :to="{ name: 'creators' }"
+                class="menu-link"
+                class-active="active"
+                exact
                 >Creators</router-link
               >
             </li>
@@ -33,7 +51,13 @@
               Plus
             </li>
             <li v-else>
-              <router-link :to="{ path: '/#goplus' }" class="menu-link">Plus</router-link>
+              <router-link
+                :to="{ path: '/#goplus' }"
+                class="menu-link"
+                class-active="active"
+                exact
+                >Plus</router-link
+              >
             </li>
           </ul>
         </div>
@@ -199,7 +223,6 @@ function navigateAndScroll(to: any) {
           margin-block-start: 0;
           margin-block-end: 0;
           height: 26px;
-          // overflow: hidden;
         }
 
         .menu-link,
@@ -225,6 +248,11 @@ function navigateAndScroll(to: any) {
             font-weight: 500;
             border-bottom: 2px solid $grasp-cyan;
           }
+        }
+        .menu-link.active {
+          padding-bottom: 2px;
+          font-weight: 500;
+          border-bottom: 2px solid $grasp-cyan;
         }
       }
 

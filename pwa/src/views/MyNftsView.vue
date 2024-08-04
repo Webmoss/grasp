@@ -4,7 +4,7 @@
     <div class="page-layout">
       <div class="title-bar">
         <div class="row">
-          <div class="title-name">My EDU NFTs</div>
+          <div class="title-name">My NFTs</div>
           <div class="title-actions">
             <button class="create-button" @click="showHideModal()">Create NFT</button>
             <!-- <button class="back-button">Back</button> -->

@@ -5,7 +5,7 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
-            Lesson Title: {{ lesson.title ? lesson.title : "" }}
+            {{ lesson.title ? lesson.title : "" }}
           </div>
           <div class="title-actions">
             <button class="back-button">Back</button>
@@ -30,30 +30,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
 import SidebarView from "@/components/SidebarView.vue";
 
-const store = useStore();
-// const { lesson } = storeToRefs(store);
+/* All Posts stored in a JSON */
+import testLessons from "../data/lessons.json";
 
-const lesson = ref({
-  id: 1,
-  name: "Introduction",
-  type: "article",
-  category: "EduChain",
-  title: "Introduction",
-  excerpt:
-    "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-  description:
-    "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-  banner: "Grasp-Banner.png",
-  image: "Grasp-Icon.png",
-  created_date: "30/03/2023",
-  updated_date: "",
-  price: 10,
-});
+const store = useStore();
+const route = useRoute();
+const { lesson } = storeToRefs(store);
+
+const lessonId = route.params.id;
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -95,6 +86,17 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+async function fetchLesson() {
+  let filteredCourse = testLessons.data.filter((lesson) => {
+    return lesson.id === Number.parseInt(lessonId as string);
+  });
+  store.setLesson(filteredCourse[0] as any);
+}
+
+onBeforeMount(async () => {
+  await fetchLesson();
+});
 </script>
 <style lang="scss">
 @import "../assets/styles/variables.scss";

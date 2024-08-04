@@ -1,8 +1,8 @@
 <template>
   <div class="creator-header">
     <div class="creator-banner">
-      <img v-if="creator.banner" :src="creator.banner" class="profile-banner" />
-      <img v-if="creator.image" :src="creator.image" class="profile-image" />
+      <img v-if="creator.banner" :src="`../${creator.banner}`" class="profile-banner" />
+      <img v-if="creator.image" :src="`../${creator.image}`" class="profile-image" />
       <div v-if="creator.title" class="creator-name">{{ creator.title }}</div>
     </div>
   </div>
@@ -47,7 +47,7 @@ defineProps<{ creator: creatorObject }>();
 
     img.profile-banner {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       object-position: center;
       margin: 0;

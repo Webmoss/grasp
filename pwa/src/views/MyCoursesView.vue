@@ -12,7 +12,6 @@
         </div>
         <p>Create new course or view a list of all your courses.</p>
       </div>
-
       <div class="main">
         <CourseSearch />
         <CoursesList :courses="courses" />

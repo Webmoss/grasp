@@ -32,7 +32,8 @@
     </div>
     <div class="right">
       <div class="home-graphic">
-        <img src="../../assets/svgs/Open-Campus-ID.svg" />
+        <!-- <img src="../../assets/svgs/Open-Campus-ID.svg" /> -->
+        <img src="../../assets/images/IntroBanner.png" />
       </div>
     </div>
   </section>
@@ -113,7 +114,7 @@ section#home {
   }
 
   .home-graphic {
-    width: 500px;
+    width: 100%;
     padding: 0;
 
     img,

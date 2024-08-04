@@ -13,11 +13,11 @@
         <div class="left">
           <h2>Top Courses</h2>
           <div class="my-courses-box">
-            <template v-for="(course, i) in courses" :key="i">
+            <template v-for="(course, index) in courses" :key="index">
               <div class="list-item">
                 <div class="course-copy">
                   <div class="course-title">
-                    {{ course.title ? course.title : "" }}
+                    <span class="course-index">{{ index + 1 }}.</span> {{ course.title ? course.title : "" }}
                   </div>
                 </div>
                 <div class="course-list-buttons">
@@ -35,13 +35,22 @@
               </div>
             </template>
           </div>
+          <div class="my-totals">
+            <span class="my-totals-label">Total</span>
+            <span class="my-totals-value">
+              <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
+                {{ coursesTotal ? coursesTotal : 0.0 }}</span
+              >
+            </span>
+          </div>
           <h2>Top Lessons</h2>
           <div class="my-lessons-box">
-            <template v-for="(course, i) in courses" :key="i">
+            <template v-for="(course, index) in courses" :key="index">
+
               <div class="list-item">
                 <div class="course-copy">
                   <div class="course-title">
-                    {{ course.title ? course.title : "" }}
+                    <span class="course-index">{{ index + 1 }}.</span> {{ course.title ? course.title : "" }}
                   </div>
                 </div>
                 <div class="course-list-buttons">
@@ -58,6 +67,14 @@
                 </div>
               </div>
             </template>
+          </div>
+          <div class="my-totals">
+            <span class="my-totals-label">Total</span>
+            <span class="my-totals-value">
+              <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
+                {{ lessonTotal ? lessonTotal : 0.0 }}</span
+              >
+            </span>
           </div>
           <h2>Top Publisher NFTS</h2>
           <div class="my-nfts-box">
@@ -146,7 +163,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onMounted, onBeforeMount } from "vue";
+import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "../store";
@@ -164,6 +181,7 @@ import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 
 /* All Posts stored in a JSON */
 import testCourses from "../data/courses.json";
+import testLessons from "../data/lessons.json";
 import nfts from "../data/nfts.json";
 
 const store = useStore();
@@ -323,6 +341,26 @@ const signMessage = async () => {
   NotfyProvider.success(`"Message signed:" ${signedMessage}`);
 };
 
+const coursesTotal = computed(() => {
+  let total = 0;
+
+  testCourses.data.forEach((val) => {
+    total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
+  });
+  console.log("coursesTotal", total);
+  return total;
+});
+
+const lessonTotal = computed(() => {
+  let total = 0;
+
+  testLessons.data.forEach((val) => {
+    total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
+  });
+  console.log("lessonTotal", total);
+  return total;
+});
+
 async function fetchCourses() {
   store.setCourses((testCourses.data as unknown) as courseObject[]);
 }
@@ -349,6 +387,8 @@ onMounted(async () => {
 });
 
 onBeforeMount(async () => {
+  sales.value = 0;
+  percentage.value = 0;
   await fetchCourses();
 });
 </script>
@@ -373,13 +413,55 @@ onBeforeMount(async () => {
     margin: 0 0 14px 0;
   }
 
-  .my-courses-box {
-    width: 90%;
-    margin: 0 0 30px 0;
-  }
+  .my-courses-box,
   .my-lessons-box {
     width: 90%;
-    margin: 0 0 30px 0;
+    margin: 0;
+  }
+  .my-totals {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 8px 0 30px 0;
+
+    .my-totals-label {
+      font-family: "Poppins", sans-serif;
+      color: $black;
+      font-size: 18px;
+      font-weight: 600;
+      text-align: right;
+      padding: 0 8px 0 0;
+    }
+    .my-totals-value {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0;
+      padding: 0;
+
+      .my-totals-amount {
+        font-family: "Poppins", sans-serif;
+        color: $black;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: right;
+
+      }
+      img,
+      svg {
+        width: 22px;
+        background: transparent;
+        object-fit: contain;
+        overflow: hidden;
+        border-bottom: 1px solid transparent;
+      }
+    }
   }
   .list-item {
     width: 100%;
@@ -421,6 +503,11 @@ onBeforeMount(async () => {
         font-weight: 600;
         text-align: left;
         margin: 0;
+
+        .course-index {
+          color: $black;
+          padding-right: 8px;
+        }
       }
     }
 
@@ -469,7 +556,7 @@ onBeforeMount(async () => {
       }
       .sales {
         width: 100%;
-        min-width: 120px;
+        min-width: 180px;
         display: flex;
         flex-direction: row;
         align-content: center;
@@ -503,7 +590,6 @@ onBeforeMount(async () => {
 
   .my-nfts-box {
     width: 92%;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;

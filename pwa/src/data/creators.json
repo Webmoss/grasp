@@ -2,9 +2,9 @@
   "data": [
     {
       "id" : 1,
-      "banner": "Banner-1.png",
-      "image" : "",
-      "name" : "Joe Blog",
+      "banner": "banner1.png",
+      "image" : "Profile2.jpg",
+      "name" : "WebMoss",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
       "email" : "example@gmail.com",
@@ -12,9 +12,9 @@
       "title" : "Web Developer",
       "city" : "Montreal",
       "country" : "Canada",
-      "twitter" : "@tweets",
-      "linkedin" : "article",
-      "facebook" : "https://www.linkedin.com/",
+      "twitter" : "https://twitter.com/WebMoss",
+      "linkedin" : "https://www.linkedin.com/in/craig-moss-21822628/",
+      "facebook" : "https://www.facebook.com/",
       "instagram" : "https://www.instagram.com/",
       "website" : "www.graspacademy.com",
       "followers" : 1000,
@@ -22,14 +22,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 3, "name" : "Develop", "icon" : "" },
+        { "id": 4, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 2,
-      "banner": "Banner-2.png",
-      "image" : "",
+      "banner": "banner2.png",
+      "image" : "Profile1.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -48,14 +53,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 3,
-      "banner": "Banner-3.png",
-      "image" : "",
+      "banner": "banner3.png",
+      "image" : "Profile3.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -74,14 +84,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 4,
-      "banner": "Banner-1.png",
-      "image" : "",
+      "banner": "banner1.png",
+      "image" : "Profile4.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -100,14 +115,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 5,
-      "banner": "Banner-2.png",
-      "image" : "",
+      "banner": "banner2.png",
+      "image" : "Profile5.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -126,14 +146,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 6,
-      "banner": "Banner-3.png",
-      "image" : "",
+      "banner": "banner3.png",
+      "image" : "Profile1.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -152,14 +177,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 7,
-      "banner": "Banner-1.png",
-      "image" : "",
+      "banner": "banner1.png",
+      "image" : "Profile3.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -178,14 +208,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 8,
-      "banner": "Banner-2.png",
-      "image" : "",
+      "banner": "banner2.png",
+      "image" : "Profile5.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -204,14 +239,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 9,
-      "banner": "Banner-3.png",
-      "image" : "",
+      "banner": "banner3.png",
+      "image" : "Profile4.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -230,14 +270,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 10,
-      "banner": "Banner-1.png",
-      "image" : "",
+      "banner": "banner1.png",
+      "image" : "Profile1.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -256,14 +301,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 11,
-      "banner": "Banner-1.png",
-      "image" : "",
+      "banner": "banner1.png",
+      "image" : "Profile3.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -282,14 +332,19 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     },
     {
       "id" : 12,
-      "banner": "Banner-1.png",
-      "image" : "",
+      "banner": "banner1.png",
+      "image" : "Profile4.png",
       "name" : "Joe Blog",
       "description" :
         "A creator with over 15 years of experience in the IT sector, building, hacking and exploring web3",
@@ -308,7 +363,12 @@
       "courses" : [],
       "lessons" : [],
       "projects" : [],
-      "categories" : ["Web3", "Design", "Develop", "Solidity", "UI/UX"],
+      "categories" : [
+        { "id": 1, "name" : "Web3", "icon" : "" },
+        { "id": 2, "name" : "Design", "icon" : "" },
+        { "id": 1, "name" : "Develop", "icon" : "" },
+        { "id": 2, "name" : "UI/UX", "icon" : "" }
+      ],
       "isLive" : true,
       "created_date" : "30/03/2023"
     }

@@ -69,7 +69,7 @@
           <template v-for="(course, i) in testCourses.data" :key="i">
             <div class="course">
               <div class="course-image">
-                <img :src="course.image ? course.image : 'rectangle.svg'" />
+                <img :src="course.image ? `../../${course.image}` : 'rectangle.svg'" />
               </div>
               <div class="course-column">
                 <div class="course-title">
@@ -110,6 +110,7 @@ import { onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { creatorObject } from "src/models/creator";
 
 /* Components */
 import CreatorHeader from "@/components/CreatorsComponents/CreatorHeader.vue";
@@ -129,7 +130,8 @@ async function fetchCreator() {
   let filteredCreator = testCreators.data.filter((creator) => {
     return creator.id === Number.parseInt(creatorId as string);
   });
-  store.setCreator(filteredCreator[0] as any);
+  console.log("filteredCreator[0]", filteredCreator[0]);
+  store.setCreator((filteredCreator[0] as unknown) as creatorObject);
 }
 
 onBeforeMount(async () => {

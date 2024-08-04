@@ -14,11 +14,11 @@ export interface creatorObject {
   title: string | null;
   city: string | null;
   country: string | null;
+  website: string | null;
   twitter: string | null | undefined;
   linkedin: string | null | undefined;
   facebook: string | null | undefined;
   instagram: string | null | undefined;
-  website: string | null;
   followers: number | null;
   following: number | null;
   categories: Array<categoryObject>;

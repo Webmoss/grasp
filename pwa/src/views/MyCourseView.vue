@@ -69,30 +69,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
 import SidebarView from "@/components/SidebarView.vue";
 
-const store = useStore();
-// const { course } = storeToRefs(store);
+/* All Posts stored in a JSON */
+import testCourses from "../data/courses.json";
 
-const course = ref({
-  id: 1,
-  name: "Introduction",
-  type: "article",
-  category: "EduChain",
-  title: "Introduction",
-  excerpt:
-    "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-  description:
-    "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-  banner: "Grasp-Banner.png",
-  image: "Grasp-Icon.png",
-  created_date: "30/03/2023",
-  updated_date: "",
-  price: 10,
-});
+const store = useStore();
+const route = useRoute();
+const { course } = storeToRefs(store);
+
+const courseId = route.params.id;
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -134,6 +125,17 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+async function fetchCourse() {
+  let filteredCourse = testCourses.data.filter((course) => {
+    return course.id === Number.parseInt(courseId as string);
+  });
+  store.setCourse(filteredCourse[0] as any);
+}
+
+onBeforeMount(async () => {
+  await fetchCourse();
+});
 </script>
 <style lang="scss">
 @import "../assets/styles/variables.scss";

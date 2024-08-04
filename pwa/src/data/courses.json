@@ -8,7 +8,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-1.png",
+      "banner": "banner1.png",
       "image": "Image-1.png",
       "title": "About EDU Chain",
       "excerpt":
@@ -76,7 +76,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-2.png",
+      "banner": "banner2.png",
       "image": "Image-2.png",
       "title": "Open Campus",
       "excerpt":
@@ -144,7 +144,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-3.png",
+      "banner": "banner3.png",
       "image": "Image-3.png",
       "title": "Time and Energy",
       "excerpt": "Software is like a pebble in a river...it only get's smoother with time and energy",
@@ -210,7 +210,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-1.png",
+      "banner": "banner1.png",
       "image": "Image-4.png",
       "title": "Grasp Education",
       "excerpt":
@@ -278,7 +278,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-2.png",
+      "banner": "banner2.png",
       "image": "Image-5.png",
       "title": "EDU Chain Hackathon",
       "excerpt":
@@ -346,7 +346,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-3.png",
+      "banner": "banner3.png",
       "image": "Image-1.png",
       "title": "Link Example",
       "excerpt":
@@ -414,7 +414,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-1.png",
+      "banner": "banner1.png",
       "image": "Image-1.png",
       "title": "About EDU Chain",
       "excerpt":
@@ -482,7 +482,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-2.png",
+      "banner": "banner2.png",
       "image": "Image-2.png",
       "title": "Open Campus",
       "excerpt":
@@ -550,7 +550,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-3.png",
+      "banner": "banner3.png",
       "image": "Image-3.png",
       "title": "Time and Energy",
       "excerpt": "Software is like a pebble in a river...it only get's smoother with time and energy",
@@ -616,7 +616,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-1.png",
+      "banner": "banner1.png",
       "image": "Image-4.png",
       "title": "Grasp Education",
       "excerpt":
@@ -684,7 +684,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-2.png",
+      "banner": "banner2.png",
       "image": "Image-5.png",
       "title": "EDU Chain Hackathon",
       "excerpt":
@@ -752,7 +752,7 @@
         { "id": 1, "name" : "EduChain", "icon" : "" },
         { "id": 2, "name" : "Open Campus ID", "icon" : "" }
       ],
-      "banner": "Banner-3.png",
+      "banner": "banner3.png",
       "image": "Image-1.png",
       "title": "Link Example",
       "excerpt":

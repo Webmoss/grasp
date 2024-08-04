@@ -1,7 +1,7 @@
 <template>
   <div class="lesson-header">
     <div class="lesson-banner">
-      <img :src="lesson.banner ? lesson.banner : ''" />
+      <img v-if="lesson.banner" :src="`../${lesson.banner}`" />
       <div v-if="lesson.category" class="category-indicator">
         {{ lesson.category }}
       </div>
@@ -48,7 +48,7 @@ defineProps<{ lesson: lessonObject }>();
 
     img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       object-position: center;
       margin: 0;

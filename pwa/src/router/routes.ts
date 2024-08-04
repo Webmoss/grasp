@@ -75,7 +75,7 @@ const routes = [
     component: () => import("@/views/MyCoursesView.vue"),
   },
   {
-    path: "/my-course/:name",
+    path: "/my-course/:id?/:type?",
     name: "my-course",
     meta: {
       guest: true,
@@ -93,7 +93,7 @@ const routes = [
     component: () => import("@/views/MyLessonsView.vue"),
   },
   {
-    path: "/my-lesson/:name",
+    path: "/my-lesson/:id?/:type?",
     name: "my-lesson",
     meta: {
       guest: true,
@@ -111,7 +111,7 @@ const routes = [
     component: () => import("@/views/MyNftsView.vue"),
   },
   {
-    path: "/my-nft/:id",
+    path: "/my-nft/:id?/:type?",
     name: "my-nft",
     meta: {
       guest: true,
