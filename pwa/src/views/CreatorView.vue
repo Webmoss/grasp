@@ -8,6 +8,22 @@
             {{ creator.name ? creator.name : "" }}
           </h1>
           <div class="creator-socials">
+            <!-- <a
+              v-if="creator.mobile"
+              :href="creator.mobile"
+              alt="Mobile"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/Call.svg" alt="Call"
+            /></a>
+            <a
+              v-if="creator.email"
+              :href="`mail:to${creator.email}`"
+              alt="Email"
+              target="_blank"
+              rel="noopener"
+              ><img src="../assets/svgs/socials/Mail.svg" alt="Email"
+            /></a> -->
             <a
               v-if="creator.website"
               :href="creator.website"
@@ -52,11 +68,44 @@
         </div>
 
         <div class="creator-details-row">
+          <div class="creator-category">
+            <template v-for="(category, i) in creator.categories" :key="i">
+              <span class="category-indicator">{{
+                category.name ? category.name : ""
+              }}</span>
+            </template>
+          </div>
+          <div class="creator-followers">
+            <span class="creator-followers-icon">
+              <button class="creator-followers-button" @click="followCreator()">
+                <img src="../assets/svgs/Person.svg" />
+              </button>
+            </span>
+            {{ creator.followers ? creator.followers : "" }}
+            <span class="creator-followers-icon">
+              <button class="creator-followers-button" @click="likeCreator()">
+                <img src="../assets/svgs/Thumb_Up.svg" />
+              </button>
+            </span>
+            {{ creator.likes ? creator.likes : "" }}
+          </div>
+        </div>
+
+        <div class="creator-details-row">
+          <div class="creator-location">
+            <img src="../assets/svgs/Location.svg" alt="Location" />
+            <span class="creator-location-label"
+              >{{ creator.city ? creator.city : "" }},
+              {{ creator.country ? creator.country : "" }}</span
+            >
+          </div>
           <div class="creator-date">
             <span class="creator-date-label">Joined</span>
             {{ creator.created_date ? creator.created_date : "" }}
           </div>
         </div>
+
+        <div class="line-divider"></div>
 
         <div class="creator-description">
           {{ creator.description ? creator.description : "" }}
@@ -125,6 +174,20 @@ const store = useStore();
 const route = useRoute();
 const { creator } = storeToRefs(store);
 
+async function followCreator() {
+  // let filteredCreator = testCreators.data.filter((creator) => {
+  //   return creator.id === route.params.id;
+  // });
+  // store.setCreator((filteredCreator[0] as unknown) as creatorObject);
+}
+
+async function likeCreator() {
+  // let filteredCreator = testCreators.data.filter((creator) => {
+  //   return creator.id === route.params.id;
+  // });
+  // store.setCreator((filteredCreator[0] as unknown) as creatorObject);
+}
+
 async function fetchCreator() {
   let filteredCreator = testCreators.data.filter((creator) => {
     return creator.id === route.params.id;
@@ -169,7 +232,7 @@ section#creator {
       justify-content: space-between;
       align-content: center;
       align-items: flex-end;
-      margin: 0 0 8px 0;
+      margin: 0;
 
       @include breakpoint($break-sm) {
         flex-direction: column;
@@ -180,7 +243,7 @@ section#creator {
         width: 100%;
         font-family: "Poppins", sans-serif;
         color: $grasp-blue;
-        font-size: 38px;
+        font-size: 34px;
         font-weight: 600;
         line-height: 40px;
         text-align: left;
@@ -226,19 +289,132 @@ section#creator {
         }
       }
 
-      .creator-date {
+      .creator-location {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $black;
+        color: $grey-90;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: left;
+        margin: 6px 8px 6px 0;
+
+        img,
+        svg {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          overflow: hidden;
+          background: transparent;
+        }
+
+        .creator-location-label {
+          color: $grey-90;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+      }
+
+      .creator-followers {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+
+        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grey-70;
         font-size: 15px;
         font-weight: 500;
         text-decoration: none;
         text-transform: uppercase;
-        margin: 0 0 4px 0;
+        text-align: right;
+        margin: -8px 8px 0 0;
+
+        .creator-followers-icon {
+          width: 20px;
+          margin: 0 4px;
+          .creator-followers-button {
+            width: 20px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            background: $white;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+
+            img,
+            svg {
+              width: 20px;
+            }
+          }
+        }
+      }
+
+      .creator-category {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+
+        color: $black;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 2px 0 2px 0;
+
+        .category-indicator {
+          width: auto;
+          outline: transparent solid 2px;
+          outline-offset: 2px;
+          border-radius: 9999px;
+          transition: background-color 0.2s ease-out 0s;
+          background: $grasp-cyan;
+          font-size: 13px;
+          text-align: center;
+          padding-inline: 8px;
+          padding-top: 1px;
+          padding-bottom: 1px;
+          --badge-color: $grey-40;
+          color: $grey-90;
+          box-shadow: none;
+          border-width: 1.5px;
+          border-style: solid;
+          border-image: initial;
+          border-color: #4d5358;
+          margin-right: 8px;
+        }
+      }
+
+      .creator-date {
+        width: 100%;
+        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grey-70;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: right;
+        margin: 0 8px 6px 0;
 
         .creator-date-label {
-          color: $black;
-          font-size: 15px;
+          color: $grey-70;
+          font-size: 14px;
           font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
@@ -255,44 +431,9 @@ section#creator {
       margin: 0;
     }
 
-    .creator-category {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
-      align-items: center;
-
-      color: $black;
-      font-size: 14px;
-      font-weight: 500;
-      text-transform: uppercase;
-      margin: 0;
-
-      .category-indicator {
-        width: 80%;
-        outline: transparent solid 2px;
-        outline-offset: 2px;
-        border-radius: 9999px;
-        transition: background-color 0.2s ease-out 0s;
-        background: $grasp-cyan;
-        font-size: 13px;
-        text-align: center;
-        padding-inline: 8px;
-        padding-top: 1px;
-        padding-bottom: 1px;
-        --badge-color: $grey-40;
-        color: $grey-90;
-        box-shadow: none;
-        border-width: 1.5px;
-        border-style: solid;
-        border-image: initial;
-        border-color: #4d5358;
-      }
-    }
-
     .line-divider {
-      width: 96%;
-      margin: 16px auto 32px;
+      width: 100%;
+      margin: 16px auto 16px;
       border-bottom: 1px solid $grey-30;
     }
 

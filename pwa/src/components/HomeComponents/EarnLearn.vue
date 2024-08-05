@@ -108,6 +108,7 @@ section#solutions {
       margin-block-start: 0.5em;
       margin-block-end: 0.15em;
       z-index: 999;
+
       @include breakpoint($break-sm) {
         font-size: 38px;
         margin-bottom: 0;

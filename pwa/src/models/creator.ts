@@ -21,6 +21,7 @@ export interface creatorObject {
   instagram: string | null | undefined;
   followers: number | null;
   following: number | null;
+  likes: number | null;
   categories: Array<categoryObject>;
   courses: Array<courseObject>;
   lessons: Array<lessonObject>;

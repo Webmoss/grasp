@@ -47,7 +47,7 @@ const store = useStore();
 const { courses, pagination } = storeToRefs(store);
 
 const showModal = ref(false);
-const lastPage = ref(0);
+const lastPage = ref(1);
 
 const NotfyProvider = new Notyf({
   duration: 2000,

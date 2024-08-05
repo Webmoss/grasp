@@ -27,7 +27,7 @@ const props = defineProps({
     required: false,
   },
   creatorId: {
-    type: Number,
+    type: String,
     default: null,
     required: false,
   },

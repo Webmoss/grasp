@@ -60,7 +60,7 @@
     <div class="creator-list-buttons">
       <div class="creator-category">
         <template v-for="(category, i) in creator.categories" :key="i">
-          <span class="category-indicator">{{ category ? category : "" }}</span>
+          <span class="category-indicator">{{ category.name ? category.name : "" }}</span>
         </template>
       </div>
       <div class="button-row">
@@ -222,8 +222,8 @@ defineProps<{ creator: creatorObject; gridView: string }>();
     width: 100%;
     font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    color: $grey-60;
-    font-size: 12px;
+    color: $grey-90;
+    font-size: 13px;
     font-weight: 500;
     text-decoration: none;
     text-transform: uppercase;

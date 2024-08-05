@@ -31,7 +31,7 @@ import testCourses from "../data/courses.json";
 const store = useStore();
 const { courses, pagination } = storeToRefs(store);
 
-const lastPage = ref(0);
+const lastPage = ref(1);
 
 const total = computed(() => {
   return courses.value ? courses.value.length : 0;

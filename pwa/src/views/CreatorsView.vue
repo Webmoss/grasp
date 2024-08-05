@@ -31,7 +31,7 @@ import testCreators from "../data/creators.json";
 const store = useStore();
 const { creators, pagination } = storeToRefs(store);
 
-const lastPage = ref(0);
+const lastPage = ref(1);
 
 const total = computed(() => {
   return creators.value ? creators.value.length : 0;

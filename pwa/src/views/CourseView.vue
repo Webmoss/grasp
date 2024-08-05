@@ -18,7 +18,7 @@
 
         <div class="course-details-row">
           <div class="course-date">
-            <span class="course-date-label">Date </span>
+            <span class="course-date-label">Joined </span>
             {{ course.created_date ? course.created_date : "" }}
           </div>
           <div v-if="course.discount" class="course-discount">
@@ -214,7 +214,7 @@ section#course {
       .course-date {
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-70;
+        color: $grey-60;
         font-size: 15px;
         font-weight: 500;
         text-decoration: none;
@@ -222,9 +222,9 @@ section#course {
         margin: 0 0 4px 0;
 
         .course-date-label {
-          color: $grey-90;
+          color: $grey-60;
           font-size: 16px;
-          font-weight: 600;
+          font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
         }
