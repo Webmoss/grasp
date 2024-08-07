@@ -68,9 +68,6 @@ a {
   img {
     width: 14px;
     margin-bottom: -2px;
-    @include breakpoint($break-sm) {
-      width: 14px;
-    }
   }
 }
 
@@ -198,7 +195,7 @@ section#content {
   font-weight: bold;
   width: auto;
   height: 35px;
-  border: 2px solid $grasp-blue;
+  border: 1px solid $grasp-blue;
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
@@ -216,7 +213,7 @@ section#content {
   &:focus,
   &:focus-visible {
     color: $grasp-cyan;
-    border: 2px solid $grasp-cyan;
+    border: 1px solid $grasp-cyan;
   }
 }
 
@@ -258,13 +255,11 @@ section#content {
 .blue-button {
   width: auto;
   height: 40px;
-
   display: flex;
   flex-direction: row nowrap;
   justify-content: center;
   align-content: center;
   align-items: center;
-
   color: $white;
   background-color: $grasp-blue;
   font-size: 18px;
@@ -455,7 +450,7 @@ section#content {
   font-size: 14px;
   font-weight: 600;
 
-  border: 2px solid $grey-50;
+  border: 1px solid $grey-50;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -468,7 +463,7 @@ section#content {
 
   &:hover {
     color: $black;
-    border: 2px solid $black;
+    border: 1px solid $black;
   }
 }
 
@@ -487,7 +482,7 @@ section#content {
   font-size: 14px;
   font-weight: 600;
 
-  border: 2px solid $grey-50;
+  border: 1px solid $grey-50;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -497,7 +492,7 @@ section#content {
 
   &:hover {
     color: $black;
-    border: 2px solid $black;
+    border: 1px solid $black;
   }
 }
 
@@ -514,7 +509,7 @@ section#content {
   background-color: $grasp-blue;
   font-size: 14px;
   font-weight: bold;
-  border: 2px solid $grasp-blue;
+  border: 1px solid $grasp-blue;
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -529,7 +524,7 @@ section#content {
 
   &:disabled {
     background: #c6c6c6;
-    border: 2px solid $grey-50;
+    border: 1px solid $grey-50;
     color: $grey-50;
     cursor: not-allowed;
   }

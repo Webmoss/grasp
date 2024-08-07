@@ -14,7 +14,7 @@
         <div class="menu-button-row">
           <ul>
             <li
-              v-if="homeLinks"
+              v-if="homeLink"
               class="menu-link active"
               @click="navigateAndScroll('home')"
             >
@@ -47,18 +47,24 @@
                 >Creators</router-link
               >
             </li>
-            <!-- <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('goplus')">
-              <img src="../assets/svgs/owl-white.svg" width="16" class="menu-icon" /> Plus
-            </li> -->
-            <!-- <li v-else>
+            <li>
               <router-link
-                :to="{ path: '/#goplus' }"
+                :to="{ name: 'marketplace' }"
                 class="menu-link"
                 class-active="active"
                 exact
-                >Plus</router-link
+                >Market</router-link
               >
-            </li> -->
+            </li>
+            <li v-if="loggedIn">
+              <router-link
+                :to="{ name: 'dashboard' }"
+                class="menu-link"
+                class-active="active"
+                exact
+                >Dashboard</router-link
+              >
+            </li>
           </ul>
         </div>
         <div class="right">
@@ -70,13 +76,19 @@
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
+import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
-import ConnectButton from "../components/Buttons/ConnectButton.vue";
+import ConnectButton from "@/components/Buttons/ConnectButton.vue";
 
 const route = useRoute();
+const store = useStore();
+const { loggedIn } = storeToRefs(store);
 
-const homeLinks = computed(() => {
-  return route.name === "home" ? true : false;
+const homeLink = computed(() => {
+  return route.name === "home"
+    ? true
+    : false;
 });
 
 function scrollPageToTop() {

@@ -17,5 +17,6 @@ export interface metadataObject {
   owner: string;
   attributes: Array<attributeObject>;
   price: number;
+  discount: number;
   sales: number;
 }

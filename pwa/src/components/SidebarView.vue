@@ -12,7 +12,7 @@
       <li>
         <router-link :to="{ name: 'dashboard' }" active-class="active" exact>
           <img src="../assets/svgs/dashboard-icon.svg" class="icon" />
-          <span class="item">Dashboard</span>
+          <span class="item">Overview</span>
         </router-link>
       </li>
       <li>

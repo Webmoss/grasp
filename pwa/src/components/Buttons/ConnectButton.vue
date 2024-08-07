@@ -1,6 +1,5 @@
 <template>
   <div class="connect-wallet-container">
-    <!-- Not Connected -->
     <button
       v-if="!loggedIn"
       @click="connect()"
@@ -10,27 +9,8 @@
     >
       Connect
     </button>
-    <!-- Connected -->
     <button
-      v-if="loggedIn && $route.name === 'home'"
-      @click="$router.push('/dashboard')"
-      :class="
-        btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
-      "
-    >
-      Dashboard
-    </button>
-    <button
-      v-if="loggedIn && $route.name === 'dashboard'"
-      @click="$router.push('/')"
-      :class="
-        btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
-      "
-    >
-      Home
-    </button>
-    <button
-      v-if="loggedIn"
+      v-else
       @click="logout()"
       :class="
         btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
@@ -38,16 +18,15 @@
     >
       Logout
     </button>
-    <!-- END Connected -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { provide, onMounted } from "vue";
+import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { useStore } from "../../store";
-import { userObject } from "src/models/user";
 import { useRouter } from "vue-router";
+import { userObject } from "src/models/user";
 import { Web3Auth } from "@web3auth/modal";
 import { Notyf } from "notyf";
 import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
@@ -198,14 +177,6 @@ const logout = async () => {
   store.setLoggedIn(false);
   router.push({ name: "home" });
 };
-
-function uiConsole(...args: any[]): void {
-  const el = document.querySelector("#console>p");
-  if (el) {
-    el.innerHTML = JSON.stringify(args || {}, null, 2);
-  }
-  console.log(...args);
-}
 
 onMounted(async () => {
   const init = async () => {

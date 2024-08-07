@@ -57,6 +57,15 @@ const routes = [
     component: () => import("@/views/CourseView.vue"),
   },
   {
+    path: "/marketplace",
+    name: "marketplace",
+    meta: {
+      guest: true,
+      title: "Marketplace",
+    },
+    component: () => import("@/views/MarketplaceView.vue"),
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     meta: {

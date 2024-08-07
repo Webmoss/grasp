@@ -41,6 +41,7 @@ export const useStore = defineStore({
     lesson: <lessonObject>{},
     creators: [] as creatorObject[],
     creator: <creatorObject>{},
+    marketplace: [] as metadataObject[],
     nfts: [] as metadataObject[],
     nft: <metadataObject>{},
   }),
@@ -116,6 +117,9 @@ export const useStore = defineStore({
     },
     getCreators(state) {
       return state.creators;
+    },
+    getMarketplace(state) {
+      return state.marketplace;
     },
     getNfts(state) {
       return state.nfts;
@@ -249,6 +253,9 @@ export const useStore = defineStore({
     },
     setNfts(nfts: metadataObject[]) {
       this.nfts = nfts;
+    },
+    setMarketplace(nfts: metadataObject[]) {
+      this.marketplace = nfts;
     },
     setCourse(course: courseObject) {
       this.course = course;
