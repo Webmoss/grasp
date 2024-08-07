@@ -1,6 +1,6 @@
 import { categoryObject } from "./category";
-import { lessonObject } from './lesson'
-import { metadataObject } from './metadata'
+import { lessonObject } from './lesson';
+import { metadataObject } from './metadata';
 
 export interface courseObject {
   id: string;

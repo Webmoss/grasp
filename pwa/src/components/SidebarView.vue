@@ -1,14 +1,13 @@
 <template>
   <div class="sidebar">
-    <!-- <div class="profile">
+    <div v-if="user.profileImage && user.name"class="profile">
       <img
         v-if="user.profileImage"
         :src="user.profileImage"
         :alt="user.name ? user.name : ''"
       />
-      <img v-else src="Grasp-Icon.png" alt="Grasp Academy" />
       <h3 v-if="user.name">{{ user.name }}</h3>
-    </div> -->
+    </div>
     <ul>
       <li>
         <router-link :to="{ name: 'dashboard' }" active-class="active" exact>
@@ -31,15 +30,15 @@
       <li>
         <router-link :to="{ name: 'my-nfts' }" active-class="active" exact>
           <img src="../assets/svgs/nfts-icon.svg" class="icon" />
-          <span class="item">Edu NFTS</span>
+          <span class="item">NFTS</span>
         </router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link :to="{ name: 'terms' }" active-class="active" exact>
           <img src="../assets/svgs/terms-icon.svg" class="icon" />
           <span class="item">Terms</span>
         </router-link>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
@@ -70,7 +69,7 @@ const { user } = storeToRefs(store);
   transition: all 0.5s ease;
 
   .profile {
-    width: 80%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,15 +78,15 @@ const { user } = storeToRefs(store);
 
     img {
       display: block;
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       border-radius: 6px;
-      margin: 0;
+      margin: 0 0 0 16px;
     }
     h3 {
       color: $white;
-      font-size: 16px;
-      margin: 0 0 5px 0;
+      font-size: 18px;
+      margin: 6px 0 0 16px;
       text-align: left;
     }
   }
@@ -96,13 +95,13 @@ const { user } = storeToRefs(store);
     width: 100%;
     list-style: none;
     text-decoration: none;
-    margin-block-start: 10px;
+    margin-block-start: 4px;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
     padding-inline-start: 0;
     padding-inline-end: 0;
-    padding: 10px 0;
+    padding: 18px 0;
     border-top: 0.25px solid $white;
     border-bottom: 0.25px solid $white;
     li {
@@ -113,18 +112,21 @@ const { user } = storeToRefs(store);
         display: block;
         position: relative;
         color: $white;
-        font-size: 17px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px;
         text-decoration: none;
+        cursor: pointer;
         padding: 12px 30px 12px 20px;
 
-        &:hover {
-          color: $grasp-cyan;
+        @include breakpoint($break-sm) {
+          font-size: 16px !important;
         }
 
         .icon {
-          width: 22px;
-          height: 22px;
-          margin: 0 8px -4px 0;
+          width: 20px;
+          height: 20px;
+          margin: 0 12px -4px 0;
           display: inline-block;
           background-position: bottom;
           background-size: contain;
@@ -135,12 +137,29 @@ const { user } = storeToRefs(store);
           }
         }
         .item {
+          border-bottom: 2px solid transparent;
+          transition: 0.6s all linear;
           margin-top: -5px;
+
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            color: $white;
+            font-weight: 500;
+            border-bottom: 2px solid $grasp-cyan;
+          }
         }
       }
       a.router-link-active,
       a.router-link-exact-active {
-        color: $grasp-cyan;
+        color: $white;
+
+        .item {
+          color: $white;
+          font-weight: 500;
+          border-bottom: 2px solid $grasp-cyan;
+        }
       }
     }
   }

@@ -271,6 +271,7 @@ section#course {
         background: $grasp-cyan;
         font-size: 13px;
         text-align: center;
+        text-wrap: nowrap;
         padding-inline: 8px;
         padding-top: 1px;
         padding-bottom: 1px;
@@ -402,6 +403,7 @@ section#course {
             background: $grasp-cyan;
             font-size: 12px;
             text-align: center;
+            text-wrap: nowrap;
             padding-inline: 8px;
             padding-top: 1px;
             padding-bottom: 1px;

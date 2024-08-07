@@ -14,6 +14,8 @@
       <div class="creator-description">
         {{ creator.description ? creator.description : "" }}
       </div>
+    </div>
+    <div class="creator-list-buttons">
       <div class="creator-socials">
         <a
           v-if="creator.website"
@@ -56,8 +58,6 @@
           ><img src="../../assets/svgs/socials/instagram.svg" alt="Instagram"
         /></a>
       </div>
-    </div>
-    <div class="creator-list-buttons">
       <div class="creator-category">
         <template v-for="(category, i) in creator.categories" :key="i">
           <span class="category-indicator">{{ category.name ? category.name : "" }}</span>
@@ -227,7 +227,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
     font-weight: 500;
     text-decoration: none;
     text-transform: uppercase;
-    margin: 0 0 4px 0;
+    margin: 0 0 8px 0;
   }
 
   .creator-description {
@@ -285,6 +285,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       background: $grasp-cyan;
       font-size: 12px;
       text-align: center;
+      text-wrap: nowrap;
       padding-inline: 8px;
       padding-top: 1px;
       padding-bottom: 1px;
@@ -299,6 +300,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
     }
   }
   .button-column {
+    height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -333,8 +335,8 @@ defineProps<{ creator: creatorObject; gridView: string }>();
 
     img,
     svg {
-      width: 180px;
-      height: inherit;
+      width: 140px;
+      height: 140px;
       object-fit: contain;
       overflow: hidden;
       background: transparent;
@@ -344,7 +346,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
   .creator-copy {
     width: 96%;
     height: 100%;
-    min-height: 90px;
+    min-height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -373,12 +375,12 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       width: 100%;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-60;
-      font-size: 12px;
+      color: $grey-90;
+      font-size: 13px;
       font-weight: 500;
       text-decoration: none;
       text-transform: uppercase;
-      margin: 0 0 4px 0;
+      margin: 0 0 8px 0;
     }
 
     .creator-description {
@@ -396,15 +398,26 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       text-align: left;
       margin: 0;
     }
+  }
+
+  .creator-list-buttons {
+    height: 100%;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-end;
+    padding: 0 1%;
 
     .creator-socials {
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: flex-end;
       align-content: center;
       align-items: center;
-      margin: 8px 0 8px 0;
+      margin: 0 0 16px 0;
 
       a {
         color: $grasp-blue !important;
@@ -420,15 +433,6 @@ defineProps<{ creator: creatorObject; gridView: string }>();
         }
       }
     }
-  }
-
-  .creator-list-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    align-items: flex-end;
-    padding: 0 8px;
 
     .creator-category {
       width: 300px;
@@ -442,7 +446,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       margin: 0;
 
       .category-indicator {
-        float: left;
+        float: right;
         width: auto;
         outline: transparent solid 2px;
         outline-offset: 2px;
@@ -451,6 +455,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
         background: $grasp-cyan;
         font-size: 12px;
         text-align: center;
+        text-wrap: nowrap;
         padding-inline: 8px;
         padding-top: 1px;
         padding-bottom: 1px;

@@ -47,10 +47,10 @@
                 >Creators</router-link
               >
             </li>
-            <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('goplus')">
-              Plus
-            </li>
-            <li v-else>
+            <!-- <li v-if="homeLinks" class="menu-link" @click="navigateAndScroll('goplus')">
+              <img src="../assets/svgs/owl-white.svg" width="16" class="menu-icon" /> Plus
+            </li> -->
+            <!-- <li v-else>
               <router-link
                 :to="{ path: '/#goplus' }"
                 class="menu-link"
@@ -58,7 +58,7 @@
                 exact
                 >Plus</router-link
               >
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="right">
@@ -253,6 +253,21 @@ function navigateAndScroll(to: any) {
           padding-bottom: 2px;
           font-weight: 500;
           border-bottom: 2px solid $grasp-cyan;
+        }
+
+        .router-link-active,
+        .router-link-exact-active {
+          color: $white;
+
+          .item {
+            color: $white;
+            font-weight: 500;
+            border-bottom: 2px solid $grasp-cyan;
+          }
+        }
+
+        .menu-icon {
+          margin: 0 0 -2px 0;
         }
       }
 

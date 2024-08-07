@@ -55,7 +55,7 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a course type, eg. Activity, Independent Study, etc. "
+                placeholder="Enter a course type, eg. Activity, Independent Study, etc."
                 v-model="form.type"
               />
             </div>
@@ -92,7 +92,7 @@
                 cols="50"
                 type="text"
                 name="excerpt"
-                placeholder="Enter a short excerpt"
+                placeholder="Enter a short description"
                 v-model="form.excerpt"
               />
             </div>
@@ -113,8 +113,10 @@
             <h2>Course Assets</h2>
             <div class="input-row mb-10">
               <label for="banner">Upload Course Banner (1500x200px)</label>
-              <div class="input-box">
-                <button class="btn btn-info" @click="onBannerPick">Select file</button>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onBannerPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
                 {{ bannerImage?.name }}
                 <input
                   type="file"
@@ -133,8 +135,10 @@
             </div>
             <div class="input-row mb-10">
               <label for="image">Upload Course Icon (500x500px)</label>
-              <div class="input-box">
-                <button class="btn btn-info" @click="onIconPick">Select file</button>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onIconPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
                 {{ iconImage?.name }}
                 <input
                   type="file"
@@ -153,8 +157,10 @@
             </div>
             <div class="input-row mb-10">
               <label for="image">Course NFT Image (1000x1000px)</label>
-              <div class="input-box">
-                <button class="btn btn-info" @click="onNftPick">Select file</button>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onNftPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
                 {{ nftImage?.name }}
                 <input
                   type="file"
@@ -281,7 +287,7 @@
             <h2>Course NFT Preview</h2>
             <div class="nft-preview">
               <div class="nft-image">
-                <img :src="form.image ? form.image : 'rectangle.svg'" />
+                <img :src="nftImageUrl ? nftImageUrl : 'rectangle.svg'" />
               </div>
               <div class="nft-column">
                 <div class="nft-title">
@@ -327,6 +333,9 @@
               <button v-if="step > 1" type="button" class="cancel-blue" @click="goBack()">
                 Back
               </button>
+              <button v-if="step >= 1" type="button" class="draft-grey" @click="saveDraft()">
+                Save Draft
+              </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
                 Next
               </button>
@@ -353,25 +362,6 @@ import BuyButton from "../Buttons/BuyButton.vue";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
-
-const step = ref(1);
-const linkText = ref("");
-const selectedLessons = ref([]);
-
-/* Ref: name must match the ref in the template */
-const fileBannerInput: Ref<HTMLElement | null> = ref(null);
-const bannerImage = ref();
-const bannerImageUrl = ref();
-
-/* Ref: name must match the ref in the template */
-const fileIconInput: Ref<HTMLElement | null> = ref(null);
-const iconImage = ref();
-const iconImageUrl = ref();
-
-/* Ref: name must match the ref in the template */
-const fileNftInput: Ref<HTMLElement | null> = ref(null);
-const nftImage = ref();
-const nftImageUrl = ref();
 
 const props = defineProps({
   showModal: {
@@ -493,6 +483,25 @@ const lessons = [
   },
 ];
 
+const step = ref(1);
+const linkText = ref("");
+const selectedLessons = ref([]);
+
+/* Ref: name must match the ref in the template */
+const fileBannerInput: Ref<HTMLElement | null> = ref(null);
+const bannerImage = ref();
+const bannerImageUrl = ref();
+
+/* Ref: name must match the ref in the template */
+const fileIconInput: Ref<HTMLElement | null> = ref(null);
+const iconImage = ref();
+const iconImageUrl = ref();
+
+/* Ref: name must match the ref in the template */
+const fileNftInput: Ref<HTMLElement | null> = ref(null);
+const nftImage = ref();
+const nftImageUrl = ref();
+
 function onBannerPick() {
   fileBannerInput.value?.click();
 }
@@ -559,10 +568,24 @@ function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
 
-const createCourse = async () => {
-  console.log("Form", form);
+const saveDraft = async () => {
+  console.log("Save Draft Course", form);
   try {
-    if (!form.value.name) {
+    if (!form.name) {
+      // await store.createCourse(form);
+    }
+  } catch {
+    console.log("An error has occurred!");
+  } finally {
+    step.value = 1;
+    emit("close");
+  }
+};
+
+const createCourse = async () => {
+  console.log("Create Course", form);
+  try {
+    if (!form.name) {
       // await store.createCourse(form);
     }
   } catch {
@@ -720,6 +743,15 @@ const nextStep = () => {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
     }
 
     .input-box {
@@ -776,14 +808,96 @@ const nextStep = () => {
         border: none;
         outline: none;
       }
+    }
 
-      .link-text {
+    .upload-box {
+      width: 98%;
+      height: 60px;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      color: $grey-70;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24px;
+      text-align: left;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+      margin-bottom: 5px;
+
+      input {
+        width: 100%;
+        height: 40px;
         color: $black;
+        background-color: transparent;
+        border: none;
+        border-radius: 10px;
         letter-spacing: 1px;
         font-size: 14px;
         line-height: 24px;
         text-align: left;
         padding: 4px 0 0 0;
+      }
+
+      input::placeholder {
+        color: #a8a8a8;
+        letter-spacing: 1px;
+      }
+
+      input:read-only {
+        color: #1a1a1a;
+        border: 1px dashed #e0e0e0;
+        letter-spacing: 1px;
+        cursor: not-allowed;
+      }
+
+      input:focus {
+        border: none;
+        outline: none;
+      }
+
+      .select-file-button {
+        width: auto;
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        color: $black;
+        background-color: $grasp-cyan;
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid $grasp-cyan;
+        border-radius: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin: 0 8px;
+        transition: all 0.5s linear;
+        cursor: pointer;
+
+        img {
+          width: 20px;
+          margin-right: 4px;
+        }
+
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-visible {
+          border: 1px solid $black;
+        }
+
+        &:disabled {
+          background: #c6c6c6;
+          border: 2px solid $grey-50;
+          color: $grasp-blue;
+          cursor: not-allowed;
+        }
       }
     }
 
@@ -1041,6 +1155,7 @@ const nextStep = () => {
               background: $grasp-cyan;
               font-size: 12px;
               text-align: center;
+              text-wrap: nowrap;
               padding-inline: 8px;
               padding-top: 1px;
               padding-bottom: 1px;
@@ -1073,11 +1188,12 @@ const nextStep = () => {
       float: left;
       box-sizing: border-box;
       width: 100%;
+      max-width: 480px;
       background: $cream;
       border: 0.5px solid $grey-50;
       border-radius: 8px;
       box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-      margin: 0 auto;
+      margin: 0;
       padding: 16px;
       transition: all 0.5s linear;
       overflow: hidden;
@@ -1112,7 +1228,6 @@ const nextStep = () => {
 
       .nft-excerpt {
         width: 100%;
-        min-height: 77.5px;
         color: $black;
         font-size: 13px;
         font-weight: normal;
@@ -1162,6 +1277,7 @@ const nextStep = () => {
           background: $grasp-cyan;
           font-size: 12px;
           text-align: center;
+          text-wrap: nowrap;
           padding-inline: 8px;
           padding-top: 1px;
           padding-bottom: 1px;
@@ -1283,10 +1399,41 @@ const nextStep = () => {
   }
 }
 
+.draft-grey {
+  width: 124px;
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+
+  color: $grey-70;
+  background-color: $white;
+  font-size: 14px;
+  font-weight: 600;
+
+  border: 2px solid $grey-70;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 8px;
+  transition: all 0.5s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $grasp-blue;
+    border: 2px solid $grasp-blue;
+  }
+}
+
 .btn-blue {
   width: 100px;
   height: 40px;
-
   display: flex;
   flex-direction: row;
   align-content: center;

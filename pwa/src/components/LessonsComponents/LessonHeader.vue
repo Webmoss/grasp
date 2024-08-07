@@ -69,6 +69,7 @@ defineProps<{ lesson: lessonObject }>();
     background: $grasp-cyan;
     font-size: 20px;
     text-align: center;
+    text-wrap: nowrap;
     padding-inline: 16px;
     padding-top: 2px;
     padding-bottom: 2px;
