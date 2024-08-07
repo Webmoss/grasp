@@ -40,6 +40,11 @@
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Set
                 Pricing
               </li>
+              <li>
+                <img v-if="step >= 5" src="../../assets/svgs/Check.svg" height="20" />
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Lesson
+                NFT
+              </li>
             </ul>
           </div>
           <!-- Step 1 -->
@@ -51,7 +56,7 @@
                 type="text"
                 name="name"
                 placeholder="Enter a lesson type, eg. Article, Video, Quiz"
-                :value="lesson.type"
+                v-model="form.type"
               />
             </div>
             <div class="input-row mb-10">
@@ -77,25 +82,29 @@
                 type="text"
                 name="title"
                 placeholder="Enter a title,eg. My Lesson"
-                :value="lesson.title"
+                v-model="form.title"
               />
             </div>
             <div class="input-row mb-10">
               <label for="description">Excerpt</label>
               <textarea
+                rows="4"
+                cols="50"
                 type="text"
                 name="excerpt"
                 placeholder="Enter a short description"
-                :value="lesson.excerpt"
+                v-model="form.excerpt"
               />
             </div>
             <div class="input-row mb-10">
               <label for="description">Description</label>
               <textarea
+              rows="6"
+                cols="50"
                 type="text"
                 name="description"
                 placeholder="Enter a full description"
-                :value="lesson.description"
+                v-model="form.description"
               />
             </div>
           </div>
@@ -116,12 +125,6 @@
                   accept="image/*"
                   @change="onBannerFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="banner"
-                accept="image/png, image/jpeg"
-                :value="form.banner"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
@@ -138,12 +141,6 @@
                   accept="image/*"
                   @change="onIconFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="image"
-                placeholder="Upload an icon image for the course"
-                :value="form.image"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
@@ -160,27 +157,27 @@
                   accept="image/*"
                   @change="onNftFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="image"
-                accept="image/png, image/jpeg"
-                :value="form.nft.image"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
               <label for="links">Add Lesson Links</label>
               <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <span class="link-text">{{ link }}</span>
+                <span class="link-text">{{ link.label }}</span>
               </div>
               <div class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <input
                   type="text"
-                  name="links"
-                  placeholder="Add a link"
+                  name="linkText"
+                  placeholder="Label"
                   v-model="linkText"
+                />
+                <input
+                  type="text"
+                  name="linkURL"
+                  placeholder="Add link URL"
+                  v-model="linkURL"
                 />
                 <button class="add-link-button" @click="addLink()">
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
@@ -192,35 +189,97 @@
           <div v-if="step === 3" class="form-container">
             <h2>Lesson Content</h2>
             <div class="input-row mb-10">
-              <label for="name">Other Categories</label>
-              <input
+              <label for="description">Lesson Content</label>
+              <textarea
                 type="text"
-                name="categories"
-                placeholder="Add additional categories"
-                :value="lesson.categories"
+                name="description"
+                placeholder="Enter lesson content"
+                v-model="form.description"
               />
             </div>
           </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
-            <h2>Set Price</h2>
-            <div class="input-row mb-10">
-              <label for="name">Price</label>
-              <input
-                type="text"
-                name="price"
-                placeholder="Enter a price for the full lesson"
-                :value="lesson.price"
-              />
-            </div>
-            <div class="input-row mb-10">
+            <h2>Pricing</h2>
+            <!-- <div class="input-row mb-10">
               <label for="name">Token</label>
               <input
                 type="text"
                 name="token"
-                placeholder="Enter the token to charge for the lesson"
-                :value="lesson.token"
+                placeholder="Enter the token to charge for the course"
+                :value="form.token"
               />
+            </div> -->
+            <div class="input-row mb-10">
+              <label for="price">Course Price</label>
+              <input
+                type="text"
+                name="price"
+                placeholder="Enter a price for the full course"
+                v-model="form.price"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="discount">Discount %</label>
+              <input
+                type="text"
+                name="discount"
+                placeholder="Enter a course discount %"
+                v-model="form.discount"
+              />
+            </div>
+            <div class="date-row mb-10">
+              <label for="from_date">Discount Period</label>
+              <div class="date-inputs">
+                <input
+                  type="date"
+                  name="from_date"
+                  placeholder="Enter a course discount from date"
+                  v-model="form.from_date"
+                />
+                <input
+                  type="date"
+                  name="to_date"
+                  placeholder="Enter a course discount to date"
+                  v-model="form.to_date"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Step 5 -->
+          <div v-if="step === 5" class="form-container">
+            <h2>Course NFT Preview</h2>
+            <div class="nft-preview">
+              <div class="nft-image">
+                <img :src="nftImageUrl ? nftImageUrl : 'rectangle.svg'" />
+              </div>
+              <div class="nft-column">
+                <div class="nft-title">
+                  {{ form.title ? form.title : "" }}
+                </div>
+                <div class="nft-excerpt">
+                  {{ form.excerpt ? form.excerpt : "" }}
+                </div>
+              </div>
+              <div class="nft-card-row">
+                <div class="nft-category">
+                  <div class="nft-date">
+                    {{ form.created_date ? form.created_date : "" }}
+                  </div>
+                  <div v-if="form.category" class="category-indicator">
+                    {{ form.category ? form.category : "" }}
+                  </div>
+                </div>
+                <div class="button-column">
+                  <BuyButton
+                    :btn-size="'small'"
+                    :color="'blue'"
+                    :course-id="form.id"
+                    :price="form.price"
+                    :discount="form.discount"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -228,18 +287,28 @@
           <div class="footer-container">
             <button
               type="button"
-              class="cancel-blue"
+              class="cancel-button"
               @click="emit('close')"
               aria-label="Close modal"
             >
               Cancel
             </button>
             <div class="button-container">
-              <button v-if="step > 1" type="button" class="cancel-blue" @click="goBack()">
-                Back
-              </button>
-              <button v-if="step >= 1" type="button" class="draft-grey" @click="saveDraft()">
+              <button
+                v-if="step >= 1"
+                type="button"
+                class="draft-grey"
+                @click="saveDraft()"
+              >
                 Save Draft
+              </button>
+              <button
+                v-if="step > 1"
+                type="button"
+                class="cancel-button"
+                @click="goBack()"
+              >
+                Back
               </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
                 Next
@@ -262,6 +331,7 @@
 <script setup lang="ts">
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
+import BuyButton from "../Buttons/BuyButton.vue";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
@@ -270,11 +340,6 @@ const props = defineProps({
   showModal: {
     type: Boolean,
     default: false,
-  },
-  lesson: {
-    type: Object,
-    default: {},
-    required: false,
   },
 });
 
@@ -289,9 +354,11 @@ const form: any = reactive({
   excerpt: undefined,
   description: undefined,
   price: undefined,
+  sales: undefined,
+  total: undefined,
   token: undefined,
+  nft: {},
   links: [],
-  lessons: [],
   step: 0,
   isLive: false,
   created_date: undefined,
@@ -316,7 +383,7 @@ const options = ref([
 
 const step = ref(1);
 const linkText = ref("");
-const selectedLessons = ref([]);
+const linkURL = ref("");
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -379,15 +446,16 @@ function onNftFilePicked(event: any) {
 /**
  * * Add link
  */
- function addLink() {
-  form.links.push(linkText.value);
+function addLink() {
+  form.links.push({ label: linkText.value, url: linkURL.value });
   linkText.value = "";
+  linkURL.value = "";
 }
 
 /**
  * * Update our Course Category
  */
- function selectCategory(event: Event) {
+function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
 
@@ -1046,164 +1114,6 @@ const nextStep = () => {
       flex-direction: row;
       justify-content: center;
     }
-  }
-}
-
-.add-link-button {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-right: 4px;
-  cursor: pointer;
-
-  &:hover {
-    color: $grasp-cyan;
-  }
-}
-
-.cancel-blue {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-
-  color: $black;
-  background-color: $white;
-  font-size: 14px;
-  font-weight: 600;
-
-  border: 2px solid $black;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    color: $grasp-blue;
-    border: 2px solid $grasp-blue;
-  }
-}
-
-.draft-grey {
-  width: 124px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-
-  color: $grey-70;
-  background-color: $white;
-  font-size: 14px;
-  font-weight: 600;
-
-  border: 2px solid $grey-70;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    color: $grasp-blue;
-    border: 2px solid $grasp-blue;
-  }
-}
-
-.btn-blue {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $white;
-  background-color: $grasp-blue;
-  font-size: 14px;
-  font-weight: bold;
-  border: 2px solid $grasp-blue;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
-
-  &:hover {
-    color: $grasp-cyan;
-    border: 2px solid $grasp-cyan;
-  }
-}
-
-.btn-green {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $grasp-blue;
-  background-color: $grasp-cyan;
-  font-size: 14px;
-  font-weight: bold;
-
-  border: 2px solid $grasp-cyan;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 5px 0 0;
-  }
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    border: 2px solid $grasp-blue;
-  }
-
-  &:disabled {
-    background: #c6c6c6;
-    border: 2px solid $grey-50;
-    color: $grasp-blue;
-    cursor: not-allowed;
   }
 }
 

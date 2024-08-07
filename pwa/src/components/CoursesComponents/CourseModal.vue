@@ -125,12 +125,6 @@
                   accept="image/*"
                   @change="onBannerFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="banner"
-                accept="image/png, image/jpeg"
-                :value="form.banner"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
@@ -147,12 +141,6 @@
                   accept="image/*"
                   @change="onIconFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="image"
-                placeholder="Upload an icon image for the course"
-                :value="form.image"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
@@ -169,27 +157,27 @@
                   accept="image/*"
                   @change="onNftFilePicked"
                 />
-                <!-- <input
-                type="file"
-                name="image"
-                accept="image/png, image/jpeg"
-                :value="form.nft.image"
-              /> -->
               </div>
             </div>
             <div class="input-row mb-10">
               <label for="links">Add Course Links</label>
               <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <span class="link-text">{{ link }}</span>
+                <span class="link-text">{{ link.label }}</span>
               </div>
               <div class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <input
                   type="text"
-                  name="links"
-                  placeholder="Add a link"
+                  name="linkText"
+                  placeholder="Label"
                   v-model="linkText"
+                />
+                <input
+                  type="text"
+                  name="linkURL"
+                  placeholder="Add link URL"
+                  v-model="linkURL"
                 />
                 <button class="add-link-button" @click="addLink()">
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
@@ -247,7 +235,7 @@
               />
             </div> -->
             <div class="input-row mb-10">
-              <label for="name">Course Price</label>
+              <label for="price">Course Price</label>
               <input
                 type="text"
                 name="price"
@@ -323,18 +311,18 @@
           <div class="footer-container">
             <button
               type="button"
-              class="cancel-blue"
+              class="cancel-button"
               @click="emit('close')"
               aria-label="Close modal"
             >
               Cancel
             </button>
             <div class="button-container">
-              <button v-if="step > 1" type="button" class="cancel-blue" @click="goBack()">
-                Back
-              </button>
               <button v-if="step >= 1" type="button" class="draft-grey" @click="saveDraft()">
                 Save Draft
+              </button>
+              <button v-if="step > 1" type="button" class="cancel-button" @click="goBack()">
+                Back
               </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
                 Next
@@ -485,6 +473,7 @@ const lessons = [
 
 const step = ref(1);
 const linkText = ref("");
+const linkURL = ref("");
 const selectedLessons = ref([]);
 
 /* Ref: name must match the ref in the template */
@@ -548,9 +537,10 @@ function onNftFilePicked(event: any) {
 /**
  * * Add link
  */
-function addLink() {
-  form.links.push(linkText.value);
+ function addLink() {
+  form.links.push({ label: linkText.value, url: linkURL.value });
   linkText.value = "";
+  linkURL.value = "";
 }
 
 /**
@@ -1328,173 +1318,6 @@ const nextStep = () => {
       flex-direction: row;
       justify-content: center;
     }
-  }
-}
-.add-link-button {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-right: 4px;
-  cursor: pointer;
-
-  &:hover {
-    color: $grasp-cyan;
-  }
-}
-
-.add-lesson-button {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-right: 4px;
-  cursor: pointer;
-
-  &:hover {
-    color: $grasp-cyan;
-  }
-}
-
-.cancel-blue {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-
-  color: $black;
-  background-color: $white;
-  font-size: 14px;
-  font-weight: 600;
-
-  border: 2px solid $black;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    color: $grasp-blue;
-    border: 2px solid $grasp-blue;
-  }
-}
-
-.draft-grey {
-  width: 124px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-
-  color: $grey-70;
-  background-color: $white;
-  font-size: 14px;
-  font-weight: 600;
-
-  border: 2px solid $grey-70;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    color: $grasp-blue;
-    border: 2px solid $grasp-blue;
-  }
-}
-
-.btn-blue {
-  width: 100px;
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $white;
-  background-color: $grasp-blue;
-  font-size: 14px;
-  font-weight: bold;
-  border: 2px solid $grasp-blue;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  &:hover {
-    color: $grasp-cyan;
-    border: 2px solid $grasp-cyan;
-  }
-}
-
-.btn-green {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $grasp-blue;
-  background-color: $grasp-cyan;
-  font-size: 14px;
-  font-weight: bold;
-
-  border: 2px solid $grasp-cyan;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 5px 0 0;
-  }
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    border: 2px solid $grasp-blue;
-  }
-
-  &:disabled {
-    background: #c6c6c6;
-    border: 2px solid $grey-50;
-    color: $grasp-blue;
-    cursor: not-allowed;
   }
 }
 

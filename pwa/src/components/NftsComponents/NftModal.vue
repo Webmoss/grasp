@@ -162,14 +162,14 @@
           <div class="footer-container">
             <button
               type="button"
-              class="cancel-blue"
+              class="cancel-button"
               @click="emit('close')"
               aria-label="Close modal"
             >
               Cancel
             </button>
             <div class="button-container">
-              <button v-if="step > 1" type="button" class="cancel-blue" @click="goBack()">
+              <button v-if="step > 1" type="button" class="cancel-button" @click="goBack()">
                 Back
               </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
@@ -510,113 +510,6 @@ const nextStep = () => {
       flex-direction: row;
       justify-content: center;
     }
-  }
-}
-
-.cancel-blue {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-
-  color: $black;
-  background-color: $white;
-  font-size: 14px;
-  font-weight: 600;
-
-  border: 2px solid $black;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    color: $grasp-blue;
-    border: 2px solid $grasp-blue;
-  }
-}
-
-.btn-blue {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $white;
-  background-color: $grasp-blue;
-  font-size: 14px;
-  font-weight: bold;
-  border: 2px solid $grasp-blue;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 10px 0 0;
-  }
-
-  &:hover {
-    color: $grasp-cyan;
-    border: 2px solid $grasp-cyan;
-  }
-}
-
-.btn-green {
-  width: 100px;
-  height: 40px;
-
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  color: $grasp-blue;
-  background-color: $grasp-cyan;
-  font-size: 14px;
-  font-weight: bold;
-
-  border: 2px solid $grasp-cyan;
-  border-radius: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-left: 8px;
-  transition: all 0.5s linear;
-  cursor: pointer;
-
-  .icon-color {
-    margin: 0 5px 0 0;
-  }
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    border: 2px solid $grasp-blue;
-  }
-
-  &:disabled {
-    background: #c6c6c6;
-    border: 2px solid $grey-50;
-    color: $grasp-blue;
-    cursor: not-allowed;
   }
 }
 

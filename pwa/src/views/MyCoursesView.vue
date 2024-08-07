@@ -22,7 +22,7 @@
         />
       </div>
     </div>
-    <CourseModal :showModal="showModal" :course="{}" @close="showHideModal" />
+    <CourseModal :showModal="showModal" @close="showHideModal" />
   </section>
 </template>
 
