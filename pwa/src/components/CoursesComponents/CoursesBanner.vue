@@ -1,11 +1,12 @@
 <template>
   <div class="course-banner">
     <div class="course-banner-column left">
-      <img src="../../assets/svgs/EduChain-Black.svg" />
+      <img src="../../assets/svgs/EduChain-Black.svg" class="banner-logo" />
     </div>
     <div class="course-banner-column center">
       <div class="course-banner-title">
-        <img src="../../assets/svgs/owl-blue.svg" /> Latest Courses
+        <img src="../../assets/svgs/owl-blue.svg" /> Latest&nbsp;
+        <span class="blue">Courses</span>
       </div>
       <div class="course-banner-slogan">Learn, earn and be rewarded for excellence</div>
       <div class="course-banner-description">
@@ -28,6 +29,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
 .course-banner {
   width: 96%;
+  min-height: 120px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -35,10 +37,10 @@ import VoteButton from "../Buttons/VoteButton.vue";
   align-items: center;
   background: $grasp-cyan;
   background-image: url("../../assets/images/hexBG.png"),
-    url("../../assets/images/EduChain.png");
+    url("../../assets/images/Open-Campus-BG.png");
   background-repeat: no-repeat, no-repeat;
-  background-size: 100%, 300px;
-  background-position: top left, right 160px top 0;
+  background-size: 100%, 600px;
+  background-position: top left, right 160px top 10px;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
   margin: 30px auto 20px;
@@ -70,15 +72,15 @@ import VoteButton from "../Buttons/VoteButton.vue";
       min-width: 100%;
     }
 
-    img,
-    svg {
-      width: 220px;
+    .banner-logo {
+      width: 240px;
       overflow: hidden;
-      margin: 0;
+      margin: 10px 0 0 0;
       padding: 0;
     }
   }
   .left {
+    min-width: 30%;
     justify-content: center;
     align-content: center;
     align-items: flex-start;
@@ -88,11 +90,13 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
   .center {
+    min-width: 37%;
     justify-content: center;
     align-content: center;
     align-items: center;
   }
   .right {
+    min-width: 33%;
     justify-content: center;
     align-content: center;
     align-items: flex-end;
@@ -110,10 +114,10 @@ import VoteButton from "../Buttons/VoteButton.vue";
     align-items: center;
     font-family: "Poppins", sans-serif;
     color: $black;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 600;
     text-align: left;
-    margin: 0 0 5px 0;
+    margin: 0;
 
     @include breakpoint($break-sm) {
       justify-content: center;
@@ -122,11 +126,15 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
     img,
     svg {
-      width: 30px;
-      // object-fit: cover;
+      width: 28px;
+      object-fit: cover;
       overflow: hidden;
-      margin-right: 8px;
+      margin: 0 8px 0 0;
       padding: 0;
+    }
+
+    .blue {
+      color: $grasp-blue;
     }
   }
   .course-banner-slogan {

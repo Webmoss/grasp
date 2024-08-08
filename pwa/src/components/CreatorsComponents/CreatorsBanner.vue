@@ -1,17 +1,16 @@
 <template>
   <div class="creator-banner">
     <div class="creator-banner-column left">
-      <img src="../../assets/svgs/EduChain-White.svg" />
+      <img src="../../assets/svgs/Open-Campus-Logo-White.svg" />
     </div>
     <div class="creator-banner-column center">
       <div class="creator-banner-title">
-        <img src="../../assets/svgs/owl-cyan.svg" /> Top&nbsp;<span class="cyan">
-          Creators</span
-        >
+        <img src="../../assets/svgs/owl-cyan.svg" /> Top&nbsp;
+        <span class="cyan">Creators</span>
       </div>
-      <div class="creator-banner-slogan">Learn, earn and be rewarded for excellence</div>
+      <div class="creator-banner-slogan">Introducing our community of Creators</div>
       <div class="creator-banner-description">
-        Vote for your favourite creator to earn OC Points
+        Learn more about our Open Campus educators
       </div>
     </div>
     <div class="creator-banner-column right">
@@ -30,6 +29,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
 .creator-banner {
   width: 96%;
+  min-height: 120px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,7 +40,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     url("../../assets/images/EduChain.png");
   background-repeat: no-repeat, no-repeat;
   background-size: 100%, 300px;
-  background-position: top left, right 160px top 0;
+  background-position: top left, right 170px top 10px;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
   margin: 30px auto 20px;
@@ -56,14 +56,13 @@ import VoteButton from "../Buttons/VoteButton.vue";
     background-repeat: no-repeat, no-repeat;
     background-size: 100%, 100%;
     background-position: top left, bottom -41px left;
-    border: 0.5px solid $grey-60;
+    border: 0.5px solid $grey-50;
     border-radius: 0;
     margin: 0 auto 20px;
     padding: 2% 5%;
   }
 
   .creator-banner-column {
-    min-width: 33%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -74,13 +73,14 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
     img,
     svg {
-      width: 220px;
+      width: 280px;
       overflow: hidden;
       margin: 0;
       padding: 0;
     }
   }
   .left {
+    min-width: 30%;
     justify-content: center;
     align-content: center;
     align-items: flex-start;
@@ -90,11 +90,13 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
   .center {
+    min-width: 38%;
     justify-content: center;
     align-content: center;
     align-items: center;
   }
   .right {
+    min-width: 32%;
     justify-content: center;
     align-content: center;
     align-items: flex-end;
@@ -112,10 +114,10 @@ import VoteButton from "../Buttons/VoteButton.vue";
     align-items: center;
     font-family: "Poppins", sans-serif;
     color: $white;
-    font-size: 24px;
+    font-size: 25px;
     font-weight: 600;
     text-align: left;
-    margin: 0 0 5px 0;
+    margin: 0;
 
     @include breakpoint($break-sm) {
       justify-content: center;
@@ -124,10 +126,10 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
     img,
     svg {
-      width: 30px;
-      // object-fit: cover;
+      width: 28px;
+      object-fit: cover;
       overflow: hidden;
-      margin-right: 8px;
+      margin: 0 8px 0 0;
       padding: 0;
     }
 

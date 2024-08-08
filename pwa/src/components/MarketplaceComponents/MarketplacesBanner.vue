@@ -1,13 +1,16 @@
 <template>
   <div class="marketplace-banner">
     <div class="marketplace-banner-column left">
-      <img src="../../assets/svgs/EduChain-Black.svg" />
+      <img src="../../assets/svgs/Publisher-Nfts.svg" />
     </div>
     <div class="marketplace-banner-column center">
       <div class="marketplace-banner-title">
-        <img src="../../assets/svgs/owl-black.svg" /> Latest EDU NFTS
+        <img src="../../assets/svgs/owl-cyan.svg" /> Latest&nbsp;
+        <span class="cyan">EDU NFTs</span>
       </div>
-      <div class="marketplace-banner-slogan">Buy or sell courses and lessons from publishers</div>
+      <div class="marketplace-banner-slogan">
+        Buy or sell education NFTs from publishers
+      </div>
       <div class="marketplace-banner-description">
         Vote for your favourite creator to earn OC Points
       </div>
@@ -28,17 +31,18 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
 .marketplace-banner {
   width: 96%;
+  min-height: 120px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
   align-items: center;
-  background: $grasp-orange;
+  background: $black;
   background-image: url("../../assets/images/hexBG.png"),
-    url("../../assets/images/EduChain.png");
+    url("../../assets/svgs/Nodes.svg");
   background-repeat: no-repeat, no-repeat;
   background-size: 100%, 300px;
-  background-position: top left, right 160px top 0;
+  background-position: top left, right 170px top -50px;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
   margin: 30px auto 20px;
@@ -54,14 +58,13 @@ import VoteButton from "../Buttons/VoteButton.vue";
     background-repeat: no-repeat, no-repeat;
     background-size: 100%, 100%;
     background-position: top left, bottom -41px left;
-    border: 0.5px solid $grey-60;
+    border: 0.5px solid $grey-50;
     border-radius: 0;
     margin: 0 auto 20px;
     padding: 2% 5%;
   }
 
   .marketplace-banner-column {
-    min-width: 33%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -79,6 +82,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
   .left {
+    min-width: 30%;
     justify-content: center;
     align-content: center;
     align-items: flex-start;
@@ -88,11 +92,13 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
   .center {
+    min-width: 37%;
     justify-content: center;
     align-content: center;
     align-items: center;
   }
   .right {
+    min-width: 33%;
     justify-content: center;
     align-content: center;
     align-items: flex-end;
@@ -109,11 +115,11 @@ import VoteButton from "../Buttons/VoteButton.vue";
     align-content: center;
     align-items: center;
     font-family: "Poppins", sans-serif;
-    color: $black;
-    font-size: 24px;
+    color: $white;
+    font-size: 25px;
     font-weight: 600;
     text-align: left;
-    margin: 0 0 5px 0;
+    margin: 0;
 
     @include breakpoint($break-sm) {
       justify-content: center;
@@ -122,16 +128,20 @@ import VoteButton from "../Buttons/VoteButton.vue";
 
     img,
     svg {
-      width: 30px;
-      // object-fit: cover;
+      width: 28px;
+      object-fit: cover;
       overflow: hidden;
-      margin-right: 8px;
+      margin: 0 8px 0 0;
       padding: 0;
+    }
+
+    .cyan {
+      color: $grasp-cyan;
     }
   }
   .marketplace-banner-slogan {
     font-family: "Poppins", sans-serif;
-    color: $black;
+    color: $white;
     width: 100%;
     font-size: 17px;
     font-weight: 600;
@@ -147,7 +157,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     }
   }
   .marketplace-banner-description {
-    color: $black;
+    color: $white;
     width: 100%;
     font-size: 15px;
     font-weight: 500;
