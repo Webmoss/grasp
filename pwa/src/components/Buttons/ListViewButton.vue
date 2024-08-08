@@ -37,6 +37,7 @@ button {
   border-bottom-left-radius: 8px;
   margin: 0;
   padding: 6px 4px 4px 6px;
+  transition: all 0.3s linear;
   cursor: pointer;
 
   &:hover,
@@ -48,5 +49,10 @@ button {
 }
 button.activeBtn {
   background: $grasp-cyan;
+
+  &:hover,
+  &:active {
+    background: $grasp-blue;
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <section id="marketplace-search-bar">
+    <MarketplaceFilterButton />
     <MarketplacesSearchInput />
     <MarketplacesSortBy />
     <div class="grid-buttons">
@@ -11,6 +12,7 @@
 </template>
 
 <script setup lang="ts">
+import MarketplaceFilterButton from "../MarketplaceComponents/MarketplaceFilterButton.vue";
 import MarketplacesSortBy from "../MarketplaceComponents/MarketplacesSortBy.vue";
 import MarketplacesSearchInput from "../MarketplaceComponents/MarketplacesSearchInput.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
