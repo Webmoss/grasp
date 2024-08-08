@@ -1,4 +1,4 @@
-export interface filterObject {
+export interface Filter {
   token_id: string | null;
   search_term: string;
   search_traits: [string];

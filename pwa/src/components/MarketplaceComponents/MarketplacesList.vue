@@ -36,7 +36,7 @@ defineProps({
 .marketplace-page {
   position: relative;
   height: auto;
-  overflow: scroll;
+  overflow: visible;
 
   @include breakpoint($break-sm) {
     width: 94%;
@@ -73,7 +73,7 @@ defineProps({
   width: 100%;
   max-width: $max-width;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   align-content: center;
   justify-content: center;

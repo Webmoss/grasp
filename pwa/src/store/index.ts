@@ -4,8 +4,10 @@ import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 import { creatorObject } from "src/models/creator";
 import { metadataObject } from "src/models/metadata";
-import { filterObject } from 'src/models/filter';
+import { Filter } from 'src/models/filter';
+import { getBlankFilter } from '@/models/getBlankFilter';
 import { paginationObject } from 'src/models/pagination';
+import { initialPagination } from '@/models/initialPagination';
 
 export const useStore = defineStore({
   id: "store",
@@ -20,9 +22,13 @@ export const useStore = defineStore({
     errorMessage: "",
     loading: false,
     approved: false,
+    searchChainId: "all",
+    searchContract: "",
+    searchName: "",
+    searchImage: "",
+    searchResults: [] as metadataObject[],
     gridView: "grid",
     showFilter: true,
-    filter: <filterObject>{},
     refreshFilter: {
       token_id: "" as string | undefined,
       search_term: "" as string | undefined,
@@ -34,7 +40,8 @@ export const useStore = defineStore({
       state: "" as string | undefined,
       dates: [] as string[] | undefined,
     },
-    pagination: <paginationObject>{},
+    filter: getBlankFilter() as Filter,
+    pagination: initialPagination() as paginationObject,
     courses: [] as courseObject[],
     course: <courseObject>{},
     lessons: [] as lessonObject[],
@@ -76,6 +83,21 @@ export const useStore = defineStore({
     isApproved(state) {
       return state.approved;
     },
+    getSearchChainId(state) {
+      return state.searchChainId;
+    },
+    getSearchContract(state) {
+      return state.searchContract;
+    },
+    getSearchName(state) {
+      return state.searchName;
+    },
+    getSearchImage(state) {
+      return state.searchImage;
+    },
+    getSearchResults(state) {
+      return state.searchResults;
+    },
     getGridView(state) {
       return state.gridView;
     },
@@ -83,7 +105,7 @@ export const useStore = defineStore({
       return state.showFilter;
     },
     getFilter(state) {
-      return state.filter as filterObject;
+      return state.filter as Filter;
     },
     getPagination(state) {
       return state.pagination as paginationObject;
@@ -168,13 +190,35 @@ export const useStore = defineStore({
     setApproved(value: boolean) {
       this.approved = value;
     },
+    updateSearchChainId(searchChainId: string) {
+      this.searchChainId = searchChainId;
+    },
+    updateSearchContract(searchContract: string) {
+      this.searchContract = searchContract;
+    },
+    updateSearchName(searchName: string) {
+      this.searchName = searchName;
+    },
+    updateSearchImage(searchImage: string) {
+      this.searchImage = searchImage;
+    },
+    addSearchResults(tokens: metadataObject[]) {
+      this.searchResults = tokens;
+    },
+    clearSearchResults() {
+      this.searchChainId = "all";
+      this.searchContract = "";
+      this.searchName = "";
+      this.searchImage = "";
+      this.searchResults = [];
+    },
     setGridView(view: string) {
       this.gridView = view;
     },
     setShowFilter(value: boolean) {
       this.showFilter = value;
     },
-    setFilterValue<K extends keyof filterObject>(key: K, value: filterObject[K]) {
+    setFilterValue<K extends keyof Filter>(key: K, value: Filter[K]) {
       this.filter[key] = value;
     },
     setSearchTerm(value: string) {
@@ -207,7 +251,7 @@ export const useStore = defineStore({
       this.filter.rarity_max_input = value;
     },
     resetFilter() {
-      this.filter = <filterObject>{};
+      this.filter = <Filter>getBlankFilter();
       this.refreshFilter.token_id = "";
       this.refreshFilter.search_term = "";
       this.refreshFilter.search_traits = [];
@@ -240,7 +284,7 @@ export const useStore = defineStore({
       this.pagination.continuation = value;
     },
     resetPagination() {
-      this.pagination = <paginationObject>{};
+      this.pagination = <paginationObject>initialPagination();
     },
     setCourses(courses: courseObject[]) {
       this.courses = courses;

@@ -1,4 +1,4 @@
-export type paginationObject = {
+export interface paginationObject {
   page: number;
   pageSize: number;
   sortSelect: string;
@@ -8,14 +8,3 @@ export type paginationObject = {
   continuation: string | null;
 };
 
-export const getInitialPagination = (): paginationObject => {
-  return {
-    page: 1,
-    pageSize: 20,
-    sortSelect: "price-low-high",
-    sortBy: "floorAskPrice",
-    sortDirection: "asc",
-    limit: 20,
-    continuation: null,
-  };
-};

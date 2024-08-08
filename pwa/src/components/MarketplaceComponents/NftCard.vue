@@ -44,9 +44,9 @@
       <div class="nft-title">
         {{ nft.title ? nft.title : "" }}
       </div>
-      <div class="nft-description">
+      <!-- <div class="nft-description">
         {{ nft.description ? nft.description : "" }}
-      </div>
+      </div> -->
     </div>
     <div class="nft-card-row">
       <div class="nft-type">
