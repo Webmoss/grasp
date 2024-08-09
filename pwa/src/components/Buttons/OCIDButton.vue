@@ -1,23 +1,38 @@
 <template>
   <div class="ocid-container">
     <button
-      v-if="!ocid && !ocConnected"
+      v-if="loading"
       @click="connect()"
-      :class="
-        btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'
-      "
+      :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
-      <img src="../../assets/svgs/Open-Campus-Icon.svg" /> {{ loading ? "Loading OCID" : "Connect OCID" }}
+      <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Loading<span class="bolder"
+        >...</span
+      >
     </button>
     <button
-      v-else
+      v-else-if="!eduUsername && !ocConnected"
+      @click="connect()"
+      :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
+    >
+      <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Connect&nbsp;<span
+        class="bolder"
+        >OCID</span
+      >
+    </button>
+    <button
+      v-else-if="eduUsername && ocConnected"
+      @click="refresh()"
+      :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
+    >
+      <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Open Campus
+    </button>
+    <!-- <button
+      v-else="ocid && ocConnected"
       @click="logout()"
-      :class="
-        btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'
-      "
+      :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
       <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Logout
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -38,15 +53,15 @@ defineProps({
 
 // const router = useRouter();
 const store = useStore();
-const { loading, ocid, ocConnected } = storeToRefs(store);
+const { loading, eduUsername, ocConnected } = storeToRefs(store);
 
 const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
-  ? process.env.VUE_APP_AUTH_REDIRECT_URI
-  : "http://localhost:8080/dashboard",
+    ? process.env.VUE_APP_AUTH_REDIRECT_URI
+    : "http://localhost:8080/dashboard",
 };
 
-console.log("OCID Opts:", opts);
+// console.log("OCID Opts:", opts);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -93,15 +108,109 @@ async function connect() {
   store.setLoading(true);
   try {
     const authSdk = new OCAuthSandbox(opts);
-    await authSdk.signInWithRedirect({
+    // await authSdk.signInWithRedirect({
+    //   state: "opencampus",
+    // });
+    await authSdk.handleLoginRedirect({
       state: "opencampus",
     });
 
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */
-      let authState = authSdk.getAuthState();
+      let authState = await authSdk.getAuthState();
+      // console.log("Auth State:", authState);
 
-      console.log("Auth State:", authState);
+      let accessToken = authState.idToken;
+      store.setOcAccessToken(accessToken);
+      // console.log("OC Access Token:", accessToken);
+
+      let idToken = authState.idToken;
+      store.setOcid(idToken);
+      // console.log("OC ID:", idToken);
+
+      let ocConnected = authState.isAuthenticated;
+      store.setOcConnected(ocConnected);
+      // console.log("OC Connected:", ocConnected);
+
+      if (idToken && ocConnected) {
+        /* Get Auth Info from Open Campus ID sdk */
+        const authInfo = await authSdk.getAuthInfo();
+
+        let eduUsername = authInfo.edu_username;
+        store.setEduUsername(eduUsername);
+        // console.log("Edu Username:", eduUsername);
+
+        let ethAddress = authInfo.eth_address;
+        store.setEduEthAddress(ethAddress);
+        // console.log("Edu Eth Address:", ethAddress);
+      }
+    } else {
+      NotfyProvider.error("Error connecting Open Campus ID!");
+    }
+    store.setLoading(false);
+  } catch (error) {
+    console.log("Error", error);
+    store.setLoading(false);
+  }
+}
+
+const refresh = async () => {
+  try {
+    const authSdk = new OCAuthSandbox(opts);
+    // await authSdk.handleLoginRedirect({
+    //   state: "opencampus",
+    // });
+
+    /* Get Auth State from Open Campus ID sdk */
+    let authState = await authSdk.getAuthState();
+
+    let accessToken = authState.idToken;
+    store.setOcAccessToken(accessToken);
+    console.log("OC Access Token:", accessToken);
+
+    let idToken = authState.idToken;
+    store.setOcid(idToken);
+    console.log("OC ID:", idToken);
+
+    let ocConnected = authState.isAuthenticated;
+    store.setOcConnected(ocConnected);
+    console.log("OC Connected:", ocConnected);
+
+    if (idToken && ocConnected) {
+      /* Get Auth Info from Open Campus ID sdk */
+      const authInfo = await authSdk.getAuthInfo();
+
+      let eduUsername = authInfo.edu_username;
+      store.setEduUsername(eduUsername);
+      console.log("Edu Username:", eduUsername);
+
+      let ethAddress = authInfo.eth_address;
+      store.setEduEthAddress(ethAddress);
+      console.log("Edu Eth Address:", ethAddress);
+    }
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+// const logout = async () => {
+//   const authSdk = new OCAuthSandbox(opts);
+//   await authSdk.logout();
+
+//   store.setOcid("");
+//   store.setOcConnected(false);
+//   store.setOcAccessToken("");
+// };
+
+onMounted(async () => {
+  const init = async () => {
+    try {
+      const authSdk = new OCAuthSandbox(opts);
+      // await authSdk.signInWithRedirect({
+      //   state: "opencampus",
+      // });
+
+      let authState = await authSdk.getAuthState();
 
       let accessToken = authState.idToken;
       store.setOcAccessToken(accessToken);
@@ -115,8 +224,8 @@ async function connect() {
       store.setOcConnected(ocConnected);
       console.log("OC Connected:", ocConnected);
 
-      if(idToken && ocConnected) {
-        /* Get Auth Info from Open Campus ID sdk */
+      if (idToken && ocConnected) {
+
         const authInfo = await authSdk.getAuthInfo();
 
         let eduUsername = authInfo.edu_username;
@@ -126,103 +235,7 @@ async function connect() {
         let ethAddress = authInfo.eth_address;
         store.setEduEthAddress(ethAddress);
         console.log("Edu Eth Address:", ethAddress);
-        // getUserInfo();
       }
-
-      // NotfyProvider.success(`"Open Campus ID connected: " ${idToken}`);
-    } else {
-      NotfyProvider.error("Error connecting Open Campus ID!");
-    }
-    store.setLoading(false);
-  } catch (error) {
-    console.log("Error", error);
-    store.setLoading(false);
-  }
-}
-
-// const getUserInfo = async () => {
-//   try {
-//     const authSdk = new OCAuthSandbox(opts);
-//     const authInfo = await authSdk.getAuthInfo();
-
-//     let eduUsername = authInfo.edu_username;
-//     store.setEduUsername(eduUsername);
-//     console.log("Edu Username:", eduUsername);
-
-//     let ethAddress = authInfo.eth_address;
-//     store.setEduEthAddress(ethAddress);
-//     console.log("Edu Eth Address:", ethAddress);
-
-//     store.setLoading(false);
-//   } catch (error) {
-//     console.log("Error", error);
-//     store.setLoading(false);
-//   }
-// };
-
-// const getBalance = async () => {
-//   if (!provider) {
-//     NotfyProvider.error("Provider not initialized yet!");
-//     return;
-//   }
-//   const web3 = new Web3(provider as any);
-//   const address = (await web3.eth.getAccounts())[0];
-//   store.setAccount(address);
-
-//   /* Get user's balance in EDU Token */
-//   const balance = web3.utils.fromWei(await web3.eth.getBalance(address), "ether");
-//   store.setBalance(balance);
-// };
-
-const logout = async () => {
-  const authSdk = new OCAuthSandbox();
-  await authSdk.logout();
-  store.setOcid("");
-  store.setOcConnected(false);
-  store.setOcAccessToken("");
-  // router.push({ name: "home" });
-};
-
-onMounted(async () => {
-  const init = async () => {
-    try {
-      // const { ocAuth } = useOCAuth();
-
-      // let authInfo = ocAuth.getAuthInfo();
-
-      // let eduUsername = authInfo.edu_username;
-      // store.setEduUsername(eduUsername);
-      // console.log("Edu Username:", eduUsername);
-
-      // let ethAddress = authInfo.eth_address;
-      // store.setEduEthAddress(ethAddress);
-      // console.log("Edu Eth Address:", ethAddress);
-
-      // const authSdk = new OCAuthSandbox(opts);
-
-      // let authState = authSdk.getAuthState();
-
-      // let accessToken = authState.idToken;
-      // store.setOcAccessToken(accessToken);
-      // console.log("OC Access Token:", accessToken);
-
-      // let idToken = authState.idToken;
-      // store.setOcid(idToken);
-      // console.log("OC ID:", idToken);
-
-      // let ocConnected = authState.isAuthenticated;
-      // store.setOcConnected(ocConnected);
-      // console.log("OC Connected:", ocConnected);
-
-      // const authInfo = await authSdk.getAuthInfo();
-
-      // let eduUsername = authInfo.edu_username;
-      // store.setEduUsername(eduUsername);
-      // console.log("Edu Username:", eduUsername);
-
-      // let ethAddress = authInfo.eth_address;
-      // store.setEduEthAddress(ethAddress);
-      // console.log("Edu Eth Address:", ethAddress);
 
     } catch (error) {
       console.error(error);
@@ -237,10 +250,13 @@ onMounted(async () => {
 @import "../../assets/styles/mixins.scss";
 
 .ocid-container {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  margin: 0;
-  max-width: 550px;
+  flex-direction: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 30px 18px 0;
 }
 
 .ocid-wallet-button {
@@ -256,7 +272,7 @@ onMounted(async () => {
   color: $white;
   background-color: $black;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   border: 1px solid $black;
   border-radius: 30px;
   padding-left: 11px;
@@ -275,7 +291,12 @@ onMounted(async () => {
     background: transparent;
     object-fit: contain;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 8px;
+  }
+
+  .bolder {
+    font-size: 14px;
+    font-weight: 600;
   }
 }
 
@@ -291,8 +312,8 @@ onMounted(async () => {
 
   color: $white;
   background-color: $black;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   border: 1px solid $black;
   border-radius: 30px;
   padding-left: 20px;
@@ -311,7 +332,12 @@ onMounted(async () => {
     background: transparent;
     object-fit: contain;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 6px;
+  }
+
+  .bolder {
+    font-size: 14px;
+    font-weight: 600;
   }
 }
 </style>

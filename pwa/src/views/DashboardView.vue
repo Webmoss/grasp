@@ -102,11 +102,11 @@
         </div>
 
         <div class="right">
+          <OCIDButton btnSize="large" />
           <div class="my-wallet-box">
             <div class="open-campus">
-              <!-- <h2>Open Campus ID</h2> -->
-              <OCIDButton btnSize="large" />
-              <div class="campus-id">{{ ocid ? ocid : "#" }}</div>
+              <h2>Username</h2>
+              <div class="campus-id">{{ eduUsername ? eduUsername : "" }}</div>
             </div>
             <div class="my-account">
               <div class="account-address">
@@ -187,7 +187,7 @@ import testLessons from "../data/lessons.json";
 import nfts from "../data/nfts.json";
 
 const store = useStore();
-const { loggedIn, ocid, account, balance, user, courses } = storeToRefs(store);
+const { loggedIn, eduUsername, account, balance, user, courses } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 const sales = ref(0);
@@ -400,7 +400,7 @@ onBeforeMount(async () => {
 @import "../assets/styles/mixins.scss";
 
 .left {
-  padding-top: 30px;
+  padding-top: 20px;
 
   h2 {
     width: 100%;
@@ -715,7 +715,7 @@ onBeforeMount(async () => {
 }
 
 .right {
-  padding-top: 70px;
+  padding: 0;
 
   .my-wallet-box {
     width: calc(100% - 32px);
@@ -742,7 +742,7 @@ onBeforeMount(async () => {
 
       h2 {
         width: auto;
-        color: $grasp-blue;
+        color: $black;
         font-size: 19px;
         font-weight: 600;
         line-height: 26px;
@@ -752,7 +752,7 @@ onBeforeMount(async () => {
         margin-block-end: 0;
       }
       .campus-id {
-        color: $black;
+        color: $grasp-blue;
         font-size: 20px;
         font-weight: 600;
         line-height: 26px;
