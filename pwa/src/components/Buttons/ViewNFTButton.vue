@@ -22,7 +22,7 @@ const props = defineProps({
     required: false,
   },
   nftId: {
-    type: Number,
+    type: String,
     default: null,
     required: false,
   },

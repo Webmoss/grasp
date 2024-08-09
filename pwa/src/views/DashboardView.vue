@@ -87,9 +87,9 @@
                   {{ nft.title ? nft.title : "" }}
                 </div>
                 <div class="nft-list-buttons">
-                  <div v-if="nft && nft.category" class="nft-category">
+                  <div v-if="nft && nft.type" class="nft-category">
                     <span class="category-indicator">{{
-                      nft.category ? nft.category : ""
+                      nft.type ? nft.type : ""
                     }}</span>
                   </div>
                   <div class="view">
@@ -104,8 +104,9 @@
         <div class="right">
           <div class="my-wallet-box">
             <div class="open-campus">
-              <h2>Open Campus ID</h2>
-              <div class="campus-id">{{ user.campusId ? user.campusId : "#1" }}</div>
+              <!-- <h2>Open Campus ID</h2> -->
+              <OCIDButton btnSize="large" />
+              <div class="campus-id">{{ ocid ? ocid : "#" }}</div>
             </div>
             <div class="my-account">
               <div class="account-address">
@@ -177,6 +178,7 @@ import Web3 from "web3";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
+import OCIDButton from "@/components/Buttons/OCIDButton.vue";
 import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 
 /* All Posts stored in a JSON */
@@ -185,7 +187,7 @@ import testLessons from "../data/lessons.json";
 import nfts from "../data/nfts.json";
 
 const store = useStore();
-const { loggedIn, account, balance, user, courses } = storeToRefs(store);
+const { loggedIn, ocid, account, balance, user, courses } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 const sales = ref(0);
@@ -347,7 +349,7 @@ const coursesTotal = computed(() => {
   testCourses.data.forEach((val) => {
     total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
   });
-  console.log("coursesTotal", total);
+  // console.log("coursesTotal", total);
   return total;
 });
 
@@ -357,7 +359,7 @@ const lessonTotal = computed(() => {
   testLessons.data.forEach((val) => {
     total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
   });
-  console.log("lessonTotal", total);
+  // console.log("lessonTotal", total);
   return total;
 });
 

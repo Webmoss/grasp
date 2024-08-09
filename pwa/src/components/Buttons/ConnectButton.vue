@@ -187,7 +187,7 @@ onMounted(async () => {
       provider = web3auth.provider;
 
       if (web3auth.connected) {
-        loggedIn.value = true;
+        store.setLoggedIn(true);
       }
     } catch (error) {
       console.error(error);

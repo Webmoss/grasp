@@ -17,6 +17,11 @@ export const useStore = defineStore({
     account: "",
     balance: "",
     user: <userObject>{},
+    eduUsername: "",
+    eduEthAddress: "",
+    ocid: "",
+    ocConnected: false,
+    ocAccessToken: "",
     errorCode: 0,
     errorStatus: "",
     errorMessage: "",
@@ -68,13 +73,28 @@ export const useStore = defineStore({
     getUser(state) {
       return state.user;
     },
-    isErrorCode(state) {
+    getEduUsername(state) {
+      return state.eduUsername;
+    },
+    getEduEthAddress(state) {
+      return state.eduEthAddress;
+    },
+    getOcid(state) {
+      return state.ocid;
+    },
+    getOcConnected(state) {
+      return state.ocConnected;
+    },
+    getOcAccessToken(state) {
+      return state.ocAccessToken;
+    },
+    getErrorCode(state) {
       return state.errorCode;
     },
-    isErrorStatus(state) {
+    getErrorStatus(state) {
       return state.errorStatus;
     },
-    isErrorMessage(state) {
+    getErrorMessage(state) {
       return state.errorMessage;
     },
     isLoading(state) {
@@ -163,8 +183,8 @@ export const useStore = defineStore({
     setChainId(chainId: string) {
       this.chainId = chainId;
     },
-    setLoggedIn(loggedIn: boolean) {
-      this.loggedIn = loggedIn;
+    setLoggedIn(value: boolean) {
+      this.loggedIn = value;
     },
     setAccount(account: string) {
       this.account = account;
@@ -174,6 +194,21 @@ export const useStore = defineStore({
     },
     setUser(user: userObject) {
       this.user = user;
+    },
+    setEduUsername(value: string) {
+      this.eduUsername = value;
+    },
+    setEduEthAddress(value: string) {
+      this.eduEthAddress = value;
+    },
+    setOcid(value: string) {
+      this.ocid = value;
+    },
+    setOcConnected(value: boolean) {
+      this.ocConnected = value;
+    },
+    setOcAccessToken(value: string) {
+      this.ocAccessToken = value;
     },
     setErrorCode(value: number) {
       this.errorCode = value;
