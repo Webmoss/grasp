@@ -18,13 +18,15 @@ contract GraspTokenScript is Script {
 
   function run() external {
         // Load the deployer's private key from the environment variables
-        uint256 deployerPrivateKey = vm.envUint(process.env.ACCOUNT_PRIVATE_KEY);
+        uint256 deployerPrivateKey = vm.envUint("ACCOUNT_PRIVATE_KEY");
 
         // Start broadcasting the transaction using the deployer's private key
         vm.startBroadcast(deployerPrivateKey);
 
+        address initialOwner = 0xA1FCD7B2F6f36e6C14EbF77413bbE65DCEe97792;
+
         // Deploy the GraspToken contract
-        GraspToken graspToken = new GraspToken();
+        GraspToken graspToken = new GraspToken(initialOwner);
 
         // End broadcasting the transaction
         vm.stopBroadcast();
