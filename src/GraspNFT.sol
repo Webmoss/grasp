@@ -12,7 +12,7 @@ contract GraspNFT is ERC721, ERC721URIStorage, Ownable, EIP712, ERC721Votes {
     uint256 private _nextTokenId;
 
     constructor(address initialOwner)
-        ERC721("GraspNFT", "gNFT")
+        ERC721("GraspNFT", "eduNFT")
         Ownable(initialOwner)
         EIP712("GraspNFT", "1")
     {}

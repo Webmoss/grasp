@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Grasp is ERC20, ERC20Permit, ERC20Votes, Ownable {
     constructor(address initialOwner)
-        ERC20("Grasp", "GRSP")
+        ERC20("Grasp", "GRASP")
         ERC20Permit("Grasp")
         Ownable(initialOwner)
     {

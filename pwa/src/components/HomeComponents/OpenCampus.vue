@@ -108,13 +108,13 @@ section#campus {
     align-content: center;
     align-items: center;
     justify-content: center;
-    padding: 10px 20%;
+    padding: 0 17%;
     color: $grasp-blue;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.45;
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: 180px;
     z-index: 999;
 
     @include breakpoint($break-sm) {

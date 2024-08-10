@@ -8,11 +8,23 @@
     <div class="slogan">
       Watch courses for free on Illustration, Photography, Crafts, Marketing,<br />
       Design, Architecture, Web &amp; App Design, and more.
-      <button class="buy-button">Get Plus Now</button>
+      <button class="buy-button" @click="showHideModal">Get Plus Now</button>
     </div>
+    <GoPlusModal :showModal="showModal" @close="showHideModal" />
   </section>
 </template>
-<script setup></script>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import GoPlusModal from "@/components/Modals/GoPlusModal.vue";
+
+const showModal = ref(false);
+
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
+</script>
+
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";

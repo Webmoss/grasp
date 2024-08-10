@@ -69,7 +69,7 @@
 
         <div class="creator-details-row">
           <div class="creator-category">
-            <template v-for="(category, i) in creator.categories" :key="i">
+            <template v-for="(category, index) in creator.categories" :key="index">
               <span class="category-indicator">{{
                 category.name ? category.name : ""
               }}</span>

@@ -17,13 +17,29 @@
         </div>
 
         <div class="course-details-row">
-          <div class="course-date">
-            <span class="course-date-label">Joined </span>
-            {{ course.created_date ? course.created_date : "" }}
+          <div class="course-category">
+            <template v-for="(category, index) in course.categories" :key="index">
+              <span class="category-indicator">{{
+                category.name ? category.name : ""
+              }}</span>
+            </template>
           </div>
           <div v-if="course.discount" class="course-discount">
             <span class="course-discount-label">Discount </span>
             {{ course.discount + "%" }}
+          </div>
+        </div>
+
+        <div class="course-details-row">
+          <div class="course-date">
+            <span class="course-date-label">Created </span>
+            {{ course.created_date ? course.created_date : "" }}
+          </div>
+          <div class="course-sales">
+            <span class="course-sales-icon">
+              <img src="../assets/svgs/EduCoin.svg" />
+            </span>
+            Sales {{ course.sales ? course.sales : "" }}
           </div>
         </div>
 
@@ -249,10 +265,39 @@ section#course {
       margin: 0;
     }
 
-    .course-category {
+    .course-sales {
+      width: 50%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: center;
+      align-items: center;
+
+      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      color: $grey-70;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: right;
+      margin: -8px 8px 0 0;
+
+      .course-sales-icon {
+
+        img,
+        svg {
+          width: 20px;
+          margin: 0 4px;
+        }
+      }
+    }
+
+    .course-category {
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
       align-content: center;
       align-items: center;
 
@@ -263,7 +308,7 @@ section#course {
       margin: 0;
 
       .category-indicator {
-        width: 80%;
+        width: auto;
         outline: transparent solid 2px;
         outline-offset: 2px;
         border-radius: 9999px;
@@ -282,6 +327,7 @@ section#course {
         border-style: solid;
         border-image: initial;
         border-color: #4d5358;
+        margin-right: 8px;
       }
     }
 

@@ -17,7 +17,6 @@
 @import "../../assets/styles/mixins.scss";
 
 section#lms {
-
   background-image: url("../../assets/images/hexBG.png"), url("../../assets/images/EduChain.png");
   background-repeat: no-repeat, no-repeat;
   background-size: 100%, 40%;
@@ -45,10 +44,10 @@ section#lms {
     text-align: center;
     margin-bottom: 20px;
     z-index: 999;
-    
+
     @include breakpoint($break-sm) {
       width: 100%;
-      font-size: 32px;
+      font-size: 30px;
       margin-bottom: 0;
     }
   }

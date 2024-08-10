@@ -165,9 +165,9 @@ section#solutions {
 
     .solutions-box {
       float: left;
-      width: 44%;
+      width: 42%;
       min-height: 340px;
-      padding: 2% 3% 0;
+      padding: 2% 4% 0;
 
       @include breakpoint($break-sm) {
         width: 90%;
