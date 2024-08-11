@@ -25,7 +25,8 @@
     "sass-loader": "^14.2.1",
     "vue": "^3.3.4",
     "vue-router": "^4.4.0",
-    "web3": "^4.1.1"
+    "web3": "^4.1.1",
+    "ethers": "^5.7.0"
   },
   "//IMP END": "IMP END - Web3Auth Installation",
   "devDependencies": {

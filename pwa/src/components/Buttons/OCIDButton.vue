@@ -118,19 +118,19 @@ async function connect() {
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */
       let authState = await authSdk.getAuthState();
-      // console.log("Auth State:", authState);
+      console.log("Auth State:", authState);
 
       let accessToken = authState.idToken;
       store.setOcAccessToken(accessToken);
-      // console.log("OC Access Token:", accessToken);
+      console.log("OC Access Token:", accessToken);
 
       let idToken = authState.idToken;
       store.setOcid(idToken);
-      // console.log("OC ID:", idToken);
+      console.log("OC ID:", idToken);
 
       let ocConnected = authState.isAuthenticated;
       store.setOcConnected(ocConnected);
-      // console.log("OC Connected:", ocConnected);
+      console.log("OC Connected:", ocConnected);
 
       if (idToken && ocConnected) {
         /* Get Auth Info from Open Campus ID sdk */
@@ -138,11 +138,11 @@ async function connect() {
 
         let eduUsername = authInfo.edu_username;
         store.setEduUsername(eduUsername);
-        // console.log("Edu Username:", eduUsername);
+        console.log("Edu Username:", eduUsername);
 
         let ethAddress = authInfo.eth_address;
         store.setEduEthAddress(ethAddress);
-        // console.log("Edu Eth Address:", ethAddress);
+        console.log("Edu Eth Address:", ethAddress);
       }
     } else {
       NotfyProvider.error("Error connecting Open Campus ID!");

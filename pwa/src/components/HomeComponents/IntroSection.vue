@@ -79,10 +79,16 @@ section#home {
 
     @include breakpoint($break-sm) {
       width: 100%;
-      padding: 20px 40px 0 40px;
+      padding: 40px 40px 0 40px;
 
       .grasp-logo {
-        padding-left: 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        margin: 10px 0 10px -40px;
+
       }
     }
 
@@ -90,9 +96,11 @@ section#home {
       color: $white;
       line-height: 1.7;
       margin-bottom: 20px;
-      padding: 0 0 0 20px;
+      padding: 10px 0 0 20px;
+
       @include breakpoint($break-sm) {
-        padding: 0 0 0 10px;
+        padding: 10px 0 0 10px;
+        text-align: center;
       }
     }
   }
