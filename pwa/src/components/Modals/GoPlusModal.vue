@@ -114,11 +114,11 @@ const { loading } = storeToRefs(store);
 // const price = ref(10);
 
 const imageUrl = ref(
-  "https://cloudflare-ipfs.com/ipfs/QmRGhhoo2a9z3yNU4iBWiUz4MaQVPFCvaCpqUVzijidtqx"
+  "https://cloudflare-ipfs.com/ipfs/Qmb3wWuCm3kiRTPTxa11HkhdzBveg7VeDiJ8NeXAgDKKzT"
 );
 
 const metadata = ref(
-  "https://cloudflare-ipfs.com/ipfs/QmZyZTEHNnvRoW3jFpxK9ibyKEY6B6jwq2SaYpyoCoqDsx"
+  "ipfs://QmR7idkua1kuAffvePPwjkvVRCm1EqJRZQ22N3ymGxi1FC"
 );
 
 const props = defineProps({
