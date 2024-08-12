@@ -4,11 +4,13 @@
 
 **Project Description:**
 
-Grasp Academy is a Learning Management System (LMS) built on the innovative EDU Chain and powered by Open Campus. The platform integrates EduFi to provide financial support for education, allowing users to learn, earn, and be rewarded for excellence. The Grasp web3 dApp serves as a content platform for creators to share their work and earn directly for their work.
+Grasp Academy is an education content platform built for educators and creators to share their skills and knowledge, and earn directly for their work. Grasp is built on the innovative EDU Chain and powered by Open Campus. Our web3 platform integrates Open Campus ID, allowing users to easily connect, learn, earn, and be rewarded for excellence.
 
-Grasp Academy is designed with a learner-centric approach, prioritizing education and the learning experience above all. It aims to facilitate the onboarding process for users, staff, and community members within tech companies and DAOs, such as the ApeCoin DAO, by offering a structured and rewarding educational experience.
+Grasp Academy is built with a learner-first philosophy, placing education and the overall learning experience at the forefront. Our mission is to streamline the onboarding process for learners, communities, and corporate staff by providing a well-structured and engaging learning journey.
 
-Grasp Academy aims to revolutionize the way users onboard, learn, and earn by leveraging the power of blockchain, EduFi, AI, and tokenized rewards. By prioritizing the educational experience and providing a comprehensive and rewarding learning ecosystem, Grasp Academy will empower learners, tech companies, DAOs, and content creators to achieve their educational goals and foster a culture of continuous learning and excellence.
+Grasp aims to revolutionise the way users onboard, learn, and earn by leveraging the power of blockchain, EduFi, AI, and tokenised rewards in the form of tokens and NFTs.
+
+By prioritising the educational experience and providing a comprehensive and rewarding learning ecosystem, Grasp Academy will empower learners, tech companies, DAOs, and content creators to achieve their educational goals and foster a culture of continuous learning and excellence.
 
 **Twitter:** <https://x.com/GraspAcademy>
 **Website:** <https://grasp-academy.netlify.app/>
@@ -19,31 +21,31 @@ Grasp Academy aims to revolutionize the way users onboard, learn, and earn by le
 - Craig Moss, Software Engineer (IO Digital)
 - I am currently employed at IO Digital as a Full Stack/Frontend Developer and work on quite a few exciting projects for the company and their clients using agile methodologies.
 - In my spare time I enjoy attending various web3 hackathon events and building with new exciting blockchain technologies.
-- I am an active member of the ApeCoin DAO and authored AIP 376 which formed the Web3 Development Working Group.
-- I was accepted in the first round of the APE_U AIP Coaches.
+- I am an active member of the ApeCoin DAO and authored AIP 376 which formed the Web3 Development Working Group and was recently accepted in the first round of the APE_U AIP Coaches.
 
 **Key Features:**
 
 1. **Learner and Education First:**
-   - Focuses on providing a high-quality educational experience.
-   - Prioritizes the needs of learners and educators to ensure effective knowledge transfer.
-   - Supports diverse learning styles and provides resources tailored to individual needs.
+   - Strong focus on providing a high-quality educational experience for learners.
+   - Prioritise the needs of learners and educators to ensure effective knowledge transfer.
+   - Support diverse learning styles and provides resources tailored to individual needs.
 
 2. **Learning Management System (LMS):**
-   - Onboarding for users, staff, and DAO community members.
+   - Onboarding for learners, companies, web3 and DAO community members.
    - Structured educational tracks for various purposes, including corporate companies and DAOs.
 
 3. **EduFi Integration:**
-   - Incentives for completing courses, such as NFTs and $EDU tokens.
-   - Financing of education through grants and loans.
+   - Incentives for completing courses, such as NFTs and tokens
+   - Financing of education through grants and loans
 
 4. **Rewards-Based Learning:**
    - Users earn NFTs and $EDU tokens upon course completion.
    - Encourages excellence and engagement through tangible rewards.
+   - Proof of learning offers students skills verification for the job market.
 
 5. **Learn, Earn, and Get Rewarded:**
-   - Comprehensive ecosystem with dapps that help users learn, earn, and finance their education on the EDU Chain.
-   - Seamless integration with EduFi for financial support.
+   - Grasp Academy aims to build a comprehensive education ecosystem with utility    that will help users learn, earn, and be rewarded for academic excellence opening up opportunities for students from all walks of life to finance their education, all powered by Open Campus on EDU Chain.
+   - Provide seamless integration with EduFi for financial support to those who need it most.
 
 6. **Content Platform for Creators:**
    - Enables creators to share their work, videos, and educational content.
@@ -55,15 +57,6 @@ Grasp Academy aims to revolutionize the way users onboard, learn, and earn by le
 
 8. **AI Integration:**
    - Utilizes AI to improve the user experience in creating content, personalizing learning paths, and providing real-time feedback.
-
-9. **$GRASP Token:**
-   - Plans to launch a $GRASP token to reward users.
-   - Enables staking and returns for the Grasp community.
-   - Provides additional incentives for active participation and engagement.
-
-10. **NFTs for Additional Access and Rewards:**
-    - Plans to launch NFTs that offer additional access and rewards.
-    - Users who stake and hold these NFTs receive extra benefits and incentives within the Grasp ecosystem.
 
 **Project Goals:**
 
@@ -152,30 +145,6 @@ Grasp Academy aims to revolutionize the way users onboard, learn, and earn by le
    - Scale the platform to accommodate more users, educational tracks, and content creators.
    - Enhance features and functionalities based on user feedback.
    - Expand $GRASP token and NFT ecosystem based on user engagement.
-
-**Implementation Timeline:**
-
-1. **Phase 1: Planning and Design (Month 1-2):**
-   - Define project scope and requirements.
-   - Design user interface and user experience.
-   - Plan integration with EDU Chain and EduFi.
-
-2. **Phase 2: Development (Month 3-6):**
-   - Develop core LMS functionalities.
-   - Integrate Web3Auth for user authentication.
-   - Build and integrate EduFi dapps for grants, loans, learning, and earning.
-   - Develop content creation and sharing tools for creators.
-
-3. **Phase 3: Testing and Deployment (Month 7-8):**
-   - Conduct comprehensive testing (functional, security, and performance).
-   - Deploy the platform on EDU Chain.
-   - Launch initial onboarding and educational tracks.
-   - Roll out features for content creators to share and monetize their work.
-
-4. **Phase 4: Post-Launch and Scaling (Month 9-12):**
-   - Monitor platform performance and user feedback.
-   - Scale the platform to accommodate more users, educational tracks, and content creators.
-   - Enhance features and functionalities based on user feedback.
 
 ## Technical Details
 
