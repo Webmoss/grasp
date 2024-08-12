@@ -26,31 +26,31 @@
               </h2>
               <div class="nft-slogan">Congratulations, you're an early bird</div>
               <div class="nft-header">
-                For a limited time you can mint our Early Birds EDU Owl NFT and you'll
-                receive access to our premium course materials, lessons and more
+                For a limited time you can mint our Early Birds Testnet EDU Owl NFT and you'll be an EDU Legend
+                <!-- receive access to our premium course materials, lessons and more -->
               </div>
-              <div class="nft-copy">
+              <!-- <div class="nft-copy">
                 Take courses on Art, Design, Illustration, Photography, Crafts, Marketing,
                 Architecture, Web3 Development, dApp Design, and much more, all for FREE
-              </div>
+              </div> -->
               <div class="modal-nft-preview show-mobile">
                 <div class="nft-image">
-                  <img :src="imageUrl" />
+                  <img src="../../assets/images/owls/EDU-Owl-21.png" />
                 </div>
               </div>
               <div class="nft-call-to-action" @click="mintNFT()">
                 Mint&nbsp;<img
                   src="../../assets/svgs/owl-blue.svg"
                   class="grasp-logo"
-                />&nbsp;<span class="white">Grasp</span>Plus&nbsp;<img
+                />&nbsp;<span class="white">Grasp</span>Test NFT&nbsp;<img
                   src="../../assets/svgs/EduCoin.svg"
                 />
-                10
+                0
               </div>
             </div>
             <div class="modal-nft-preview hide-mobile">
               <div class="nft-image">
-                <img :src="imageUrl" />
+                <img src="../../assets/images/owls/EDU-Owl-21.png" />
               </div>
             </div>
           </div>
@@ -88,8 +88,11 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 // import { Contracts } from "@/types";
 // import Web3 from "web3";
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import contractJson from "@/contracts/GraspNFT.sol/GraspNFT.json";
+
+import owls from "@/data/mint.json";
+// console.log("owls", owls.data);
 
 const contractAddress = process.env.VUE_APP_GRASP_NFT_CONTRACT
   ? process.env.VUE_APP_GRASP_NFT_CONTRACT
@@ -117,9 +120,9 @@ const imageUrl = ref(
   "https://cloudflare-ipfs.com/ipfs/Qmb3wWuCm3kiRTPTxa11HkhdzBveg7VeDiJ8NeXAgDKKzT"
 );
 
-const metadata = ref(
-  "ipfs://QmR7idkua1kuAffvePPwjkvVRCm1EqJRZQ22N3ymGxi1FC"
-);
+// const metadata = ref(
+//   "ipfs://QmR7idkua1kuAffvePPwjkvVRCm1EqJRZQ22N3ymGxi1FC"
+// );
 
 const props = defineProps({
   showModal: {
@@ -137,11 +140,19 @@ const props = defineProps({
  * Mint NFT
  */
 const mintNFT = async () => {
+
+  /* Random selector for the Owl Mint */
+  const owlsMintData = owls.data as any;
+  let keys = Object.keys(owlsMintData);
+  let randomProperty = keys[Math.floor(keys.length*Math.random())]
+  let owl = owlsMintData[randomProperty]
+  console.log(`Owl Metadata Token URI`, owl);
+
   /**
    * Some very basic form validation
    */
-  if (!metadata.value) {
-    console.log(`Please upload an image to continue!`);
+  if (!owl.metadata) {
+    console.log(`Please upload NFT metadata to continue!`);
     return;
   }
 
@@ -178,9 +189,9 @@ const mintNFT = async () => {
       // console.log("mintDateString", mintDateString);
 
       /* Mint our Grasp Early Bird NFT */
-      let nftTxn = await contract.safeMint(signer.getAddress(), metadata.value);
+      let nftTxn = await contract.safeMint(signer.getAddress(), owl.metadata);
 
-      const stylesMining = ["color: black", "background: yellow"].join(";");
+      const stylesMining = ["color: black", "background: cyan"].join(";");
       console.log("%c⛏ Mining...please wait!  %s ⛏", stylesMining, nftTxn.hash);
 
       // The OpenZeppelin base ERC721 contract emits a Transfer event
@@ -189,7 +200,7 @@ const mintNFT = async () => {
       // contains events emitted while processing the transaction.
       const receipt = await nftTxn.wait();
 
-      const stylesReceipt = ["color: black", "background: #e9429b"].join(";");
+      const stylesReceipt = ["color: black", "background: #00EDBE"].join(";");
       console.log(
         "%c Another Grasp Owl has taken flight %s ",
         stylesReceipt,
@@ -202,7 +213,7 @@ const mintNFT = async () => {
          * @dev NOTE: Switch up these links once we go to Production
          * Currently set to use Polygon Mumbai Testnet
          */
-        const stylesBlockscout = ["color: white", "background: #7e44df"].join(";");
+        const stylesBlockscout = ["color: white", "background: #141BEB"].join(";");
         console.log(
           `%c NFT minted on Open Campus Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
           stylesBlockscout,

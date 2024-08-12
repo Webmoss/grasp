@@ -1,0 +1,20 @@
+{
+  "name": "Grasp EDU Owl #37",
+  "description": "Learn, earn and be rewarded for excellence",
+  "image": "ipfs://QmNgJqkyEYDYRh9DH1oBKPjgfkT4AdxA47ykrU4hc5QPpp",
+  "external_url": "https://grasp.academy",
+  "attributes": [
+    {
+      "trait_type": "Grasp",
+      "value": "Plus"
+    },
+    {
+      "trait_type": "EDU Owl",
+      "value": "Early Bird"
+    },
+    {
+      "trait_type": "Status",
+      "value": "So early"
+    }
+  ]
+}
