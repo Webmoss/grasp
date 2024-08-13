@@ -176,7 +176,7 @@ const refresh = async () => {
     store.setOcConnected(ocConnected);
     console.log("OC Connected:", ocConnected);
 
-    if (idToken && ocConnected) {
+    if (idToken) {
       /* Get Auth Info from Open Campus ID sdk */
       const authInfo = await authSdk.getAuthInfo();
 
@@ -224,7 +224,7 @@ onMounted(async () => {
       store.setOcConnected(ocConnected);
       console.log("OC Connected:", ocConnected);
 
-      if (idToken && ocConnected) {
+      if (idToken) {
 
         const authInfo = await authSdk.getAuthInfo();
 

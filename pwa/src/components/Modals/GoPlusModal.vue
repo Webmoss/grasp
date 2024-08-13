@@ -26,12 +26,15 @@
               </h2>
               <div class="nft-slogan">Congratulations, you're an early bird</div>
               <div class="nft-header">
-                For a limited time you can mint a Grasp Early Bird NFT and
+                For a limited time you can mint an Early Bird NFT and
                 receive access to all of our premium course materials and so much more.
               </div>
               <div class="nft-copy">
                 Take courses on Art, Design, Illustration, Photography, Crafts, Marketing,
                 Architecture, Web3 Development, dApp Design, and much more, all for FREE
+              </div>
+              <div class="nft-outro">
+                Be sure to hodl and stay tuned, because the EDU Owls will be hatching soon and are sure to fly high.
               </div>
               <div class="modal-nft-preview show-mobile">
                 <div class="nft-image">
@@ -39,18 +42,23 @@
                 </div>
               </div>
               <div class="nft-call-to-action" @click="mintNFT()">
+                <div class="mint-button">
                 Mint&nbsp;<img
                   src="../../assets/svgs/owl-blue.svg"
                   class="grasp-logo"
-                />&nbsp;<span class="white">Grasp</span> Plus&nbsp;NFT<img
-                  src="../../assets/svgs/EduCoin.svg"
-                />
-                0
+                />&nbsp;<span class="white">Grasp</span> Plus
+                </div>
+                <div class="mint-price">
+                <img
+                    src="../../assets/svgs/EduCoin.svg"
+                  />
+                  10
+                </div>
               </div>
             </div>
             <div class="modal-nft-preview hide-mobile">
               <div class="nft-image">
-                <img src="../../assets/images/owls/EDU-Owl-21.png" />
+                <img src="../../assets/images/EDUBirds-Blue.png" />
               </div>
             </div>
           </div>
@@ -406,11 +414,24 @@ const mintNFT = async () => {
         }
       }
 
+      .nft-outro {
+        width: 100%;
+        color: $black;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        margin: 0 0 30px;
+
+        @include breakpoint($break-sm) {
+          margin: 0 0 20px;
+        }
+      }
+
       .nft-call-to-action {
         width: 90%;
         display: flex;
         flex-direction: row;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
         align-content: center;
         color: $grasp-blue;
@@ -430,27 +451,52 @@ const mintNFT = async () => {
           margin: 0 0 20px;
         }
 
-        .grasp-logo {
-          width: 32px;
-          height: 32px;
-          object-fit: contain;
-          overflow: hidden;
-          background: transparent;
-          margin: 0 -2px 0 0;
+        .mint-button {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          align-content: center;
+
+          .grasp-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            overflow: hidden;
+            background: transparent;
+            margin: 0 -2px 0 0;
+          }
+
+          .white {
+            color: $white;
+          }
+
+          img,
+          svg {
+            color: $grasp-blue;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            overflow: hidden;
+            background: transparent;
+          }
         }
 
-        .white {
-          color: $white;
-        }
-
-        img,
-        svg {
-          color: $grasp-blue;
-          width: 40px;
-          height: 40px;
-          object-fit: contain;
-          overflow: hidden;
-          background: transparent;
+        .mint-price {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+          align-content: center;
+          img,
+          svg {
+            color: $grasp-blue;
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            overflow: hidden;
+            background: transparent;
+          }
         }
       }
     }
@@ -460,8 +506,6 @@ const mintNFT = async () => {
     width: 50%;
     display: inline;
     float: left;
-
-    max-width: 400px;
     background: $grasp-cyan;
     border: 0.5px solid $grey-50;
     border-radius: 12px;
@@ -481,7 +525,7 @@ const mintNFT = async () => {
     .nft-image {
       position: relative;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       margin: 0 auto;
       padding: 0;
       overflow: hidden;
