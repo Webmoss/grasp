@@ -26,13 +26,13 @@
               </h2>
               <div class="nft-slogan">Congratulations, you're an early bird</div>
               <div class="nft-header">
-                For a limited time you can mint our Early Birds Testnet EDU Owl NFT and you'll be an EDU Legend
-                <!-- receive access to our premium course materials, lessons and more -->
+                For a limited time you can mint a Grasp Early Bird NFT and
+                receive access to all of our premium course materials and so much more.
               </div>
-              <!-- <div class="nft-copy">
+              <div class="nft-copy">
                 Take courses on Art, Design, Illustration, Photography, Crafts, Marketing,
                 Architecture, Web3 Development, dApp Design, and much more, all for FREE
-              </div> -->
+              </div>
               <div class="modal-nft-preview show-mobile">
                 <div class="nft-image">
                   <img src="../../assets/images/owls/EDU-Owl-21.png" />
@@ -42,7 +42,7 @@
                 Mint&nbsp;<img
                   src="../../assets/svgs/owl-blue.svg"
                   class="grasp-logo"
-                />&nbsp;<span class="white">Grasp</span>Test NFT&nbsp;<img
+                />&nbsp;<span class="white">Grasp</span> Plus&nbsp;NFT<img
                   src="../../assets/svgs/EduCoin.svg"
                 />
                 0
@@ -110,10 +110,10 @@ const contractAddress = process.env.VUE_APP_GRASP_NFT_CONTRACT
 const emit = defineEmits(["close"]);
 
 const store = useStore();
-const { loading } = storeToRefs(store);
+const { account, loading } = storeToRefs(store);
 
 // const approvedMint = ref(false);
-// const tokenId = ref("");
+const tokenId = ref("");
 // const price = ref(10);
 
 const imageUrl = ref(
@@ -141,7 +141,7 @@ const props = defineProps({
  */
 const mintNFT = async () => {
 
-  /* Random selector for the Owl Mint */
+  /* Random selector for the Owl Mint DEV NOTE: Needs more random results or logic */
   const owlsMintData = owls.data as any;
   let keys = Object.keys(owlsMintData);
   let randomProperty = keys[Math.floor(keys.length*Math.random())]
@@ -158,27 +158,27 @@ const mintNFT = async () => {
 
   /* Show loading */
   store.setLoading(true);
-  /**
-   * Mint our NFT with metadata on NFT.Storage
-   */
   try {
     const { ethereum } = window;
+
     if (ethereum) {
+
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, contractJson.abi, signer);
-
       /**
        *  Receive Emitted Event from Contract
-       *  @dev See NewNftMinted emitted from our smart contract safeMint function
+       *  @dev See Transfer emitted from our smart contract safeMint function
        */
-      // contract.on("NewNftMinted", (receiver, timestamp, newTokenId) => {
-      //   console.log("Receiver :", receiver);
+      // contract.on("Transfer", (from, to, tokenId) => {
+      //   console.log("Transfer From :", from);
 
-      //   createdAt.value = moment.unix(timestamp).toString();
-      //   console.log("Created At :", createdAt.value);
+      //   console.log("Transfer to :", to);
 
-      //   tokenId.value = newTokenId.toNumber();
+      //   // createdAt.value = moment.unix(timestamp).toString();
+      //   // console.log("Created At :", createdAt.value);
+
+      //   tokenId.value = tokenId.toNumber();
       //   console.log("TokenId :", tokenId.value);
       //   store.setLoading(false);
       // });
@@ -188,11 +188,16 @@ const mintNFT = async () => {
       // const mintDateString = mintDateTimestamp.toString();
       // console.log("mintDateString", mintDateString);
 
+      console.log("account", account.value);
+
+      let signerAddress = await signer.getAddress();
+      console.log("signerAddress", signerAddress);
+
       /* Mint our Grasp Early Bird NFT */
-      let nftTxn = await contract.safeMint(signer.getAddress(), owl.metadata);
+      let nftTxn = await contract.safeMint(signerAddress, owl.metadata);
 
       const stylesMining = ["color: black", "background: cyan"].join(";");
-      console.log("%c⛏ Mining...please wait!  %s ⛏", stylesMining, nftTxn.hash);
+      console.log("%cMining the ⛓️ ...please wait! %s", stylesMining, nftTxn.hash);
 
       // The OpenZeppelin base ERC721 contract emits a Transfer event
       // when a token is issued. tx.wait() will wait until a block containing
@@ -202,7 +207,7 @@ const mintNFT = async () => {
 
       const stylesReceipt = ["color: black", "background: #00EDBE"].join(";");
       console.log(
-        "%c Another Grasp Owl has taken flight %s ",
+        "%c🦉 Another Grasp EDU Owl has taken flight %s ",
         stylesReceipt,
         nftTxn.hash
       );
@@ -215,7 +220,7 @@ const mintNFT = async () => {
          */
         const stylesBlockscout = ["color: white", "background: #141BEB"].join(";");
         console.log(
-          `%c NFT minted on Open Campus Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
+          `%cNFT minted on Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
           stylesBlockscout,
           nftTxn.hash
         );
