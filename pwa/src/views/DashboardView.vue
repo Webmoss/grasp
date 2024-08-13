@@ -196,7 +196,7 @@ const percentage = ref(0);
 /* Get from https://dashboard.web3auth.io */
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
   ? process.env.VUE_APP_WEB3AUTH_CLIENTID
-  : "";
+  : "BFHhGOrZRODlsNU9kHkvCQQVz7GuoECbQJGJKYHSEEEIJ3WzqCZizSksXrYzzzcoV8CK9_Ell6VRKMKYvDxjUMA";
 
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
