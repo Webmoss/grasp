@@ -47,30 +47,6 @@ a {
   text-decoration: none;
 }
 
-.scroll-link {
-  width: auto;
-  color: $white;
-  font-size: 15x;
-  line-height: normal;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: 0.6s;
-  margin-bottom: 4px;
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    border-bottom: 1px solid $grasp-cyan;
-  }
-
-  img {
-    width: 14px;
-    margin-bottom: -2px;
-  }
-}
-
 section#content {
   position: relative;
   width: 100%;

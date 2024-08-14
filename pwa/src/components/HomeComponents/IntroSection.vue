@@ -14,21 +14,26 @@
         System (LMS), is built on the innovative EDU Chain, providing a robust foundation
         for educational advancement
       </p>
-      <p>
-        <span @click="scrolltoId('solutions')" class="scroll-link"
-          >Learn &amp; Earn
-          <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
-        ><br />
-        <span @click="scrolltoId('campus')" class="scroll-link"
-          >Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
-        ><br />
-        <span @click="scrolltoId('goplus')" class="scroll-link"
-          >Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" /></span
-        ><br />
-        <span @click="scrolltoId('educhain')" class="scroll-link"
-          >EduChain <img src="../../assets/svgs/Right.svg" class="link-icon"
-        /></span>
-      </p>
+      <div class="educhain-row">
+        <div class="educhain-links">
+          <div @click="scrolltoId('solutions')" class="scroll-link"
+            >Learn &amp; Earn
+            <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
+          >
+          <div @click="scrolltoId('campus')" class="scroll-link"
+            >Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
+          >
+          <div @click="scrolltoId('goplus')" class="scroll-link"
+            >Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
+          >
+          <div @click="scrolltoId('educhain')" class="scroll-link"
+            >EduChain <img src="../../assets/svgs/Right.svg" class="link-icon"
+          /></div>
+        </div>
+        <div class="educhain-banner">
+          <img src="../../assets/svgs/EduChain-White.svg" class="educhain-logo" />
+        </div>
+      </div>
     </div>
     <div class="right">
       <div class="home-graphic">
@@ -88,7 +93,6 @@ section#home {
         align-content: center;
         align-items: center;
         margin: 10px 0 10px -40px;
-
       }
     }
 
@@ -101,6 +105,71 @@ section#home {
       @include breakpoint($break-sm) {
         padding: 10px 0 0 10px;
         text-align: center;
+      }
+    }
+
+
+
+    .educhain-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      margin-top: 20px;
+
+      .educhain-links {
+        width: calc(100% - 260px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: flex-start;
+        padding: 0 0 0 20px;
+
+        .scroll-link {
+          width: auto;
+          color: $white;
+          font-size: 15x;
+          line-height: normal;
+          text-decoration: none;
+          border-bottom: 1px solid transparent;
+          transition: 0.6s;
+          margin-bottom: 4px;
+          cursor: pointer;
+
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            border-bottom: 1px solid $grasp-cyan;
+          }
+
+          img {
+            width: 14px;
+            margin-bottom: -2px;
+          }
+        }
+      }
+
+      .educhain-banner {
+        width: 260px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+
+        .educhain-logo {
+          width: 260px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          align-items: flex-start;
+          margin: 0;
+        }
       }
     }
   }

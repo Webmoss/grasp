@@ -26,34 +26,51 @@
               </h2>
               <div class="nft-slogan">Congratulations, you're an early bird</div>
               <div class="nft-header">
-                For a limited time you can mint an Early Bird NFT and
-                receive access to all of our premium course materials and so much more.
+                For a limited time you can mint an Early Bird NFT and receive access to
+                all of our premium course materials and so much more.
               </div>
               <div class="nft-copy">
                 Take courses on Art, Design, Illustration, Photography, Crafts, Marketing,
                 Architecture, Web3 Development, dApp Design, and much more, all for FREE
+                with our Genesis Pass mint.
               </div>
               <div class="nft-outro">
-                Be sure to hodl and stay tuned, because the EDU Owls will be hatching soon and are sure to fly high.
+                Be sure to hodl and stay tuned, because the Grasp Academy EDU Owls will be
+                hatching next and are sure to fly high on EDU Chain.
               </div>
               <div class="modal-nft-preview show-mobile">
                 <div class="nft-image">
                   <img src="../../assets/images/owls/EDU-Owl-21.png" />
                 </div>
               </div>
-              <div class="nft-call-to-action" @click="mintNFT()">
+              <div v-if="!loading" class="nft-call-to-action" @click="mintNFT()">
                 <div class="mint-button">
-                Mint&nbsp;<img
-                  src="../../assets/svgs/owl-blue.svg"
-                  class="grasp-logo"
-                />&nbsp;<span class="white">Grasp</span> Plus
+                  Mint&nbsp;<img
+                    src="../../assets/svgs/owl-blue.svg"
+                    class="grasp-logo"
+                  />&nbsp;<span class="white">Grasp</span> Plus
                 </div>
                 <div class="mint-price">
-                <img
-                    src="../../assets/svgs/EduCoin.svg"
-                  />
-                  10
+                  <img src="../../assets/svgs/EduCoin.svg" />
+                  420
                 </div>
+              </div>
+              <div v-if="loading" class="nft-call-to-action">
+                <div class="mint-button">
+                  Hatching&nbsp;your&nbsp;<img
+                    src="../../assets/svgs/owl-blue.svg"
+                    class="grasp-logo"
+                  />&nbsp;<span class="white">EDU</span> Owl
+                </div>
+                <!-- <div class="mint-price">
+                  <img src="../../assets/svgs/EduCoin.svg" />
+                </div> -->
+              </div>
+              <div class="nft-disclaimer">
+                The Grasp Academy Genesis mint is currently for Testing Purposes ONLY and
+                does not represent the final product we aim to launch. Mint cost is
+                currently FREE on EDU Chain Testnet, you will only pay gas fees. All art
+                is created using glif.app
               </div>
             </div>
             <div class="modal-nft-preview hide-mobile">
@@ -91,11 +108,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, provide } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-// import { Contracts } from "@/types";
-// import Web3 from "web3";
+import { Notyf } from "notyf";
 import { ethers } from "ethers";
 import contractJson from "@/contracts/GraspNFT.sol/GraspNFT.json";
 
@@ -120,18 +136,6 @@ const emit = defineEmits(["close"]);
 const store = useStore();
 const { account, loading } = storeToRefs(store);
 
-// const approvedMint = ref(false);
-const tokenId = ref("");
-// const price = ref(10);
-
-const imageUrl = ref(
-  "https://cloudflare-ipfs.com/ipfs/Qmb3wWuCm3kiRTPTxa11HkhdzBveg7VeDiJ8NeXAgDKKzT"
-);
-
-// const metadata = ref(
-//   "ipfs://QmR7idkua1kuAffvePPwjkvVRCm1EqJRZQ22N3ymGxi1FC"
-// );
-
 const props = defineProps({
   showModal: {
     type: Boolean,
@@ -139,21 +143,63 @@ const props = defineProps({
   },
 });
 
+// const approvedMint = ref(false);
+const tokenId = ref("");
+
+const NotfyProvider = new Notyf({
+  duration: 2000,
+  position: {
+    x: "center",
+    y: "bottom",
+  },
+  types: [
+    {
+      type: "loading",
+      background: "orange",
+      duration: 0,
+      dismissible: true,
+      icon: {
+        className: "icon icon-loading",
+        tagName: "i",
+      },
+    },
+    {
+      type: "success",
+      background: "green",
+      duration: 20000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-success",
+        tagName: "i",
+      },
+    },
+    {
+      type: "error",
+      background: "indianred",
+      duration: 10000,
+      dismissible: true,
+      icon: {
+        className: "icon icon-error",
+        tagName: "i",
+      },
+    },
+  ],
+});
+provide("notyf", NotfyProvider);
+
 // const ConfirmApprovedMint = (value: boolean) => {
 //   approvedMint.value = value;
 // };
-
 
 /**
  * Mint NFT
  */
 const mintNFT = async () => {
-
   /* Random selector for the Owl Mint DEV NOTE: Needs more random results or logic */
   const owlsMintData = owls.data as any;
   let keys = Object.keys(owlsMintData);
-  let randomProperty = keys[Math.floor(keys.length*Math.random())]
-  let owl = owlsMintData[randomProperty]
+  let randomProperty = keys[Math.floor(keys.length * Math.random())];
+  let owl = owlsMintData[randomProperty];
   console.log(`Owl Metadata Token URI`, owl);
 
   /**
@@ -166,11 +212,11 @@ const mintNFT = async () => {
 
   /* Show loading */
   store.setLoading(true);
+
   try {
     const { ethereum } = window;
 
-    if (ethereum) {
-
+    if (ethereum && account !== '') {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, contractJson.abi, signer);
@@ -418,6 +464,19 @@ const mintNFT = async () => {
         width: 100%;
         color: $black;
         font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        margin: 0 0 30px;
+
+        @include breakpoint($break-sm) {
+          margin: 0 0 20px;
+        }
+      }
+
+      .nft-disclaimer {
+        width: 100%;
+        color: $grey-70;
+        font-size: 11px;
         font-weight: 500;
         text-align: left;
         margin: 0 0 30px;

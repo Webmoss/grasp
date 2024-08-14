@@ -8,7 +8,12 @@
     <div class="slogan">
       Watch courses for free on Illustration, Photography, Crafts, Marketing,<br />
       Design, Architecture, Web &amp; App Design, and more.
-      <button class="buy-button" @click="showHideModal">Get Plus Now</button>
+      <div class="get-plus-button" @click="showHideModal()">
+        Get&nbsp;<img
+          src="../../assets/svgs/owl-cyan.svg"
+          class="grasp-logo"
+        />&nbsp;Grasp<span class="cyan">Plus</span>
+      </div>
     </div>
     <GoPlusModal :showModal="showModal" @close="showHideModal" />
   </section>
@@ -31,10 +36,11 @@ const showHideModal = () => {
 
 section#goplus {
   background: $grasp-cyan;
-  background-image: url("../../assets/svgs/goPlus.svg"), url("../../assets/images/hexBG.png");
+  background-image: url("../../assets/svgs/goPlus.svg"),
+    url("../../assets/images/hexBG.png");
   background-repeat: no-repeat, no-repeat;
-  background-position: top 50px left 100px, top left,;
-  background-size: 35%, 100%,;
+  background-position: top 50px left 100px, top left;
+  background-size: 35%, 100%;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -122,32 +128,52 @@ section#goplus {
       margin: 0 0 20px 0;
     }
   }
-  .buy-button {
+
+  .get-plus-button {
+    width: 300px;
     display: flex;
     flex-direction: row;
-    align-content: center;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    align-content: center;
     color: $white;
-    background-color: $grasp-blue;
-    font-size: 16px;
-    font-weight: bold;
-    width: auto;
-    height: 50px;
-    border: 2px solid $grasp-blue;
-    border-radius: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-top: 40px;
-    margin-bottom: 27px;
-    transition: 0.6s;
+    background: $grasp-blue;
+    border: 0.5px solid $grey-50;
+    border-radius: 12px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: left;
+    margin: 30px auto 0;
+    padding: 20px 30px;
     cursor: pointer;
-    .icon-color {
-      margin: 0 5px 0 0;
+
+    @include breakpoint($break-sm) {
+      padding: 10px 5%;
+      margin: 0 0 20px;
     }
 
-    &:hover {
-      border: 2px solid $white;
+    .grasp-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      overflow: hidden;
+      background: transparent;
+      margin: 0 -2px 0 0;
+    }
+
+    .cyan {
+      color: $grasp-cyan;
+    }
+
+    img,
+    svg {
+      color: $grasp-blue;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      overflow: hidden;
+      background: transparent;
     }
   }
 }
