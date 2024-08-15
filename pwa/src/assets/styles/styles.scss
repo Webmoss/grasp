@@ -411,6 +411,25 @@ section#content {
   }
 }
 
+.add-task-button {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: $grasp-cyan;
+  }
+}
+
 .cancel-button {
   width: 100px;
   height: 40px;

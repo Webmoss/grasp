@@ -11,6 +11,8 @@ export interface lessonObject {
   title: string | null;
   excerpt: string | null;
   description: string | null;
+  content: any;
+  tasks: Array<object>;
   price: number;
   sales: number;
   total: number;

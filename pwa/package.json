@@ -10,13 +10,14 @@
   },
   "//IMP START": "IMP START - Web3Auth Installation",
   "dependencies": {
-
     "@web3auth/base": "^8.6.2",
     "@web3auth/ethereum-provider": "^8.6.2",
     "@web3auth/metamask-adapter": "^8.12.0",
     "@web3auth/modal": "^8.6.2",
     "core-js": "^3.26.1",
     "dotenv": "^16.4.5",
+    "ethers": "^5.7.0",
+    "nanoid": "^5.0.7",
     "notyf": "^3.10.0",
     "pinia": "^2.1.7",
     "react": "^18.2.0",
@@ -25,8 +26,7 @@
     "sass-loader": "^14.2.1",
     "vue": "^3.3.4",
     "vue-router": "^4.4.0",
-    "web3": "^4.1.1",
-    "ethers": "^5.7.0"
+    "web3": "^4.1.1"
   },
   "//IMP END": "IMP END - Web3Auth Installation",
   "devDependencies": {

@@ -119,6 +119,13 @@ section#home {
       align-items: center;
       margin-top: 20px;
 
+      @include breakpoint($break-md) {
+        flex-direction: column;
+      }
+      @include breakpoint($break-sm) {
+        flex-direction: column;
+      }
+
       .educhain-links {
         width: calc(100% - 260px);
         display: flex;
@@ -169,6 +176,14 @@ section#home {
           align-content: center;
           align-items: flex-start;
           margin: 0;
+
+          @include breakpoint($break-sm) {
+            width: 220px;
+          }
+        }
+
+        @include breakpoint($break-sm) {
+          margin: 30px auto;
         }
       }
     }

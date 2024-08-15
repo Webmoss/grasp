@@ -60,7 +60,7 @@
               />
             </div>
             <div class="input-row mb-10">
-              <label for="name">Main Category</label>
+              <label for="category">Main Category</label>
               <select
                 v-model="form.category"
                 class="category-select"

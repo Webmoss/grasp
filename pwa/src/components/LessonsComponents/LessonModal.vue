@@ -32,8 +32,8 @@
               </li>
               <li>
                 <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Assign
-                Categories
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Lesson
+                Content
               </li>
               <li>
                 <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
@@ -51,16 +51,7 @@
           <div v-if="step === 1" class="form-container">
             <h2>Lesson Details</h2>
             <div class="input-row mb-10">
-              <label for="name">Type</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter a lesson type, eg. Article, Video, Quiz"
-                v-model="form.type"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="name">Main Category</label>
+              <label for="category">Main Category</label>
               <select
                 v-model="form.category"
                 class="category-select"
@@ -99,7 +90,7 @@
             <div class="input-row mb-10">
               <label for="description">Description</label>
               <textarea
-              rows="6"
+                rows="6"
                 cols="50"
                 type="text"
                 name="description"
@@ -189,14 +180,124 @@
           <div v-if="step === 3" class="form-container">
             <h2>Lesson Content</h2>
             <div class="input-row mb-10">
-              <label for="description">Lesson Content</label>
-              <textarea
-                type="text"
-                name="description"
-                placeholder="Enter lesson content"
-                v-model="form.description"
+              <label for="type">Lesson Type</label>
+              <CheckBoxGroup
+                :items="[
+                  {
+                    label: 'Article',
+                    value: 'article',
+                    checked: false,
+                  },
+                  {
+                    label: 'Publisher NFT',
+                    value: 'publisher',
+                    checked: false,
+                  },
+                  {
+                    label: 'Tiny Tap',
+                    value: 'tinytap',
+                    checked: false,
+                  },
+                  {
+                    label: 'Video',
+                    value: 'video',
+                    checked: false,
+                  },
+                  {
+                    label: 'Quest',
+                    value: 'quest',
+                    checked: false,
+                  },
+                  {
+                    label: 'Task',
+                    value: 'task',
+                    checked: false,
+                  },
+                ]"
+                @on-change="onChange"
               />
             </div>
+
+            <div v-if="form.type === 'article'" class="input-row mb-10">
+              <label for="article">Article Content</label>
+              <textarea
+                rows="20"
+                cols="30"
+                type="text"
+                name="article"
+                placeholder="Enter lesson content"
+                v-model="form.content"
+              />
+            </div>
+
+            <div v-if="form.type === 'publisher'" class="input-row mb-10">
+              <label for="publisher">Publisher NFT</label>
+              <input
+                type="text"
+                name="publisher"
+                placeholder="Enter the Publisher NFT "
+                :value="form.content"
+              />
+            </div>
+
+            <div v-if="form.type === 'tinytap'" class="input-row mb-10">
+              <label for="tinytap">TinyTap NFT</label>
+              <input
+                type="text"
+                name="tinytap"
+                placeholder="Enter the Publisher NFT "
+                :value="form.content"
+              />
+            </div>
+
+            <div v-if="form.type === 'video'" class="input-row mb-10">
+              <label for="video">Video</label>
+              <input
+                type="text"
+                name="video"
+                placeholder="Enter the Video link "
+                :value="form.content"
+              />
+            </div>
+
+            <div v-if="form.type === 'quest'" class="input-row mb-10">
+              <label for="quests">Quest</label>
+              <input
+                type="text"
+                name="quests"
+                placeholder="Enter the Quest Steps"
+                :value="form.content"
+              />
+            </div>
+
+            <!-- Lesson Task Content -->
+            <div v-if="form.type === 'task'" class="input-row mb-10">
+              <label for="links">Add Tasks</label>
+              <div v-for="(task, i) in form.tasks" :key="i" class="input-box mb-10">
+                <img src="../../assets/svgs/Check.svg" alt="Lesson Task" />
+                <span class="link-text">{{ task.label }}</span>
+              </div>
+              <div class="input-box-column mb-10">
+                <input
+                  type="text"
+                  name="taskText"
+                  placeholder="Task Label"
+                  v-model="taskText"
+                />
+                <textarea
+                  rows="6"
+                  cols="50"
+                  type="text"
+                  name="taskStep"
+                  placeholder="Enter a description of the task step"
+                  v-model="taskStep"
+                />
+                <button class="add-task-button" @click="addTask()">
+                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Task" />
+                </button>
+              </div>
+            </div>
+
           </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
@@ -332,6 +433,15 @@
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
 import BuyButton from "../Buttons/BuyButton.vue";
+import CheckBoxGroup from "../CheckBox/CheckBoxGroup.vue";
+
+const onChange = (val: any) => {
+  console.log("val", val);
+
+  let result = val.find((obj: { checked: boolean; }) => obj.checked === true);
+  form.type = result.value;
+  console.log("form.type", form.type);
+};
 
 const emit = defineEmits(["close"]);
 const store = useStore();
@@ -353,6 +463,8 @@ const form: any = reactive({
   title: undefined,
   excerpt: undefined,
   description: undefined,
+  content: undefined,
+  tasks: [],
   price: undefined,
   sales: undefined,
   total: undefined,
@@ -384,6 +496,9 @@ const options = ref([
 const step = ref(1);
 const linkText = ref("");
 const linkURL = ref("");
+
+const taskText = ref("");
+const taskStep = ref("");
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -450,6 +565,16 @@ function addLink() {
   form.links.push({ label: linkText.value, url: linkURL.value });
   linkText.value = "";
   linkURL.value = "";
+}
+
+/**
+ * * Add a Task to Lesson content
+ */
+ function addTask() {
+  form.tasks.push({ label: taskText.value, description: taskStep.value });
+  console.log("form.content", form.tasks);
+  taskText.value = "";
+  taskStep.value = "";
 }
 
 /**
@@ -607,14 +732,15 @@ const nextStep = () => {
 
   .form-container {
     width: 560px;
-    height: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     align-content: center;
-    padding: 0;
-    z-index: 999;
+    padding: 0 0 180px 0 ;
+    z-index: 999996;
+    overflow-x: scroll;
 
     h2 {
       width: 100%;
@@ -697,6 +823,85 @@ const nextStep = () => {
 
       input:focus {
         border: none;
+        outline: none;
+      }
+    }
+
+    .input-box-column {
+      width: 98%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: flex-start;
+      color: $black;
+      font-size: 14px;
+      line-height: 24px;
+      text-align: left;
+      margin-bottom: 5px;
+
+      img,
+      svg {
+        width: 20px;
+        margin: 0 12px;
+      }
+
+      input {
+        width: 100%;
+        height: 30px;
+        color: $black;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 8px;
+        padding: 1% 2%;
+        text-align: left;
+      }
+
+      input::placeholder {
+        color: #a8a8a8;
+        letter-spacing: 1px;
+      }
+
+      input:read-only {
+        color: #1a1a1a;
+        border: 1px dashed #e0e0e0;
+        letter-spacing: 1px;
+        cursor: not-allowed;
+      }
+
+      input:focus {
+      border: 1px solid $grasp-blue;
+      outline: none;
+    }
+
+      textarea {
+        width: 100%;
+        height: auto;
+        color: $black;
+        background-color: #fdfdfd;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 5px;
+        padding: 1% 2%;
+        text-align: left;
+        resize: none;
+      }
+
+      textarea::placeholder {
+        color: #a8a8a8;
+        letter-spacing: 1px;
+      }
+
+      textarea:focus {
+        border: 1px solid $grasp-blue;
         outline: none;
       }
     }
@@ -1102,6 +1307,9 @@ const nextStep = () => {
   flex-direction: row;
   justify-content: center;
   padding: 30px 0 50px 0;
+  background: $white;
+  box-shadow: 0px 16px 32px 0px rgba(52, 58, 64, 0.30);
+  z-index: 999999;
 
   .footer-container {
     width: 740px;
