@@ -120,10 +120,14 @@ section#home {
       margin-top: 20px;
 
       @include breakpoint($break-md) {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        margin-top: 0;
+        margin-bottom: 20px;
       }
       @include breakpoint($break-sm) {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        margin-top: 0;
+        margin-bottom: 20px;
       }
 
       .educhain-links {
@@ -136,7 +140,8 @@ section#home {
         padding: 0 0 0 20px;
 
         .scroll-link {
-          width: auto;
+          width: 200px;
+          min-width: 279px;
           color: $white;
           font-size: 15x;
           line-height: normal;

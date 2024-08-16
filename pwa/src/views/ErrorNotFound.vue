@@ -53,7 +53,7 @@ section#error-page {
         width: 100%;
         font-family: "Poppins", sans-serif;
         color: $grasp-blue;
-        font-size: 38px;
+        font-size: 34px;
         font-weight: 600;
         line-height: 40px;
         text-align: left;

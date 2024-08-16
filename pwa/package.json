@@ -10,10 +10,12 @@
   },
   "//IMP START": "IMP START - Web3Auth Installation",
   "dependencies": {
+    "@reservoir0x/sdk": "^0.0.370",
     "@web3auth/base": "^8.6.2",
     "@web3auth/ethereum-provider": "^8.6.2",
     "@web3auth/metamask-adapter": "^8.12.0",
     "@web3auth/modal": "^8.6.2",
+    "axios": "^1.7.4",
     "core-js": "^3.26.1",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.0",
@@ -40,6 +42,7 @@
     "@vue/eslint-config-typescript": "^11.0.2",
     "eslint": "^8.29.0",
     "eslint-plugin-vue": "^9.8.0",
+    "opensea-js": "^7.1.13",
     "typescript": "~4.9.4",
     "url": "^0.11.3"
   }

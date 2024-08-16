@@ -30,7 +30,7 @@
           </div>
         </div>
 
-        <div class="course-details-row">
+        <div class="course-location-row">
           <div class="course-date">
             <span class="course-date-label">Created </span>
             {{ course.created_date ? course.created_date : "" }}
@@ -42,6 +42,8 @@
             Sales {{ course.sales ? course.sales : "" }}
           </div>
         </div>
+
+        <div class="line-divider"></div>
 
         <div class="course-excerpt">
           {{ course.excerpt ? course.excerpt : "" }}
@@ -183,7 +185,7 @@ section#course {
         width: 100%;
         font-family: "Poppins", sans-serif;
         color: $grasp-blue;
-        font-size: 38px;
+        font-size: 34px;
         font-weight: 600;
         line-height: 40px;
         text-align: left;
@@ -218,31 +220,76 @@ section#course {
         text-transform: uppercase;
         margin: 0 0 4px 0;
 
-        .course-date-label {
+        .course-discount-label {
           color: $grasp-orange;
           font-size: 16px;
           font-weight: 600;
           text-decoration: none;
           text-transform: capitalize;
         }
+
+        @include breakpoint($break-sm) {
+          width: 50%;
+        }
       }
+    }
+
+    .course-location-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      align-items: flex-end;
+      margin: 0 0 8px 0;
 
       .course-date {
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-60;
-        font-size: 15px;
+        color: $grey-90;
+        font-size: 14px;
         font-weight: 500;
         text-decoration: none;
         text-transform: uppercase;
-        margin: 0 0 4px 0;
+        margin: 0;
 
         .course-date-label {
-          color: $grey-60;
+          color: $grey-90;
           font-size: 16px;
           font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
+        }
+
+        @include breakpoint($break-sm) {
+          width: 50%;
+        }
+      }
+
+      .course-sales {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grey-90;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: right;
+        margin: -8px 8px 0 0;
+
+        .course-sales-icon {
+
+          img,
+          svg {
+            width: 20px;
+            margin: 0 4px;
+          }
         }
       }
     }
@@ -265,33 +312,7 @@ section#course {
       margin: 0;
     }
 
-    .course-sales {
-      width: 50%;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-content: center;
-      align-items: center;
 
-      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-70;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-      text-align: right;
-      margin: -8px 8px 0 0;
-
-      .course-sales-icon {
-
-        img,
-        svg {
-          width: 20px;
-          margin: 0 4px;
-        }
-      }
-    }
 
     .course-category {
       width: 50%;
@@ -332,8 +353,8 @@ section#course {
     }
 
     .line-divider {
-      width: 96%;
-      margin: 16px auto 32px;
+      width: 98%;
+      margin: 16px auto;
       border-bottom: 1px solid $grey-30;
     }
 

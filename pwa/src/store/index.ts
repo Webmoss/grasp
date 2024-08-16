@@ -4,10 +4,32 @@ import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 import { creatorObject } from "src/models/creator";
 import { metadataObject } from "src/models/metadata";
+import { tokenWrapperObject } from "src/models/tokenWrapper";
 import { Filter } from 'src/models/filter';
 import { getBlankFilter } from '@/models/getBlankFilter';
 import { paginationObject } from 'src/models/pagination';
 import { initialPagination } from '@/models/initialPagination';
+
+import reservoirApi from "@/services/reservoirApi";
+
+/* Open Campus Education NFT Contract Addresses */
+const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+const tinytapGoerliAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRESS;
+
+/* Open Campus Season 2 Publisher NFT */
+const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+const publisherMumbaiAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_MUMBAI_CONTRACT_ADDRESS;
+
+/* DEV NOTE: This will switch our call to Goerli or Mumbai testnets for dev */
+const tinytapContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+  // process.env.VUE_APP_NODE_ENV === "development"
+  //   ? tinytapGoerliAddress?.toLowerCase()
+  //   : tinytapAddress?.toLowerCase();
+
+const publisherContractAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+  // process.env.VUE_APP_NODE_ENV === "development"
+  //   ? publisherMumbaiAddress?.toLowerCase()
+  //   : publisherAddress?.toLowerCase();
 
 export const useStore = defineStore({
   id: "store",
@@ -16,6 +38,11 @@ export const useStore = defineStore({
     loggedIn: false,
     account: "",
     balance: "",
+    ethBalance: "",
+    wethBalance: "",
+    accountNfts: [] as tokenWrapperObject[],
+    tinytapNfts: [] as tokenWrapperObject[],
+    publisherNfts: [] as tokenWrapperObject[],
     user: <userObject>{},
     eduUsername: "",
     eduEthAddress: "",
@@ -56,6 +83,9 @@ export const useStore = defineStore({
     marketplace: [] as metadataObject[],
     nfts: [] as metadataObject[],
     nft: <metadataObject>{},
+    tinytapTokens: [] as tokenWrapperObject[],
+    publisherTokens: [] as tokenWrapperObject[],
+    nftView: <tokenWrapperObject>{},
   }),
   getters: {
     getChainId(state) {
@@ -69,6 +99,21 @@ export const useStore = defineStore({
     },
     getBalance(state) {
       return state.balance;
+    },
+    getEthBalance(state) {
+      return state.ethBalance;
+    },
+    getWethBalance(state) {
+      return state.wethBalance;
+    },
+    getAccountNfts(state) {
+      return state.accountNfts;
+    },
+    getTinytapNfts(state) {
+      return state.tinytapNfts;
+    },
+    getPublisherNfts(state) {
+      return state.publisherNfts;
     },
     getUser(state) {
       return state.user;
@@ -151,6 +196,12 @@ export const useStore = defineStore({
     getContinuation(state) {
       return state.pagination.continuation;
     },
+    getTinytapTokens(state) {
+      return state.tinytapTokens;
+    },
+    getPublisherTokens(state) {
+      return state.publisherTokens;
+    },
     getCourses(state) {
       return state.courses;
     },
@@ -178,6 +229,9 @@ export const useStore = defineStore({
     getNft(state) {
       return state.nft;
     },
+    getNftView(state) {
+      return state.nftView;
+    },
   },
   actions: {
     setChainId(chainId: string) {
@@ -191,6 +245,21 @@ export const useStore = defineStore({
     },
     setBalance(balance: string) {
       this.balance = balance;
+    },
+    updateEthBalance(balance: string) {
+      this.ethBalance = balance;
+    },
+    updateWethBalance(balance: string) {
+      this.wethBalance = balance;
+    },
+    addAccountNfts(tokens: tokenWrapperObject[]) {
+      this.accountNfts = tokens;
+    },
+    addTinytapNfts(tokens: tokenWrapperObject[]) {
+      this.tinytapNfts = tokens;
+    },
+    addPublisherNfts(tokens: tokenWrapperObject[]) {
+      this.publisherNfts = tokens;
     },
     setUser(user: userObject) {
       this.user = user;
@@ -321,6 +390,12 @@ export const useStore = defineStore({
     resetPagination() {
       this.pagination = <paginationObject>initialPagination();
     },
+    addTinytapTokens(tokens: tokenWrapperObject[]) {
+      this.tinytapTokens = tokens;
+    },
+    addPublisherTokens(tokens: tokenWrapperObject[]) {
+      this.publisherTokens = tokens;
+    },
     setCourses(courses: courseObject[]) {
       this.courses = courses;
     },
@@ -347,6 +422,316 @@ export const useStore = defineStore({
     },
     setNft(nft: metadataObject) {
       this.nft = nft;
+    },
+    addNftView(nft: tokenWrapperObject) {
+      this.nftView = nft;
+    },
+
+    /**
+     * Reservoir API - Search Collections by Contract Address
+     */
+    async retrieveAllCollections() {
+      const contracts = ["", ""];
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrieveAllCollections(contracts);
+      return results;
+    },
+
+    /**
+     * Reservoir API - Search Collections by Contract Address
+     */
+    async retrieveCollections(
+      collection: string,
+      slug?: string | null,
+      collectionsSetId?: string | null,
+      community?: string | null,
+      contract?: Array<string> | null,
+      name?: string | null,
+      maxFloorAskPrice?: number | null,
+      minFloorAskPrice?: number | null,
+      includeAttributes?: string | null,
+      includeSalesCount?: string | null,
+      includeMintStages?: string | null,
+      normalizeRoyalties?: string | null,
+      useNonFlaggedFloorAsk?: string | null,
+      sortBy?: string | null,
+      limit?: number | null,
+      continuation?: string | null,
+      displayCurrency?: string | null
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrieveCollections(
+        collection,
+        slug,
+        collectionsSetId,
+        community,
+        contract,
+        name,
+        maxFloorAskPrice,
+        minFloorAskPrice,
+        includeAttributes,
+        includeSalesCount,
+        includeMintStages,
+        normalizeRoyalties,
+        useNonFlaggedFloorAsk,
+        sortBy,
+        limit,
+        continuation,
+        displayCurrency
+      );
+      return results;
+    },
+
+    /**
+     * Reservoir API - Tokens
+     */
+    async retrieveTokens(
+      collection: string,
+      collectionsSetId?: string | null,
+      community?: string | null,
+      contract?: Array<string> | null,
+      tokenName?: string | null,
+      tokens?: string | null,
+      tokenSetId?: string | null,
+      attributes?: object | null,
+      source?: string | null,
+      nativeSource?: string | null,
+      minRarityRank?: string | null,
+      maxRarityRank?: string | null,
+      minFloorAskPrice?: string | null,
+      maxFloorAskPrice?: string | null,
+      flagStatus?: number | null,
+      sortBy?: string | null,
+      sortDirection?: string | null,
+      currencies?: Array<string> | null,
+      limit?: number | null,
+      includeTopBid?: string | null,
+      includeAttributes?: string | null,
+      includeQuantity?: string | null,
+      includeDynamicPricing?: string | null,
+      includeLastSale?: string | null,
+      normalizeRoyalties?: string | null,
+      continuation?: string | null,
+      displayCurrency?: string | null
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrieveTokens(
+        collection,
+        collectionsSetId,
+        community,
+        contract,
+        tokenName,
+        tokens,
+        tokenSetId,
+        attributes,
+        source,
+        nativeSource,
+        minRarityRank,
+        maxRarityRank,
+        minFloorAskPrice,
+        maxFloorAskPrice,
+        flagStatus,
+        sortBy,
+        sortDirection,
+        currencies,
+        limit,
+        includeTopBid,
+        includeAttributes,
+        includeQuantity,
+        includeDynamicPricing,
+        includeLastSale,
+        normalizeRoyalties,
+        continuation,
+        displayCurrency
+      );
+      return results;
+    },
+
+    /**
+     * Reservoir API - Retrieve Users Tokens
+     */
+    async fetchUserTokens(account: string) {
+      if (account) {
+        try {
+          const reservoirAPI = new reservoirApi();
+          const results = await reservoirAPI.retrieveUserTokens(account);
+          console.log("fetchUserTokens", results);
+          this.addAccountNfts(results);
+
+          /* TinyTap NFTS users Holds */
+          const tinytaps = results.filter(function (nft: tokenWrapperObject) {
+            return nft.token.contract.toLowerCase() === tinytapContractAddress;
+          });
+          if (tinytaps && tinytaps.length > 0) {
+            this.addTinytapNfts(tinytaps);
+            /* We have an approved Holders here folks, let them win */
+            this.setApproved(true);
+          }
+          /* Open Campus Publisher Season 2 on Polygon */
+          const publisher = results.filter(function (nft: tokenWrapperObject) {
+            return nft.token.contract.toLowerCase() === publisherContractAddress;
+          });
+          if (publisher && publisher.length > 0) {
+            this.addPublisherNfts(publisher);
+            /* We have an approved Holders here folks, let them win */
+            this.setApproved(true);
+          }
+        } catch (error) {
+          console.log(`Error fetching tokens, please refresh to try again!`);
+        }
+      }
+    },
+
+    /**
+     * Reservoir API - Retrieve Single Token
+     */
+    async retrieveToken(
+      collection: string,
+      collectionsSetId?: string | null,
+      community?: string | null,
+      contract?: Array<string> | null,
+      tokenName?: string | null,
+      tokenId?: string | null,
+      tokenSetId?: string | null,
+      attributes?: object | null,
+      source?: string | null,
+      nativeSource?: string | null,
+      minRarityRank?: string | null,
+      maxRarityRank?: string | null,
+      minFloorAskPrice?: string | null,
+      maxFloorAskPrice?: string | null,
+      flagStatus?: number | null,
+      sortBy?: string | null,
+      sortDirection?: string | null,
+      currencies?: Array<string> | null,
+      limit?: number | null,
+      includeTopBid?: string | null,
+      includeAttributes?: string | null,
+      includeQuantity?: string | null,
+      includeDynamicPricing?: string | null,
+      includeLastSale?: string | null,
+      normalizeRoyalties?: string | null,
+      continuation?: string | null,
+      displayCurrency?: string | null
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrieveToken(
+        collection,
+        collectionsSetId,
+        community,
+        contract,
+        tokenName,
+        tokenId,
+        tokenSetId,
+        attributes,
+        source,
+        nativeSource,
+        minRarityRank,
+        maxRarityRank,
+        minFloorAskPrice,
+        maxFloorAskPrice,
+        flagStatus,
+        sortBy,
+        sortDirection,
+        currencies,
+        limit,
+        includeTopBid,
+        includeAttributes,
+        includeQuantity,
+        includeDynamicPricing,
+        includeLastSale,
+        normalizeRoyalties,
+        continuation,
+        displayCurrency
+      );
+      return results;
+    },
+
+    /**
+     * Reservoir API - Search All Attributes by Contract Address
+     * Use this API to see all possible attributes within a collection.
+     * floorAskPrice for all attributes might not be returned on collections with more than 10k tokens.
+     * Attributes are case sensitive.
+     * @param {String} collection Filter to a particular collection with collection-id. Example: 0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63
+     * @param {String} displayCurrency Return result in given currency
+     */
+    async retrieveAllAttributes(
+      collection: string,
+      displayCurrency?: string | null
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrieveAllAttributes(
+        collection,
+        displayCurrency
+      );
+      return results;
+    },
+
+    /**
+     * Reservoir API - Explore Attributes
+     * Use this API to see stats on a specific attribute within a collection. This endpoint will return tokenCount, onSaleCount, sampleImages, and floorAskPrices by default.
+     * floorAskPrices will not be returned on attributes with more than 10k tokens.
+     * https://docs.reservoir.tools/reference/getcollectionscollectionattributesexplorev5
+     * @param {String} collection Filter to a particular collection with collection-id. Example: 0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63
+     * @param {String} contract Results will only include NFTs from this contract address.
+     * @param {String} tokenId Filter to a particular token-id. Example: 1
+     * @param {Boolean} includeTopBid If true, top bid will be returned in the response. defaults to false
+     * @param {Boolean} excludeRangeTraits If true, range traits will be excluded from the response. defaults to false
+     * @param {Boolean} excludeNumberTraits If true, number traits will be excluded from the response. defaults to false
+     * @param {String} attributeKey Filter to a particular attribute key. Example: Composition
+     * @param {Number} maxFloorAskPrices Max number of items returned in the response. defaults to 1
+     * @param {Number} maxLastSells Max number of items returned in the response. defaults to 0
+     * @param {String} continuation Use continuation token to request next offset of items.
+     * @param {Number} limit Amount of items returned in response. Default limit is 20. Max limit is 5000. defaults to 20
+     */
+    async exploreAttribute(
+      collection: string,
+      tokenId: string,
+      includeTopBid?: boolean,
+      excludeRangeTraits?: boolean,
+      excludeNumberTraits?: boolean,
+      attributeKey?: string,
+      maxFloorAskPrices?: number,
+      maxLastSells?: number,
+      continuation?: string,
+      limit?: number
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.exploreAttribute(
+        collection,
+        tokenId,
+        includeTopBid,
+        excludeRangeTraits,
+        excludeNumberTraits,
+        attributeKey,
+        maxFloorAskPrices,
+        maxLastSells,
+        continuation,
+        limit
+      );
+      return results;
+    },
+
+    /**
+     * Reservoir API - Buy Now
+     */
+    async buyNow(collection: string, tokenId: string, account: string) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.buyNow(collection, tokenId, account);
+      return results;
+    },
+
+    /**
+     * Reservoir API - Make Offer
+     */
+    async makeOffer(collection: string, tokenId: string, account: string) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.makeOffer(
+        collection,
+        tokenId,
+        account
+      );
+      return results;
     },
   },
 });

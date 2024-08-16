@@ -1,8 +1,9 @@
 <template>
   <div class="marketplace-page">
     <div :class="`${gridView}-nft-list`">
-      <template v-for="(nft, i) in marketplace" :key="i">
-        <NftCard :nft="nft" :grid-view="gridView" />
+      <template v-for="(token, i) in tokens" :key="i">
+        {{ token }}
+        <NftCard :token="token" :grid-view="gridView" />
       </template>
     </div>
   </div>
@@ -11,19 +12,19 @@
 <script setup lang="ts">
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { metadataObject } from "src/models/metadata";
+import { tokenWrapperObject } from "@/models/tokenWrapper";
 import NftCard from "../MarketplaceComponents/NftCard.vue";
 
 const store = useStore();
 const { gridView } = storeToRefs(store);
 
 export interface Props {
-  marketplace?: [];
+  tokens?: [];
 }
 
 defineProps({
-  marketplace: {
-    type: Array<metadataObject>,
+  tokens: {
+    type: Array<tokenWrapperObject>,
     default: null,
   },
 });

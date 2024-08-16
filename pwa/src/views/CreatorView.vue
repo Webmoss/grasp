@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="creator-details-row">
+        <div class="creator-location-row">
           <div class="creator-location">
             <img src="../assets/svgs/Location.svg" alt="Location" />
             <span class="creator-location-label"
@@ -289,40 +289,6 @@ section#creator {
         }
       }
 
-      .creator-location {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-content: center;
-        align-items: center;
-        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-90;
-        font-size: 16px;
-        font-weight: 600;
-        text-decoration: none;
-        text-align: left;
-        margin: 6px 8px 6px 0;
-
-        img,
-        svg {
-          width: 20px;
-          height: 20px;
-          object-fit: contain;
-          overflow: hidden;
-          background: transparent;
-        }
-
-        .creator-location-label {
-          color: $grey-90;
-          font-size: 14px;
-          font-weight: 500;
-          text-decoration: none;
-          text-transform: capitalize;
-        }
-      }
-
       .creator-followers {
         width: 100%;
         display: flex;
@@ -362,6 +328,11 @@ section#creator {
             }
           }
         }
+
+        @include breakpoint($break-sm) {
+          justify-content: flex-start;
+          margin: 8px 8px 8px 0;
+        }
       }
 
       .creator-category {
@@ -400,12 +371,59 @@ section#creator {
           margin-right: 8px;
         }
       }
+    }
+
+    .creator-location-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      align-items: flex-end;
+      margin: 0;
+
+      .creator-location {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $grey-90;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: left;
+        margin: 6px 8px 6px 0;
+
+        img,
+        svg {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+          overflow: hidden;
+          background: transparent;
+        }
+
+        .creator-location-label {
+          color: $grey-90;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          text-transform: capitalize;
+        }
+
+        @include breakpoint($break-sm) {
+          width: 60%;
+        }
+      }
 
       .creator-date {
         width: 100%;
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-70;
+        color: $grey-90;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
@@ -414,11 +432,15 @@ section#creator {
         margin: 0 8px 6px 0;
 
         .creator-date-label {
-          color: $grey-70;
+          color: $grey-90;
           font-size: 14px;
           font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
+        }
+
+        @include breakpoint($break-sm) {
+          width: 40%;
         }
       }
     }
@@ -433,8 +455,8 @@ section#creator {
     }
 
     .line-divider {
-      width: 100%;
-      margin: 16px auto 16px;
+      width: 98%;
+      margin: 16px auto;
       border-bottom: 1px solid $grey-30;
     }
 

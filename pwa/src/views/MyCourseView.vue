@@ -219,7 +219,7 @@ onBeforeMount(async () => {
 }
 .line-divider {
   width: 98%;
-  margin: 8px auto 8px;
+  margin: 16px auto 16px;
   border-bottom: 1px solid $grey-30;
 }
 

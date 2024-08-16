@@ -1,220 +1,230 @@
 <template>
-  <div v-if="nft && gridView === 'list'" class="nft-list-item">
-    <div class="nft-image">
-      <img :src="nft.image ? nft.image : 'rectangle.svg'" />
+  <div
+    v-if="token && gridView === 'list'"
+    class="nft-list-item"
+    @click="loadNftDetails(token)"
+  >
+    <div v-if="token.token && token.token.image" class="nft-image">
+      <img :src="getUrlProtocol(token.token.image)" />
+      <NftChain :chain="token.token.chain" />
     </div>
-    <div class="nft-copy">
-      <div class="nft-title">
-        {{ nft.title ? nft.title : "" }}
-      </div>
-      <div class="nft-description">
-        {{ nft.description ? nft.description : "" }}
-      </div>
-      <div v-if="nft.discount" class="nft-discount">
-        <span class="nft-discount-label">Discount&nbsp;</span>
-        {{ nft.discount + "%" }}
-      </div>
+    <div
+      v-if="token.token && token.token.collection.name"
+      class="nft-collection"
+    >
+      {{ token.token.collection.name }}
     </div>
-    <div class="nft-list-buttons">
-      <div v-if="nft && nft.type" class="nft-type">
-        <div class="nft-date">
-          {{ nft.mint_date ? nft.mint_date : "" }}
+    <div v-if="token.token && token.token.name" class="nft-title">
+      {{ token.token.name }}
+    </div>
+    <div v-else-if="token.token && token.token.tokenId" class="nft-title">
+      # {{ token.token.tokenId }}
+    </div>
+    <div v-if="token.market && token.market.floorAsk.source" class="nft-source">
+      <NftSource :source="token.market.floorAsk.source" />
+    </div>
+    <div v-if="token.token && token.token.rarityRank" class="nft-rarityRank">
+      <span class="grey-label">Rank</span>
+      <span class="rarity-indicator">{{ token.token.rarityRank }}</span>
+    </div>
+    <div v-if="token.token && token.token.rarity" class="nft-rarity">
+      <span class="grey-label">Rarity</span>
+      <span class="rarity-indicator">{{ token.token.rarity }}</span>
+    </div>
+    <div v-if="token.market && token.market.floorAsk" class="nft-floor">
+      <div class="nft-floor-amount">
+        {{ token.market.floorAsk.price.amount.decimal.toFixed(2) }}
+        <div class="nft-floor-amount-icon">
+          <img
+            v-if="token.market.floorAsk.price.currency.symbol === 'EDU'"
+            src="@/assets/svgs/EduCoin.svg"
+          />
+          <img
+            v-else-if="token.market.floorAsk.price.currency.symbol === 'WETH'"
+            src="@/assets/images/logos/WETH.png"
+          />
+          <img v-else src="@/assets/images/logos/eth-diamond-white.svg" />
         </div>
-        <span class="type-indicator">{{
-          nft.type ? nft.type : ""
-        }}</span>
       </div>
-      <div class="button-row">
-        <BuyNftButton
-          :btn-size="'small'"
-          :color="'blue'"
-          :nft-id="nft.id"
-          :price="nft.price"
-          :discount="nft.discount"
-        />
-      </div>
+    </div>
+    <div class="button-row">
+      <ViewButton
+        :btn-size="'small'"
+        :color="'blue'"
+        :token-id="token.token.tokenId"
+      />
     </div>
   </div>
 
-  <div v-else class="nft">
-    <div class="nft-image">
-      <img :src="nft.image ? nft.image : 'rectangle.svg'" />
+  <div v-else class="nft" @click="loadNftDetails(token)">
+    <div v-if="token.token && token.token.image" class="nft-image">
+      <img :src="getUrlProtocol(token.token.image)" />
+      <NftChain :chain="token.token.chain" />
+      <NftSource :source="token.market.floorAsk.source" />
     </div>
-    <div class="nft-column">
-      <div class="nft-title">
-        {{ nft.title ? nft.title : "" }}
+    <div class="nft-row">
+      <div v-if="token.token && token.token.name" class="nft-title">
+        {{ token.token.name }}
       </div>
-      <!-- <div class="nft-description">
-        {{ nft.description ? nft.description : "" }}
-      </div> -->
+      <div v-else-if="token.token && token.token.tokenId" class="nft-title">
+        # {{ token.token.tokenId }}
+      </div>
+      <div v-if="token.market && token.market.floorAsk" class="nft-floor">
+        <div class="nft-floor-amount">
+          {{ token.market.floorAsk.price.amount.decimal.toFixed(2) }}
+          <div class="nft-floor-amount-icon">
+            <img
+              v-if="token.market.floorAsk.price.currency.symbol === 'EDU'"
+              src="@/assets/svgs/EduCoin.svg"
+            />
+            <img
+              v-else-if="token.market.floorAsk.price.currency.symbol === 'WETH'"
+              src="@/assets/images/logos/WETH.png"
+            />
+            <img
+              v-else
+              src="@/assets/images/logos/eth-diamond-black.png"
+              width="10"
+            />
+          </div>
+        </div>
+      </div>
     </div>
     <div class="nft-card-row">
-      <div class="nft-type">
-        <div class="nft-date">
-          {{ nft.mint_date ? nft.mint_date : "" }}
-        </div>
-        <div class="type-indicator">{{ nft.type ? nft.type : "" }}</div>
-      </div>
       <div class="button-column">
-        <div v-if="nft.discount" class="nft-discount">
-          <span class="nft-discount-label">Discount&nbsp;</span>
-          {{ nft.discount + "%" }}
-        </div>
-        <BuyNftButton
+        <ViewButton
           :btn-size="'small'"
           :color="'blue'"
-          :nft-id="nft.id"
-          :price="nft.price"
-          :discount="nft.discount"
+          :token-id="token.token.tokenId"
         />
+      </div>
+      <div class="nft-column">
+        <div
+          v-if="token.token && token.token.rarityRank"
+          class="nft-rarityRank"
+        >
+          <span class="grey-label">Rank</span>
+          <span class="rarity-indicator">{{ token.token.rarityRank }}</span>
+        </div>
+        <div v-if="token.token && token.token.rarity" class="nft-rarity">
+          <span class="grey-label">Rarity</span>
+          <span class="rarity-indicator">{{ token.token.rarity }}</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
 <script lang="ts" setup>
-import { metadataObject } from "src/models/metadata";
-import BuyNftButton from "../Buttons/BuyNftButton.vue";
+  import { useRoute, useRouter } from "vue-router";
+  import { tokenWrapperObject } from "@/models/tokenWrapper";
+  import { getUrlProtocol } from "@/services/helpers";
 
-defineProps<{ nft: metadataObject; gridView: string }>();
+  import NftChain from "../NFT/NftChain.vue";
+  import NftSource from "../NFT/NftSource.vue";
+  import ViewButton from "../Buttons/ViewButton.vue";
+
+  const route = useRoute();
+  const router = useRouter();
+
+  defineProps<{ token: tokenWrapperObject; gridView: string }>();
+
+  const loadNftDetails = async (token: tokenWrapperObject) => {
+    router.push({
+      name: "nft",
+      params: { collection: route.params.name, id: token.token.tokenId },
+    });
+  };
 </script>
-
 <style lang="scss">
-@import "@/assets/styles/variables.scss";
-@import "@/assets/styles/mixins.scss";
+  @import "@/assets/styles/variables.scss";
+  @import "@/assets/styles/mixins.scss";
 
-.nft-card-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
-  align-items: flex-end;
-}
-.nft-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-content: center;
-  align-items: center;
-  padding: 4px 8px;
-}
-.nft-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: flex-end;
-  padding: 0;
-}
-
-.nft {
-  display: inline;
-  float: left;
-  box-sizing: border-box;
-  width: 100%;
-  background: $cream;
-  border: 0.5px solid $grey-50;
-  border-radius: 8px;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-  margin: 0 auto;
-  padding: 16px;
-  transition: all 0.5s linear;
-  overflow: hidden;
-
-  .nft-image {
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
-
-    img,
-    svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      overflow: hidden;
-      background: transparent;
-    }
+  .nft-card-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 4px 8px;
   }
-
-  .nft-title {
-    font-family: "Poppins", sans-serif;
-    color: $grasp-blue;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: left;
-    margin: 0 0 5px 0;
+  .nft-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    padding: 4px 8px;
   }
-
-  .nft-description {
-    width: 100%;
-    min-height: 77.5px;
-    color: $black;
-    font-size: 13px;
-    font-weight: normal;
-    text-align: left;
-    margin: 0 0 16px;
-  }
-
-  .nft-type {
+  .nft-column {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    align-items: center;
-
-    color: $black;
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin: 0;
-
-    .nft-date {
-      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grey-60;
-      font-size: 12px;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin: 0 0 4px 0;
-    }
-
-    .type-indicator {
-      width: 80%;
-      outline: transparent solid 2px;
-      outline-offset: 2px;
-      border-radius: 9999px;
-      transition: background-color 0.2s ease-out 0s;
-      background: $grasp-cyan;
-      font-size: 12px;
-      text-align: center;
-      text-wrap: nowrap;
-      padding-inline: 8px;
-      padding-top: 1px;
-      padding-bottom: 1px;
-      --badge-color: $grey-40;
-      color: $grey-90;
-      box-shadow: none;
-      border-width: 1.5px;
-      border-style: solid;
-      border-image: initial;
-      border-color: #4d5358;
-    }
-  }
-  .button-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: center;
-    align-items: center;
+    align-items: flex-end;
     padding: 0;
-    margin: 0;
+  }
 
-    .nft-discount {
+  .nft {
+    display: inline;
+    float: left;
+    box-sizing: border-box;
+    width: 100%;
+    background: #f4f4f4;
+    border: 2px solid #f4f4f4;
+    border-radius: 12px;
+    margin: 0 auto;
+    padding: 0 0 4px 0;
+    transition: all 0.5s linear;
+    cursor: pointer;
+    overflow: hidden;
+
+    .nft-image {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+
+      img,
+      svg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .nft-chain-icon {
+        position: absolute;
+        top: 10px;
+        left: 6px;
+
+        img,
+        svg {
+          width: 18px !important;
+          height: auto;
+          background: transparent;
+          object-fit: contain;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .nft-title {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+      color: $black;
+      width: 100%;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: left;
+      margin: 0;
+    }
+
+    .nft-description {
       width: 100%;
       display: flex;
       flex-direction: row;
@@ -222,68 +232,218 @@ defineProps<{ nft: metadataObject; gridView: string }>();
       align-content: center;
       align-items: center;
 
-      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grasp-orange;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin: 8px 0 4px 0;
+      color: $black;
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
+      margin: 0;
+    }
 
-      .nft-discount-label {
-        color: $grasp-orange;
+    .nft-rarity {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: center;
+      align-items: center;
+
+      color: $black;
+      width: 100%;
+      font-size: 16px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0;
+
+      .grey-label {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $black;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         text-decoration: none;
-        text-transform: capitalize;
+        text-transform: uppercase;
+        margin-right: 8px;
+      }
+
+      .rarity-indicator {
+        outline: transparent solid 2px;
+        outline-offset: 2px;
+        border-radius: 9999px;
+        transition: background-color 0.2s ease-out 0s;
+        background: transparent;
+        font-size: 14px;
+        padding-inline: 8px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        --badge-color: $grey-40;
+        color: $black;
+        box-shadow: none;
+        border-width: 1.5px;
+        border-style: solid;
+        border-image: initial;
+        border-color: #4d5358;
       }
     }
-  }
-}
 
-.nft-list-item {
-  width: 99%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
-  background: $white;
-  border: 0.5px solid $grey-50;
-  border-radius: 8px;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-  margin: 0;
-  padding: 0;
-  transition: all 0.5s linear;
+    .nft-rarityRank {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: center;
+      align-items: center;
 
-  .nft-image {
-    width: auto;
-    position: relative;
-    margin: 0;
-    padding: 6px 6px 2px 6px;
-    background: transparent;
+      color: $black;
+      font-size: 16px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0 0 6px 0;
 
-    img,
-    svg {
-      width: 180px;
-      height: inherit;
-      object-fit: contain;
-      overflow: hidden;
-      background: transparent;
+      .grey-label {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $black;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-right: 8px;
+      }
+
+      .rarity-indicator {
+        outline: transparent solid 2px;
+        outline-offset: 2px;
+        border-radius: 9999px;
+        transition: background-color 0.2s ease-out 0s;
+        background: transparent;
+        font-size: 14px;
+        padding-inline: 8px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        --badge-color: $grey-40;
+        color: $black;
+        box-shadow: none;
+        border-width: 1.5px;
+        border-style: solid;
+        border-image: initial;
+        border-color: #4d5358;
+      }
+    }
+
+    .nft-floor {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      .nft-floor-amount {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $black;
+        font-size: 18px;
+        font-weight: 600;
+
+        .nft-floor-amount-icon {
+          width: 18px;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+          margin-left: 2px;
+          img,
+          svg {
+            background: transparent;
+            object-fit: contain;
+            overflow: hidden;
+            margin-bottom: -1px;
+          }
+        }
+      }
+    }
+    .button-column {
+      width: 50%;
+      height: 51px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: flex-end;
+      padding: 0;
+      margin: 0;
     }
   }
 
-  .nft-copy {
-    width: 96%;
-    height: 100%;
-    min-height: 90px;
+  .nft-list-item {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-    padding: 0 1%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    background: $black;
+    border-radius: 12px;
+    margin: 0;
+    padding: 0;
+    transition: all 0.5s linear;
+    cursor: pointer;
+
+    .nft-image {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+
+      img,
+      svg {
+        width: 50px;
+        height: inherit;
+        object-fit: contain;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      .nft-chain-icon {
+        position: absolute;
+        top: 0;
+        left: 1px;
+
+        img,
+        svg {
+          width: 12px !important;
+          height: auto;
+          background: transparent;
+          object-fit: contain;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .nft-collection {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+      color: $white;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
 
     .nft-title {
       width: 100%;
@@ -293,112 +453,160 @@ defineProps<{ nft: metadataObject; gridView: string }>();
       align-content: center;
       align-items: center;
 
-      font-family: "Poppins", sans-serif;
-      color: $grasp-blue;
-      width: 100%;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+      color: $white;
       font-size: 16px;
       font-weight: 600;
-      text-align: left;
-      margin: 0 0 5px 0;
-    }
-
-    .nft-description {
-      width: 100%;
-      min-height: 30px;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-content: center;
-      align-items: flex-start;
-
-      width: 100%;
-      color: $black;
-      font-size: 13px;
-      font-weight: normal;
-      text-align: left;
+      text-transform: uppercase;
       margin: 0;
     }
 
-    .nft-discount {
+    .nft-source {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nft-rarity {
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
-      align-content: center;
-      align-items: center;
-
-      font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      color: $grasp-orange;
-      font-size: 15px;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin: 8px 0 0 0;
-
-      .nft-discount-label {
-        color: $grasp-orange;
-        font-size: 15px;
-        font-weight: 500;
-        text-decoration: none;
-        text-transform: capitalize;
-      }
-    }
-  }
-
-  .nft-list-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: flex-end;
-    padding: 0 8px;
-
-    .nft-type {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
       justify-content: center;
       align-content: center;
       align-items: center;
 
-      color: $black;
-      font-size: 13px;
-      font-weight: 500;
+      color: $white;
+      width: 100%;
+      font-size: 14px;
+      font-weight: normal;
       text-transform: uppercase;
       margin: 0;
 
-      .nft-date {
-        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-60;
-        font-size: 12px;
-        font-weight: 500;
+      .grey-label {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $grey-50;
+        font-size: 13px;
+        font-weight: 600;
         text-decoration: none;
         text-transform: uppercase;
-        margin: 0 0 4px 0;
+        margin-right: 8px;
       }
 
-      .type-indicator {
-        width: 70%;
+      .rarity-indicator {
         outline: transparent solid 2px;
         outline-offset: 2px;
         border-radius: 9999px;
         transition: background-color 0.2s ease-out 0s;
-        background: $grasp-cyan;
-        font-size: 12px;
-        text-align: center;
-        text-wrap: nowrap;
+        background: transparent;
+        font-size: 14px;
         padding-inline: 8px;
         padding-top: 1px;
         padding-bottom: 1px;
         --badge-color: $grey-40;
-        color: $grey-90;
+        color: $white;
         box-shadow: none;
         border-width: 1.5px;
         border-style: solid;
         border-image: initial;
         border-color: #4d5358;
+      }
+    }
+
+    .nft-rarityRank {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      color: $white;
+      width: 100%;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+      margin: 0;
+
+      .grey-label {
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $grey-50;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-right: 8px;
+      }
+
+      .rarity-indicator {
+        outline: transparent solid 2px;
+        outline-offset: 2px;
+        border-radius: 9999px;
+        transition: background-color 0.2s ease-out 0s;
+        background: transparent;
+        font-size: 14px;
+        padding-inline: 8px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        --badge-color: $grey-40;
+        color: $white;
+        box-shadow: none;
+        border-width: 1.5px;
+        border-style: solid;
+        border-image: initial;
+        border-color: #4d5358;
+      }
+    }
+
+    .nft-floor {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      .nft-floor-amount {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        color: $white;
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+
+        .nft-floor-amount-icon {
+          width: 16px;
+          display: flex;
+          flex-direction: row;
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+          margin-left: 2px;
+          img,
+          svg {
+            background: transparent;
+            object-fit: contain;
+            overflow: hidden;
+            margin-bottom: -1px;
+          }
+        }
       }
     }
     .button-row {
@@ -408,9 +616,8 @@ defineProps<{ nft: metadataObject; gridView: string }>();
       justify-content: center;
       align-content: center;
       align-items: center;
-      padding: 0;
-      margin: 8px auto 0;
+      padding: 0 0 0 10px;
+      margin: 0 auto;
     }
   }
-}
 </style>

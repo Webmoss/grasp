@@ -38,11 +38,6 @@
                 Be sure to hodl and stay tuned, because the Grasp Academy EDU Owls will be
                 hatching next and are sure to fly high on EDU Chain.
               </div>
-              <div class="modal-nft-preview show-mobile">
-                <div class="nft-image">
-                  <img src="../../assets/images/owls/EDU-Owl-21.png" />
-                </div>
-              </div>
               <div v-if="!loading" class="nft-call-to-action" @click="mintNFT()">
                 <div class="mint-button">
                   Mint&nbsp;<img
@@ -57,10 +52,10 @@
               </div>
               <div v-if="loading" class="nft-call-to-action">
                 <div class="mint-button">
-                  Hatching&nbsp;your&nbsp;<img
-                    src="../../assets/svgs/owl-blue.svg"
+                  Hatching&nbsp;your&nbsp;EDU Owl&nbsp;<img
+                    src="../../assets/svgs/owl-white.svg"
                     class="grasp-logo"
-                  />&nbsp;<span class="white">EDU</span> Owl
+                  />
                 </div>
                 <!-- <div class="mint-price">
                   <img src="../../assets/svgs/EduCoin.svg" />
@@ -73,7 +68,7 @@
                 is created using glif.app
               </div>
             </div>
-            <div class="modal-nft-preview hide-mobile">
+            <div class="modal-nft-preview">
               <div class="nft-image">
                 <img src="../../assets/images/EDUBirds-Blue.png" />
               </div>
@@ -200,7 +195,7 @@ const mintNFT = async () => {
   let keys = Object.keys(owlsMintData);
   let randomProperty = keys[Math.floor(keys.length * Math.random())];
   let owl = owlsMintData[randomProperty];
-  console.log(`Owl Metadata Token URI`, owl);
+  // console.log(`Owl Metadata Token URI`, owl);
 
   /**
    * Some very basic form validation
@@ -210,13 +205,12 @@ const mintNFT = async () => {
     return;
   }
 
-  /* Show loading */
-  store.setLoading(true);
 
+  store.setLoading(true);
   try {
     const { ethereum } = window;
 
-    if (ethereum && account !== '') {
+    if (ethereum && account) {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(contractAddress, contractJson.abi, signer);
@@ -242,47 +236,54 @@ const mintNFT = async () => {
       // const mintDateString = mintDateTimestamp.toString();
       // console.log("mintDateString", mintDateString);
 
-      console.log("account", account.value);
+      const accounts = await ethereum.request({method: 'eth_accounts'});
 
-      let signerAddress = await signer.getAddress();
-      console.log("signerAddress", signerAddress);
+      if(accounts.length) {
 
-      /* Mint our Grasp Early Bird NFT */
-      let nftTxn = await contract.safeMint(signerAddress, owl.metadata);
+        let signerAddress = await signer.getAddress();
+        console.log("signerAddress", signerAddress);
 
-      const stylesMining = ["color: black", "background: cyan"].join(";");
-      console.log("%cMining the ⛓️ ...please wait! %s", stylesMining, nftTxn.hash);
+        /* Mint our Grasp Early Bird NFT */
+        let nftTxn = await contract.safeMint(signerAddress, owl.metadata);
 
-      // The OpenZeppelin base ERC721 contract emits a Transfer event
-      // when a token is issued. tx.wait() will wait until a block containing
-      // our transaction has been mined and confirmed. The transaction receipt
-      // contains events emitted while processing the transaction.
-      const receipt = await nftTxn.wait();
+        const stylesMining = ["color: black", "background: cyan"].join(";");
+        console.log("%cMining the ⛓️ ...please wait! %s", stylesMining, nftTxn.hash);
 
-      const stylesReceipt = ["color: black", "background: #00EDBE"].join(";");
-      console.log(
-        "%c🦉 Another Grasp EDU Owl has taken flight %s ",
-        stylesReceipt,
-        nftTxn.hash
-      );
+        // The OpenZeppelin base ERC721 contract emits a Transfer event
+        // when a token is issued. tx.wait() will wait until a block containing
+        // our transaction has been mined and confirmed. The transaction receipt
+        // contains events emitted while processing the transaction.
+        const receipt = await nftTxn.wait();
 
-      /* Check our Transaction results */
-      if (receipt.status === 1) {
-        /**
-         * @dev NOTE: Switch up these links once we go to Production
-         * Currently set to use Polygon Mumbai Testnet
-         */
-        const stylesBlockscout = ["color: white", "background: #141BEB"].join(";");
+        const stylesReceipt = ["color: black", "background: #00EDBE"].join(";");
         console.log(
-          `%cNFT minted on Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
-          stylesBlockscout,
+          "%c🦉 Another Grasp EDU Owl has taken flight %s ",
+          stylesReceipt,
           nftTxn.hash
         );
+
+        /* Check our Transaction results */
+        if (receipt.status === 1) {
+          /**
+           * @dev NOTE: Switch up these links once we go to Production
+           * Currently set to use EDU Chain Testnet
+           */
+          const stylesBlockscout = ["color: white", "background: #141BEB"].join(";");
+          console.log(
+            `%cNFT minted on Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
+            stylesBlockscout,
+            nftTxn.hash
+          );
+          store.setLoading(false);
+        }
+        /* Stop loading */
         store.setLoading(false);
+        return;
+      } else {
+        NotfyProvider.error("Please connect your MetaMask wallet to mint!");
+        store.setLoading(false);
+        return;
       }
-      /* Stop loading */
-      store.setLoading(false);
-      return;
     } else {
       /* Stop loading */
       store.setLoading(false);
@@ -310,7 +311,7 @@ const mintNFT = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999997;
+  z-index: 9996;
 }
 
 .modal {
@@ -323,7 +324,7 @@ const mintNFT = async () => {
   display: flex;
   flex-direction: column;
   border-radius: 30px;
-  z-index: 999998;
+  z-index: 9997;
 
   @include breakpoint($break-sm) {
     width: 100%;
@@ -344,9 +345,9 @@ const mintNFT = async () => {
 
   .btn-close {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    color: $grasp-blue;
+    top: 16px;
+    right: 20px;
+    color: $grey-90;
     font-size: 30px;
     font-weight: 400;
     background: transparent;
@@ -383,7 +384,7 @@ const mintNFT = async () => {
     }
 
     .modal-content {
-      width: 90%;
+      width: 80%;
       height: auto;
       display: flex;
       flex-direction: column;
@@ -488,6 +489,7 @@ const mintNFT = async () => {
 
       .nft-call-to-action {
         width: 90%;
+        height: 30px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -508,6 +510,7 @@ const mintNFT = async () => {
         @include breakpoint($break-sm) {
           padding: 10px 5%;
           margin: 0 0 20px;
+          font-size: 22px;
         }
 
         .mint-button {
@@ -575,7 +578,7 @@ const mintNFT = async () => {
     overflow: hidden;
 
     @include breakpoint($break-sm) {
-      width: 80%;
+      width: 100%;
       max-width: 100%;
       padding: 5%;
       margin: 0 0 20px;

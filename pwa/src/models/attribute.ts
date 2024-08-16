@@ -1,7 +1,7 @@
 export interface attributeObject {
   trait_type: string;
   display_type: string;
-  value: string | number;
+  value: string;
   key: string;
   kind: string;
   tokenCount: number;

@@ -141,7 +141,7 @@ onBeforeMount(async () => {
 }
 
 .line-divider {
-  width: 99%;
+  width: 98%;
   margin: 16px auto;
   border-bottom: 1px solid $grey-30;
 }

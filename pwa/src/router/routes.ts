@@ -57,13 +57,22 @@ const routes = [
     component: () => import("@/views/CourseView.vue"),
   },
   {
-    path: "/marketplace",
+    path: "/marketplace/:name?",
     name: "marketplace",
     meta: {
       guest: true,
       title: "Marketplace",
     },
     component: () => import("@/views/MarketplaceView.vue"),
+  },
+  {
+    path: "/nft/:collection?/:id?",
+    name: "nft",
+    meta: {
+      guest: true,
+      title: "NFT",
+    },
+    component: () => import("@/views/NftView.vue"),
   },
   {
     path: "/dashboard",

@@ -77,7 +77,7 @@
             <img src="@/assets/svgs/ExpandCircleDown.svg" />
           </div>
         </button>
-        <transition name="slide">
+        <transition name="fade">
           <ul v-if="attribute.isDropped" class="marketplace-filter-traits-list">
             <li v-for="(trait, i) in attribute.values" :key="i">
               <div class="marketplace-trait-input">
@@ -85,7 +85,7 @@
                   <label :for="`traitType-${i}`">{{ trait.value }}</label>
                   <div class="marketplace-trait-stats">
                     <div class="marketplace-trait-floor">
-                      Floor {{ trait.floorAskPrice.amount.decimal }}
+                      Floor {{ trait.floorAskPrice?.amount.decimal }}
                       <div class="currency-icon">
                         <img src="@/assets/svgs/EduCoin.svg" />
                       </div>
@@ -448,9 +448,18 @@ function traitSelectHandle(trait: string) {
       }
     }
   }
-  .slide-enter,
-  .slide-leave-to {
-    transform: scaleY(0);
+  // .slide-enter,
+  // .slide-leave-to {
+  //   transform: scaleY(0);
+  // }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s ease;
   }
 }
 </style>

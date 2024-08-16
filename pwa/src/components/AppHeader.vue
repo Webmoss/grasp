@@ -49,7 +49,7 @@
             </li>
             <li>
               <router-link
-                :to="{ name: 'marketplace' }"
+                :to="{ name: 'marketplace', params: { name: 'tinytap' } }"
                 class="menu-link"
                 class-active="active"
                 exact

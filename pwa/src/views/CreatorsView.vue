@@ -65,7 +65,7 @@ section#creators {
 
     h1 {
       color: $grasp-blue;
-      font-size: 38px;
+      font-size: 34px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
