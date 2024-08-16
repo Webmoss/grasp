@@ -168,7 +168,7 @@ function traitSelectHandle(trait: string) {
 @import "@/assets/styles/mixins.scss";
 
 .marketplace-filter {
-  width: 270px;
+  width: 260px;
   list-style: none;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -179,7 +179,7 @@ function traitSelectHandle(trait: string) {
   border: 1px solid rgb(69, 73, 77, 0.4);
   border-radius: 12px;
   padding: 8px 8px 0;
-  margin: 0 auto 5px;
+  margin: 0 auto 20px;
 
   h5 {
     width: 99%;

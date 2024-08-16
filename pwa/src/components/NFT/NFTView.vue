@@ -1,29 +1,25 @@
 <template>
   <div class="card">
-    <NftTokenView
-      v-if="nftView.token"
-      :token="nftView"
-      :collection="collection"
-    />
+    <NftTokenView v-if="nftView.token" :token="nftView" :collection="collection" />
     <NftViewNoResults v-else-if="!nftView.token && !loading" />
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, onBeforeMount, onBeforeUnmount } from "vue";
-  import { storeToRefs } from "pinia";
-  import { useStore } from "@/store";
-  import { useRoute } from "vue-router";
-  import { tokenWrapperObject } from "@/models/tokenWrapper";
+import { ref, onMounted, onBeforeMount, onBeforeUnmount } from "vue";
+import { storeToRefs } from "pinia";
+import { useStore } from "@/store";
+import { useRoute } from "vue-router";
+import { tokenWrapperObject } from "@/models/tokenWrapper";
 
-  /* Components */
-  import NftTokenView from "@/components/NFT/NftTokenView.vue";
-  import NftViewNoResults from "@/components/NFT/NftViewNoResults.vue";
+/* Components */
+import NftTokenView from "@/components/NFT/NftTokenView.vue";
+import NftViewNoResults from "@/components/NFT/NftViewNoResults.vue";
 
-  const route = useRoute();
-  const store = useStore();
+const route = useRoute();
+const store = useStore();
 
-  const { account, nftView, loading } = storeToRefs(store);
+const { account, nftView, loading } = storeToRefs(store);
 
 /* Open Campus Education NFT Contract Addresses */
 const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
@@ -31,21 +27,22 @@ const tinytapGoerliAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRES
 
 /* Open Campus Season 2 Publisher NFT */
 const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
-const publisherMumbaiAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_MUMBAI_CONTRACT_ADDRESS;
+const publisherMumbaiAddress =
+  process.env.VUE_APP_PUBLISHER_SEASON_2_MUMBAI_CONTRACT_ADDRESS;
 
 /* DEV NOTE: This will switch our call to Goerli or Mumbai testnets for dev */
 const tinytapContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-  // process.env.VUE_APP_NODE_ENV === "development"
-  //   ? tinytapGoerliAddress?.toLowerCase()
-  //   : tinytapAddress?.toLowerCase();
+// process.env.VUE_APP_NODE_ENV === "development"
+//   ? tinytapGoerliAddress?.toLowerCase()
+//   : tinytapAddress?.toLowerCase();
 
 const publisherContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRESS;
-  // process.env.VUE_APP_NODE_ENV === "development"
-  //   ? publisherMumbaiAddress?.toLowerCase()
-  //   : publisherAddress?.toLowerCase();
+// process.env.VUE_APP_NODE_ENV === "development"
+//   ? publisherMumbaiAddress?.toLowerCase()
+//   : publisherAddress?.toLowerCase();
 
 const chainName = "ethereum";
-  // process.env.VUE_APP_NODE_ENV === "development" ? "goerli" : "ethereum";
+// process.env.VUE_APP_NODE_ENV === "development" ? "goerli" : "ethereum";
 
 const contract = ref();
 const collection = ref("");
@@ -142,23 +139,22 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-  @import "@/assets/styles/variables.scss";
-  @import "@/assets/styles/mixins.scss";
+@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/mixins.scss";
 
-  .card {
-    width: 94%;
-    height: 94%;
-    padding: 3% 3% 2% 3%;
-    background: $black;
-    border: 1px solid rgb(69, 73, 77, 0.4);
-    border-radius: 12px;
-    margin: 0 auto;
-    overflow: scroll;
+.card {
+  width: 94%;
+  height: 94%;
+  padding: 3% 3% 2% 3%;
+  background: $black;
+  border: 1px solid rgb(69, 73, 77, 0.4);
+  border-radius: 12px;
+  margin: 0 auto;
+  overflow: scroll;
 
-    @include breakpoint($break-sm) {
-      height: auto;
-      overflow: visible;
-    }
+  @include breakpoint($break-sm) {
+    height: auto;
+    overflow: visible;
   }
-
+}
 </style>

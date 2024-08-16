@@ -64,9 +64,7 @@
                   src="@/assets/svgs/EduCoin.svg"
                 />
                 <img
-                  v-else-if="
-                    collection.floorAsk.price?.currency.symbol === 'WETH'
-                  "
+                  v-else-if="collection.floorAsk.price?.currency.symbol === 'WETH'"
                   src="@/assets/images/logos/WETH.png"
                 />
                 <img v-else src="@/assets/images/logos/eth-diamond-black.png" />
@@ -93,9 +91,7 @@
                   src="@/assets/svgs/EduCoin.svg"
                 />
                 <img
-                  v-else-if="
-                    collection.floorAsk.price?.currency.symbol === 'WETH'
-                  "
+                  v-else-if="collection.floorAsk.price?.currency.symbol === 'WETH'"
                   src="@/assets/images/logos/WETH.png"
                 />
                 <img v-else src="@/assets/images/logos/eth-diamond-black.png" />
@@ -175,19 +171,29 @@
   </div>
 </template>
 <script lang="ts" setup>
-  defineProps({
-    collection: {
-      type: Object,
-      default: null,
-      required: false,
-    },
-  });
+defineProps({
+  collection: {
+    type: Object,
+    default: null,
+    required: false,
+  },
+});
 </script>
 <style lang="scss" scoped>
-  @import "@/assets/styles/variables.scss";
-  @import "@/assets/styles/mixins.scss";
+@import "@/assets/styles/variables.scss";
+@import "@/assets/styles/mixins.scss";
 
-  .collection-intro {
+.collection-intro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  .collection-header {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -197,274 +203,257 @@
     margin: 0;
     padding: 0;
 
-    .collection-header {
+    .collection-image {
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      overflow: hidden;
+      img {
+        display: block;
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        background: $black;
+        border-radius: 50%;
+        margin: 0 auto;
+        padding: 0;
+      }
+    }
+
+    .collection-header-text {
       width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-content: center;
+      justify-content: center;
+      align-content: flex-start;
       align-items: center;
-      margin: 0;
-      padding: 0;
+      .collection-name {
+        width: 100%;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $black;
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 5px;
+      }
 
-      .collection-image {
-        width: 50%;
+      .collection-floor-total {
+        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-content: center;
         align-items: center;
-        overflow: hidden;
-        img {
-          display: block;
-          width: 90px;
-          height: 90px;
-          object-fit: cover;
-          background: $black;
-          border-radius: 50%;
-          margin: 0 auto;
-          padding: 0;
-          @include breakpoint($break-sm) {
-            width: 100px;
-            margin: 0 auto;
-          }
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+          Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        color: $black;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 5px;
+
+        .collection-floor-total-on-sale {
+          color: $grey-60;
+          text-transform: uppercase;
+          margin-right: 4px;
         }
       }
 
-      .collection-header-text {
+      .collection-social {
         width: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
-        align-content: flex-start;
+        align-content: center;
         align-items: center;
-        .collection-name {
-          width: 100%;
-          font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-            "Helvetica Neue", sans-serif;
-          color: $black;
-          font-size: 20px;
-          line-height: 22px;
-          font-weight: 900;
-          text-align: center;
-          margin-bottom: 5px;
-        }
 
-        .collection-floor-total {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-content: center;
-          align-items: center;
-          font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-            "Helvetica Neue", sans-serif;
-          color: $black;
-          font-size: 14px;
-          font-weight: 600;
-          text-align: center;
-          margin-bottom: 5px;
-
-          .collection-floor-total-on-sale {
-            color: $grey-60;
-            text-transform: uppercase;
-            margin-right: 4px;
-          }
-        }
-
-        .collection-social {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-content: center;
-          align-items: center;
-
-          img,
-          svg {
-            margin: 0 6px;
-            background: transparent;
-            object-fit: contain;
-            overflow: hidden;
-          }
-        }
-
-        .collection-trait-prices {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-content: center;
-          align-items: center;
-          margin-bottom: 10px;
-          .collection-trait-floor {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-
-            .collection-trait-floor-amount {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-content: center;
-              align-items: center;
-              font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-                "Helvetica Neue", sans-serif;
-              color: $black;
-              font-size: 22px;
-              font-weight: 600;
-              text-decoration: none;
-
-              .collection-trait-floor-amount-icon {
-                width: 18px;
-                display: flex;
-                flex-direction: row;
-                align-content: center;
-                justify-content: center;
-                align-items: center;
-                margin-left: 2px;
-                img,
-                svg {
-                  background: transparent;
-                  object-fit: contain;
-                  overflow: hidden;
-                  margin-bottom: -1px;
-                }
-              }
-            }
-            .collection-trait-floor-title {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-content: center;
-              align-items: flex-end;
-              font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-                "Helvetica Neue", sans-serif;
-              color: $grey-60;
-              font-size: 13px;
-              font-weight: 600;
-              text-decoration: none;
-              text-transform: uppercase;
-            }
-          }
-          .collection-trait-volume {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-
-            .collection-trait-volume-amount {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-content: center;
-              align-items: center;
-              font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-                "Helvetica Neue", sans-serif;
-              color: $black;
-              font-size: 22px;
-              font-weight: 600;
-              text-decoration: none;
-
-              .collection-trait-volume-amount-icon {
-                width: 18px;
-                display: flex;
-                flex-direction: row;
-                align-content: center;
-                justify-content: center;
-                align-items: center;
-                margin-left: 2px;
-                img,
-                svg {
-                  background: transparent;
-                  object-fit: contain;
-                  overflow: hidden;
-                  margin-bottom: -1px;
-                }
-              }
-            }
-            .collection-trait-volume-title {
-              width: 100%;
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-content: center;
-              align-items: flex-end;
-              font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-                "Helvetica Neue", sans-serif;
-              color: $grey-60;
-              font-size: 13px;
-              font-weight: 600;
-              text-decoration: none;
-              text-transform: uppercase;
-            }
-          }
-          .percent-green {
-            color: $grasp-cyan;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 4px;
-            margin-bottom: 1px;
-          }
-          .percent-red {
-            color: $grasp-orange;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: 4px;
-            margin-bottom: 1px;
-          }
+        img,
+        svg {
+          margin: 0 6px;
+          background: transparent;
+          object-fit: contain;
+          overflow: hidden;
         }
       }
-    }
 
-    .collection-total {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-      color: $black;
-      font-size: 16px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+      .collection-trait-prices {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        .collection-trait-floor {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
 
-    .collection-description {
-      color: $black;
-      font-size: 13px;
-      line-height: 18px;
-      font-weight: 400;
-      text-align: center;
-      margin-bottom: 5px;
-    }
+          .collection-trait-floor-amount {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            color: $black;
+            font-size: 22px;
+            font-weight: 600;
+            text-decoration: none;
 
-    .currency-icon {
-      width: 12px;
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      justify-content: center;
-      align-items: center;
-      margin-left: 2px;
-      img,
-      svg {
-        background: transparent;
-        object-fit: contain;
-        overflow: hidden;
+            .collection-trait-floor-amount-icon {
+              width: 18px;
+              display: flex;
+              flex-direction: row;
+              align-content: center;
+              justify-content: center;
+              align-items: center;
+              margin-left: 2px;
+              img,
+              svg {
+                background: transparent;
+                object-fit: contain;
+                overflow: hidden;
+                margin-bottom: -1px;
+              }
+            }
+          }
+          .collection-trait-floor-title {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: flex-end;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            color: $grey-60;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+          }
+        }
+        .collection-trait-volume {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+
+          .collection-trait-volume-amount {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            color: $black;
+            font-size: 22px;
+            font-weight: 600;
+            text-decoration: none;
+
+            .collection-trait-volume-amount-icon {
+              width: 18px;
+              display: flex;
+              flex-direction: row;
+              align-content: center;
+              justify-content: center;
+              align-items: center;
+              margin-left: 2px;
+              img,
+              svg {
+                background: transparent;
+                object-fit: contain;
+                overflow: hidden;
+                margin-bottom: -1px;
+              }
+            }
+          }
+          .collection-trait-volume-title {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: flex-end;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+              sans-serif;
+            color: $grey-60;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+          }
+        }
+        .percent-green {
+          color: $grasp-cyan;
+          font-size: 12px;
+          font-weight: 600;
+          margin-left: 4px;
+          margin-bottom: 1px;
+        }
+        .percent-red {
+          color: $grasp-orange;
+          font-size: 12px;
+          font-weight: 600;
+          margin-left: 4px;
+          margin-bottom: 1px;
+        }
       }
     }
   }
+
+  .collection-total {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: $black;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .collection-description {
+    color: $black;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .currency-icon {
+    width: 12px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2px;
+    img,
+    svg {
+      background: transparent;
+      object-fit: contain;
+      overflow: hidden;
+    }
+  }
+}
 </style>

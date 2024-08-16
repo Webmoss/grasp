@@ -17,7 +17,8 @@
               <div class="list-item">
                 <div class="course-copy">
                   <div class="course-title">
-                    <span class="course-index">{{ index + 1 }}.</span> {{ course.title ? course.title : "" }}
+                    <span class="course-index">{{ index + 1 }}.</span>
+                    {{ course.title ? course.title : "" }}
                   </div>
                 </div>
                 <div class="course-list-buttons">
@@ -46,11 +47,11 @@
           <h2>Top Lessons</h2>
           <div class="my-lessons-box">
             <template v-for="(course, index) in courses" :key="index">
-
               <div class="list-item">
                 <div class="course-copy">
                   <div class="course-title">
-                    <span class="course-index">{{ index + 1 }}.</span> {{ course.title ? course.title : "" }}
+                    <span class="course-index">{{ index + 1 }}.</span>
+                    {{ course.title ? course.title : "" }}
                   </div>
                 </div>
                 <div class="course-list-buttons">
@@ -88,12 +89,10 @@
                 </div>
                 <div class="nft-list-buttons">
                   <div v-if="nft && nft.type" class="nft-category">
-                    <span class="category-indicator">{{
-                      nft.type ? nft.type : ""
-                    }}</span>
+                    <span class="category-indicator">{{ nft.type ? nft.type : "" }}</span>
                   </div>
                   <div class="view">
-                    <ViewNFTButton :nft-id="nft.id" />
+                    <ViewNFTButton :token-id="nft.id" />
                   </div>
                 </div>
               </div>
@@ -453,7 +452,6 @@ onBeforeMount(async () => {
         font-size: 18px;
         font-weight: 600;
         text-align: right;
-
       }
       img,
       svg {

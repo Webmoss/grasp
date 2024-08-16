@@ -3,7 +3,7 @@
     <div class="column width-50">
       <div v-if="token.token && token.token.image" class="nft-view-image">
         <img :src="getUrlProtocol(token.token.image)" />
-        <NftChain :chain="token.token.chain" />
+        <NftChain :chain="token.token.chainId" />
       </div>
     </div>
     <div class="column width-50">

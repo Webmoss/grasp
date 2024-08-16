@@ -9,10 +9,19 @@
             :attributes="attributes"
             @update-attribute="updateAttributeSidebar"
           />
+          <section id="footer">
+            <SidebarCollections />
+            <SidebarSponsors />
+            <SidebarFooter />
+          </section>
         </div>
         <div class="right">
           <MarketplaceSearch />
-          <MarketplacesList v-if="tokens && tokens.length > 0" :marketplace="tokens" />
+          <MarketplacesList
+            v-if="tokens && tokens.length > 0"
+            :tokens="tokens"
+            :collection="collectionRouteName"
+          />
           <MarketplacesNoReults v-else-if="!tokens && !loading" />
           <MarketplacesPagination
             v-if="marketplace && marketplace.length > 0"
@@ -21,6 +30,11 @@
             :last-page="lastPage"
           />
         </div>
+        <section id="mobile-footer">
+          <SidebarCollections />
+          <SidebarSponsors />
+          <SidebarFooter />
+        </section>
       </section>
     </div>
   </section>
@@ -31,6 +45,7 @@ import { ref, computed, onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
+import { collectionObject } from "src/models/collection";
 import { tokenWrapperObject } from "@/models/tokenWrapper";
 import { attributeSidebarObject } from "src/models/attributeSidebar";
 
@@ -38,6 +53,9 @@ import { attributeSidebarObject } from "src/models/attributeSidebar";
 import MarketplacesBanner from "@/components/MarketplaceComponents/MarketplacesBanner.vue";
 import MarketplaceSidebarIntro from "@/components/MarketplaceComponents/MarketplaceSidebarIntro.vue";
 import MarketplaceSidebar from "@/components/MarketplaceComponents/MarketplaceSidebar.vue";
+import SidebarCollections from "@/components/Sidebar/SidebarCollections.vue";
+import SidebarSponsors from "@/components/Sidebar/SidebarSponsors.vue";
+import SidebarFooter from "@/components/Sidebar/SidebarFooter.vue";
 import MarketplaceSearch from "@/components/MarketplaceComponents/MarketplaceSearch.vue";
 import MarketplacesList from "@/components/MarketplaceComponents/MarketplacesList.vue";
 import MarketplacesNoReults from "@/components/MarketplaceComponents/MarketplacesNoReults.vue";
@@ -56,9 +74,9 @@ const tokens = ref([]);
 const tokensTotal = ref();
 const lastPage = ref();
 
-// const total = computed(() => {
-//   return marketplace.value ? marketplace.value.length : 0;
-// });
+const collectionRouteName = computed(() => {
+  return route.params.name as string;
+});
 
 /* Get Collection Attributes for Sidebar */
 async function fetchAttributes() {
@@ -72,6 +90,14 @@ async function fetchAttributes() {
   } catch (error) {
     console.log(error);
   }
+}
+
+/* Find our Object index in Sidebar Attributes Array */
+function updateAttributeSidebar(value: string) {
+  const index = attributes.value.findIndex((attribute: attributeSidebarObject) => {
+    return attribute.key === value;
+  });
+  attributes.value[index].isDropped = !attributes.value[index].isDropped;
 }
 
 /* Get Collection Data */
@@ -96,7 +122,7 @@ async function fetchCollections() {
       pagination.value.continuation ? pagination.value.continuation : null,
       null
     );
-    collection.value = collectionData.collection;
+    collection.value = collectionData.collection as collectionObject;
   } catch (error) {
     console.log("Error :", error);
   }
@@ -140,14 +166,12 @@ async function fetchNfts() {
       tokens.value = tokenResults.nfts;
       tokensTotal.value = tokenResults.nfts.length;
       lastPage.value = tokenResults.nfts.length / pagination.value.limit;
-      console.log("Last Page", lastPage.value);
 
       /* Set next continuation results */
       if (tokenResults.continuation) {
         store.setContinuation(tokenResults.continuation);
       }
 
-      console.log("route name", route.params.name);
       /* 3. Load our Store Collection */
       switch (route.params.name) {
         case "tinytap":
@@ -165,14 +189,6 @@ async function fetchNfts() {
     console.log("Error :", error);
     store.setLoading(false);
   }
-}
-
-/* Find our Object index in Sidebar Attributes Array */
-function updateAttributeSidebar(value: string) {
-  const index = attributes.value.findIndex((attribute: attributeSidebarObject) => {
-    return attribute.key === value;
-  });
-  attributes.value[index].isDropped = !attributes.value[index].isDropped;
 }
 
 onBeforeMount(async () => {
@@ -205,7 +221,7 @@ section#marketplace {
   position: relative;
   height: 100%;
   overflow: scroll;
-  background: $cream;
+  background: $white;
 
   .main {
     max-width: $max-width;
@@ -249,6 +265,17 @@ section#marketplace {
         }
       }
 
+      section#footer {
+        display: flex;
+        height: inherit;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        @include breakpoint($break-sm) {
+          display: none !important;
+        }
+      }
+
       .right {
         width: 100%;
         height: 100%;
@@ -266,6 +293,18 @@ section#marketplace {
           align-content: flex-start;
           align-items: flex-start;
         }
+      }
+    }
+    section#mobile-footer {
+      display: none;
+      @include breakpoint($break-sm) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 96%;
+        padding: 2%;
+        overflow: visible;
       }
     }
   }

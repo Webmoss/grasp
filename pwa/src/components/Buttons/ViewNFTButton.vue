@@ -21,7 +21,12 @@ const props = defineProps({
     default: "blue",
     required: false,
   },
-  nftId: {
+  tokenId: {
+    type: String,
+    default: null,
+    required: false,
+  },
+  collection: {
     type: String,
     default: null,
     required: false,
@@ -31,7 +36,10 @@ const props = defineProps({
 const router = useRouter();
 
 function goToNFT() {
-  router.push({ name: "nft", params: { id: props.nftId } });
+  router.push({
+    name: "nft",
+    params: { collection: props.collection, id: props.tokenId },
+  });
 }
 </script>
 

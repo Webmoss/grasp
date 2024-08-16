@@ -2,8 +2,11 @@
   <div class="nft" @click="loadNftDetails(token)">
     <div v-if="token.token && token.token.image" class="nft-image">
       <img :src="getUrlProtocol(token.token.image)" />
-      <NftChain :chain="token.token.chainId" />
-      <NftSource v-if="token.market" :source="token.market.floorAsk.source" />
+      <NftChain :chain-id="token.token.chainId" />
+      <NftSource
+        v-if="token.market.floorAsk.source"
+        :source="token.market.floorAsk.source"
+      />
     </div>
     <div class="nft-row">
       <div v-if="token.token && token.token.name" class="nft-title">
@@ -14,14 +17,14 @@
       </div>
       <div v-if="token.market && token.market.floorAsk" class="nft-floor">
         <div class="nft-floor-amount">
-          {{ token.market.floorAsk.price.amount.decimal.toFixed(2) }}
+          {{ token.market.floorAsk.price?.amount.decimal.toFixed(2) }}
           <div class="nft-floor-amount-icon">
             <img
-              v-if="token.market.floorAsk.price.currency.symbol === 'EDU'"
-              src="@/assets/svgs/EduCoins.svg"
+              v-if="token.market.floorAsk.price?.currency.symbol === 'EDU'"
+              src="@/assets/svgs/EduCoin.svg"
             />
             <img
-              v-else-if="token.market.floorAsk.price.currency.symbol === 'WETH'"
+              v-else-if="token.market.floorAsk.price?.currency.symbol === 'WETH'"
               src="@/assets/images/logos/WETH.png"
             />
             <img v-else src="@/assets/images/logos/eth-diamond-black.png" width="10" />
@@ -31,7 +34,12 @@
     </div>
     <div class="nft-card-row">
       <div class="button-column">
-        <ViewButton :btn-size="'small'" :color="'blue'" :token-id="token.token.tokenId" />
+        <ViewNFTButton
+          :btn-size="'small'"
+          :color="'blue'"
+          :collection="collection"
+          :token-id="token.token.tokenId"
+        />
       </div>
       <div class="nft-column">
         <div v-if="token.token && token.token.rarityRank" class="nft-rarityRank">
@@ -52,7 +60,7 @@ import { tokenWrapperObject } from "@/models/tokenWrapper";
 import { getUrlProtocol } from "@/services/helpers";
 import NftChain from "../NFT/NftChain.vue";
 import NftSource from "../NFT/NftSource.vue";
-import ViewButton from "../Buttons/ViewButton.vue";
+import ViewNFTButton from "../Buttons/ViewNFTButton.vue";
 
 const router = useRouter();
 
@@ -68,6 +76,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   });
 };
 </script>
+
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
@@ -102,8 +111,9 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   float: left;
   box-sizing: border-box;
   width: 100%;
-  background: #f4f4f4;
-  border: 2px solid #f4f4f4;
+  background: $white;
+  border: 0.5px solid $grey-60;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
   border-radius: 12px;
   margin: 0 auto;
   padding: 0 0 4px 0;
@@ -135,7 +145,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
 
       img,
       svg {
-        width: 18px !important;
+        width: 16px !important;
         height: auto;
         background: transparent;
         object-fit: contain;
@@ -145,13 +155,13 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   }
 
   .nft-title {
+    width: 90%;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     color: $black;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    text-transform: uppercase;
     text-align: left;
     margin: 0;
   }
@@ -177,7 +187,6 @@ const loadNftDetails = (token: tokenWrapperObject) => {
     justify-content: flex-end;
     align-content: center;
     align-items: center;
-
     color: $black;
     width: 100%;
     font-size: 16px;
@@ -261,7 +270,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   }
 
   .nft-floor {
-    width: 100%;
+    width: 10%;
     display: flex;
     flex-direction: row;
     justify-content: center;

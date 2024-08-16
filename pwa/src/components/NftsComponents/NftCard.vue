@@ -100,7 +100,7 @@ defineProps<{ nft: metadataObject; gridView: string }>();
   float: left;
   box-sizing: border-box;
   width: 100%;
-  background: $cream;
+  background: $white;
   border: 0.5px solid $grey-50;
   border-radius: 8px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
