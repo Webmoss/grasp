@@ -2,7 +2,6 @@
   <div class="marketplace-page">
     <div :class="`${gridView}-nft-list`">
       <template v-for="(token, i) in tokens" :key="i">
-        {{ token }}
         <NftCard :token="token" :grid-view="gridView" />
       </template>
     </div>

@@ -2,7 +2,6 @@ import axios from "axios";
 
 /* Services api keys */
 const reservoirAPI = process.env.VUE_APP_RESEVOIR_NFT_API_KEY;
-console.log("reservoirAPI", reservoirAPI);
 
 /* Blockchain ID */
 const hostedAPI = "https://api.reservoir.tools"
