@@ -122,7 +122,7 @@ export default class reservoirApi {
    * @param {String} tokenSetId Filter to a particular token set. Example: token:0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270:129000685
    * @param {Array} attributes Filter to a particular attribute. Attributes are case sensitive. Note: Our docs do not support this parameter correctly. To test, you can use the following URL in your browser. Example: https://api.reservoir.tools/tokens/v6?collection=0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63&attributes[Type]=Original or https://api.reservoir.tools/tokens/v6?collection=0x8d04a8c79ceb0889bdd12acdf3fa9d207ed3ff63&attributes[Type]=Original&attributes[Type]=Sibling
    * @param {String} source Domain of the order source. Example opensea.io (Only listed tokens are returned when filtering by source)
-   * @param {String} nativeSource Domain of the order source. Example www.apecoinmarketplace.com. For a native marketplace, return all tokens listed on this marketplace, even if better prices are available on other marketplaces.
+   * @param {String} nativeSource Domain of the order source. Example www.opensea.com. For a native marketplace, return all tokens listed on this marketplace, even if better prices are available on other marketplaces.
    * @param {Number} minRarityRank Get tokens with a min rarity rank (inclusive)
    * @param {Number} maxRarityRank Get tokens with a max rarity rank (inclusive)
    * @param {Number} minFloorAskPrice Get tokens with a min floor ask price (inclusive); use native currency
