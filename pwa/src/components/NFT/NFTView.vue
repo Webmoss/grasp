@@ -19,7 +19,7 @@ import NftViewNoResults from "@/components/NFT/NftViewNoResults.vue";
 const route = useRoute();
 const store = useStore();
 
-const { account, nftView, loading } = storeToRefs(store);
+const { nftView, loading } = storeToRefs(store);
 
 /* Open Campus Education NFT Contract Addresses */
 const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
@@ -103,9 +103,10 @@ const polling = () =>
     } catch (error) {
       console.log(error);
     }
-  }, 30000));
+  }, 3000));
 
 onMounted(async () => {
+  await fetchNft();
   polling();
 });
 

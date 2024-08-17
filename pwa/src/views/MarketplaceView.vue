@@ -12,7 +12,6 @@
           <section id="footer">
             <SidebarCollections />
             <SidebarSponsors />
-            <SidebarFooter />
           </section>
         </div>
         <div class="right">
@@ -33,7 +32,6 @@
         <section id="mobile-footer">
           <SidebarCollections />
           <SidebarSponsors />
-          <SidebarFooter />
         </section>
       </section>
     </div>
@@ -55,7 +53,6 @@ import MarketplaceSidebarIntro from "@/components/MarketplaceComponents/Marketpl
 import MarketplaceSidebar from "@/components/MarketplaceComponents/MarketplaceSidebar.vue";
 import SidebarCollections from "@/components/Sidebar/SidebarCollections.vue";
 import SidebarSponsors from "@/components/Sidebar/SidebarSponsors.vue";
-import SidebarFooter from "@/components/Sidebar/SidebarFooter.vue";
 import MarketplaceSearch from "@/components/MarketplaceComponents/MarketplaceSearch.vue";
 import MarketplacesList from "@/components/MarketplaceComponents/MarketplacesList.vue";
 import MarketplacesNoReults from "@/components/MarketplaceComponents/MarketplacesNoReults.vue";

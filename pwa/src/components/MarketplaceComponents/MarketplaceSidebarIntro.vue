@@ -344,6 +344,7 @@ defineProps({
             font-weight: 600;
             text-decoration: none;
             text-transform: uppercase;
+            padding: 4px 0;
           }
         }
         .collection-trait-volume {
@@ -404,7 +405,7 @@ defineProps({
           }
         }
         .percent-green {
-          color: $grasp-cyan;
+          color: $grasp-blue;
           font-size: 12px;
           font-weight: 600;
           margin-left: 4px;
