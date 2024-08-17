@@ -57,7 +57,11 @@
         <div class="collection-trait-prices">
           <div class="collection-trait-floor">
             <div class="collection-trait-floor-amount">
-              {{ collection.floorAsk.price?.amount.decimal.toFixed(2) }}
+              {{
+                collection.floorAsk.price
+                  ? collection.floorAsk.price?.amount.decimal.toFixed(2)
+                  : 0
+              }}
               <div class="collection-trait-floor-amount-icon">
                 <img
                   v-if="collection.floorAsk.price?.currency.symbol === 'EDU'"
@@ -289,6 +293,7 @@ defineProps({
         align-content: center;
         align-items: center;
         margin-bottom: 10px;
+
         .collection-trait-floor {
           width: 100%;
           display: flex;
@@ -313,7 +318,7 @@ defineProps({
             text-decoration: none;
 
             .collection-trait-floor-amount-icon {
-              width: 18px;
+              width: 14px;
               display: flex;
               flex-direction: row;
               align-content: center;
@@ -344,7 +349,7 @@ defineProps({
             font-weight: 600;
             text-decoration: none;
             text-transform: uppercase;
-            padding: 4px 0;
+            padding: 4px 0 0;
           }
         }
         .collection-trait-volume {
@@ -371,7 +376,7 @@ defineProps({
             text-decoration: none;
 
             .collection-trait-volume-amount-icon {
-              width: 18px;
+              width: 14px;
               display: flex;
               flex-direction: row;
               align-content: center;
@@ -402,6 +407,7 @@ defineProps({
             font-weight: 600;
             text-decoration: none;
             text-transform: uppercase;
+            padding: 4px 0 0;
           }
         }
         .percent-green {

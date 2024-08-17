@@ -16,19 +16,18 @@
       </p>
       <div class="educhain-row">
         <div class="educhain-links">
-          <div @click="scrolltoId('solutions')" class="scroll-link"
-            >Learn &amp; Earn
-            <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
-          >
-          <div @click="scrolltoId('campus')" class="scroll-link"
-            >Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
-          >
-          <div @click="scrolltoId('goplus')" class="scroll-link"
-            >Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" /></div
-          >
-          <div @click="scrolltoId('educhain')" class="scroll-link"
-            >EduChain <img src="../../assets/svgs/Right.svg" class="link-icon"
-          /></div>
+          <div @click="scrolltoId('solutions')" class="scroll-link">
+            Learn &amp; Earn <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
+          <div @click="scrolltoId('campus')" class="scroll-link">
+            Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
+          <div @click="scrolltoId('goplus')" class="scroll-link">
+            Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
+          <div @click="scrolltoId('educhain')" class="scroll-link">
+            EduChain <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
         </div>
         <div class="educhain-banner">
           <img src="../../assets/svgs/EduChain-White.svg" class="educhain-logo" />
@@ -108,8 +107,6 @@ section#home {
       }
     }
 
-
-
     .educhain-row {
       width: 100%;
       display: flex;
@@ -131,7 +128,7 @@ section#home {
       }
 
       .educhain-links {
-        width: calc(100% - 260px);
+        width: calc(100% - 240px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -140,15 +137,14 @@ section#home {
         padding: 0 0 0 20px;
 
         .scroll-link {
-          width: 200px;
-          min-width: 279px;
+          width: auto;
           color: $white;
-          font-size: 15x;
+          font-size: 15px;
           line-height: normal;
           text-decoration: none;
           border-bottom: 1px solid transparent;
-          transition: 0.6s;
-          margin-bottom: 4px;
+          transition: all 0.5s linear;
+          margin-bottom: 6px;
           cursor: pointer;
 
           &:hover,
@@ -159,8 +155,8 @@ section#home {
           }
 
           img {
-            width: 14px;
-            margin-bottom: -2px;
+            width: 16px;
+            margin-bottom: -3px;
           }
         }
       }

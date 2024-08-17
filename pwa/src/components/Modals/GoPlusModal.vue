@@ -27,16 +27,17 @@
               <div class="nft-slogan">Congratulations, you're an early bird</div>
               <div class="nft-header">
                 For a limited time you can mint an Early Bird NFT and receive access to
-                all of our premium course materials and so much more.
+                all of our premium course materials and more.
               </div>
               <div class="nft-copy">
                 Take courses on Art, Design, Illustration, Photography, Crafts, Marketing,
                 Architecture, Web3 Development, dApp Design, and much more, all for FREE
-                with our Genesis Pass mint.
+                with the Grasp Academy Genesis mint.
               </div>
               <div class="nft-outro">
-                Be sure to hodl and stay tuned, because the Grasp Academy EDU Owls will be
-                hatching next and are sure to fly high on EDU Chain.
+                Be sure to HODL and stay tuned, because the Grasp EDU Owls will be
+                hatching next and these EDU Birds are going to fly high with Open Campus
+                and EDU Chain.
               </div>
               <div v-if="!loading" class="nft-call-to-action" @click="mintNFT()">
                 <div class="mint-button">
@@ -205,7 +206,6 @@ const mintNFT = async () => {
     return;
   }
 
-
   store.setLoading(true);
   try {
     const { ethereum } = window;
@@ -236,10 +236,9 @@ const mintNFT = async () => {
       // const mintDateString = mintDateTimestamp.toString();
       // console.log("mintDateString", mintDateString);
 
-      const accounts = await ethereum.request({method: 'eth_accounts'});
+      const accounts = await ethereum.request({ method: "eth_accounts" });
 
-      if(accounts.length) {
-
+      if (accounts.length) {
         let signerAddress = await signer.getAddress();
         console.log("signerAddress", signerAddress);
 

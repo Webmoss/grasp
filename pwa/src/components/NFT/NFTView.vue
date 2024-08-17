@@ -21,33 +21,15 @@ const store = useStore();
 
 const { nftView, loading } = storeToRefs(store);
 
-/* Open Campus Education NFT Contract Addresses */
-const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-const tinytapGoerliAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRESS;
-
-/* Open Campus Season 2 Publisher NFT */
-const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
-const publisherMumbaiAddress =
-  process.env.VUE_APP_PUBLISHER_SEASON_2_MUMBAI_CONTRACT_ADDRESS;
-
-/* DEV NOTE: This will switch our call to Goerli or Mumbai testnets for dev */
 const tinytapContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-// process.env.VUE_APP_NODE_ENV === "development"
-//   ? tinytapGoerliAddress?.toLowerCase()
-//   : tinytapAddress?.toLowerCase();
-
-const publisherContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRESS;
-// process.env.VUE_APP_NODE_ENV === "development"
-//   ? publisherMumbaiAddress?.toLowerCase()
-//   : publisherAddress?.toLowerCase();
+const publisherContractAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
 
 const chainName = "ethereum";
-// process.env.VUE_APP_NODE_ENV === "development" ? "goerli" : "ethereum";
 
 const contract = ref();
 const collection = ref("");
-const tokenId = ref();
 const tokenPoller = ref();
+const tokenId = ref();
 
 async function fetchNft() {
   try {
@@ -81,9 +63,9 @@ async function fetchNft() {
       null
     );
 
-    console.log("Token", tokenResult.nfts[0].token);
-    console.log("Market", tokenResult.nfts[0].market);
-    console.log("Updated", tokenResult.nfts[0].updatedAt);
+    // console.log("Token", tokenResult.nfts[0].token);
+    // console.log("Market", tokenResult.nfts[0].market);
+    // console.log("Updated", tokenResult.nfts[0].updatedAt);
 
     if (tokenResult && tokenResult.nfts) {
       store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
@@ -97,13 +79,13 @@ const polling = () =>
   (tokenPoller.value = setInterval(async () => {
     try {
       if (tokenId.value && contract.value) {
-        console.log("Polling Now!");
+        console.log("Polling");
         await fetchNft();
       }
     } catch (error) {
       console.log(error);
     }
-  }, 3000));
+  }, 8000));
 
 onMounted(async () => {
   await fetchNft();
@@ -115,8 +97,8 @@ onBeforeMount(async () => {
   tokenId.value = route.params.id;
   collection.value = route.params.collection as string;
 
-  console.log("Token Id: ", tokenId.value);
-  console.log("Collection: ", collection.value);
+  // console.log("Token Id: ", tokenId.value);
+  // console.log("Collection: ", collection.value);
 
   /* 1. Load our Contract to Query */
   switch (collection.value) {
@@ -145,17 +127,16 @@ onBeforeUnmount(() => {
 
 .card {
   width: 94%;
-  height: 94%;
-  padding: 3% 3% 2% 3%;
+  height: auto;
+  padding: 30px;
   background: $black;
   border: 1px solid rgb(69, 73, 77, 0.4);
   border-radius: 12px;
-  margin: 0 auto;
-  overflow: scroll;
+  margin: 0 auto 20px;
 
   @include breakpoint($break-sm) {
-    height: auto;
-    overflow: visible;
+    width: 96%;
+    margin: 0 2%;
   }
 }
 </style>

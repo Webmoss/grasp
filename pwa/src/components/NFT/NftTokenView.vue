@@ -3,7 +3,7 @@
     <div class="column width-50">
       <div v-if="token.token && token.token.image" class="nft-view-image">
         <img :src="getUrlProtocol(token.token.image)" />
-        <NftChain :chain="token.token.chainId" />
+        <NftChain :chain-id="token.token.chainId" />
       </div>
     </div>
     <div class="column width-50">
@@ -67,6 +67,9 @@
             </div>
           </div>
         </div>
+        <div v-if="token.token && token.token.description" class="nft-description">
+          {{ token.token.description }}
+        </div>
         <!-- Tabs Switcher -->
         <div class="nft-tab-row">
           <div
@@ -115,6 +118,7 @@ import { ref, PropType } from "vue";
 import { tokenWrapperObject } from "@/models/tokenWrapper";
 import { getUrlProtocol } from "@/services/helpers";
 
+/* Components */
 import NftChain from "@/components/NFT/NftChain.vue";
 import NftTokenInfo from "@/components/NFT/NftTokenInfo.vue";
 import NftTokenTraits from "@/components/NFT/NftTokenTraits.vue";
@@ -143,6 +147,7 @@ const switchTab = (value: string) => {
   nftTab.value = value;
 };
 </script>
+
 <style lang="scss">
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
@@ -152,11 +157,11 @@ const switchTab = (value: string) => {
   margin: 0;
 }
 .nft-details {
-  width: 98%;
-  padding: 1% 0 0 2%;
-  z-index: 999;
+  width: 100%;
+  padding: 30px 0 0 0;
 
   .nft-view-row {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -169,7 +174,7 @@ const switchTab = (value: string) => {
     justify-content: flex-start;
     align-content: center;
     align-items: flex-start;
-    padding: 8px 0 0 0;
+    padding: 0;
   }
   .nft-column-end {
     display: flex;
@@ -177,7 +182,7 @@ const switchTab = (value: string) => {
     justify-content: flex-end;
     align-content: center;
     align-items: center;
-    padding: 8px 12px 0 0;
+    padding: 0;
   }
 }
 
@@ -223,7 +228,7 @@ const switchTab = (value: string) => {
 
     img,
     svg {
-      width: 18px !important;
+      width: 16px !important;
       height: auto;
       background: transparent;
       object-fit: contain;
@@ -234,13 +239,30 @@ const switchTab = (value: string) => {
 
 .nft-title {
   width: 100%;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   text-align: left;
   margin: 0;
 
   @include breakpoint($break-sm) {
-    margin-left: 4px;
+    width: 99%;
+    font-size: 20px;
+    margin-left: 1%;
+  }
+}
+
+.nft-description {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  margin: 20px 0;
+
+  @include breakpoint($break-sm) {
+    width: 99%;
+    font-size: 20px;
+    margin-left: 1%;
   }
 }
 
@@ -394,12 +416,14 @@ const switchTab = (value: string) => {
 }
 
 .nft-tab-row {
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-content: center;
   align-items: flex-start;
-  padding-right: 8px;
+  margin: 8px 0 0 0;
+  padding: 0;
 
   @include breakpoint($break-sm) {
     justify-content: center;
@@ -413,10 +437,10 @@ const switchTab = (value: string) => {
     align-items: center;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
     text-transform: uppercase;
-    margin: 0 8px 0 0;
+    margin: 0 12px 0 0;
     padding: 4px 4px 2px;
     border-bottom: 2px solid transparent;
     transition: all 0.5s linear;
@@ -426,7 +450,7 @@ const switchTab = (value: string) => {
     &:focus,
     &:focus-visible,
     &:active {
-      border-bottom: 2px solid $black;
+      border-bottom: 2px solid $grasp-cyan;
     }
 
     @include breakpoint($break-sm) {
@@ -434,37 +458,35 @@ const switchTab = (value: string) => {
     }
   }
   .nft-tab-switcher.active {
-    border-bottom: 2px solid $black;
+    border-bottom: 2px solid $grasp-cyan;
   }
 }
 
 .token-details {
-  width: 92%;
+  width: 96%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-content: center;
   align-items: flex-start;
-
-  color: $white;
-  background: $black;
+  color: $black;
+  background: $white;
   border-radius: 12px;
   border: 1px solid rgb(69, 73, 77);
   font-size: 14px;
   font-weight: normal;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 10px 15px;
+  padding: 20px;
   margin: 20px 0 8px;
 
-  .grey-label {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
+  h4 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 16px;
+    font-weight: bold;
     text-transform: uppercase;
-    margin-right: 8px;
+    margin-bottom: 8px;
   }
 }
 
@@ -476,32 +498,29 @@ const switchTab = (value: string) => {
   align-content: center;
   align-items: flex-start;
 
-  font-size: 14px;
-  font-weight: 400;
-  text-transform: uppercase;
-  text-align: left;
-
   .grey-label {
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    color: $grey-50;
-    font-size: 13px;
-    font-weight: 600;
+    color: $black;
+    font-size: 14px;
+    font-weight: 500;
     text-decoration: none;
     text-transform: uppercase;
+    text-align: left;
+  }
+
+  .nft-token-detail-value {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: $grey-100;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    text-decoration: none;
     margin-right: 8px;
   }
 }
 .nft-token-detail-bold {
   font-weight: 600;
-}
-
-.nft-description {
-  // color: $white;
-  width: 100%;
-  font-size: 16px;
-  font-weight: normal;
-  text-align: left;
-  margin: 0;
 }
 </style>
