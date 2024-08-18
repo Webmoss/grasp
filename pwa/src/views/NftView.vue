@@ -151,7 +151,7 @@ section#nft {
         display: flex;
         height: inherit;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         @include breakpoint($break-sm) {
           display: none !important;

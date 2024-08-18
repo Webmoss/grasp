@@ -40,7 +40,7 @@ const showHideModal = () => {
   flex-direction: column;
   align-content: center;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-start;
   background: $grasp-cyan;
   border: 1px solid rgb(69, 73, 77, 0.4);
   border-radius: 12px;

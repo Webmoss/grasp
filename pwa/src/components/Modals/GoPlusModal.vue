@@ -48,7 +48,7 @@
                 </div>
                 <div class="mint-price">
                   <img src="../../assets/svgs/EduCoin.svg" />
-                  420
+                  200
                 </div>
               </div>
               <div v-if="loading" class="nft-call-to-action">
