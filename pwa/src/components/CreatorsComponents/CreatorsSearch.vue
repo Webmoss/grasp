@@ -1,11 +1,16 @@
 <template>
   <section id="creators-search-bar">
-    <CreatorsSearchInput />
-    <CreatorsSortBy />
-    <div class="grid-buttons">
-      <ListViewButton />
-      <GridViewButton />
-      <FullViewButton />
+    <div class="search-left">
+      <CreatorsSearchInput />
+      <CreatorsSortBy class="hide-mobile" />
+    </div>
+    <div class="search-right">
+      <CreatorsSortBy class="show-mobile" />
+      <div class="grid-buttons">
+        <ListViewButton />
+        <GridViewButton />
+        <FullViewButton />
+      </div>
     </div>
   </section>
 </template>
@@ -33,6 +38,39 @@ section#creators-search-bar {
   height: auto;
   margin: 10px auto;
   padding: 0;
+
+  @include breakpoint($break-sm) {
+    flex-direction: column;
+  }
+
+  .search-left {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint($break-sm) {
+      width: 94%;
+      margin: 0 3% 16px;
+    }
+  }
+
+  .search-right {
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint($break-sm) {
+      width: 94%;
+      margin: 0 3%;
+      justify-content: space-between;
+    }
+  }
 
   .grid-buttons {
     display: flex;

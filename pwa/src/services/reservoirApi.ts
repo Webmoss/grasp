@@ -4,7 +4,8 @@ import axios from "axios";
 const reservoirAPI = process.env.VUE_APP_RESEVOIR_NFT_API_KEY;
 
 /* Blockchain ID */
-const hostedAPI = "https://api.reservoir.tools"
+let hostedAPI = "https://api.reservoir.tools";
+let polygonAPI = "https://api-polygon.reservoir.tools/";
   // process.env.VUE_APP_NODE_ENV === "development"
   //   ? "https://api-goerli.reservoir.tools"
   //   : "https://api.reservoir.tools";
@@ -169,7 +170,8 @@ export default class reservoirApi {
     includeLastSale?: string | null,
     normalizeRoyalties?: string | null,
     continuation?: string | null,
-    displayCurrency?: string | null
+    displayCurrency?: string | null,
+    blockchain?: string | null
   ) {
     try {
       // console.log("collection", collection);
@@ -199,6 +201,14 @@ export default class reservoirApi {
       // console.log("normalizeRoyalties", normalizeRoyalties);
       // console.log("continuation", continuation);
       // console.log("displayCurrency", displayCurrency);
+
+      console.log("blockchain", blockchain);
+
+      if(blockchain === 'polygon') {
+        console.log("polygonAPI", polygonAPI);
+        hostedAPI = polygonAPI;
+        console.log("hostedAPI", hostedAPI);
+      }
 
       const response = await axios.get(`${hostedAPI}/tokens/v6`, {
         headers: {

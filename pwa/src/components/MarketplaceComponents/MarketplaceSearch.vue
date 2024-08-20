@@ -1,12 +1,17 @@
 <template>
   <section id="marketplace-search-bar">
-    <MarketplaceFilterButton />
-    <MarketplacesSearchInput />
-    <MarketplacesSortBy />
-    <div class="grid-buttons">
-      <ListViewButton />
-      <GridViewButton />
-      <FullViewButton />
+    <div class="search-left">
+      <MarketplaceFilterButton />
+      <MarketplacesSearchInput />
+      <MarketplacesSortBy class="hide-mobile" />
+    </div>
+    <div class="search-right">
+      <MarketplacesSortBy class="show-mobile" />
+      <div class="grid-buttons">
+        <ListViewButton />
+        <GridViewButton />
+        <FullViewButton />
+      </div>
     </div>
   </section>
 </template>
@@ -35,6 +40,39 @@ section#marketplace-search-bar {
   height: auto;
   margin: 10px auto;
   padding: 0;
+
+  @include breakpoint($break-sm) {
+    flex-direction: column;
+  }
+
+  .search-left {
+    width: 88%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint($break-sm) {
+      width: 98%;
+      margin: 0 1% 16px;
+    }
+  }
+
+  .search-right {
+    width: 12%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint($break-sm) {
+      width: 98%;
+      margin: 0 1%;
+      justify-content: space-between;
+    }
+  }
 
   .grid-buttons {
     display: flex;

@@ -57,7 +57,7 @@ select.pagination-sort-by {
   font-size: 14px;
   font-weight: 500;
   min-width: 220px;
-  padding: 7px 8px;
+  padding: 8px;
   margin: 0;
   text-align: left;
   transition: all 0.5s linear;
@@ -70,6 +70,10 @@ select.pagination-sort-by {
     color: $grey-90;
     border: 0.5px solid $grey-50;
     outline: -webkit-focus-ring-color auto 0px;
+  }
+
+  @include breakpoint($break-sm) {
+    min-width: 320px;
   }
 }
 </style>

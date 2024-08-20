@@ -85,6 +85,11 @@ async function setLlastPage(page: number) {
   margin: 20px 0;
   padding: 0 0 10px 0;
 
+  @include breakpoint($break-sm) {
+    margin: 0 auto;
+    padding: 0;
+  }
+
   .marketplace-pagination-page {
     width: 24px;
     height: 100%;

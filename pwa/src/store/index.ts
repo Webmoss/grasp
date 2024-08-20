@@ -512,7 +512,8 @@ export const useStore = defineStore({
       includeLastSale?: string | null,
       normalizeRoyalties?: string | null,
       continuation?: string | null,
-      displayCurrency?: string | null
+      displayCurrency?: string | null,
+      blockchain?: string | null
     ) {
       const reservoirAPI = new reservoirApi();
       const results = await reservoirAPI.retrieveTokens(
@@ -542,7 +543,8 @@ export const useStore = defineStore({
         includeLastSale,
         normalizeRoyalties,
         continuation,
-        displayCurrency
+        displayCurrency,
+        blockchain
       );
       return results;
     },

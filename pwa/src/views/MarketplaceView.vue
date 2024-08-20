@@ -5,11 +5,11 @@
       <section id="page">
         <div v-if="showFilter" class="left">
           <MarketplaceSidebarIntro :collection="collection" />
-          <MarketplaceSidebar
-            :attributes="attributes"
-            @update-attribute="updateAttributeSidebar"
-          />
           <section id="footer">
+            <MarketplaceSidebar
+              :attributes="attributes"
+              @update-attribute="updateAttributeSidebar"
+            />
             <SidebarCollections />
             <SidebarSponsors />
           </section>
@@ -23,7 +23,7 @@
           />
           <MarketplacesNoReults v-else-if="!tokens && !loading" />
           <MarketplacesPagination
-            v-if="marketplace && marketplace.length > 0"
+            v-if="tokens && tokens.length > 0"
             :pagination="pagination"
             :total="tokensTotal"
             :last-page="lastPage"
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
@@ -62,7 +62,7 @@ import MarketplacesPagination from "@/components/MarketplaceComponents/Marketpla
 const route = useRoute();
 const store = useStore();
 
-const { loading, showFilter, filter, pagination, marketplace } = storeToRefs(store);
+const { loading, showFilter, filter, pagination } = storeToRefs(store);
 
 const attributes = ref();
 const contract = ref();
@@ -127,6 +127,18 @@ async function fetchCollections() {
 
 /* Get Collection Tokens/NFTs */
 async function fetchNfts() {
+  let blockchain = "";
+  switch (route.params.name) {
+    case "tinytap":
+      blockchain = "ethereum";
+      break;
+    case "publisher":
+      blockchain = "polygon";
+      break;
+    default:
+      blockchain = "ethereum";
+      break;
+  }
   try {
     const tokenResults = await store.retrieveTokens(
       contract.value,
@@ -155,7 +167,8 @@ async function fetchNfts() {
       "false",
       "false",
       pagination.value.continuation ? pagination.value.continuation : null,
-      null
+      null,
+      blockchain
     );
 
     if (tokenResults && tokenResults.nfts) {
@@ -188,7 +201,7 @@ async function fetchNfts() {
   }
 }
 
-onBeforeMount(async () => {
+onMounted(async () => {
   /* 1. Load our Contract to Query based on Collection param in URL */
   switch (route.params.name) {
     case "tinytap":
@@ -284,11 +297,12 @@ section#marketplace {
 
         @include breakpoint($break-sm) {
           width: 96%;
-          padding: 2%;
+          padding: 2% 2% 0 2%;
           height: auto;
           justify-content: flex-start;
           align-content: flex-start;
           align-items: flex-start;
+
         }
       }
     }
@@ -300,7 +314,7 @@ section#marketplace {
         justify-content: flex-start;
         align-items: center;
         width: 96%;
-        padding: 2%;
+        padding: 2% 2% 0 2%;
         overflow: visible;
       }
     }

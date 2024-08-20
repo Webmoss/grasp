@@ -44,8 +44,8 @@ defineProps({
   overflow: visible;
 
   @include breakpoint($break-sm) {
-    width: 94%;
-    padding: 0 3%;
+    width: 98%;
+    padding: 0 1%;
   }
 }
 

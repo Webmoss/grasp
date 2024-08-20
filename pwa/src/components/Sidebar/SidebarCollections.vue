@@ -48,6 +48,11 @@
   padding: 2px 8px;
   margin: 0 auto 5px;
 
+  @include breakpoint($break-sm) {
+    width: 94%;
+    margin: 1px 3%;
+  }
+
   li {
     width: calc(100% - 16px);
     height: 40px;

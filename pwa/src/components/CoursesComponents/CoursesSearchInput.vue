@@ -67,6 +67,10 @@ function clearSearchTerm() {
     outline: -webkit-focus-ring-color auto 0px;
   }
 
+  @include breakpoint($break-sm) {
+    margin-right: 0;
+  }
+
   .search-icon {
     width: 32px;
     display: flex;
@@ -100,7 +104,7 @@ function clearSearchTerm() {
     text-decoration: none;
     border: none;
     border-radius: 12px;
-    padding: 8px 0 7px;
+    padding: 9px 0 8px;
     transition: all 0.5s linear;
     cursor: pointer;
 
