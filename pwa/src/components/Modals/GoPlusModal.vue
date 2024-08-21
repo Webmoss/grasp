@@ -509,7 +509,7 @@ const mintNFT = async () => {
         @include breakpoint($break-sm) {
           padding: 10px 5%;
           margin: 0 0 20px;
-          font-size: 22px;
+          font-size: 18px;
         }
 
         .mint-button {
@@ -526,6 +526,11 @@ const mintNFT = async () => {
             overflow: hidden;
             background: transparent;
             margin: 0 -2px 0 0;
+
+            @include breakpoint($break-sm) {
+              width: 24px;
+              height: 24px;
+            }
           }
 
           .white {
