@@ -56,7 +56,7 @@ import VoteButton from "../Buttons/VoteButton.vue";
     background-repeat: no-repeat, no-repeat;
     background-size: 100%, 100%;
     background-position: top left, bottom -41px left;
-    border: 0.5px solid $grey-50;
+    border: 0;
     border-radius: 0;
     margin: 0 auto 20px;
     padding: 2% 5%;

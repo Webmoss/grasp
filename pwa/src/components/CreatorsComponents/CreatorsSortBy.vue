@@ -73,7 +73,8 @@ select.pagination-sort-by {
   }
 
   @include breakpoint($break-sm) {
-    min-width: 320px;
+    width: 100%;
+    min-width: 280px;
   }
 }
 </style>

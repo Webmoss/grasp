@@ -16,7 +16,7 @@
       rel="nofollow"
       ><img src="@/assets/svgs/EduChain-Black.svg" alt="Edu Chain" height="69"
     /></a>
-    <a
+    <!-- <a
       title="Animoca Brands"
       class="sponsor-logo"
       href="https://www.animocabrands.com/"
@@ -26,7 +26,7 @@
         src="@/assets/images/logos/AnimocaBrandsLogoAnimated.gif"
         alt="Animoca Brands"
         height="100"
-    /></a>
+    /></a> -->
   </div>
 </template>
 <script lang="ts" setup></script>
