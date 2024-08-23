@@ -43,52 +43,50 @@
           </div>
         </div>
 
-        <div class="line-divider"></div>
-
         <div class="course-excerpt">
           {{ course.excerpt ? course.excerpt : "" }}
         </div>
 
-        <div class="course-description">
+        <div class="line-divider"></div>
+
+        <div class="course-lessons-row">
+          <div class="course-image">
+            <img :src="`../${lesson.image ? lesson.image : course.image}`" />
+          </div>
+          <div class="course-lesson-checklist">
+            <template v-for="(lesson, index) in lessons" :key="index">
+              <div class="course-lesson-list-link" :class="lesson.step === active ? 'active' : ''" @click="loadLesson(lesson.id)">
+                <div class="course-lesson-list-title">{{ lesson.title ? lesson.title : "" }}</div>
+                <div class="course-lesson-list-button">
+                  <img src="@/assets/svgs/Play.svg" width="24" />
+                </div>
+              </div>
+          </template>
+          </div>
+        </div>
+
+        <div v-if="!lesson.content" class="course-description">
           {{ course.description ? course.description : "" }}
         </div>
 
+        <div v-if="lesson.content" class="line-divider"></div>
+        <div v-if="lesson.content" class="lesson-content" v-html="lesson.content"></div>
+
         <div class="line-divider"></div>
         <h2>Course Lessons</h2>
-
         <div class="course-lesson-list">
-          <div class="course-lesson">
-            <div class="lesson-title">Lesson One</div>
-            <div class="lesson-description">
-              Lesson description goes here, using some dummy copy for the front-end buidl.
+          <template v-for="(lesson, i) in lessons" :key="i">
+            <div class="course-lesson">
+              <div class="lesson-title">{{ lesson.title ? lesson.title : "" }}</div>
+              <div class="lesson-description">
+                {{ lesson.description ? lesson.description : "" }}
+              </div>
+              <div class="lesson-category">
+                <div class="category-indicator">DAO</div>
+                <div class="category-indicator">ApeCoin</div>
+              </div>
             </div>
-            <div class="lesson-category">
-              <div class="category-indicator">DAO</div>
-              <div class="category-indicator">ApeCoin</div>
-            </div>
-          </div>
-
-          <div class="course-lesson">
-            <div class="lesson-title">Lesson Two</div>
-            <div class="lesson-description">
-              Lesson description goes here, using some dummy copy for the front-end buidl.
-            </div>
-            <div class="lesson-category">
-              <div class="category-indicator">Community</div>
-              <div class="category-indicator">Web3</div>
-            </div>
-          </div>
-
-          <div class="course-lesson">
-            <div class="lesson-title">Lesson Three</div>
-            <div class="lesson-description">
-              Lesson description goes here, using some dummy copy for the front-end buidl.
-            </div>
-            <div class="lesson-category">
-              <div class="category-indicator">OpenCampus</div>
-              <div class="category-indicator">EduChain</div>
-            </div>
-          </div>
+          </template>
         </div>
       </section>
     </div>
@@ -96,10 +94,11 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { lessonObject } from "src/models/lesson";
 
 /* Components */
 import CourseHeader from "@/components/CoursesComponents/CourseHeader.vue";
@@ -107,10 +106,26 @@ import BuyButton from "@/components/Buttons/BuyButton.vue";
 
 /* All Posts stored in a JSON */
 import testCourses from "../data/courses.json";
+import testLessons from "../data/lessons.json";
 
 const store = useStore();
 const route = useRoute();
-const { course } = storeToRefs(store);
+const { course, lesson, lessons } = storeToRefs(store);
+
+const active = ref(0);
+
+async function loadLesson(id: string) {
+  let filteredLesson = testLessons.data.filter((lesson) => {
+    return lesson.id === id;
+  });
+  store.setLesson(filteredLesson[0] as any);
+  active.value = lesson.value.step;
+  console.log("active", active.value);
+}
+
+async function fetchLessons() {
+  store.setLessons((testLessons.data as unknown) as lessonObject[]);
+}
 
 async function fetchCourse() {
   let filteredCourse = testCourses.data.filter((course) => {
@@ -121,6 +136,7 @@ async function fetchCourse() {
 
 onBeforeMount(async () => {
   await fetchCourse();
+  await fetchLessons();
 });
 </script>
 
@@ -149,24 +165,6 @@ section#course {
     height: calc(100vh - 40px);
     margin: 0 auto;
     padding: 0 0 30px 0;
-
-    .course-image {
-      position: relative;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0;
-      overflow: hidden;
-      background: transparent;
-
-      img,
-      svg {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        overflow: hidden;
-        background: transparent;
-      }
-    }
 
     .course-details-row {
       display: flex;
@@ -284,11 +282,121 @@ section#course {
         margin: -8px 8px 0 0;
 
         .course-sales-icon {
-
           img,
           svg {
             width: 20px;
             margin: 0 4px;
+          }
+        }
+      }
+    }
+
+    .course-lessons-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: flex-start;
+      background: $grey-20;
+      border-radius: 12px;
+      margin: 0 0 8px 0;
+      overflow: hidden;
+
+      .course-image {
+        width: 100%;
+        position: relative;
+        width: auto;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: transparent;
+
+        img,
+        svg {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          overflow: hidden;
+          background: transparent;
+        }
+      }
+
+      .course-lesson-checklist {
+        width: 420px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        margin: 0 0 8px 0;
+
+        .course-lesson-list-link {
+          width: 100%;
+          height: 60px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          padding: 0;
+          border-bottom: 2px solid $grey-30;
+          transition: 0.6s all linear;
+          cursor: pointer;
+
+          @include breakpoint($break-sm) {
+            font-size: 16px
+          }
+
+          &:hover,
+          &:active,
+          &:focus,
+          &:focus-visible {
+            border-bottom: 2px solid $grasp-cyan;
+          }
+
+          .course-lesson-list-title {
+            width: 100%;
+            height: inherit;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            color: $grasp-blue;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: normal;
+            text-align: left;
+            margin: 0;
+            padding: 0 0 0 10px
+          }
+
+          .course-lesson-list-button {
+            width: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            margin: 0;
+
+            img,
+            svg {
+              width: 24px;
+              margin: 0 4px;
+            }
+          }
+        }
+
+        .course-lesson-list-link.active {
+          background: $grasp-blue;
+          border-bottom: 2px solid $grasp-cyan;
+
+          .course-lesson-list-title {
+            color: $white;
           }
         }
       }
@@ -312,7 +420,14 @@ section#course {
       margin: 0;
     }
 
-
+    .lesson-content {
+      width: 100%;
+      color: $black;
+      font-size: 15px;
+      font-weight: normal;
+      text-align: left;
+      margin: 0;
+    }
 
     .course-category {
       width: 50%;

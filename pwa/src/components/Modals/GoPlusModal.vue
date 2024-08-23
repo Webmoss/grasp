@@ -491,7 +491,7 @@ const mintNFT = async () => {
         height: 30px;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         align-content: center;
         color: $grasp-blue;

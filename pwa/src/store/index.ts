@@ -14,22 +14,12 @@ import reservoirApi from "@/services/reservoirApi";
 
 /* Open Campus Education NFT Contract Addresses */
 const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-const tinytapGoerliAddress = process.env.VUE_APP_TINYTAP_CONTRACT_GOERLIS_ADDRESS;
 
 /* Open Campus Season 2 Publisher NFT */
 const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
-const publisherMumbaiAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_MUMBAI_CONTRACT_ADDRESS;
 
-/* DEV NOTE: This will switch our call to Goerli or Mumbai testnets for dev */
-const tinytapContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-  // process.env.VUE_APP_NODE_ENV === "development"
-  //   ? tinytapGoerliAddress?.toLowerCase()
-  //   : tinytapAddress?.toLowerCase();
-
-const publisherContractAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
-  // process.env.VUE_APP_NODE_ENV === "development"
-  //   ? publisherMumbaiAddress?.toLowerCase()
-  //   : publisherAddress?.toLowerCase();
+const tinytapContractAddress = tinytapAddress?.toLowerCase();
+const publisherContractAddress = publisherAddress?.toLowerCase();
 
 export const useStore = defineStore({
   id: "store",
@@ -560,7 +550,7 @@ export const useStore = defineStore({
           console.log("fetchUserTokens", results);
           this.addAccountNfts(results);
 
-          /* TinyTap NFTS users Holds */
+          /* TinyTap NFTS users holds currently */
           const tinytaps = results.filter(function (nft: tokenWrapperObject) {
             return nft.token.contract.toLowerCase() === tinytapContractAddress;
           });

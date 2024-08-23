@@ -43,7 +43,6 @@ defineProps<{ creator: creatorObject }>();
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999989;
 
     img.profile-banner {
       width: 100%;

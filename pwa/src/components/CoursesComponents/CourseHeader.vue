@@ -44,7 +44,6 @@ defineProps<{ course: courseObject }>();
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999989;
 
     img {
       width: 100%;
