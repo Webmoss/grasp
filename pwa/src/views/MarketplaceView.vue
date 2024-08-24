@@ -6,11 +6,11 @@
         <div v-if="showFilter" class="left">
           <MarketplaceSidebarIntro :collection="collection" />
           <section id="footer">
+            <SidebarCollections />
             <MarketplaceSidebar
               :attributes="attributes"
               @update-attribute="updateAttributeSidebar"
             />
-            <SidebarCollections />
             <SidebarSponsors />
           </section>
         </div>
@@ -19,7 +19,6 @@
           <MarketplacesList
             v-if="tokens && tokens.length > 0"
             :tokens="tokens"
-            :collection="collectionRouteName"
           />
           <MarketplacesNoReults v-else-if="!tokens && !loading" />
           <MarketplacesPagination
@@ -78,19 +77,15 @@ const collection = ref();
 const tokens = ref([]);
 const tokensTotal = ref();
 const lastPage = ref();
+const lastRefresh = ref(route.params.name);
 
 const collectionRouteName = computed(() => {
   return route.params.name as string;
 });
 
-const lastRefresh = ref(route.params.name);
-console.log("lastRefresh", lastRefresh.value);
-
 const shouldGetData = computed(() => {
   return collectionRouteName.value !== lastRefresh.value;
 });
-
-console.log("shouldGetData", shouldGetData.value);
 
 /* Get Collection Attributes for Sidebar */
 async function fetchAttributes() {

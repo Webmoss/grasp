@@ -661,6 +661,18 @@ export const useStore = defineStore({
       return results;
     },
 
+    async retrievePolygonToken(
+      collection: string,
+      tokenId: string,
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrievePolygonToken(
+        collection,
+        tokenId
+      );
+      return results;
+    },
+
     /**
      * Reservoir API - Search All Attributes by Contract Address
      * Use this API to see all possible attributes within a collection.

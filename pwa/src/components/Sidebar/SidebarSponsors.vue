@@ -39,10 +39,14 @@
   min-height: 340px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-content: center;
   align-items: center;
   padding: 4px 0 0 0;
   margin: 0 auto;
+
+  a {
+    margin: 0 0 30px 0;
+  }
 }
 </style>

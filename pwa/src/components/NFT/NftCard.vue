@@ -1,5 +1,5 @@
 <template>
-  <div class="nft" @click="loadNftDetails(token)">
+  <div class="nft">
     <div v-if="token.token && token.token.image" class="nft-image">
       <img :src="getUrlProtocol(token.token.image)" />
       <NftChain :chain-id="token.token.chainId" />
@@ -38,7 +38,6 @@
         <ViewNFTButton
           :btn-size="'small'"
           :color="'blue'"
-          :collection="collection"
           :token-id="token.token.tokenId"
         />
       </div>
@@ -56,26 +55,15 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
 import { tokenWrapperObject } from "@/models/tokenWrapper";
 import { getUrlProtocol } from "@/services/helpers";
 import NftChain from "../NFT/NftChain.vue";
 import NftSource from "../NFT/NftSource.vue";
 import ViewNFTButton from "../Buttons/ViewNFTButton.vue";
 
-const router = useRouter();
-
-const props = defineProps<{
-  collection: string;
+defineProps<{
   token: tokenWrapperObject;
 }>();
-
-const loadNftDetails = (token: tokenWrapperObject) => {
-  router.push({
-    name: "nft",
-    params: { collection: props.collection, id: token.token.tokenId },
-  });
-};
 </script>
 
 <style lang="scss">
@@ -119,7 +107,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   margin: 0 auto;
   padding: 0 0 4px 0;
   transition: all 0.5s linear;
-  cursor: pointer;
+  // cursor: pointer;
   overflow: hidden;
 
   .nft-image {

@@ -352,7 +352,7 @@ export default class reservoirApi {
       await axios
         .request(options)
         .then(function (response) {
-          // console.log(response.data);
+          console.log(response.data);
           newData = response.data;
         })
         .catch(function (error) {
@@ -539,6 +539,44 @@ export default class reservoirApi {
       throw error;
     }
   }
+
+  async retrievePolygonToken(
+    collection: string,
+    tokenId: string,
+  ) {
+    try {
+      let newData = null;
+
+      const options = {
+        method: 'GET',
+        url: 'https://api-polygon.reservoir.tools/tokens/v7',
+        params: {
+          collection: collection,
+          tokens: [`${collection}:${tokenId}`],
+        },
+        headers: {accept: '*/*', 'x-api-key': reservoirAPI}
+      };
+
+      await axios
+        .request(options)
+        .then(function (response) {
+          console.log(response.data);
+          newData = response.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+      const nftToken = {
+        nfts: newData,
+      };
+      return nftToken;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 
   /**
    * Reservoir API - Search All Attributes by Contract Address

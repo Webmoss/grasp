@@ -45,7 +45,7 @@
   border: 1px solid rgb(69, 73, 77, 0.4);
   border-radius: 12px;
   padding: 2px 8px;
-  margin: 0 auto 5px;
+  margin: 21px auto 20px;
 
   @include breakpoint($break-sm) {
     width: 94%;

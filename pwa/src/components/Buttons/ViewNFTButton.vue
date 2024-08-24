@@ -2,12 +2,12 @@
   <button class="view-button" @click="goToNFT()">View</button>
 </template>
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export interface Props {
   btnSize?: string;
   color?: string;
-  nftId?: string;
+  tokenId?: string;
 }
 
 const props = defineProps({
@@ -26,19 +26,15 @@ const props = defineProps({
     default: null,
     required: false,
   },
-  collection: {
-    type: String,
-    default: null,
-    required: false,
-  },
 });
 
+const route = useRoute();
 const router = useRouter();
 
 function goToNFT() {
   router.push({
     name: "nft",
-    params: { collection: props.collection, id: props.tokenId },
+    params: { collection: route.params.name as string, id: props.tokenId },
   });
 }
 </script>

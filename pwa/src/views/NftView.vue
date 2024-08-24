@@ -24,7 +24,7 @@
   </section>
 </template>
 <script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
@@ -83,8 +83,21 @@ async function fetchCollections() {
   }
 }
 
-onBeforeMount(async () => {
+/* Get Polygon Collection Data */
+async function fetchPolygonCollections() {
+  try {
+    const collectionData = await store.retrievePolygonCollections(
+      contract.value
+    );
+    collection.value = collectionData.collection as collectionObject;
+  } catch (error) {
+    console.log("Error fetching Polygon Collection :", error);
+  }
+}
+
+onMounted(async () => {
   /* 1. Load our Contract to Query based on Collection param in URL */
+  console.log("route.params.collection", route.params.collection);
   switch (route.params.collection) {
     case "tinytap":
       contract.value = tinytapContractAddress;
@@ -97,7 +110,9 @@ onBeforeMount(async () => {
       break;
   }
   /* 2. Query by Contract with Sanity check for a Route Param Name */
-  if (contract.value) {
+  if (contract.value === publisherContractAddress) {
+    await fetchPolygonCollections();
+  } else {
     await fetchCollections();
   }
 });

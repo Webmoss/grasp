@@ -2,7 +2,7 @@
   <div class="marketplace-page">
     <div :class="`${gridView}-nft-list`">
       <template v-for="(token, i) in tokens" :key="i">
-        <NftCard :token="token" :collection="collection" :grid-view="gridView" />
+        <NftCard :token="token" :grid-view="gridView" />
       </template>
     </div>
   </div>
@@ -25,11 +25,6 @@ defineProps({
   tokens: {
     type: Array<tokenWrapperObject>,
     default: null,
-  },
-  collection: {
-    type: String,
-    default: null,
-    required: false
   },
 });
 </script>

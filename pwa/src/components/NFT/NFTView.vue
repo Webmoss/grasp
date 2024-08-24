@@ -1,12 +1,12 @@
 <template>
   <div class="card">
-    <NftTokenView v-if="nftView.token" :token="nftView" :collection="collection" />
+    <NftTokenView v-if="nftView.token" :token="nftView" />
     <NftViewNoResults v-else-if="!nftView.token && !loading" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeMount, onBeforeUnmount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { useRoute } from "vue-router";
@@ -29,11 +29,7 @@ const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS
 const tinytapContractAddress = tinytapAddress?.toLowerCase();
 const publisherContractAddress = publisherAddress?.toLowerCase();
 
-// const chainName = "ethereum";
-
 const contract = ref();
-const collection = ref("");
-const tokenPoller = ref();
 const tokenId = ref();
 
 async function fetchNft() {
@@ -80,33 +76,31 @@ async function fetchNft() {
   }
 }
 
-const polling = () =>
-  (tokenPoller.value = setInterval(async () => {
-    try {
-      if (tokenId.value && contract.value) {
-        console.log("Polling");
-        await fetchNft();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, 8000));
+async function fetchPolygonNft() {
+  try {
+    const tokenResult = await store.retrievePolygonToken(
+      contract.value,
+      tokenId.value,
+    );
 
-onMounted(async () => {
-  await fetchNft();
-  polling();
-});
+    // console.log("Token", tokenResult.nfts[0].token);
+    // console.log("Market", tokenResult.nfts[0].market);
+    // console.log("Updated", tokenResult.nfts[0].updatedAt);
+
+    if (tokenResult && tokenResult.nfts) {
+      store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
+    }
+  } catch (error) {
+    console.log("Error", error);
+  }
+}
 
 onBeforeMount(async () => {
-  store.setLoading(true);
+  /* 1. Load our Contract to Query based on Collection param in URL */
+  console.log("route.params.id", route.params.id);
   tokenId.value = route.params.id;
-  collection.value = route.params.collection as string;
-
-  // console.log("Token Id: ", tokenId.value);
-  // console.log("Collection: ", collection.value);
-
-  /* 1. Load our Contract to Query */
-  switch (collection.value) {
+  console.log("route.params.collection", route.params.collection);
+  switch (route.params.collection) {
     case "tinytap":
       contract.value = tinytapContractAddress;
       break;
@@ -114,15 +108,15 @@ onBeforeMount(async () => {
       contract.value = publisherContractAddress;
       break;
     default:
-      contract.value = "";
+      contract.value = tinytapContractAddress;
       break;
   }
-
-  store.setLoading(false);
-});
-
-onBeforeUnmount(() => {
-  clearInterval(tokenPoller.value);
+  /* 2. Query by Contract with Sanity check for a Route Param Name */
+  if (route.params.collection === "publisher") {
+    await fetchPolygonNft();
+  } else {
+    await fetchNft();
+  }
 });
 </script>
 

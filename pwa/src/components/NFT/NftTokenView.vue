@@ -127,16 +127,11 @@ import NftTokenOffers from "@/components/NFT/NftTokenOffers.vue";
 
 export interface Props {
   token: tokenWrapperObject;
-  collection: string;
 }
 
 const props = defineProps({
   token: {
     type: Object as PropType<tokenWrapperObject>,
-    default: null,
-  },
-  collection: {
-    type: String,
     default: null,
   },
 });
