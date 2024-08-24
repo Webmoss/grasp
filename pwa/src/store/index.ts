@@ -14,7 +14,6 @@ import reservoirApi from "@/services/reservoirApi";
 
 /* Open Campus Education NFT Contract Addresses */
 const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-
 /* Open Campus Season 2 Publisher NFT */
 const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
 
@@ -472,6 +471,19 @@ export const useStore = defineStore({
       return results;
     },
 
+     /**
+     * Reservoir API - Search Collections by Contract Address
+     */
+     async retrievePolygonCollections(
+      collection: string,
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrievePolygonCollections(
+        collection,
+      );
+      return results;
+    },
+
     /**
      * Reservoir API - Tokens
      */
@@ -533,9 +545,19 @@ export const useStore = defineStore({
         includeLastSale,
         normalizeRoyalties,
         continuation,
-        displayCurrency,
-        blockchain
+        displayCurrency
       );
+      return results;
+    },
+
+    /**
+     * Reservoir Polygon API - Tokens
+     */
+    async retrievePolygonTokens(
+      collection: string,
+    ) {
+      const reservoirAPI = new reservoirApi();
+      const results = await reservoirAPI.retrievePolygonTokens(collection);
       return results;
     },
 

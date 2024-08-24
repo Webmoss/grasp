@@ -21,10 +21,15 @@ const store = useStore();
 
 const { nftView, loading } = storeToRefs(store);
 
-const tinytapContractAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
-const publisherContractAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+/* Open Campus Education NFT Contract Addresses */
+const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+/* Open Campus Season 2 Publisher NFT */
+const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
 
-const chainName = "ethereum";
+const tinytapContractAddress = tinytapAddress?.toLowerCase();
+const publisherContractAddress = publisherAddress?.toLowerCase();
+
+// const chainName = "ethereum";
 
 const contract = ref();
 const collection = ref("");

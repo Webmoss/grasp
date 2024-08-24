@@ -89,6 +89,84 @@ export default class reservoirApi {
     }
   }
 
+  async retrievePolygonCollections(
+    collection: string,
+    // slug?: string | null,
+    // collectionsSetId?: string | null,
+    // community?: string | null,
+    // contract?: Array<string> | null,
+    // name?: string | null,
+    // maxFloorAskPrice?: number | null,
+    // minFloorAskPrice?: number | null,
+    // includeAttributes?: string | null,
+    // includeSalesCount?: string | null,
+    // includeMintStages?: string | null,
+    // normalizeRoyalties?: string | null,
+    // useNonFlaggedFloorAsk?: string | null,
+    // sortBy?: string | null,
+    // limit?: number | null,
+    // continuation?: string | null,
+    // displayCurrency?: string | null
+  ) {
+    try {
+      // const response = await axios.get(`${hostedAPI}/collections/v7`, {
+      //   headers: {
+      //     accept: "*/*",
+      //     "x-api-key": reservoirAPI,
+      //   },
+      //   params: {
+      //     id: collection,
+      //     // slug: slug,
+      //     // collectionsSetId: collectionsSetId,
+      //     // community: community,
+      //     // contract: contract,
+      //     // name: name,
+      //     // maxFloorAskPrice: maxFloorAskPrice,
+      //     // minFloorAskPrice: minFloorAskPrice,
+      //     // includeAttributes: includeAttributes,
+      //     // includeSalesCount: includeSalesCount,
+      //     // includeMintStages: includeMintStages,
+      //     // normalizeRoyalties: normalizeRoyalties,
+      //     // useNonFlaggedFloorAsk: useNonFlaggedFloorAsk,
+      //     // sortBy: sortBy,
+      //     // limit: limit,
+      //     // continuation: continuation,
+      //     // displayCurrency: displayCurrency,
+      //   },
+      // });
+
+      let newData = {
+        collections: [],
+        continuation: ""
+      };
+
+      const options = {
+        method: 'GET',
+        url: 'https://api-polygon.reservoir.tools/collections/v7',
+        params: {id: collection, limit: '12' },
+        headers: {accept: '*/*', 'x-api-key': reservoirAPI}
+      };
+
+      await axios
+        .request(options)
+        .then(function (response) {
+          newData = response.data
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+      console.log("Collection", newData.collections[0]);
+      const nftCollection = {
+        collection: newData.collections[0],
+      };
+      return nftCollection;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async retrieveAllCollections(contracts: Array<string>) {
     try {
       const response = await axios.get(`${hostedAPI}/collections/v6`, {
@@ -170,8 +248,7 @@ export default class reservoirApi {
     includeLastSale?: string | null,
     normalizeRoyalties?: string | null,
     continuation?: string | null,
-    displayCurrency?: string | null,
-    blockchain?: string | null
+    displayCurrency?: string | null
   ) {
     try {
       // console.log("collection", collection);
@@ -202,15 +279,7 @@ export default class reservoirApi {
       // console.log("continuation", continuation);
       // console.log("displayCurrency", displayCurrency);
 
-      console.log("blockchain", blockchain);
-
-      if(blockchain === 'polygon') {
-        console.log("polygonAPI", polygonAPI);
-        hostedAPI = polygonAPI;
-        console.log("hostedAPI", hostedAPI);
-      }
-
-      const response = await axios.get(`${hostedAPI}/tokens/v6`, {
+      const response = await axios.get(`${hostedAPI}/tokens/v7`, {
         headers: {
           accept: "*/*",
           "x-api-key": reservoirAPI,
@@ -247,12 +316,52 @@ export default class reservoirApi {
       });
       const data = response.data;
 
-      console.log("Tokens: ", data.tokens);
-      console.log("Continuation: ", data.continuation);
+      // console.log("Tokens: ", data.tokens);
+      // console.log("Continuation: ", data.continuation);
 
       const nftCollectionTokens = {
         nfts: data.tokens,
         continuation: data.continuation,
+      };
+      return nftCollectionTokens;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async retrievePolygonTokens(
+    collection: string,
+  ) {
+    try {
+      let newData = {
+        tokens: [],
+        continuation: ""
+      };
+
+      const options = {
+        method: 'GET',
+        url: 'https://api-polygon.reservoir.tools/tokens/v7',
+        params: {
+          collection: collection,
+          limit: '12'
+        },
+        headers: {accept: '*/*', 'x-api-key': reservoirAPI}
+      };
+
+      await axios
+        .request(options)
+        .then(function (response) {
+          // console.log(response.data);
+          newData = response.data;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+
+      const nftCollectionTokens = {
+        nfts: newData.tokens,
+        continuation: newData.continuation,
       };
       return nftCollectionTokens;
     } catch (error) {

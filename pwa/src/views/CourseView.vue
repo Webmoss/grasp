@@ -55,13 +55,21 @@
           </div>
           <div class="course-lesson-checklist">
             <template v-for="(lesson, index) in lessons" :key="index">
-              <div class="course-lesson-list-link" :class="lesson.step === active ? 'active' : ''" @click="loadLesson(lesson.id)">
-                <div class="course-lesson-list-title">{{ lesson.title ? lesson.title : "" }}</div>
+              <div
+                class="course-lesson-list-link"
+                :class="lesson.step === active ? 'active' : ''"
+                @click="loadLesson(lesson.id)"
+              >
+                <div class="course-lesson-list-title">
+                  <span class="course-lesson-list-step">{{ lesson.step }}</span>
+                  {{ lesson.title ? lesson.title : "" }}
+                </div>
                 <div class="course-lesson-list-button">
-                  <img src="@/assets/svgs/Play.svg" width="24" />
+                  <img v-if="lesson.step !== active" src="@/assets/svgs/Play.svg" width="24" />
+                  <img v-else src="@/assets/svgs/Play-White.svg" width="24" />
                 </div>
               </div>
-          </template>
+            </template>
           </div>
         </div>
 
@@ -69,7 +77,6 @@
           {{ course.description ? course.description : "" }}
         </div>
 
-        <div v-if="lesson.content" class="line-divider"></div>
         <div v-if="lesson.content" class="lesson-content" v-html="lesson.content"></div>
 
         <div class="line-divider"></div>
@@ -120,7 +127,6 @@ async function loadLesson(id: string) {
   });
   store.setLesson(filteredLesson[0] as any);
   active.value = lesson.value.step;
-  console.log("active", active.value);
 }
 
 async function fetchLessons() {
@@ -346,7 +352,7 @@ section#course {
           cursor: pointer;
 
           @include breakpoint($break-sm) {
-            font-size: 16px
+            font-size: 16px;
           }
 
           &:hover,
@@ -354,6 +360,26 @@ section#course {
           &:focus,
           &:focus-visible {
             border-bottom: 2px solid $grasp-cyan;
+          }
+
+          .course-lesson-list-step {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            color: $black;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: normal;
+            text-align: left;
+            border: 1px solid $grasp-blue;
+            border-radius: 50%;
+            margin: 0 8px 0 6px;
+            padding: 0;
           }
 
           .course-lesson-list-title {
@@ -366,12 +392,12 @@ section#course {
             align-items: center;
             font-family: "Poppins", sans-serif;
             color: $grasp-blue;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: 600;
             line-height: normal;
             text-align: left;
             margin: 0;
-            padding: 0 0 0 10px
+            padding: 0;
           }
 
           .course-lesson-list-button {
@@ -395,6 +421,10 @@ section#course {
           background: $grasp-blue;
           border-bottom: 2px solid $grasp-cyan;
 
+          .course-lesson-list-step {
+            color: $white;
+            border: 1px solid $white;
+          }
           .course-lesson-list-title {
             color: $white;
           }
@@ -427,6 +457,10 @@ section#course {
       font-weight: normal;
       text-align: left;
       margin: 0;
+
+      h2 {
+        color: $grasp-blue !important;
+      }
     }
 
     .course-category {

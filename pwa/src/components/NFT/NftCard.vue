@@ -26,6 +26,7 @@
             <img
               v-else-if="token.market.floorAsk.price?.currency.symbol === 'WETH'"
               src="@/assets/images/logos/WETH.png"
+              size="24px"
             />
             <img v-else src="@/assets/images/logos/eth-diamond-black.png" width="10" />
           </div>
@@ -94,7 +95,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   flex-direction: row;
   justify-content: space-evenly;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 4px 8px;
 }
 .nft-column {
@@ -155,11 +156,12 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   }
 
   .nft-title {
-    width: 90%;
+    width: 210px;
+    height: auto;
+    text-wrap: wrap;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     color: $black;
-    width: 100%;
     font-size: 16px;
     font-weight: 600;
     text-align: left;
@@ -270,10 +272,10 @@ const loadNftDetails = (token: tokenWrapperObject) => {
   }
 
   .nft-floor {
-    width: 10%;
+    width: 90px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     align-items: center;
 
@@ -291,7 +293,7 @@ const loadNftDetails = (token: tokenWrapperObject) => {
       font-weight: 600;
 
       .nft-floor-amount-icon {
-        width: 18px;
+        width: 24px;
         display: flex;
         flex-direction: row;
         align-content: center;

@@ -44,6 +44,14 @@ const store = useStore();
 
 const { pagination } = storeToRefs(store);
 
+/* Open Campus Education NFT Contract Addresses */
+const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+/* Open Campus Season 2 Publisher NFT */
+const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+
+const tinytapContractAddress = tinytapAddress?.toLowerCase();
+const publisherContractAddress = publisherAddress?.toLowerCase();
+
 const collection = ref();
 const contract = ref();
 
@@ -79,10 +87,10 @@ onBeforeMount(async () => {
   /* 1. Load our Contract to Query based on Collection param in URL */
   switch (route.params.collection) {
     case "tinytap":
-      contract.value = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+      contract.value = tinytapContractAddress;
       break;
     case "publisher":
-      contract.value = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+      contract.value = publisherContractAddress;
       break;
     default:
       contract.value = "";

@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
@@ -64,6 +64,14 @@ const store = useStore();
 
 const { loading, showFilter, filter, pagination } = storeToRefs(store);
 
+/* Open Campus Education NFT Contract Addresses */
+const tinytapAddress = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+/* Open Campus Season 2 Publisher NFT */
+const publisherAddress = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+
+const tinytapContractAddress = tinytapAddress?.toLowerCase();
+const publisherContractAddress = publisherAddress?.toLowerCase();
+
 const attributes = ref();
 const contract = ref();
 const collection = ref();
@@ -74,6 +82,15 @@ const lastPage = ref();
 const collectionRouteName = computed(() => {
   return route.params.name as string;
 });
+
+const lastRefresh = ref(route.params.name);
+console.log("lastRefresh", lastRefresh.value);
+
+const shouldGetData = computed(() => {
+  return collectionRouteName.value !== lastRefresh.value;
+});
+
+console.log("shouldGetData", shouldGetData.value);
 
 /* Get Collection Attributes for Sidebar */
 async function fetchAttributes() {
@@ -121,24 +138,12 @@ async function fetchCollections() {
     );
     collection.value = collectionData.collection as collectionObject;
   } catch (error) {
-    console.log("Error :", error);
+    console.log("Error fetching Collection :", error);
   }
 }
 
 /* Get Collection Tokens/NFTs */
 async function fetchNfts() {
-  let blockchain = "";
-  switch (route.params.name) {
-    case "tinytap":
-      blockchain = "ethereum";
-      break;
-    case "publisher":
-      blockchain = "polygon";
-      break;
-    default:
-      blockchain = "ethereum";
-      break;
-  }
   try {
     const tokenResults = await store.retrieveTokens(
       contract.value,
@@ -167,9 +172,10 @@ async function fetchNfts() {
       "false",
       "false",
       pagination.value.continuation ? pagination.value.continuation : null,
-      null,
-      blockchain
+      null
     );
+
+    // console.log("tokenResults.nfts", tokenResults.nfts);
 
     if (tokenResults && tokenResults.nfts) {
       /* Load our NFT Token results */
@@ -183,16 +189,7 @@ async function fetchNfts() {
       }
 
       /* 3. Load our Store Collection */
-      switch (route.params.name) {
-        case "tinytap":
-          store.addTinytapTokens(tokenResults.nfts as tokenWrapperObject[]);
-          break;
-        case "publisher":
-          store.addPublisherTokens(tokenResults.nfts as tokenWrapperObject[]);
-          break;
-        default:
-          break;
-      }
+      store.addTinytapTokens(tokenResults.nfts as tokenWrapperObject[]);
     }
     store.setLoading(false);
   } catch (error) {
@@ -201,25 +198,82 @@ async function fetchNfts() {
   }
 }
 
-onMounted(async () => {
+/* Get fetchPolygonNfts Collection Tokens/NFTs */
+async function fetchPolygonNfts() {
+  try {
+    const tokenResults = await store.retrievePolygonTokens(contract.value);
+
+    // console.log("tokenResults.nfts", tokenResults.nfts);
+
+    if (tokenResults && tokenResults.nfts) {
+      /* Load our NFT Token results */
+      tokens.value = tokenResults.nfts;
+      tokensTotal.value = tokenResults.nfts.length;
+      lastPage.value = tokenResults.nfts.length / pagination.value.limit;
+
+      /* Set next continuation results */
+      if (tokenResults.continuation) {
+        store.setContinuation(tokenResults.continuation);
+      }
+      /* 3. Load our Store Collection */
+      store.addPublisherTokens(tokenResults.nfts as tokenWrapperObject[]);
+    }
+    store.setLoading(false);
+  } catch (error) {
+    console.log("Error :", error);
+    store.setLoading(false);
+  }
+}
+
+/* Get Polygon Collection Data */
+async function fetchPolygonCollections() {
+  try {
+    const collectionData = await store.retrievePolygonCollections(
+      contract.value
+    );
+    collection.value = collectionData.collection as collectionObject;
+  } catch (error) {
+    console.log("Error fetching Polygon Collection :", error);
+  }
+}
+
+async function fetchData() {
   /* 1. Load our Contract to Query based on Collection param in URL */
-  switch (route.params.name) {
+  console.log("collectionRouteName", collectionRouteName.value);
+  switch (collectionRouteName.value) {
     case "tinytap":
-      contract.value = process.env.VUE_APP_TINYTAP_CONTRACT_ADDRESS;
+      contract.value = tinytapContractAddress;
       break;
     case "publisher":
-      contract.value = process.env.VUE_APP_PUBLISHER_SEASON_2_CONTRACT_ADDRESS;
+      contract.value = publisherContractAddress;
       break;
     default:
-      contract.value = "";
+      contract.value = tinytapContractAddress;
       break;
   }
+  console.log("contract.value", contract.value);
+
   /* 2. Query by Contract with Sanity check for a Route Param Name */
-  if (contract.value) {
-    await fetchCollections();
+  if (contract.value === publisherContractAddress) {
+    await fetchPolygonCollections();
+    await fetchPolygonNfts();
     await fetchAttributes();
+  } else {
+    await fetchCollections();
     await fetchNfts();
+    await fetchAttributes();
   }
+}
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchData();
+  }
+  lastRefresh.value = collectionRouteName.value as string;
+});
+
+onMounted(async () => {
+  await fetchData();
 });
 </script>
 
@@ -302,7 +356,6 @@ section#marketplace {
           justify-content: flex-start;
           align-content: flex-start;
           align-items: flex-start;
-
         }
       }
     }
