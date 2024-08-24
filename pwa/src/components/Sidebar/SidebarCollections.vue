@@ -13,8 +13,7 @@
         :to="{ name: 'marketplace', params: { name: 'publisher' } }"
         class-active="active"
         class="list-button"
-        ><img src="@/assets/svgs/PublisherNFT.svg" class="list-logo" />Open Campus
-        Publishers</router-link
+        ><img src="@/assets/svgs/PublisherNFT.svg" class="list-logo-long" />TinyTap Publishers</router-link
       >
     </li>
     <li>
@@ -110,6 +109,14 @@
         height: 24px;
         margin: 1px 5px -5px 0;
       }
+    }
+    img.list-logo-long {
+      width: 70px;
+      height: auto;
+      object-fit: contain;
+      display: flex;
+      align-items: center;
+      margin: 2px 5px 2px 0;
     }
   }
 }
