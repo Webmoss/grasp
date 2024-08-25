@@ -86,9 +86,7 @@ async function fetchCollections() {
 /* Get Polygon Collection Data */
 async function fetchPolygonCollections() {
   try {
-    const collectionData = await store.retrievePolygonCollections(
-      contract.value
-    );
+    const collectionData = await store.retrievePolygonCollections(contract.value);
     collection.value = collectionData.collection as collectionObject;
   } catch (error) {
     console.log("Error fetching Polygon Collection :", error);
@@ -97,7 +95,6 @@ async function fetchPolygonCollections() {
 
 onMounted(async () => {
   /* 1. Load our Contract to Query based on Collection param in URL */
-  console.log("route.params.collection", route.params.collection);
   switch (route.params.collection) {
     case "tinytap":
       contract.value = tinytapContractAddress;
@@ -106,11 +103,11 @@ onMounted(async () => {
       contract.value = publisherContractAddress;
       break;
     default:
-      contract.value = "";
+      contract.value = tinytapContractAddress;
       break;
   }
   /* 2. Query by Contract with Sanity check for a Route Param Name */
-  if (contract.value === publisherContractAddress) {
+  if (route.params.collection === "publisher") {
     await fetchPolygonCollections();
   } else {
     await fetchCollections();

@@ -107,7 +107,6 @@ defineProps<{
   margin: 0 auto;
   padding: 0 0 4px 0;
   transition: all 0.5s linear;
-  // cursor: pointer;
   overflow: hidden;
 
   .nft-image {

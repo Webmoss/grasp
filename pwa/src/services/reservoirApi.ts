@@ -109,31 +109,6 @@ export default class reservoirApi {
     // displayCurrency?: string | null
   ) {
     try {
-      // const response = await axios.get(`${hostedAPI}/collections/v7`, {
-      //   headers: {
-      //     accept: "*/*",
-      //     "x-api-key": reservoirAPI,
-      //   },
-      //   params: {
-      //     id: collection,
-      //     // slug: slug,
-      //     // collectionsSetId: collectionsSetId,
-      //     // community: community,
-      //     // contract: contract,
-      //     // name: name,
-      //     // maxFloorAskPrice: maxFloorAskPrice,
-      //     // minFloorAskPrice: minFloorAskPrice,
-      //     // includeAttributes: includeAttributes,
-      //     // includeSalesCount: includeSalesCount,
-      //     // includeMintStages: includeMintStages,
-      //     // normalizeRoyalties: normalizeRoyalties,
-      //     // useNonFlaggedFloorAsk: useNonFlaggedFloorAsk,
-      //     // sortBy: sortBy,
-      //     // limit: limit,
-      //     // continuation: continuation,
-      //     // displayCurrency: displayCurrency,
-      //   },
-      // });
 
       let newData = {
         collections: [],
@@ -143,7 +118,7 @@ export default class reservoirApi {
       const options = {
         method: 'GET',
         url: 'https://api-polygon.reservoir.tools/collections/v7',
-        params: {id: collection, limit: '12' },
+        params: { id: collection, limit: '12' },
         headers: {accept: '*/*', 'x-api-key': reservoirAPI}
       };
 
@@ -156,9 +131,9 @@ export default class reservoirApi {
           console.error(error);
         });
 
-      console.log("Collection", newData.collections[0]);
       const nftCollection = {
         collection: newData.collections[0],
+        continuation: newData.continuation,
       };
       return nftCollection;
     } catch (error) {
@@ -545,13 +520,15 @@ export default class reservoirApi {
     tokenId: string,
   ) {
     try {
-      let newData = null;
+      let newData = {
+        tokens: []
+      };
 
       const options = {
         method: 'GET',
         url: 'https://api-polygon.reservoir.tools/tokens/v7',
         params: {
-          collection: collection,
+          collection: !tokenId ? collection : null,
           tokens: [`${collection}:${tokenId}`],
         },
         headers: {accept: '*/*', 'x-api-key': reservoirAPI}
@@ -560,7 +537,6 @@ export default class reservoirApi {
       await axios
         .request(options)
         .then(function (response) {
-          console.log(response.data);
           newData = response.data;
         })
         .catch(function (error) {
@@ -568,7 +544,7 @@ export default class reservoirApi {
         });
 
       const nftToken = {
-        nfts: newData,
+        nfts: newData.tokens
       };
       return nftToken;
     } catch (error) {

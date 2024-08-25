@@ -1,7 +1,7 @@
 <template>
   <div class="marketplace-page">
     <div :class="`${gridView}-nft-list`">
-      <template v-for="(token, i) in tokens" :key="i">
+      <template v-for="(token, index) in tokens" :key="index">
         <NftCard :token="token" :grid-view="gridView" />
       </template>
     </div>
@@ -74,7 +74,7 @@ defineProps({
   max-width: $max-width;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 20px;
   align-content: center;
   justify-content: center;
   align-items: flex-start;

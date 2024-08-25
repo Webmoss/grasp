@@ -1,6 +1,7 @@
 <template>
   <div class="card">
     <NftTokenView v-if="nftView.token" :token="nftView" />
+    <NftViewResultsLoading v-if="!nftView.token && loading" />
     <NftViewNoResults v-else-if="!nftView.token && !loading" />
   </div>
 </template>
@@ -15,6 +16,7 @@ import { tokenWrapperObject } from "@/models/tokenWrapper";
 /* Components */
 import NftTokenView from "@/components/NFT/NftTokenView.vue";
 import NftViewNoResults from "@/components/NFT/NftViewNoResults.vue";
+import NftViewResultsLoading from "@/components/NFT/NftViewResultsLoading.vue";
 
 const route = useRoute();
 const store = useStore();
@@ -33,6 +35,7 @@ const contract = ref();
 const tokenId = ref();
 
 async function fetchNft() {
+  store.setLoading(true);
   try {
     const tokenResult = await store.retrieveToken(
       contract.value,
@@ -71,12 +74,15 @@ async function fetchNft() {
     if (tokenResult && tokenResult.nfts) {
       store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
     }
+    store.setLoading(false);
   } catch (error) {
-    console.log("Error", error);
+    console.log("Error fetching NFT data", error);
+    store.setLoading(false);
   }
 }
 
 async function fetchPolygonNft() {
+  store.setLoading(true);
   try {
     const tokenResult = await store.retrievePolygonToken(
       contract.value,
@@ -90,16 +96,15 @@ async function fetchPolygonNft() {
     if (tokenResult && tokenResult.nfts) {
       store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
     }
+    store.setLoading(false);
   } catch (error) {
-    console.log("Error", error);
+    console.log("Error fetching NFT data from Polygon", error);
+    store.setLoading(false);
   }
 }
 
 onBeforeMount(async () => {
   /* 1. Load our Contract to Query based on Collection param in URL */
-  console.log("route.params.id", route.params.id);
-  tokenId.value = route.params.id;
-  console.log("route.params.collection", route.params.collection);
   switch (route.params.collection) {
     case "tinytap":
       contract.value = tinytapContractAddress;
@@ -111,7 +116,9 @@ onBeforeMount(async () => {
       contract.value = tinytapContractAddress;
       break;
   }
-  /* 2. Query by Contract with Sanity check for a Route Param Name */
+  /* 2. Set our NFT Token Id */
+  tokenId.value = route.params.id;
+  /* 3. Query by Contract with Sanity check for a Route Param Name */
   if (route.params.collection === "publisher") {
     await fetchPolygonNft();
   } else {

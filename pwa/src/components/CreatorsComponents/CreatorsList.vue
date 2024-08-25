@@ -74,7 +74,7 @@ defineProps({
   max-width: $max-width;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 20px;
   align-content: center;
   justify-content: center;
   align-items: flex-start;

@@ -66,7 +66,7 @@ const routes = [
     component: () => import("@/views/MarketplaceView.vue"),
   },
   {
-    path: "/nft/:collection/:id",
+    path: "/nft/:collection?/:id?",
     name: "nft",
     meta: {
       guest: true,

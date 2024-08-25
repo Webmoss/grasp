@@ -198,8 +198,6 @@ async function fetchPolygonNfts() {
   try {
     const tokenResults = await store.retrievePolygonTokens(contract.value);
 
-    // console.log("tokenResults.nfts", tokenResults.nfts);
-
     if (tokenResults && tokenResults.nfts) {
       /* Load our NFT Token results */
       tokens.value = tokenResults.nfts;
@@ -234,8 +232,7 @@ async function fetchPolygonCollections() {
 
 async function fetchData() {
   /* 1. Load our Contract to Query based on Collection param in URL */
-  console.log("collectionRouteName", collectionRouteName.value);
-  switch (collectionRouteName.value) {
+  switch (route.params.name) {
     case "tinytap":
       contract.value = tinytapContractAddress;
       break;
@@ -246,10 +243,9 @@ async function fetchData() {
       contract.value = tinytapContractAddress;
       break;
   }
-  console.log("contract.value", contract.value);
 
   /* 2. Query by Contract with Sanity check for a Route Param Name */
-  if (contract.value === publisherContractAddress) {
+  if (route.params.name === "publisher") {
     await fetchPolygonCollections();
     await fetchPolygonNfts();
     await fetchAttributes();

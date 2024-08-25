@@ -37,7 +37,7 @@ defineProps({
   position: relative;
   height: auto;
   overflow: scroll;
-  
+
   @include breakpoint($break-sm) {
     width: 90%;
     padding: 0 5%;
@@ -74,7 +74,7 @@ defineProps({
   max-width: $max-width;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  gap: 20px;
   align-content: center;
   justify-content: center;
   align-items: flex-start;
