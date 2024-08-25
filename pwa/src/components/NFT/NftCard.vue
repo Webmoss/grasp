@@ -143,8 +143,10 @@ defineProps<{
   }
 
   .nft-title {
-    width: 210px;
+    width: 75%;
+    min-width: 210px;
     height: auto;
+    min-height: 40px;
     text-wrap: wrap;
     font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -259,7 +261,8 @@ defineProps<{
   }
 
   .nft-floor {
-    width: 90px;
+    width: 25%;
+    min-width: 80px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

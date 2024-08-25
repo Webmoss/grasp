@@ -254,10 +254,8 @@ defineProps<{ nft: metadataObject; gridView: string }>();
       justify-content: flex-start;
       align-content: center;
       align-items: center;
-
       font-family: "Poppins", sans-serif;
       color: $grasp-blue;
-      width: 100%;
       font-size: 16px;
       font-weight: 600;
       text-align: left;

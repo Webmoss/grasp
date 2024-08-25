@@ -32,14 +32,15 @@
 
         <div class="course-location-row">
           <div class="course-date">
-            <span class="course-date-label">Created </span>
+            <span class="course-date-label">Published </span>
             {{ course.created_date ? course.created_date : "" }}
           </div>
           <div class="course-sales">
+            Sales
             <span class="course-sales-icon">
               <img src="../assets/svgs/EduCoin.svg" />
             </span>
-            Sales {{ course.sales ? course.sales : "" }}
+            {{ course.sales ? course.sales : "" }}
           </div>
         </div>
 
@@ -80,7 +81,7 @@
         <div v-if="lesson.content" class="lesson-content" v-html="lesson.content"></div>
 
         <div class="line-divider"></div>
-        <h2>Course Lessons</h2>
+        <h2>Additional Courses</h2>
         <div class="course-lesson-list">
           <template v-for="(lesson, i) in lessons" :key="i">
             <div class="course-lesson">
@@ -250,7 +251,7 @@ section#course {
       .course-date {
         font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
           Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        color: $grey-90;
+        color: $grey-60;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
@@ -258,8 +259,8 @@ section#course {
         margin: 0;
 
         .course-date-label {
-          color: $grey-90;
-          font-size: 16px;
+          color: $grey-60;
+          font-size: 14px;
           font-weight: 500;
           text-decoration: none;
           text-transform: capitalize;
@@ -291,7 +292,7 @@ section#course {
           img,
           svg {
             width: 20px;
-            margin: 0 4px;
+            margin: 0 0 -4px 8px;
           }
         }
       }
@@ -346,7 +347,7 @@ section#course {
           justify-content: center;
           align-content: center;
           align-items: center;
-          padding: 0;
+          padding: 0 8px 0 8px;
           border-bottom: 2px solid $grey-30;
           transition: 0.6s all linear;
           cursor: pointer;
@@ -371,12 +372,12 @@ section#course {
             align-content: center;
             align-items: center;
             font-family: "Poppins", sans-serif;
-            color: $black;
+            color: $grasp-blue;
             font-size: 12px;
             font-weight: 600;
             line-height: normal;
             text-align: left;
-            border: 1px solid $grasp-blue;
+            border: 1px solid $grasp-cyan;
             border-radius: 50%;
             margin: 0 8px 0 6px;
             padding: 0;
@@ -511,13 +512,13 @@ section#course {
       width: 100%;
       font-family: "Poppins", sans-serif;
       color: $grasp-blue;
-      font-size: 30px;
+      font-size: 24px;
       font-weight: 600;
       line-height: 32px;
       text-align: left;
       margin-block-start: 0px;
       margin-block-end: 0px;
-      margin: 0 0 16px 0;
+      margin: 0 0 8px 8px;
     }
 
     .course-lesson-list {

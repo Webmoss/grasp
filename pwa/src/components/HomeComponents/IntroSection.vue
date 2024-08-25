@@ -128,13 +128,19 @@ section#home {
       }
 
       .educhain-links {
-        width: calc(100% - 240px);
+        width: calc(100% - 220px);
+        min-width: 140px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-content: center;
         align-items: flex-start;
         padding: 0 0 0 20px;
+
+        @include breakpoint($break-sm) {
+          width: 220px;
+          margin: 30px auto;
+        }
 
         .scroll-link {
           width: auto;
@@ -169,6 +175,11 @@ section#home {
         align-content: center;
         align-items: center;
 
+        @include breakpoint($break-sm) {
+          width: 220px;
+          margin: 30px auto;
+        }
+
         .educhain-logo {
           width: 260px;
           display: flex;
@@ -181,10 +192,6 @@ section#home {
           @include breakpoint($break-sm) {
             width: 220px;
           }
-        }
-
-        @include breakpoint($break-sm) {
-          margin: 30px auto;
         }
       }
     }
@@ -218,7 +225,7 @@ section#home {
     }
 
     @include breakpoint($break-sm) {
-      width: 100%;
+      width: 110%;
       img,
       svg {
         width: 100%;
