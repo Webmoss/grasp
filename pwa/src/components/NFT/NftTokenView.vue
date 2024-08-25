@@ -35,11 +35,11 @@
                   />
                   <img
                     v-else-if="token.market.floorAsk.price.currency.symbol === 'WETH'"
-                    src="@/assets/images/logos/WETH.png"
+                    src="@/assets/images/logos/WETH-Dark.png"
                   />
                   <img
                     v-else
-                    src="@/assets/images/logos/eth-diamond-black.png"
+                    src="@/assets/images/logos/eth-diamond-white.svg"
                     width="12"
                   />
                 </div>
@@ -311,6 +311,7 @@ const switchTab = (value: string) => {
       align-content: center;
       justify-content: center;
       align-items: center;
+      margin: 0 10px 0 0;
       img,
       svg {
         background: transparent;

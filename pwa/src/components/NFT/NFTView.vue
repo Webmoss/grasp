@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { useRoute } from "vue-router";
@@ -33,6 +33,16 @@ const publisherContractAddress = publisherAddress?.toLowerCase();
 
 const contract = ref();
 const tokenId = ref();
+
+const lastTokenId = ref(route.params.id);
+
+const tokenIdParam = computed(() => {
+  return route.params.id as string;
+});
+
+const shouldGetData = computed(() => {
+  return tokenIdParam.value !== lastTokenId.value;
+});
 
 async function fetchNft() {
   store.setLoading(true);
@@ -71,9 +81,9 @@ async function fetchNft() {
     // console.log("Market", tokenResult.nfts[0].market);
     // console.log("Updated", tokenResult.nfts[0].updatedAt);
 
-    if (tokenResult && tokenResult.nfts) {
+    // if (tokenResult && tokenResult.nfts) {
       store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
-    }
+    // }
     store.setLoading(false);
   } catch (error) {
     console.log("Error fetching NFT data", error);
@@ -93,9 +103,9 @@ async function fetchPolygonNft() {
     // console.log("Market", tokenResult.nfts[0].market);
     // console.log("Updated", tokenResult.nfts[0].updatedAt);
 
-    if (tokenResult && tokenResult.nfts) {
+    // if (tokenResult && tokenResult.nfts) {
       store.addNftView(tokenResult.nfts[0] as tokenWrapperObject);
-    }
+    // }
     store.setLoading(false);
   } catch (error) {
     console.log("Error fetching NFT data from Polygon", error);
@@ -103,9 +113,9 @@ async function fetchPolygonNft() {
   }
 }
 
-onBeforeMount(async () => {
-  /* 1. Load our Contract to Query based on Collection param in URL */
-  switch (route.params.collection) {
+async function fetchData() {
+ /* 1. Load our Contract to Query based on Collection param in URL */
+ switch (route.params.collection) {
     case "tinytap":
       contract.value = tinytapContractAddress;
       break;
@@ -124,6 +134,17 @@ onBeforeMount(async () => {
   } else {
     await fetchNft();
   }
+}
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchData();
+  }
+  lastTokenId.value = tokenIdParam.value as string;
+});
+
+onMounted(async () => {
+  await fetchData();
 });
 </script>
 
