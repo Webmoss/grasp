@@ -7,6 +7,7 @@ export const getBlankFilter = (): Filter => {
   return {
     token_id: "",
     search_term: "",
+    search_categories: [""],
     search_traits: [""],
     price_min_input: null,
     price_max_input: null,

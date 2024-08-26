@@ -9,7 +9,7 @@
       type="text"
       class="search-input"
       placeholder="Search Creators"
-      @input="searchHandle($event)"
+      @change="searchHandle($event)"
     />
     <button class="search-clear-button" title="Clear search" @click="clearSearchTerm()">
       <img src="../../assets/svgs/DeleteIcon.svg" />
@@ -104,7 +104,7 @@ function clearSearchTerm() {
     text-decoration: none;
     border: none;
     border-radius: 12px;
-    padding: 9px 0 8px;
+    padding: 9px 0;
     transition: all 0.5s linear;
     cursor: pointer;
 

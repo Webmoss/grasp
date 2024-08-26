@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, provide } from "vue";
+import { ref, computed, onBeforeMount, provide, watch } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
@@ -44,10 +44,19 @@ import LessonModal from "@/components/LessonsComponents/LessonModal.vue";
 import testLessons from "../data/lessons.json";
 
 const store = useStore();
-const { lessons, pagination } = storeToRefs(store);
+const { lessons, pagination, filter } = storeToRefs(store);
 
 const showModal = ref(false);
 const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -98,9 +107,24 @@ const showHideModal = () => {
   showModal.value = !showModal.value;
 };
 
+
 async function fetchLessons() {
-  store.setLessons((testLessons.data as unknown) as lessonObject[]);
+  if(filter.value.search_term !== '') {
+    let filteredLessons = testLessons.data.filter((course) => {
+      return course.title.toLowerCase().includes(filter.value.search_term.toLowerCase());
+    });
+    store.setLessons((filteredLessons as unknown) as lessonObject[]);
+  } else {
+    store.setLessons((testLessons.data as unknown) as lessonObject[]);
+  }
 }
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchLessons();
+  }
+  lastSearchTerm.value = newSearchTerm.value as string;
+});
 
 onBeforeMount(async () => {
   await fetchLessons();

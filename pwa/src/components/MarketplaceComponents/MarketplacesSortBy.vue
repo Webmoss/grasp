@@ -1,6 +1,6 @@
 <template>
   <select
-    v-model="selected"
+    v-model="pagination.sortSelect"
     class="pagination-sort-by"
     name="category"
     @change="sortByHandle($event)"
@@ -13,35 +13,56 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
 
 const store = useStore();
-const selected = ref("");
+const { pagination } = storeToRefs(store);
 
 const options = ref([
-  { value: "", label: "Choose Category" },
-  { value: "animation", label: "Animation" },
-  { value: "ai", label: "Artificial Intelligence" },
-  { value: "architecture", label: "Architecture & Spaces" },
-  { value: "craft", label: "Craft" },
-  { value: "fashion", label: "Fashion" },
-  { value: "illustration", label: "Illustration" },
-  { value: "marketing", label: "Marketing & Business" },
-  { value: "music", label: "Music & Audio" },
-  { value: "photography", label: "Photography" },
-  { value: "video", label: "Video" },
-  { value: "web", label: "Web" },
-  { value: "writing", label: "Writing" },
-  { value: "daos", label: "DAOS" },
-  { value: "onboarding", label: "Onboarding" },
+  { value: "price-low-high", label: "Price: Low to High" },
+  { value: "price-high-low", label: "Price: High to Low" },
+  { value: "rarity-rare-common", label: "Rarity: Rare to Common" },
+  { value: "rarity-common-rare", label: "Rarity: Common to Rare" },
+  { value: "tokenId-low-high", label: "Token Id: Low to High" },
+  { value: "tokenId-high-low", label: "Token Id: High to Low" },
 ]);
 
 /**
- * * Update our NFT Category and Pagination in Store
+ * Update our Marketplace Pagination in Store
  */
-function sortByHandle(event: Event) {
-  selected.value = (event.target as HTMLInputElement).value;
+  function sortByHandle(event: Event) {
   store.setSortSelect((event.target as HTMLInputElement).value);
-  store.setSortBy((event.target as HTMLInputElement).value);
+
+  switch ((event.target as HTMLInputElement).value) {
+    case "price-low-high":
+      store.setSortBy("floorAskPrice");
+      store.setSortDirection("asc");
+      break;
+    case "price-high-low":
+      store.setSortBy("floorAskPrice");
+      store.setSortDirection("desc");
+      break;
+    case "rarity-rare-common":
+      store.setSortBy("rarity");
+      store.setSortDirection("asc");
+      break;
+    case "rarity-common-rare":
+      store.setSortBy("rarity");
+      store.setSortDirection("desc");
+      break;
+    case "tokenId-low-high":
+      store.setSortBy("tokenId");
+      store.setSortDirection("asc");
+      break;
+    case "tokenId-high-low":
+      store.setSortBy("tokenId");
+      store.setSortDirection("desc");
+      break;
+    default:
+      store.setSortBy("floorAskPrice");
+      store.setSortDirection("asc");
+      break;
+  }
 }
 </script>
 

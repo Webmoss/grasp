@@ -53,6 +53,7 @@ export const useStore = defineStore({
     refreshFilter: {
       token_id: "" as string | undefined,
       search_term: "" as string | undefined,
+      search_categories: [] as string[] | undefined,
       search_traits: [] as string[] | undefined,
       time_frame: "" as string | undefined,
       updated_date: "" as string | undefined,
@@ -314,11 +315,22 @@ export const useStore = defineStore({
     setFilterValue<K extends keyof Filter>(key: K, value: Filter[K]) {
       this.filter[key] = value;
     },
+    setTokenId(value: string) {
+      this.filter.token_id = value;
+    },
     setSearchTerm(value: string) {
       this.filter.search_term = value;
     },
-    setTokenId(value: string) {
-      this.filter.token_id = value;
+    setSearchCategories(value: string) {
+      const result = this.filter.search_categories.includes(value);
+      if (!result) {
+        /* Value not found in our Array, so add it */
+        this.filter.search_categories.push(value);
+      } else {
+        /* Find and Remove item from the Array by Index */
+        const index = this.filter.search_categories.indexOf(value);
+        this.filter.search_categories.splice(index, 1);
+      }
     },
     setSearchTraits(value: string) {
       const result = this.filter.search_traits.includes(value);
@@ -347,6 +359,7 @@ export const useStore = defineStore({
       this.filter = <Filter>getBlankFilter();
       this.refreshFilter.token_id = "";
       this.refreshFilter.search_term = "";
+      this.refreshFilter.search_categories = [];
       this.refreshFilter.search_traits = [];
       this.refreshFilter.time_frame = "";
       this.refreshFilter.updated_date = "";

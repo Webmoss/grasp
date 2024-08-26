@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { creatorObject } from "src/models/creator";
@@ -29,17 +29,40 @@ import CreatorsPagination from "../components/CreatorsComponents/CreatorsPaginat
 import testCreators from "../data/creators.json";
 
 const store = useStore();
-const { creators, pagination } = storeToRefs(store);
+const { creators, pagination, filter } = storeToRefs(store);
 
 const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const total = computed(() => {
   return creators.value ? creators.value.length : 0;
 });
 
 async function fetchCreators() {
-  store.setCreators((testCreators.data as unknown) as creatorObject[]);
+  if(filter.value.search_term !== '') {
+    let filteredCreators = testCreators.data.filter((creator) => {
+      return creator.name.toLowerCase().includes(filter.value.search_term.toLowerCase());
+    });
+    store.setCreators((filteredCreators as unknown) as creatorObject[]);
+  } else {
+    store.setCreators((testCreators.data as unknown) as creatorObject[]);
+  }
 }
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchCreators();
+  }
+  lastSearchTerm.value = newSearchTerm.value as string;
+});
 
 onBeforeMount(async () => {
   await fetchCreators();

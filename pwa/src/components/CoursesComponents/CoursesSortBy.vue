@@ -40,8 +40,7 @@ const options = ref([
  */
 function sortByHandle(event: Event) {
   selected.value = (event.target as HTMLInputElement).value;
-  store.setSortSelect((event.target as HTMLInputElement).value);
-  store.setSortBy((event.target as HTMLInputElement).value);
+  store.setSearchCategories((event.target as HTMLInputElement).value);
 }
 </script>
 

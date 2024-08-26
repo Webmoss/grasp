@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, provide } from "vue";
+import { ref, computed, onBeforeMount, provide, watch } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
@@ -44,10 +44,19 @@ import NftsPagination from "@/components/NftsComponents/NftsPagination.vue";
 import testNfts from "../data/nfts.json";
 
 const store = useStore();
-const { nfts, pagination } = storeToRefs(store);
+const { nfts, pagination, filter } = storeToRefs(store);
 
 // const showModal = ref(false);
-const lastPage = ref(0);
+const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -98,9 +107,24 @@ const total = computed(() => {
 //   showModal.value = !showModal.value;
 // };
 
+
 async function fetchNfts() {
-  store.setNfts((testNfts.data as unknown) as metadataObject[]);
+  if(filter.value.search_term !== '') {
+    let filteredNfts = testNfts.data.filter((nft) => {
+      return nft.name.toLowerCase().includes(filter.value.search_term.toLowerCase());
+    });
+    store.setNfts((filteredNfts as unknown) as metadataObject[]);
+  } else {
+    store.setNfts((testNfts.data as unknown) as metadataObject[]);
+  }
 }
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchNfts();
+  }
+  lastSearchTerm.value = newSearchTerm.value as string;
+});
 
 onBeforeMount(async () => {
   await fetchNfts();

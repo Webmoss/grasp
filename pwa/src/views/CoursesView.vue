@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount } from "vue";
+import { ref, computed, onBeforeMount, watch } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { courseObject } from "src/models/course";
@@ -29,17 +29,40 @@ import CoursesPagination from "@/components/CoursesComponents/CoursesPagination.
 import testCourses from "../data/courses.json";
 
 const store = useStore();
-const { courses, pagination } = storeToRefs(store);
+const { courses, pagination, filter } = storeToRefs(store);
 
 const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const total = computed(() => {
   return courses.value ? courses.value.length : 0;
 });
 
 async function fetchCourses() {
-  store.setCourses((testCourses.data as unknown) as courseObject[]);
+  if(filter.value.search_term !== '') {
+    let filteredCourses = testCourses.data.filter((course) => {
+      return course.title.toLowerCase().includes(filter.value.search_term.toLowerCase());
+    });
+    store.setCourses((filteredCourses as unknown) as courseObject[]);
+  } else {
+    store.setCourses((testCourses.data as unknown) as courseObject[]);
+  }
 }
+
+watch(shouldGetData, (newValue) => {
+  if (newValue) {
+    fetchCourses();
+  }
+  lastSearchTerm.value = newSearchTerm.value as string;
+});
 
 onBeforeMount(async () => {
   await fetchCourses();
