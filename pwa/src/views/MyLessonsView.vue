@@ -43,21 +43,6 @@ import LessonModal from "@/components/LessonsComponents/LessonModal.vue";
 /* All Posts stored in a JSON */
 import testLessons from "../data/lessons.json";
 
-const store = useStore();
-const { lessons, pagination, filter } = storeToRefs(store);
-
-const showModal = ref(false);
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
 const NotfyProvider = new Notyf({
   duration: 2000,
   position: {
@@ -99,6 +84,21 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const store = useStore();
+const { lessons, pagination, filter } = storeToRefs(store);
+
+const showModal = ref(false);
+const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
+
 const total = computed(() => {
   return lessons.value ? lessons.value.length : 0;
 });
@@ -106,7 +106,6 @@ const total = computed(() => {
 const showHideModal = () => {
   showModal.value = !showModal.value;
 };
-
 
 async function fetchLessons() {
   if(filter.value.search_term !== '') {

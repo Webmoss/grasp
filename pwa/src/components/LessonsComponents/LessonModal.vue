@@ -186,7 +186,7 @@
                   {
                     label: 'Article',
                     value: 'article',
-                    checked: false,
+                    checked: true,
                   },
                   {
                     label: 'Publisher NFT',
@@ -235,7 +235,7 @@
               <input
                 type="text"
                 name="publisher"
-                placeholder="Enter the Publisher NFT "
+                placeholder="Enter the Publisher NFT title"
                 :value="form.content"
               />
             </div>
@@ -245,7 +245,7 @@
               <input
                 type="text"
                 name="tinytap"
-                placeholder="Enter the Publisher NFT "
+                placeholder="Enter the TinyTap NFT title"
                 :value="form.content"
               />
             </div>
@@ -255,19 +255,35 @@
               <input
                 type="text"
                 name="video"
-                placeholder="Enter the Video link "
+                placeholder="Enter the Video link"
                 :value="form.content"
               />
             </div>
 
             <div v-if="form.type === 'quest'" class="input-row mb-10">
-              <label for="quests">Quest</label>
-              <input
-                type="text"
-                name="quests"
-                placeholder="Enter the Quest Steps"
-                :value="form.content"
-              />
+              <label for="links">Quest Steps</label>
+              <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
+                <span class="link-text">{{ link.label }}</span>
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
+                <input
+                  type="text"
+                  name="questText"
+                  placeholder="Quest title"
+                  v-model="questText"
+                />
+                <input
+                  type="text"
+                  name="questStep"
+                  placeholder="Quest step"
+                  v-model="questStep"
+                />
+                <button class="add-link-button" @click="addQuest()">
+                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest step" />
+                </button>
+              </div>
             </div>
 
             <!-- Lesson Task Content -->
@@ -455,7 +471,7 @@ const props = defineProps({
 
 const form: any = reactive({
   id: undefined,
-  type: undefined,
+  type: "article",
   category: undefined,
   categories: [],
   banner: undefined,
@@ -465,6 +481,7 @@ const form: any = reactive({
   description: undefined,
   content: undefined,
   tasks: [],
+  quests: [],
   price: undefined,
   sales: undefined,
   total: undefined,
@@ -499,6 +516,9 @@ const linkURL = ref("");
 
 const taskText = ref("");
 const taskStep = ref("");
+
+const questText = ref("");
+const questStep = ref("");
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -575,6 +595,16 @@ function addLink() {
   console.log("form.content", form.tasks);
   taskText.value = "";
   taskStep.value = "";
+}
+
+/**
+ * * Add a Quest Step to Lesson content
+ */
+ function addQuest() {
+  form.quests.push({ label: questText.value, description: questStep.value });
+  console.log("form.content", form.quests);
+  questText.value = "";
+  questStep.value = "";
 }
 
 /**

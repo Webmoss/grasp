@@ -43,21 +43,6 @@ import NftsPagination from "@/components/NftsComponents/NftsPagination.vue";
 /* All Posts stored in a JSON */
 import testNfts from "../data/nfts.json";
 
-const store = useStore();
-const { nfts, pagination, filter } = storeToRefs(store);
-
-// const showModal = ref(false);
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
 const NotfyProvider = new Notyf({
   duration: 2000,
   position: {
@@ -98,6 +83,21 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+const store = useStore();
+const { nfts, pagination, filter } = storeToRefs(store);
+
+// const showModal = ref(false);
+const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const total = computed(() => {
   return nfts.value ? nfts.value.length : 0;

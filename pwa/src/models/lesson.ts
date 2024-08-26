@@ -13,6 +13,7 @@ export interface lessonObject {
   description: string | null;
   content: any;
   tasks: Array<object>;
+  quests: Array<object>;
   price: number;
   sales: number;
   total: number;
