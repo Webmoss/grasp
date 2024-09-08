@@ -29,7 +29,7 @@ function setGridView() {
 button {
   display: inline-block;
   width: 36px;
-  height: 35px;
+  height: 36px;
   background: $grasp-blue;
   border: 0;
   border-radius: 0;

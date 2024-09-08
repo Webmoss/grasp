@@ -22,17 +22,20 @@
 </template>
 
 <script setup lang="ts">
-import { provide, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import { userObject } from "src/models/user";
 import { Web3Auth } from "@web3auth/modal";
-import { Notyf } from "notyf";
-import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import {
+  CHAIN_NAMESPACES,
+  IProvider,
+  WEB3AUTH_NETWORK,
+  CustomChainConfig,
+  OPENLOGIN_NETWORK_TYPE,
+} from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
-import Web3 from "web3";
 
 defineProps({
   btnSize: {
@@ -40,6 +43,46 @@ defineProps({
     required: false,
   },
 });
+
+interface BaseAdapterSettings {
+  clientId?: string;
+  sessionTime?: number;
+  chainConfig?: CustomChainConfig;
+  web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
+}
+
+// type CustomChainConfig = {
+//   chainNamespace: ChainNamespaceType;
+//   /**
+//    * The chain id of the chain
+//    */
+//   chainId: string;
+//   /**
+//    * RPC target Url for the chain
+//    */
+//   rpcTarget: string;
+//   /**
+//    * Display Name for the chain
+//    */
+//   displayName: string;
+//   /**
+//    * Url of the block explorer
+//    */
+//   blockExplorerUrl: string;
+//   /**
+//    * Default currency ticker of the network (e.g: ETH)
+//    */
+//   ticker: string;
+//   /**
+//    * Name for currency ticker (e.g: `Ethereum`)
+//    */
+//   tickerName: string;
+
+//   /**
+//    * Logo of the chain
+//    */
+//   logo: string;
+// };
 
 const router = useRouter();
 const store = useStore();
@@ -55,20 +98,20 @@ const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
   sessionTime: 3600, // 1 hour in seconds
-  web3AuthNetwork: "sapphire_devnet",
   chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
   },
+  web3AuthNetwork: "sapphire_devnet",
 });
 
 /* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
 metamaskAdapter.setAdapterSettings({
   sessionTime: 86400, // 1 day in seconds
   chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
@@ -78,62 +121,27 @@ metamaskAdapter.setAdapterSettings({
 
 const chainConfig = {
   chainId: "0xA045C", // Chain Id 656476 in hex
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
   displayName: "Open Campus Codex",
   blockExplorer: "https://opencampus-codex.blockscout.com/",
   ticker: "EDU",
   tickerName: "EDU",
+  logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",
 };
+
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig: chainConfig },
 });
+
 const web3auth = new Web3Auth({
   clientId,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 });
 
-const NotfyProvider = new Notyf({
-  duration: 2000,
-  position: {
-    x: "center",
-    y: "bottom",
-  },
-  types: [
-    {
-      type: "loading",
-      background: "orange",
-      duration: 0,
-      dismissible: true,
-      icon: {
-        className: "icon icon-loading",
-        tagName: "i",
-      },
-    },
-    {
-      type: "success",
-      background: "green",
-      duration: 20000,
-      dismissible: true,
-      icon: {
-        className: "icon icon-success",
-        tagName: "i",
-      },
-    },
-    {
-      type: "error",
-      background: "indianred",
-      duration: 10000,
-      dismissible: true,
-      icon: {
-        className: "icon icon-error",
-        tagName: "i",
-      },
-    },
-  ],
-});
-provide("notyf", NotfyProvider);
+// it will add/update  the metamask adapter in to web3auth class
+web3auth.configureAdapter(metamaskAdapter);
 
 async function connect() {
   store.setLoading(true);
@@ -141,35 +149,14 @@ async function connect() {
     provider = await web3auth.connect();
     if (web3auth.connected) {
       store.setLoggedIn(true);
-      getUserInfo();
-      getBalance();
+      store.setLoading(false);
       router.push({ name: "dashboard" });
     }
-    store.setLoading(false);
   } catch (error) {
     console.log("Error", error);
     store.setLoading(false);
   }
 }
-
-const getUserInfo = async () => {
-  const user = await web3auth.getUserInfo();
-  store.setUser(user as userObject);
-};
-
-const getBalance = async () => {
-  if (!provider) {
-    NotfyProvider.error("Provider not initialized yet!");
-    return;
-  }
-  const web3 = new Web3(provider as any);
-  const address = (await web3.eth.getAccounts())[0];
-  store.setAccount(address);
-
-  /* Get user's balance in EDU Token */
-  const balance = web3.utils.fromWei(await web3.eth.getBalance(address), "ether");
-  store.setBalance(balance);
-};
 
 const logout = async () => {
   await web3auth.logout();
@@ -181,8 +168,6 @@ const logout = async () => {
 onMounted(async () => {
   const init = async () => {
     try {
-      // it will add/update  the metamask adapter in to web3auth class
-      web3auth.configureAdapter(metamaskAdapter);
       await web3auth.initModal();
       provider = web3auth.provider;
 
@@ -190,7 +175,7 @@ onMounted(async () => {
         store.setLoggedIn(true);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error connecting to Web3Auth", error);
     }
   };
   init();

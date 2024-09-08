@@ -104,21 +104,29 @@
           <OCIDButton btnSize="large" />
           <div class="my-wallet-box">
             <div class="open-campus">
-              <h2>Username</h2>
+              <h2>OCID</h2>
               <div class="campus-id">{{ eduUsername ? eduUsername : "" }}</div>
             </div>
             <div class="my-account">
               <div class="account-address">
-                {{ account ? truncate(account, 6) : "0x000" }}
+                {{ eduEthAddress ? truncate(eduEthAddress, 6) : "0x000" }}
               </div>
-              <button class="copy-button" @click="copyClipboard(account)">
+              <button class="copy-button" @click="copyClipboard(eduEthAddress)">
                 <img src="../assets/svgs/ContentCopy.svg" />
               </button>
             </div>
           </div>
 
           <div class="my-balance-box">
-            <h2>Balance</h2>
+            <h2>Account</h2>
+            <div class="my-account">
+              <div class="account-address">
+                {{ account ? truncate(account, 6) : "0x000" }}
+              </div>
+              <button class="copy-button" @click="copyClipboard(account)">
+                <img src="../assets/svgs/ContentCopy-White.svg" />
+              </button>
+            </div>
             <div class="my-wallet">
               <div class="my-wallet-amount">
                 <img src="../assets/svgs/EduCoin.svg" /><span class="">
@@ -165,12 +173,18 @@
 <script setup lang="ts">
 import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
 import { Notyf } from "notyf";
+import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { useStore } from "../store";
 import { userObject } from "src/models/user";
 import { courseObject } from "src/models/course";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, IProvider, WEB3AUTH_NETWORK } from "@web3auth/base";
+import {
+  CHAIN_NAMESPACES,
+  IProvider,
+  WEB3AUTH_NETWORK,
+  CustomChainConfig,
+  OPENLOGIN_NETWORK_TYPE,
+} from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
 import Web3 from "web3";
@@ -185,10 +199,18 @@ import testCourses from "../data/courses.json";
 import testLessons from "../data/lessons.json";
 import nfts from "../data/nfts.json";
 
+interface BaseAdapterSettings {
+  clientId?: string;
+  sessionTime?: number;
+  chainConfig?: CustomChainConfig;
+  web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
+}
+
 const store = useStore();
-const { loggedIn, eduUsername, account, balance, user, courses } = storeToRefs(store);
+const { loggedIn, eduUsername, eduEthAddress, account, balance, courses } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
+
 const sales = ref(0);
 const percentage = ref(0);
 
@@ -200,20 +222,20 @@ const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
   sessionTime: 3600, // 1 hour in seconds
-  web3AuthNetwork: "sapphire_devnet",
   chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
   },
+  web3AuthNetwork: "sapphire_devnet",
 });
 
 /* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
 metamaskAdapter.setAdapterSettings({
   sessionTime: 86400, // 1 day in seconds
   chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
+    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
@@ -222,22 +244,28 @@ metamaskAdapter.setAdapterSettings({
 });
 
 const chainConfig = {
-  chainId: "0xA045C", // Cahin Id 656476 in hex
-  chainNamespace: CHAIN_NAMESPACES.EIP155,
+  chainId: "0xA045C", // Chain Id 656476 in hex
+  chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
   displayName: "Open Campus Codex",
   blockExplorer: "https://opencampus-codex.blockscout.com/",
   ticker: "EDU",
   tickerName: "EDU",
+  logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",
 };
+
 const privateKeyProvider = new EthereumPrivateKeyProvider({
   config: { chainConfig: chainConfig },
 });
+
 const web3auth = new Web3Auth({
   clientId,
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider: privateKeyProvider,
 });
+
+// it will add/update  the metamask adapter in to web3auth class
+web3auth.configureAdapter(metamaskAdapter);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -369,16 +397,14 @@ async function fetchCourses() {
 onMounted(async () => {
   const init = async () => {
     try {
-      // it will add/update  the metamask adapter in to web3auth class
-      web3auth.configureAdapter(metamaskAdapter);
       await web3auth.initModal();
       provider = web3auth.provider;
 
       if (web3auth.connected) {
-        loggedIn.value = true;
+        console.log("Dashboard Web3Auth Connected", web3auth.connected);
         store.setLoggedIn(true);
-        getUserInfo();
-        getBalance();
+        await getUserInfo();
+        await getBalance();
       }
     } catch (error) {
       console.error(error);
@@ -844,6 +870,65 @@ onBeforeMount(async () => {
       margin-block-start: 0;
       margin-block-end: 0;
       margin: 0 0 8px 0;
+    }
+
+    .my-account {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      color: $white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 4px 0;
+      transition: all 0.5s linear;
+
+      .account-address {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: flex-start;
+        color: $white;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 4px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+      }
+
+      .copy-button {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: -6px;
+        margin-left: 4px;
+        margin-bottom: 0;
+        cursor: pointer;
+
+        img,
+        svg {
+          width: 24px;
+          background: transparent;
+          object-fit: contain;
+          overflow: hidden;
+          margin-right: 0;
+          margin-left: 4px;
+        }
+      }
     }
 
     .my-wallet {

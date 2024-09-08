@@ -365,10 +365,10 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       font-family: "Poppins", sans-serif;
       color: $grasp-blue;
       width: 100%;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 600;
       text-align: left;
-      margin: 0 0 5px 0;
+      margin: 0;
     }
 
     .creator-title {
@@ -380,7 +380,7 @@ defineProps<{ creator: creatorObject; gridView: string }>();
       font-weight: 500;
       text-decoration: none;
       text-transform: uppercase;
-      margin: 0 0 8px 0;
+      margin: 0 0 4px 0;
     }
 
     .creator-description {

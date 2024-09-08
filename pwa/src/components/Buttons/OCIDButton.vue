@@ -2,7 +2,6 @@
   <div class="ocid-container">
     <button
       v-if="loading"
-      @click="connect()"
       :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
       <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Loading<span class="bolder"
@@ -21,7 +20,7 @@
     </button>
     <button
       v-else-if="eduUsername && ocConnected"
-      @click="refresh()"
+      @click="fetchOCID()"
       :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
       <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Open Campus
@@ -61,7 +60,7 @@ const opts = {
     : "http://localhost:8080/dashboard",
 };
 
-// console.log("OCID Opts:", opts);
+console.log("OCID Opts:", opts);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -154,12 +153,9 @@ async function connect() {
   }
 }
 
-const refresh = async () => {
+const fetchOCID = async () => {
   try {
     const authSdk = new OCAuthSandbox(opts);
-    // await authSdk.handleLoginRedirect({
-    //   state: "opencampus",
-    // });
 
     /* Get Auth State from Open Campus ID sdk */
     let authState = await authSdk.getAuthState();
@@ -176,17 +172,18 @@ const refresh = async () => {
     store.setOcConnected(ocConnected);
     console.log("OC Connected:", ocConnected);
 
-    if (idToken) {
+    if (ocConnected) {
       /* Get Auth Info from Open Campus ID sdk */
       const authInfo = await authSdk.getAuthInfo();
+      console.log("OC authInfo:", authInfo);
 
       let eduUsername = authInfo.edu_username;
       store.setEduUsername(eduUsername);
-      console.log("Edu Username:", eduUsername);
+      console.log("EDU Username:", eduUsername);
 
       let ethAddress = authInfo.eth_address;
       store.setEduEthAddress(ethAddress);
-      console.log("Edu Eth Address:", ethAddress);
+      console.log("EDU Eth Address:", ethAddress);
     }
   } catch (error) {
     console.log("Error", error);
@@ -203,45 +200,7 @@ const refresh = async () => {
 // };
 
 onMounted(async () => {
-  const init = async () => {
-    try {
-      const authSdk = new OCAuthSandbox(opts);
-      // await authSdk.signInWithRedirect({
-      //   state: "opencampus",
-      // });
-
-      let authState = await authSdk.getAuthState();
-
-      let accessToken = authState.idToken;
-      store.setOcAccessToken(accessToken);
-      console.log("OC Access Token:", accessToken);
-
-      let idToken = authState.idToken;
-      store.setOcid(idToken);
-      console.log("OC ID:", idToken);
-
-      let ocConnected = authState.isAuthenticated;
-      store.setOcConnected(ocConnected);
-      console.log("OC Connected:", ocConnected);
-
-      if (idToken) {
-
-        const authInfo = await authSdk.getAuthInfo();
-
-        let eduUsername = authInfo.edu_username;
-        store.setEduUsername(eduUsername);
-        console.log("Edu Username:", eduUsername);
-
-        let ethAddress = authInfo.eth_address;
-        store.setEduEthAddress(ethAddress);
-        console.log("Edu Eth Address:", ethAddress);
-      }
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  init();
+  await fetchOCID();
 });
 </script>
 
