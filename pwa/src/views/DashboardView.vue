@@ -5,103 +5,136 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">Overview</div>
-          <div class="title-actions"></div>
+          <div class="title-actions">
+            <OCIDButton btnSize="large" />
+          </div>
         </div>
       </div>
 
       <div class="row">
         <div class="left">
-          <h2>Top Courses</h2>
-          <div class="my-courses-box">
-            <template v-for="(course, index) in courses" :key="index">
-              <div class="list-item">
-                <div class="course-copy">
-                  <div class="course-title">
-                    <span class="course-index">{{ index + 1 }}.</span>
-                    {{ course.title ? course.title : "" }}
-                  </div>
-                </div>
-                <div class="course-list-buttons">
-                  <div v-if="course && course.category" class="course-category">
-                    <span class="category-indicator">{{
-                      course.category ? course.category : ""
-                    }}</span>
-                  </div>
-                  <div class="sales">
-                    <img src="../assets/svgs/EduCoin.svg" /><span class="sales-amount">
-                      {{ course.sales ? course.sales : "0.00" }}</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </template>
+          <div class="tab-switcher">
+            <div
+              :class="tab === 'courses' ? 'active' : ''"
+              class="tab-button"
+              @click="loadTab('courses')"
+            >
+              Courses
+            </div>
+            <div
+              :class="tab === 'lessons' ? 'active' : ''"
+              class="tab-button"
+              @click="loadTab('lessons')"
+            >
+              Lessons
+            </div>
+            <div
+              :class="tab === 'nfts' ? 'active' : ''"
+              class="tab-button"
+              @click="loadTab('nfts')"
+            >
+              NFTs
+            </div>
           </div>
-          <div class="my-totals">
-            <span class="my-totals-label">Total</span>
-            <span class="my-totals-value">
-              <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
-                {{ coursesTotal ? coursesTotal : 0.0 }}</span
-              >
-            </span>
+
+          <!-- Courses Tab  -->
+          <div v-if="tab === 'courses'" class="tab-box">
+            <div class="my-courses-box">
+              <template v-for="(course, index) in courses" :key="index">
+                <div class="list-item">
+                  <div class="course-copy">
+                    <div class="course-title">
+                      <span class="course-index">{{ index + 1 }}.</span>
+                      {{ course.title ? course.title : "" }}
+                    </div>
+                  </div>
+                  <div class="course-list-buttons">
+                    <div v-if="course && course.category" class="course-category">
+                      <span class="category-indicator">{{
+                        course.category ? course.category : ""
+                      }}</span>
+                    </div>
+                    <div class="sales">
+                      <img src="../assets/svgs/EduCoin.svg" /><span class="sales-amount">
+                        {{ course.sales ? course.sales : "0.00" }}</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+            <div class="my-totals">
+              <span class="my-totals-label">Total</span>
+              <span class="my-totals-value">
+                <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
+                  {{ coursesTotal ? coursesTotal : 0.0 }}</span
+                >
+              </span>
+            </div>
           </div>
-          <h2>Top Lessons</h2>
-          <div class="my-lessons-box">
-            <template v-for="(course, index) in courses" :key="index">
-              <div class="list-item">
-                <div class="course-copy">
-                  <div class="course-title">
-                    <span class="course-index">{{ index + 1 }}.</span>
-                    {{ course.title ? course.title : "" }}
+          <!-- Lessons Tab  -->
+          <div v-if="tab === 'lessons'" class="tab-box">
+            <div class="my-lessons-box">
+              <template v-for="(course, index) in courses" :key="index">
+                <div class="list-item">
+                  <div class="course-copy">
+                    <div class="course-title">
+                      <span class="course-index">{{ index + 1 }}.</span>
+                      {{ course.title ? course.title : "" }}
+                    </div>
+                  </div>
+                  <div class="course-list-buttons">
+                    <div v-if="course && course.category" class="course-category">
+                      <span class="category-indicator">{{
+                        course.category ? course.category : ""
+                      }}</span>
+                    </div>
+                    <div class="sales">
+                      <img src="../assets/svgs/EduCoin.svg" /><span class="sales-amount">
+                        {{ course.sales ? course.sales : "0.00" }}</span
+                      >
+                    </div>
                   </div>
                 </div>
-                <div class="course-list-buttons">
-                  <div v-if="course && course.category" class="course-category">
-                    <span class="category-indicator">{{
-                      course.category ? course.category : ""
-                    }}</span>
-                  </div>
-                  <div class="sales">
-                    <img src="../assets/svgs/EduCoin.svg" /><span class="sales-amount">
-                      {{ course.sales ? course.sales : "0.00" }}</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </template>
+              </template>
+            </div>
+            <div class="my-totals">
+              <span class="my-totals-label">Total</span>
+              <span class="my-totals-value">
+                <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
+                  {{ lessonTotal ? lessonTotal : 0.0 }}</span
+                >
+              </span>
+            </div>
           </div>
-          <div class="my-totals">
-            <span class="my-totals-label">Total</span>
-            <span class="my-totals-value">
-              <img src="../assets/svgs/EduCoin.svg" /><span class="my-totals-amount">
-                {{ lessonTotal ? lessonTotal : 0.0 }}</span
-              >
-            </span>
-          </div>
-          <h2>Top Publisher NFTS</h2>
-          <div class="my-nfts-box">
-            <template v-for="(nft, i) in nfts.data" :key="i">
-              <div class="publisher-nft-item">
-                <div class="nft-image">
-                  <img :src="nft.image" />
-                </div>
-                <div class="nft-title">
-                  {{ nft.title ? nft.title : "" }}
-                </div>
-                <div class="nft-list-buttons">
-                  <div v-if="nft && nft.type" class="nft-category">
-                    <span class="category-indicator">{{ nft.type ? nft.type : "" }}</span>
+          <!-- NFTs Tab  -->
+          <div v-if="tab === 'nfts'" class="tab-box">
+            <div class="my-nfts-box">
+              <template v-for="(nft, i) in nfts.data" :key="i">
+                <div class="publisher-nft-item">
+                  <div class="nft-image">
+                    <img :src="nft.image" />
                   </div>
-                  <div class="view">
-                    <ViewNFTButton :token-id="nft.id" />
+                  <div class="nft-title">
+                    {{ nft.title ? nft.title : "" }}
+                  </div>
+                  <div class="nft-list-buttons">
+                    <div v-if="nft && nft.type" class="nft-category">
+                      <span class="category-indicator">{{
+                        nft.type ? nft.type : ""
+                      }}</span>
+                    </div>
+                    <div class="view">
+                      <ViewNFTButton :token-id="nft.id" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </template>
+              </template>
+            </div>
           </div>
         </div>
 
         <div class="right">
-          <OCIDButton btnSize="large" />
           <div class="my-wallet-box">
             <div class="open-campus">
               <h2>OCID</h2>
@@ -109,7 +142,7 @@
             </div>
             <div class="my-account">
               <div class="account-address">
-                {{ eduEthAddress ? truncate(eduEthAddress, 6) : "0x000" }}
+                {{ eduEthAddress ? truncate(eduEthAddress, 8) : "0x000" }}
               </div>
               <button class="copy-button" @click="copyClipboard(eduEthAddress)">
                 <img src="../assets/svgs/ContentCopy.svg" />
@@ -121,7 +154,7 @@
             <h2>Account</h2>
             <div class="my-account">
               <div class="account-address">
-                {{ account ? truncate(account, 6) : "0x000" }}
+                {{ account ? truncate(account, 8) : "0x000" }}
               </div>
               <button class="copy-button" @click="copyClipboard(account)">
                 <img src="../assets/svgs/ContentCopy-White.svg" />
@@ -207,10 +240,13 @@ interface BaseAdapterSettings {
 }
 
 const store = useStore();
-const { loggedIn, eduUsername, eduEthAddress, account, balance, courses } = storeToRefs(store);
+const { loggedIn, eduUsername, eduEthAddress, account, balance, courses } = storeToRefs(
+  store
+);
 
 let provider = <IProvider | null>null;
 
+const tab = ref("courses");
 const sales = ref(0);
 const percentage = ref(0);
 
@@ -318,7 +354,10 @@ const copyClipboard = (value: string) => {
   textArea.select();
   document.execCommand("copy");
   textArea.remove();
-  // NotfyProvider.success("Copied to clipboard!");
+};
+
+const loadTab = (value: string) => {
+  tab.value = value;
 };
 
 const truncate = (data: string, num: number) => {
@@ -425,7 +464,7 @@ onBeforeMount(async () => {
 @import "../assets/styles/mixins.scss";
 
 .left {
-  padding-top: 20px;
+  padding-top: 16px;
 
   h2 {
     width: 100%;
@@ -440,13 +479,55 @@ onBeforeMount(async () => {
     margin: 0 0 14px 0;
   }
 
-  .my-courses-box,
-  .my-lessons-box {
+  .tab-switcher {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: center;
+    padding: 0;
+    margin: 0 auto 20px;
+
+    .tab-button {
+      font-family: "Poppins", sans-serif;
+      color: $black;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 20px;
+      margin-right: 24px;
+      padding-bottom: 2px;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: 0.3s all linear;
+      cursor: pointer;
+
+      @include breakpoint($break-sm) {
+        font-size: 16px !important;
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-visible {
+        border-bottom: 2px solid $grasp-blue;
+      }
+    }
+    .tab-button.active {
+      padding-bottom: 2px;
+      border-bottom: 2px solid $grasp-blue;
+    }
+  }
+  .tab-box {
     width: 90%;
     margin: 0;
   }
+  .my-courses-box,
+  .my-lessons-box {
+    width: 100%;
+    margin: 0;
+  }
   .my-totals {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -739,7 +820,7 @@ onBeforeMount(async () => {
 }
 
 .right {
-  padding: 0;
+  padding: 64px 0 0 0;
 
   .my-wallet-box {
     width: calc(100% - 32px);

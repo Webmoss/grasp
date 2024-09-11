@@ -36,5 +36,4 @@ export interface tokenDataObject {
   metadataDisabled: boolean;
   updated_date: string;
   attributes: Array<attributeObject>;
-
 }

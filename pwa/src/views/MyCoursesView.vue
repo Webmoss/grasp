@@ -108,7 +108,7 @@ const showHideModal = () => {
 };
 
 async function fetchCourses() {
-  if(filter.value.search_term !== '') {
+  if (filter.value.search_term !== "") {
     let filteredCourses = testCourses.data.filter((course) => {
       return course.title.toLowerCase().includes(filter.value.search_term.toLowerCase());
     });
@@ -118,9 +118,9 @@ async function fetchCourses() {
   }
 }
 
-watch(shouldGetData, (newValue) => {
+watch(shouldGetData, async (newValue) => {
   if (newValue) {
-    fetchCourses();
+    await fetchCourses();
   }
   lastSearchTerm.value = newSearchTerm.value as string;
 });

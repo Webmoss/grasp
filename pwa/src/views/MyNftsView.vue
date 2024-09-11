@@ -107,9 +107,8 @@ const total = computed(() => {
 //   showModal.value = !showModal.value;
 // };
 
-
 async function fetchNfts() {
-  if(filter.value.search_term !== '') {
+  if (filter.value.search_term !== "") {
     let filteredNfts = testNfts.data.filter((nft) => {
       return nft.name.toLowerCase().includes(filter.value.search_term.toLowerCase());
     });
@@ -119,9 +118,9 @@ async function fetchNfts() {
   }
 }
 
-watch(shouldGetData, (newValue) => {
+watch(shouldGetData, async (newValue) => {
   if (newValue) {
-    fetchNfts();
+    await fetchNfts();
   }
   lastSearchTerm.value = newSearchTerm.value as string;
 });

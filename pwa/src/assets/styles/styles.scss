@@ -77,6 +77,8 @@ section#content {
       align-items: flex-start;
       justify-content: flex-start;
       padding: 0;
+      margin: 10px 0 0 0;
+
       .row {
         width: 100%;
         display: flex;
@@ -91,9 +93,9 @@ section#content {
           color: $grasp-blue;
           font-size: 28px;
           font-weight: 600;
-          line-height: 30px;
+          line-height: 35px;
           text-align: left;
-          margin: 20px 0 0 0
+          margin: 0;
         }
         .title-actions {
           display: flex;
@@ -211,7 +213,6 @@ section#content {
   border-radius: 30px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 5px;
   margin-right: 10px;
   transition: 0.6s;
   cursor: pointer;

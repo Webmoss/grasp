@@ -9,7 +9,7 @@
       >
     </button>
     <button
-      v-else-if="!eduUsername && !ocConnected"
+      v-else-if="!ocConnected"
       @click="connect()"
       :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
@@ -39,7 +39,6 @@
 import { provide, onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-// import { useRouter } from "vue-router";
 import { Notyf } from "notyf";
 import { OCAuthSandbox } from "@opencampus/ocid-connect-js";
 
@@ -50,14 +49,13 @@ defineProps({
   },
 });
 
-// const router = useRouter();
 const store = useStore();
 const { loading, eduUsername, ocConnected } = storeToRefs(store);
 
 const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
     ? process.env.VUE_APP_AUTH_REDIRECT_URI
-    : "http://localhost:8080/dashboard",
+    : "http://grasp.academy/dashboard",
 };
 
 console.log("OCID Opts:", opts);
@@ -215,7 +213,7 @@ onMounted(async () => {
   align-content: center;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 30px 18px 0;
+  padding: 0 20px 0 0;
 }
 
 .ocid-wallet-button {
