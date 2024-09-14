@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { userObject } from 'src/models/user';
+import { organisationObject } from 'src/models/organisation';
 import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 import { creatorObject } from "src/models/creator";
@@ -33,6 +34,7 @@ export const useStore = defineStore({
     tinytapNfts: [] as tokenWrapperObject[],
     publisherNfts: [] as tokenWrapperObject[],
     user: <userObject>{},
+    organisation: <organisationObject>{},
     eduUsername: "",
     eduEthAddress: "",
     ocid: "",
@@ -107,6 +109,9 @@ export const useStore = defineStore({
     },
     getUser(state) {
       return state.user;
+    },
+    getOrganisation(state) {
+      return state.organisation;
     },
     getEduUsername(state) {
       return state.eduUsername;
@@ -253,6 +258,9 @@ export const useStore = defineStore({
     },
     setUser(user: userObject) {
       this.user = user;
+    },
+    setOrganisation(organisation: organisationObject) {
+      this.organisation = organisation;
     },
     setEduUsername(value: string) {
       this.eduUsername = value;

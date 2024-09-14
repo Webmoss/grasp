@@ -28,13 +28,6 @@
             >
               Lessons
             </div>
-            <div
-              :class="tab === 'nfts' ? 'active' : ''"
-              class="tab-button"
-              @click="loadTab('nfts')"
-            >
-              NFTs
-            </div>
           </div>
 
           <!-- Courses Tab  -->
@@ -105,31 +98,6 @@
                   {{ lessonTotal ? lessonTotal : 0.0 }}</span
                 >
               </span>
-            </div>
-          </div>
-          <!-- NFTs Tab  -->
-          <div v-if="tab === 'nfts'" class="tab-box">
-            <div class="my-nfts-box">
-              <template v-for="(nft, i) in nfts.data" :key="i">
-                <div class="publisher-nft-item">
-                  <div class="nft-image">
-                    <img :src="nft.image" />
-                  </div>
-                  <div class="nft-title">
-                    {{ nft.title ? nft.title : "" }}
-                  </div>
-                  <div class="nft-list-buttons">
-                    <div v-if="nft && nft.type" class="nft-category">
-                      <span class="category-indicator">{{
-                        nft.type ? nft.type : ""
-                      }}</span>
-                    </div>
-                    <div class="view">
-                      <ViewNFTButton :token-id="nft.id" />
-                    </div>
-                  </div>
-                </div>
-              </template>
             </div>
           </div>
         </div>

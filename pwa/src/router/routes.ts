@@ -138,6 +138,24 @@ const routes = [
     component: () => import("@/views/MyNftView.vue"),
   },
   {
+    path: "/organisation",
+    name: "organisation",
+    meta: {
+      guest: true,
+      title: "Organisation",
+    },
+    component: () => import("@/views/MyOrganisationView.vue"),
+  },
+  {
+    path: "/profile/",
+    name: "profile",
+    meta: {
+      guest: true,
+      title: "Profile",
+    },
+    component: () => import("@/views/MyUserView.vue"),
+  },
+  {
     path: "/terms",
     name: "terms",
     meta: {

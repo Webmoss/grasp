@@ -1,9 +1,9 @@
 <template>
   <div class="sidebar">
-    <div v-if="user.profileImage && user.name"class="profile">
+    <div v-if="user.image && user.name" class="profile">
       <img
-        v-if="user.profileImage"
-        :src="user.profileImage"
+        v-if="user.image"
+        :src="user.image"
         :alt="user.name ? user.name : ''"
       />
       <h3 v-if="user.name">{{ user.name }}</h3>
@@ -31,6 +31,18 @@
         <router-link :to="{ name: 'my-nfts' }" active-class="active" exact>
           <img src="../assets/svgs/nfts-icon.svg" class="icon" />
           <span class="item">NFTS</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'organisation' }" active-class="active" exact>
+          <img src="../assets/svgs/accounts-icon.svg" class="icon" />
+          <span class="item">Organisation</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'profile' }" active-class="active" exact>
+          <img src="../assets/svgs/account-icon.svg" class="icon" />
+          <span class="item">Profile</span>
         </router-link>
       </li>
       <!-- <li>
@@ -102,8 +114,8 @@ const { user } = storeToRefs(store);
     padding-inline-start: 0;
     padding-inline-end: 0;
     padding: 18px 0;
-    border-top: 0.25px solid $white;
-    border-bottom: 0.25px solid $white;
+    // border-top: 0.25px solid $white;
+    // border-bottom: 0.25px solid $white;
     li {
       width: 100%;
       margin: 0;

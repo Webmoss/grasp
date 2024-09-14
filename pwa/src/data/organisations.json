@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "platform",
+      "category": "Academy",
+      "categories": [
+        { "id": 1, "name" : "IT", "icon" : "" },
+        { "id": 2, "name" : "Web3", "icon" : "" }
+      ],
+      "banner": "banner1.png",
+      "image": "Image-5.png",
+      "title": "Grasp Academy",
+      "description":
+        "Grasp Academy Organisation account description",
+      "contact": "WebMoss",
+      "email": "graspcampus@gmail.com",
+      "phone": "082 229 2839",
+      "website": "www.grasp.academy",
+      "discord": "discord-link",
+      "telegram": "telegram-link",
+      "linkedin": "linkedin-link",
+      "city": "Cape Town",
+      "country": "South Africa",
+      "created_date": "15/07/2024",
+      "updated_date": "17/07/2024",
+      "enabled": true,
+      "verified": false,
+      "blocked": false
+    }
+  ]
+}

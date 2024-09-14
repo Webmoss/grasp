@@ -1,13 +1,25 @@
+import { categoryObject } from "./category";
 export interface organisationObject {
   id: string | null | undefined;
-  name: string | null | undefined;
+  type: string;
+  category: string;
+  categories: Array<categoryObject>;
+  banner: string;
+  image: string;
+  title: string | null;
+  description: string | null;
+  contact: string | null | undefined;
   email: string | null | undefined;
-  mobile: string | null | undefined;
-  location: string | null | undefined;
-  bannerImage: string | null | undefined;
-  logoImage: string | null | undefined;
-  created_at: string | null | undefined;
-  updated_at: string | null | undefined;
+  phone: string | null | undefined;
+  website: string | null | undefined;
+  discord: string | null | undefined;
+  telegram: string | null | undefined;
+  linkedin: string | null | undefined;
+  city: string | null | undefined;
+  country: string | null | undefined;
+  created_date: string | null | undefined;
+  updated_date: string | null | undefined;
   enabled: boolean;
   verified: boolean;
+  blocked: boolean;
 }

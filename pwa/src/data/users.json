@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "orgId": "1",
+      "campusId": "1",
+      "type": "student",
+      "banner": "banner1.png",
+      "profileImage": "",
+      "image": "Image-5.png",
+      "title": "Prof",
+      "name": "Ape man",
+      "description":
+        "A good student of the blockchain",
+      "contact": "WebMoss",
+      "email": "graspcampus@gmail.com",
+      "mobile": "082 229 2839",
+      "city": "JBay",
+      "country": "South Africa",
+      "enabled": true,
+      "verified": false,
+      "blocked": false,
+      "created_date": "15/07/2024",
+      "updated_date": "17/07/2024",
+      "appState": null,
+      "aggregateVerifier": null,
+      "typeOfLogin": null,
+      "verifier": null,
+      "verifierId": null,
+      "dappShare": null,
+      "oAuthIdToken": null,
+      "oAuthAccessToken": null,
+      "idToken": null,
+      "isMfaEnabled": null
+    }
+  ]
+}

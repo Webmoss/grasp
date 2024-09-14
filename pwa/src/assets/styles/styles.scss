@@ -56,18 +56,13 @@ section#content {
   flex-direction: row;
 
   .page-layout {
-    width: 96%;
+    width: 97%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-start;
-    justify-content: flex-start;
     color: $grasp-blue;
     background: $white;
-    padding: 1% 1% 2% 2%;
-    overflow: scroll;
+    padding: 1% 1% 3% 2%;
     border-top-left-radius: 16px;
+    overflow-y: scroll;
 
     .title-bar {
       width: 100%;
