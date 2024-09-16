@@ -10,6 +10,16 @@ const routes = [
     component: () => import("@/views/HomeView.vue"),
   },
   {
+    path: "/admin",
+    name: "admin",
+    meta: {
+      guest: true,
+      title: "Admin Panel",
+      description: "",
+    },
+    component: () => import("@/views/AdminView.vue"),
+  },
+  {
     path: "/courses",
     name: "courses",
     meta: {

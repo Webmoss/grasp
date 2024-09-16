@@ -7,7 +7,7 @@
           <div class="title-name">Organisation</div>
           <div class="title-actions">
             <button class="back-button">Back</button>
-            <button class="create-button">Edit</button>
+            <button class="create-button">Add Members</button>
           </div>
         </div>
         <p>Update your Organisation details and settings.</p>
@@ -78,6 +78,10 @@
         <div class="organisation-box-value">
           <span class="organisation-box-label">Website</span>
           {{ organisation?.website ? organisation.website : "" }}
+        </div>
+        <div class="organisation-box-value">
+          <span class="organisation-box-label">Twitter</span>
+          {{ organisation?.twitter ? organisation.twitter : "" }}
         </div>
         <div class="organisation-box-value">
           <span class="organisation-box-label">Discord</span>

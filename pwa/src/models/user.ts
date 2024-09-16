@@ -2,6 +2,7 @@ export interface userObject {
   id: string | null | undefined;
   orgId: string | null | undefined;
   campusId: string | null | undefined;
+  wallet: string | null | undefined;
   type: string;
   banner: string;
   image: string;
@@ -9,11 +10,16 @@ export interface userObject {
   title: string | null;
   name: string | null | undefined;
   description: string | null;
-  contact: string | null | undefined;
+  username: string | null | undefined;
   email: string | null | undefined;
-  mobile: string | null | undefined;
+  phone: string | null | undefined;
   city: string | null | undefined;
   country: string | null | undefined;
+  website: string | null | undefined;
+  twitter: string | null | undefined;
+  discord: string | null | undefined;
+  telegram: string | null | undefined;
+  linkedin: string | null | undefined;
   created_date: string | null | undefined;
   updated_date: string | null | undefined;
   enabled: boolean;

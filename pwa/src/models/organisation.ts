@@ -12,6 +12,7 @@ export interface organisationObject {
   email: string | null | undefined;
   phone: string | null | undefined;
   website: string | null | undefined;
+  twitter: string | null | undefined;
   discord: string | null | undefined;
   telegram: string | null | undefined;
   linkedin: string | null | undefined;
