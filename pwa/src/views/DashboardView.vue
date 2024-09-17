@@ -432,7 +432,7 @@ onBeforeMount(async () => {
 @import "../assets/styles/mixins.scss";
 
 .left {
-  padding-top: 16px;
+  padding-top: 12px;
 
   h2 {
     width: 100%;
@@ -788,7 +788,7 @@ onBeforeMount(async () => {
 }
 
 .right {
-  padding: 64px 0 0 0;
+  padding: 60px 0 0 0;
 
   .my-wallet-box {
     width: calc(100% - 32px);
@@ -802,7 +802,7 @@ onBeforeMount(async () => {
     border: 0.5px solid $grey-50;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     padding: 16px;
-    margin: 0 30px 20px 0;
+    margin: 0 0 20px 0;
 
     .open-campus {
       width: 100%;
@@ -906,7 +906,7 @@ onBeforeMount(async () => {
     border: 0.5px solid $grey-50;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     padding: 16px;
-    margin: 0 30px 20px 0;
+    margin: 0 0 20px 0;
 
     h2 {
       width: 100%;
@@ -1055,7 +1055,7 @@ onBeforeMount(async () => {
     border: 0.5px solid $grey-50;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     padding: 16px;
-    margin: 0 30px 20px 0;
+    margin: 0 0 20px 0;
 
     h2 {
       width: 100%;

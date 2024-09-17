@@ -213,19 +213,17 @@ onMounted(async () => {
   align-content: center;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 20px 0 0;
+  padding: 0;
 }
 
 .ocid-wallet-button {
   width: auto;
   height: 42px;
-
   display: flex;
   flex-direction: row nowrap;
   align-content: center;
   align-items: center;
   justify-content: center;
-
   color: $white;
   background-color: $black;
   font-size: 14px;
@@ -234,7 +232,6 @@ onMounted(async () => {
   border-radius: 30px;
   padding-left: 11px;
   padding-right: 11px;
-
   transition: all 0.5s linear;
   cursor: pointer;
 
@@ -259,14 +256,12 @@ onMounted(async () => {
 
 .ocid-wallet-small-button {
   width: auto;
-  height: 34px;
-
+  height: 35px;
   display: flex nowrap;
   flex-direction: row;
   align-content: center;
   align-items: center;
   justify-content: center;
-
   color: $white;
   background-color: $black;
   font-size: 14px;

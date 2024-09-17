@@ -6,153 +6,171 @@
         <div class="row">
           <div class="title-name">Organisation</div>
           <div class="title-actions">
-            <button class="back-button">Back</button>
             <button class="create-button">Add Members</button>
           </div>
         </div>
-        <p>Update your Organisation details and settings.</p>
+        <!-- <p>Update your Organisation details and settings.</p> -->
+      </div>
+
+      <div class="tab-switcher">
+        <div
+          :class="tab === 'details' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('details')"
+        >
+          Details
+        </div>
+        <div
+          :class="tab === 'members' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('members')"
+        >
+          Members
+        </div>
       </div>
 
       <div class="line-divider"></div>
 
-      <div class="organisation-header">
-        <button class="edit-link-button" @click="editLink('banner')">
-          <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
-        </button>
-        <div class="organisation-banner">
-          <img v-if="organisation.banner" :src="`../${organisation.banner}`" />
-          <div v-if="organisation.category" class="category-indicator">
-            {{ organisation.category }}
-          </div>
-        </div>
-      </div>
-
-      <div class="organisation-header-details">
-        <div class="profile">
-          <button class="edit-link-button" @click="editLink('profile')">
+      <div v-if="tab === 'details'" class="tab-box">
+        <div class="organisation-header">
+          <button class="edit-link-button" @click="editLink('banner')">
             <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
           </button>
-          <img
-            v-if="organisation.image"
-            :src="organisation.image"
-            :alt="organisation.title ? organisation.title : ''"
-          />
+          <div class="organisation-banner">
+            <img v-if="organisation.banner" :src="`../${organisation.banner}`" />
+            <div v-if="organisation.category" class="category-indicator">
+              {{ organisation.category }}
+            </div>
+          </div>
         </div>
-        <div class="organisation-header-detail">
-          <button class="edit-link-button" @click="editLink('details')">
+
+        <div class="organisation-header-details">
+          <div class="profile">
+            <button class="edit-link-button" @click="editLink('profile')">
+              <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
+            </button>
+            <img
+              v-if="organisation.image"
+              :src="organisation.image"
+              :alt="organisation.title ? organisation.title : ''"
+            />
+          </div>
+          <div class="organisation-header-detail">
+            <button class="edit-link-button" @click="editLink('details')">
+              <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+            </button>
+            <div class="organisation-title">
+              {{ organisation?.title ? organisation.title : "" }}
+            </div>
+            <div class="organisation-description">
+              {{ organisation?.description ? organisation.description : "" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Contact Details</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('contacts')">
             <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
           </button>
-          <div class="organisation-title">
-            {{ organisation?.title ? organisation.title : "" }}
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Contact</span>
+            {{ organisation?.contact ? organisation.contact : "" }}
           </div>
-          <div class="organisation-description">
-            {{ organisation?.description ? organisation.description : "" }}
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Email</span>
+            {{ organisation?.email ? organisation.email : "" }}
           </div>
-        </div>
-      </div>
-
-      <div class="organisation-box-header">Contact Details</div>
-      <div class="organisation-box">
-        <button class="edit-link-button" @click="editLink('contacts')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Contact</span>
-          {{ organisation?.contact ? organisation.contact : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Email</span>
-          {{ organisation?.email ? organisation.email : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Phone</span>
-          {{ organisation?.phone ? organisation.phone : "" }}
-        </div>
-      </div>
-
-      <div class="organisation-box-header">Social Details</div>
-      <div class="organisation-box">
-        <button class="edit-link-button" @click="editLink('socials')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Website</span>
-          {{ organisation?.website ? organisation.website : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Twitter</span>
-          {{ organisation?.twitter ? organisation.twitter : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Discord</span>
-          {{ organisation?.discord ? organisation.discord : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Telegram</span>
-          {{ organisation?.telegram ? organisation.telegram : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">LinkedIn</span>
-          {{ organisation?.linkedin ? organisation.linkedin : "" }}
-        </div>
-      </div>
-
-      <div class="organisation-box-header">Location</div>
-      <div class="organisation-box">
-        <button class="edit-link-button" @click="editLink('location')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">City:</span>
-          {{ organisation?.city ? organisation.city : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Country:</span>
-          {{ organisation?.country ? organisation.country : "" }}
-        </div>
-      </div>
-
-      <div class="organisation-box-header">Settings</div>
-      <div class="organisation-box">
-        <button class="edit-link-button" @click="editLink('settings')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Enabled </span>
-          {{ organisation?.enabled ? organisation.enabled : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Verified</span>
-          {{ organisation?.verified ? organisation.verified : "False" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Blocked</span>
-          {{ organisation?.blocked ? organisation.blocked : "False" }}
-        </div>
-      </div>
-
-      <div class="organisation-box-header">Activity</div>
-      <div class="organisation-box">
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Date</span>
-          {{ organisation?.created_date ? organisation.created_date : "" }}
-        </div>
-        <div class="organisation-box-value">
-          <span class="organisation-box-label">Last Updated</span>
-          {{ organisation?.updated_date ? organisation.updated_date : "" }}
-        </div>
-      </div>
-
-      <div class="line-divider"></div>
-
-      <div class="title-bar">
-        <div class="row">
-          <div class="title-name">Members</div>
-          <div class="title-actions">
-            <button class="create-button">Add</button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Phone</span>
+            {{ organisation?.phone ? organisation.phone : "" }}
           </div>
         </div>
-        <p>Add members to your Organisation.</p>
+
+        <div class="organisation-box-header">Social Details</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('socials')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Website</span>
+            {{ organisation?.website ? organisation.website : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Twitter</span>
+            {{ organisation?.twitter ? organisation.twitter : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Discord</span>
+            {{ organisation?.discord ? organisation.discord : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Telegram</span>
+            {{ organisation?.telegram ? organisation.telegram : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">LinkedIn</span>
+            {{ organisation?.linkedin ? organisation.linkedin : "" }}
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Location</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('location')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">City:</span>
+            {{ organisation?.city ? organisation.city : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Country:</span>
+            {{ organisation?.country ? organisation.country : "" }}
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Settings</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('settings')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Enabled </span>
+            {{ organisation?.enabled ? organisation.enabled : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Verified</span>
+            {{ organisation?.verified ? organisation.verified : "False" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Blocked</span>
+            {{ organisation?.blocked ? organisation.blocked : "False" }}
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Activity</div>
+        <div class="organisation-box">
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Date</span>
+            {{ organisation?.created_date ? organisation.created_date : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Last Updated</span>
+            {{ organisation?.updated_date ? organisation.updated_date : "" }}
+          </div>
+        </div>
+      </div>
+
+      <div v-if="tab === 'members'" class="tab-box">
+        <div class="title-bar">
+          <div class="row">
+            <div class="title-name">Members</div>
+            <div class="title-actions">
+              <button class="create-button">Add</button>
+            </div>
+          </div>
+          <p>Add members to your Organisation.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -174,6 +192,8 @@ import testOrganisation from "../data/organisations.json";
 const store = useStore();
 const route = useRoute();
 const { organisation } = storeToRefs(store);
+
+const tab = ref("details");
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -220,6 +240,10 @@ function editLink(value: string) {
   console.log("Edit", value);
 }
 
+const loadTab = (value: string) => {
+  tab.value = value;
+};
+
 async function fetchOrganisation() {
   let filteredOrganisation = testOrganisation.data.filter((organisation) => {
     // return organisation.id === route.params.id;
@@ -236,6 +260,49 @@ onBeforeMount(async () => {
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
+
+.tab-switcher {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 12px 0;
+
+  .tab-button {
+    font-family: "Poppins", sans-serif;
+    color: $black;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-right: 24px;
+    padding-bottom: 2px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.3s all linear;
+    cursor: pointer;
+
+    @include breakpoint($break-sm) {
+      font-size: 16px !important;
+    }
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      border-bottom: 2px solid $grasp-blue;
+    }
+  }
+  .tab-button.active {
+    padding-bottom: 2px;
+    border-bottom: 2px solid $grasp-blue;
+  }
+}
+.tab-box {
+  width: 100%;
+  margin: 0;
+}
 
 .edit-link-button {
   position: absolute;
