@@ -9,7 +9,7 @@
             <button class="create-button">Add Members</button>
           </div>
         </div>
-        <!-- <p>Update your Organisation details and settings.</p> -->
+        <p></p>
       </div>
 
       <div class="tab-switcher">
@@ -27,18 +27,24 @@
         >
           Members
         </div>
+        <div
+          :class="tab === 'activity' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('activity')"
+        >
+          Activity
+        </div>
       </div>
 
-      <div class="line-divider"></div>
-
+      <!-- Details Tab  -->
       <div v-if="tab === 'details'" class="tab-box">
         <div class="organisation-header">
           <button class="edit-link-button" @click="editLink('banner')">
             <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
           </button>
           <div class="organisation-banner">
-            <img v-if="organisation.banner" :src="`../${organisation.banner}`" />
-            <div v-if="organisation.category" class="category-indicator">
+            <img v-if="organisation?.banner" :src="`../${organisation.banner}`" />
+            <div v-if="organisation?.category" class="category-indicator">
               {{ organisation.category }}
             </div>
           </div>
@@ -50,9 +56,9 @@
               <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
             </button>
             <img
-              v-if="organisation.image"
+              v-if="organisation?.image"
               :src="organisation.image"
-              :alt="organisation.title ? organisation.title : ''"
+              :alt="organisation?.title ? organisation.title : ''"
             />
           </div>
           <div class="organisation-header-detail">
@@ -147,6 +153,33 @@
             {{ organisation?.blocked ? organisation.blocked : "False" }}
           </div>
         </div>
+      </div>
+      <!-- END Details Tab  -->
+
+      <!-- Members Tab  -->
+      <div v-if="tab === 'members'" class="tab-box">
+        <div class="title-bar">
+          <div class="row">
+            <div class="title-name">Members</div>
+            <div class="title-actions">
+              <button class="create-button">Add</button>
+            </div>
+          </div>
+          <p>Add members to your Organisation.</p>
+        </div>
+      </div>
+      <!-- END Members Tab  -->
+
+      <!-- Activity Tab  -->
+      <div v-if="tab === 'activity'" class="tab-box">
+        <div class="title-bar">
+          <div class="row">
+            <div class="title-name">Activity</div>
+            <div class="title-actions">
+              <button class="create-button">Add</button>
+            </div>
+          </div>
+        </div>
 
         <div class="organisation-box-header">Activity</div>
         <div class="organisation-box">
@@ -160,27 +193,15 @@
           </div>
         </div>
       </div>
-
-      <div v-if="tab === 'members'" class="tab-box">
-        <div class="title-bar">
-          <div class="row">
-            <div class="title-name">Members</div>
-            <div class="title-actions">
-              <button class="create-button">Add</button>
-            </div>
-          </div>
-          <p>Add members to your Organisation.</p>
-        </div>
-      </div>
+      <!-- END Members Tab  -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onBeforeMount } from "vue";
+import { ref, provide, onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
 
 /* Components */
@@ -190,8 +211,7 @@ import SidebarView from "@/components/SidebarView.vue";
 import testOrganisation from "../data/organisations.json";
 
 const store = useStore();
-const route = useRoute();
-const { organisation } = storeToRefs(store);
+const { user, organisation } = storeToRefs(store);
 
 const tab = ref("details");
 
@@ -246,14 +266,14 @@ const loadTab = (value: string) => {
 
 async function fetchOrganisation() {
   let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    // return organisation.id === route.params.id;
-    return organisation.id === "1";
+    console.log("user.value.orgId", user.value.orgId);
+    return organisation.id === user.value.orgId;
   });
   console.log("Organisation", filteredOrganisation[0]);
   store.setOrganisation(filteredOrganisation[0] as any);
 }
 
-onBeforeMount(async () => {
+onMounted(async () => {
   await fetchOrganisation();
 });
 </script>
@@ -268,7 +288,7 @@ onBeforeMount(async () => {
   align-content: flex-start;
   align-items: center;
   padding: 0;
-  margin: 12px 0;
+  margin: 0 auto 20px;
 
   .tab-button {
     font-family: "Poppins", sans-serif;
@@ -276,11 +296,11 @@ onBeforeMount(async () => {
     font-size: 18px;
     font-weight: 600;
     line-height: 20px;
-    margin-right: 24px;
+    margin-right: 16px;
     padding-bottom: 2px;
     text-decoration: none;
     border-bottom: 2px solid transparent;
-    transition: 0.3s all linear;
+    transition: 0.4s all linear;
     cursor: pointer;
 
     @include breakpoint($break-sm) {

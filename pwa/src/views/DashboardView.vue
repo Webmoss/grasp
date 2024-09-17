@@ -65,6 +65,8 @@
               </span>
             </div>
           </div>
+          <!-- END Courses Tab  -->
+
           <!-- Lessons Tab  -->
           <div v-if="tab === 'lessons'" class="tab-box">
             <div class="my-lessons-box">
@@ -101,6 +103,7 @@
             </div>
           </div>
         </div>
+        <!-- END Lessons Tab  -->
 
         <div class="right">
           <div class="my-wallet-box">
@@ -462,11 +465,11 @@ onBeforeMount(async () => {
       font-size: 18px;
       font-weight: 600;
       line-height: 20px;
-      margin-right: 24px;
+      margin-right: 16px;
       padding-bottom: 2px;
       text-decoration: none;
       border-bottom: 2px solid transparent;
-      transition: 0.3s all linear;
+      transition: 0.4s all linear;
       cursor: pointer;
 
       @include breakpoint($break-sm) {

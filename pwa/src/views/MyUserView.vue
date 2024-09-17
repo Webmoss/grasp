@@ -10,153 +10,176 @@
             <!-- <button class="create-button">Add Members</button> -->
           </div>
         </div>
-        <p>Update your user details and settings.</p>
+        <p></p>
       </div>
 
-      <div class="line-divider"></div>
-
-      <div class="user-header">
-        <button class="edit-link-button" @click="editLink('banner')">
-          <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
-        </button>
-        <div class="user-banner">
-          <img v-if="user.banner" :src="`../${user.banner}`" />
-          <div v-if="user.type" class="type-indicator">
-            {{ user.type }}
-          </div>
+      <div class="tab-switcher">
+        <div
+          :class="tab === 'details' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('details')"
+        >
+          Details
+        </div>
+        <div
+          :class="tab === 'activity' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('activity')"
+        >
+          Activity
         </div>
       </div>
 
-      <div class="user-header-details">
-        <div class="profile">
-          <button class="edit-link-button" @click="editLink('profile')">
+      <!-- Details Tab  -->
+      <div v-if="tab === 'details'" class="tab-box">
+        <div class="user-header">
+          <button class="edit-link-button" @click="editLink('banner')">
             <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
           </button>
-          <img
-            v-if="user.profileImage"
-            :src="`${user.profileImage}`"
-            :alt="user.name ? user.name : ''"
-          />
-          <img
-            v-else-if="user.image"
-            :src="`${user.image}`"
-            :alt="user.name ? user.name : ''"
-          />
+          <div class="user-banner">
+            <img v-if="user.banner" :src="`../${user.banner}`" />
+            <div v-if="user.type" class="type-indicator">
+              {{ user.type }}
+            </div>
+          </div>
         </div>
-        <div class="user-header-detail">
-          <button class="edit-link-button" @click="editLink('details')">
+
+        <div class="user-header-details">
+          <div class="profile">
+            <button class="edit-link-button" @click="editLink('profile')">
+              <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
+            </button>
+            <img
+              v-if="user.profileImage"
+              :src="`${user.profileImage}`"
+              :alt="user.name ? user.name : ''"
+            />
+            <img
+              v-else-if="user.image"
+              :src="`${user.image}`"
+              :alt="user.name ? user.name : ''"
+            />
+          </div>
+          <div class="user-header-detail">
+            <button class="edit-link-button" @click="editLink('details')">
+              <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+            </button>
+            <div class="user-title">
+              {{ user?.title ? user.title : "" }} {{ user?.name ? user.name : "" }}
+            </div>
+            <div class="user-description">
+              {{ user?.description ? user.description : "" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="user-box-header">Contact Details</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('contacts')">
             <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
           </button>
-          <div class="user-title">
-            {{ user?.title ? user.title : "" }} {{ user?.name ? user.name : "" }}
+          <div class="user-box-value">
+            <span class="user-box-label">Username</span>
+            {{ user?.username ? user.username : "" }}
           </div>
-          <div class="user-description">
-            {{ user?.description ? user.description : "" }}
+          <div class="user-box-value">
+            <span class="user-box-label">Email</span>
+            {{ user?.email ? user.email : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Phone</span>
+            {{ user?.phone ? user.phone : "" }}
+          </div>
+        </div>
+
+        <div class="user-box-header">Social Details</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('socials')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="user-box-value">
+            <span class="user-box-label">Website</span>
+            {{ user?.website ? user.website : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Twitter</span>
+            {{ user?.twitter ? user.twitter : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Discord</span>
+            {{ user?.discord ? user.discord : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Telegram</span>
+            {{ user?.telegram ? user.telegram : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">LinkedIn</span>
+            {{ user?.linkedin ? user.linkedin : "" }}
+          </div>
+        </div>
+
+        <div class="user-box-header">Location</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('location')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="user-box-value">
+            <span class="user-box-label">City:</span>
+            {{ user?.city ? user.city : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Country:</span>
+            {{ user?.country ? user.country : "" }}
+          </div>
+        </div>
+
+        <div class="user-box-header">Settings</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('settings')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="user-box-value">
+            <span class="user-box-label">Enabled </span>
+            {{ user?.enabled ? user.enabled : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Verified</span>
+            {{ user?.verified ? user.verified : "False" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Blocked</span>
+            {{ user?.blocked ? user.blocked : "False" }}
           </div>
         </div>
       </div>
+      <!-- END Details Tab  -->
 
-      <div class="user-box-header">Contact Details</div>
-      <div class="user-box">
-        <button class="edit-link-button" @click="editLink('contacts')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="user-box-value">
-          <span class="user-box-label">Username</span>
-          {{ user?.username ? user.username : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Email</span>
-          {{ user?.email ? user.email : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Phone</span>
-          {{ user?.phone ? user.phone : "" }}
+      <!-- Activity Tab  -->
+      <div v-if="tab === 'activity'" class="tab-box">
+        <div class="user-box-header">Activity</div>
+        <div class="user-box">
+          <div class="user-box-value">
+            <span class="user-box-label">Date</span>
+            {{ user?.created_date ? user.created_date : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Last Updated</span>
+            {{ user?.updated_date ? user.updated_date : "" }}
+          </div>
         </div>
       </div>
-
-      <div class="user-box-header">Social Details</div>
-      <div class="user-box">
-        <button class="edit-link-button" @click="editLink('socials')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="user-box-value">
-          <span class="user-box-label">Website</span>
-          {{ user?.website ? user.website : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Twitter</span>
-          {{ user?.twitter ? user.twitter : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Discord</span>
-          {{ user?.discord ? user.discord : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Telegram</span>
-          {{ user?.telegram ? user.telegram : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">LinkedIn</span>
-          {{ user?.linkedin ? user.linkedin : "" }}
-        </div>
-      </div>
-
-      <div class="user-box-header">Location</div>
-      <div class="user-box">
-        <button class="edit-link-button" @click="editLink('location')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="user-box-value">
-          <span class="user-box-label">City:</span>
-          {{ user?.city ? user.city : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Country:</span>
-          {{ user?.country ? user.country : "" }}
-        </div>
-      </div>
-
-      <div class="user-box-header">Settings</div>
-      <div class="user-box">
-        <button class="edit-link-button" @click="editLink('settings')">
-          <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-        </button>
-        <div class="user-box-value">
-          <span class="user-box-label">Enabled </span>
-          {{ user?.enabled ? user.enabled : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Verified</span>
-          {{ user?.verified ? user.verified : "False" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Blocked</span>
-          {{ user?.blocked ? user.blocked : "False" }}
-        </div>
-      </div>
-
-      <div class="user-box-header">Activity</div>
-      <div class="user-box">
-        <div class="user-box-value">
-          <span class="user-box-label">Date</span>
-          {{ user?.created_date ? user.created_date : "" }}
-        </div>
-        <div class="user-box-value">
-          <span class="user-box-label">Last Updated</span>
-          {{ user?.updated_date ? user.updated_date : "" }}
-        </div>
-      </div>
-
-      <div class="line-divider"></div>
+      <!-- END Activity Tab  -->
+      <!-- <div class="line-divider"></div> -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { provide, onBeforeMount } from "vue";
+import { ref, provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 import { Notyf } from "notyf";
 
 /* Components */
@@ -164,10 +187,6 @@ import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
-
-const store = useStore();
-// const route = useRoute();
-const { user } = storeToRefs(store);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -210,15 +229,25 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const route = useRoute();
+const store = useStore();
+const { user } = storeToRefs(store);
+
+const tab = ref("details");
+
 function editLink(value: string) {
   console.log("Edit", value);
 }
 
+const loadTab = (value: string) => {
+  tab.value = value;
+};
+
 async function fetchUser() {
   let filteredUser = testUsers.data.filter((user) => {
+    // return user.id === (route.params.id as string);
     return user.id === "1";
   });
-  // console.log("User Profile", filteredUser[0]);
   store.setUser(filteredUser[0] as any);
 }
 
@@ -226,9 +255,53 @@ onBeforeMount(async () => {
   await fetchUser();
 });
 </script>
+
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
+
+.tab-switcher {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto 20px;
+
+  .tab-button {
+    font-family: "Poppins", sans-serif;
+    color: $black;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-right: 16px;
+    padding-bottom: 2px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.4s all linear;
+    cursor: pointer;
+
+    @include breakpoint($break-sm) {
+      font-size: 16px !important;
+    }
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      border-bottom: 2px solid $grasp-blue;
+    }
+  }
+  .tab-button.active {
+    padding-bottom: 2px;
+    border-bottom: 2px solid $grasp-blue;
+  }
+}
+.tab-box {
+  width: 100%;
+  margin: 0;
+}
 
 .edit-link-button {
   position: absolute;

@@ -7,10 +7,9 @@
           <div class="title-name">My Courses</div>
           <div class="title-actions">
             <button class="create-button" @click="showHideModal()">Create Course</button>
-            <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
-        <p>Create new course or view a list of all your courses.</p>
+        <p>Create a new course or view a list of all your courses.</p>
       </div>
       <div class="main">
         <CourseSearch />
@@ -42,21 +41,6 @@ import CourseModal from "@/components/CoursesComponents/CourseModal.vue";
 
 /* All Posts stored in a JSON */
 import testCourses from "../data/courses.json";
-
-const store = useStore();
-const { courses, pagination, filter } = storeToRefs(store);
-
-const showModal = ref(false);
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -98,6 +82,21 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+const store = useStore();
+const { courses, pagination, filter } = storeToRefs(store);
+
+const showModal = ref(false);
+const lastPage = ref(1);
+const lastSearchTerm = ref("");
+
+const newSearchTerm = computed(() => {
+  return filter.value.search_term;
+});
+
+const shouldGetData = computed(() => {
+  return newSearchTerm.value !== lastSearchTerm.value;
+});
 
 const total = computed(() => {
   return courses.value ? courses.value.length : 0;

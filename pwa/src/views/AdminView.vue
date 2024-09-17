@@ -6,29 +6,64 @@
         <div class="row">
           <div class="title-name">Admin Panel</div>
           <div class="title-actions">
-            <!-- <button class="back-button">Back</button>
-            <button class="create-button">Edit</button> -->
+            <button class="back-button">Back</button>
+            <button class="create-button">Edit</button>
           </div>
         </div>
-        <p>Boss level Obtained</p>
+        <p></p>
       </div>
-      <div class="line-divider"></div>
-      <div class="user-date">
-        <span class="user-date-label">Date:</span>
-        {{ user?.created_date ? user.created_date : "" }}
+
+      <div class="tab-switcher">
+        <div
+          :class="tab === 'analytics' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('analytics')"
+        >
+          Analytics
+        </div>
+        <div
+          :class="tab === 'sales' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('sales')"
+        >
+          Sales
+        </div>
+        <div
+          :class="tab === 'reporting' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('reporting')"
+        >
+          Reporting
+        </div>
       </div>
-      <div class="user-excerpt">
-        {{ user?.name ? user.name : "" }}
+
+      <!-- Analytics Tab -->
+      <div v-if="tab === 'analytics'" class="tab-box">
+        <div class="line-divider"></div>
+        <div class="user-date">
+          <span class="user-date-label">Date:</span>
+          {{ user?.created_date ? user.created_date : "" }}
+        </div>
+        <div class="user-excerpt">
+          {{ user?.name ? user.name : "" }}
+        </div>
+        <div class="user-description">
+          {{ user?.description ? user.description : "" }}
+        </div>
       </div>
-      <div class="user-description">
-        {{ user?.description ? user.description : "" }}
-      </div>
+      <!-- END Analytics Tab -->
+      <!-- Analytics Tab -->
+      <div v-if="tab === 'sales'" class="tab-box"></div>
+      <!-- END Analytics Tab -->
+      <!-- Analytics Tab -->
+      <div v-if="tab === 'reporting'" class="tab-box"></div>
+      <!-- END Analytics Tab -->
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { provide, onBeforeMount } from "vue";
+import { ref, provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 // import { useRoute } from "vue-router";
@@ -39,10 +74,6 @@ import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
-
-const store = useStore();
-// const route = useRoute();
-const { user } = storeToRefs(store);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -85,9 +116,20 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const store = useStore();
+const { user } = storeToRefs(store);
+
+const tab = ref("analytics");
+
+const loadTab = (value: string) => {
+  tab.value = value;
+};
+
 async function fetchAdmin() {
   let filteredUser = testUsers.data.filter((user) => {
-    return user.wallet === "0xA1FCD7B2F6f36e6C14EbF77413bbE65DCEe97792";
+    return (
+      user.id === "1" && user.wallet === "0xA1FCD7B2F6f36e6C14EbF77413bbE65DCEe97792"
+    );
   });
   console.log("Admin Profile", filteredUser[0]);
   store.setUser(filteredUser[0] as any);
@@ -100,6 +142,49 @@ onBeforeMount(async () => {
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
+
+.tab-switcher {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0 auto 20px;
+
+  .tab-button {
+    font-family: "Poppins", sans-serif;
+    color: $black;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    margin-right: 16px;
+    padding-bottom: 2px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: 0.4s all linear;
+    cursor: pointer;
+
+    @include breakpoint($break-sm) {
+      font-size: 16px !important;
+    }
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      border-bottom: 2px solid $grasp-blue;
+    }
+  }
+  .tab-button.active {
+    padding-bottom: 2px;
+    border-bottom: 2px solid $grasp-blue;
+  }
+}
+.tab-box {
+  width: 100%;
+  margin: 0;
+}
 
 .user-date {
   width: 100%;

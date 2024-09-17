@@ -47,12 +47,12 @@
           <span class="item">Admin</span>
         </router-link>
       </li>
-      <!-- <li>
+      <li>
         <router-link :to="{ name: 'terms' }" active-class="active" exact>
           <img src="../assets/svgs/terms-icon.svg" class="icon" />
           <span class="item">Terms</span>
         </router-link>
-      </li> -->
+      </li>
     </ul>
   </div>
 </template>
@@ -130,8 +130,8 @@ const { user } = storeToRefs(store);
         font-weight: 500;
         line-height: 20px;
         text-decoration: none;
-        cursor: pointer;
         padding: 12px 30px 12px 20px;
+        cursor: pointer;
 
         @include breakpoint($break-sm) {
           font-size: 16px !important;
@@ -151,8 +151,9 @@ const { user } = storeToRefs(store);
           }
         }
         .item {
-          border-bottom: 2px solid transparent;
-          transition: 0.6s all linear;
+          padding-bottom: 1px;
+          border-bottom: 1px solid transparent;
+          transition: 0.5s all linear;
           margin-top: -5px;
 
           &:hover,
@@ -161,7 +162,8 @@ const { user } = storeToRefs(store);
           &:focus-visible {
             color: $white;
             font-weight: 500;
-            border-bottom: 2px solid $grasp-cyan;
+            padding-bottom: 1px;
+            border-bottom: 1px solid $grasp-cyan;
           }
         }
       }
@@ -172,7 +174,8 @@ const { user } = storeToRefs(store);
         .item {
           color: $white;
           font-weight: 500;
-          border-bottom: 2px solid $grasp-cyan;
+          padding-bottom: 1px;
+          border-bottom: 1px solid $grasp-cyan;
         }
       }
     }

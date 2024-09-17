@@ -7,10 +7,9 @@
           <div class="title-name">My Lessons</div>
           <div class="title-actions">
             <button class="create-button" @click="showHideModal()">Create Lesson</button>
-            <!-- <button class="back-button">Back</button> -->
           </div>
         </div>
-        <p>Create new lesson or view a list of all your lessons.</p>
+        <p>Create a new lesson or view a list of all your lessons.</p>
       </div>
       <div class="main">
         <LessonSearch />

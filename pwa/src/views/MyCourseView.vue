@@ -5,7 +5,7 @@
       <div class="title-bar">
         <div class="row">
           <div class="title-name">
-            {{ course.title ? course.title : "" }}
+            {{ course?.title ? course.title : "" }}
           </div>
           <div class="title-actions">
             <button class="back-button">Back</button>

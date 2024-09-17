@@ -42,10 +42,6 @@ import SidebarView from "@/components/SidebarView.vue";
 /* All Posts stored in a JSON */
 import testLessons from "../data/lessons.json";
 
-const store = useStore();
-const route = useRoute();
-const { lesson } = storeToRefs(store);
-
 const NotfyProvider = new Notyf({
   duration: 2000,
   position: {
@@ -86,6 +82,10 @@ const NotfyProvider = new Notyf({
   ],
 });
 provide("notyf", NotfyProvider);
+
+const store = useStore();
+const route = useRoute();
+const { lesson } = storeToRefs(store);
 
 async function fetchLesson() {
   let filteredCourse = testLessons.data.filter((lesson) => {
