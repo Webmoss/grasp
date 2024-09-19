@@ -4,7 +4,7 @@
     <div class="page-layout">
       <div class="title-bar">
         <div class="row">
-          <div class="title-name">Profile</div>
+          <div class="title-name">My Profile</div>
           <div class="title-actions">
             <!-- <button class="back-button">Back</button> -->
             <!-- <button class="create-button">Add Members</button> -->
@@ -51,12 +51,12 @@
             </button>
             <img
               v-if="user.profileImage"
-              :src="`${user.profileImage}`"
+              :src="`../${user.profileImage}`"
               :alt="user.name ? user.name : ''"
             />
             <img
               v-else-if="user.image"
-              :src="`${user.image}`"
+              :src="`../${user.image}`"
               :alt="user.name ? user.name : ''"
             />
           </div>
@@ -67,9 +67,27 @@
             <div class="user-title">
               {{ user?.title ? user.title : "" }} {{ user?.name ? user.name : "" }}
             </div>
+            <div class="user-joined">
+              Joined {{ user?.created_date ? user.created_date : "" }}
+            </div>
             <div class="user-description">
               {{ user?.description ? user.description : "" }}
             </div>
+          </div>
+        </div>
+
+        <div class="user-box-header">Organisation</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('organisation')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="user-box-value">
+            <span class="user-box-label">Title</span>
+            {{ organisation?.title ? organisation.title : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Description</span>
+            {{ organisation?.description ? organisation.description : "" }}
           </div>
         </div>
 
@@ -89,6 +107,21 @@
           <div class="user-box-value">
             <span class="user-box-label">Phone</span>
             {{ user?.phone ? user.phone : "" }}
+          </div>
+        </div>
+
+        <div class="user-box-header">Location</div>
+        <div class="user-box">
+          <button class="edit-link-button" @click="editLink('location')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="user-box-value">
+            <span class="user-box-label">City:</span>
+            {{ user?.city ? user.city : "" }}
+          </div>
+          <div class="user-box-value">
+            <span class="user-box-label">Country:</span>
+            {{ user?.country ? user.country : "" }}
           </div>
         </div>
 
@@ -119,21 +152,6 @@
           </div>
         </div>
 
-        <div class="user-box-header">Location</div>
-        <div class="user-box">
-          <button class="edit-link-button" @click="editLink('location')">
-            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-          </button>
-          <div class="user-box-value">
-            <span class="user-box-label">City:</span>
-            {{ user?.city ? user.city : "" }}
-          </div>
-          <div class="user-box-value">
-            <span class="user-box-label">Country:</span>
-            {{ user?.country ? user.country : "" }}
-          </div>
-        </div>
-
         <div class="user-box-header">Settings</div>
         <div class="user-box">
           <button class="edit-link-button" @click="editLink('settings')">
@@ -157,15 +175,11 @@
 
       <!-- Activity Tab  -->
       <div v-if="tab === 'activity'" class="tab-box">
-        <div class="user-box-header">Activity</div>
+        <div class="user-box-header">Transactions</div>
         <div class="user-box">
           <div class="user-box-value">
             <span class="user-box-label">Date</span>
             {{ user?.created_date ? user.created_date : "" }}
-          </div>
-          <div class="user-box-value">
-            <span class="user-box-label">Last Updated</span>
-            {{ user?.updated_date ? user.updated_date : "" }}
           </div>
         </div>
       </div>
@@ -187,6 +201,7 @@ import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
+import testOrganisation from "../data/organisations.json";
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -231,7 +246,7 @@ provide("notyf", NotfyProvider);
 
 const route = useRoute();
 const store = useStore();
-const { user } = storeToRefs(store);
+const { user, organisation } = storeToRefs(store);
 
 const tab = ref("details");
 
@@ -246,9 +261,17 @@ const loadTab = (value: string) => {
 async function fetchUser() {
   let filteredUser = testUsers.data.filter((user) => {
     // return user.id === (route.params.id as string);
+    // console.log("user.id", user.id);
     return user.id === "1";
   });
   store.setUser(filteredUser[0] as any);
+
+  let filteredOrganisation = testOrganisation.data.filter((organisation) => {
+    // console.log("User OrgId", filteredUser[0].orgId);
+    return organisation.id === filteredUser[0].orgId;
+  });
+  // console.log("Organisation", filteredOrganisation[0]);
+  store.setOrganisation(filteredOrganisation[0] as any);
 }
 
 onBeforeMount(async () => {
@@ -366,6 +389,7 @@ onBeforeMount(async () => {
     transition: background-color 0.2s ease-out 0s;
     background: $white;
     font-size: 20px;
+    text-transform: capitalize;
     text-align: center;
     text-wrap: nowrap;
     padding-inline: 16px;
@@ -435,6 +459,14 @@ onBeforeMount(async () => {
     margin: 0;
   }
 
+  .user-joined {
+    color: $grey-60;
+    font-size: 15px;
+    font-weight: normal;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+
   .user-description {
     width: 100%;
     color: $black;
@@ -447,7 +479,7 @@ onBeforeMount(async () => {
 
 .user-box-header {
   font-family: "Poppins", sans-serif;
-  color: $grey-80;
+  color: $grey-90;
   width: 99%;
   font-size: 16px;
   font-weight: 600;
@@ -482,7 +514,7 @@ onBeforeMount(async () => {
   margin: 0 0 8px 0;
 
   .user-box-label {
-    width: 120px;
+    width: 140px;
     display: inline-block;
     color: $grey-90;
     font-size: 14px;

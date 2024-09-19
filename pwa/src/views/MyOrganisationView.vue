@@ -57,7 +57,7 @@
             </button>
             <img
               v-if="organisation?.image"
-              :src="organisation.image"
+              :src="`../${organisation.image}`"
               :alt="organisation?.title ? organisation.title : ''"
             />
           </div>
@@ -67,6 +67,9 @@
             </button>
             <div class="organisation-title">
               {{ organisation?.title ? organisation.title : "" }}
+            </div>
+            <div class="organisation-joined">
+              Joined {{ organisation?.created_date ? organisation.created_date : "" }}
             </div>
             <div class="organisation-description">
               {{ organisation?.description ? organisation.description : "" }}
@@ -90,6 +93,21 @@
           <div class="organisation-box-value">
             <span class="organisation-box-label">Phone</span>
             {{ organisation?.phone ? organisation.phone : "" }}
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Location</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('location')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">City:</span>
+            {{ organisation?.city ? organisation.city : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Country:</span>
+            {{ organisation?.country ? organisation.country : "" }}
           </div>
         </div>
 
@@ -120,18 +138,26 @@
           </div>
         </div>
 
-        <div class="organisation-box-header">Location</div>
+        <div class="organisation-box-header">Categories</div>
         <div class="organisation-box">
-          <button class="edit-link-button" @click="editLink('location')">
+          <button class="edit-link-button" @click="editLink('contacts')">
             <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
           </button>
           <div class="organisation-box-value">
-            <span class="organisation-box-label">City:</span>
-            {{ organisation?.city ? organisation.city : "" }}
+            <span class="organisation-box-label">Type</span>
+            {{ organisation?.type ? organisation.type : "" }}
           </div>
           <div class="organisation-box-value">
-            <span class="organisation-box-label">Country:</span>
-            {{ organisation?.country ? organisation.country : "" }}
+            <span class="organisation-box-label">Main Category</span>
+            {{ organisation?.category ? organisation.category : "" }}
+          </div>
+          <div
+            v-for="category in organisation.categories"
+            :key="category.id"
+            class="organisation-box-value"
+          >
+            <span class="organisation-box-label">Category</span>
+            {{ category?.name ? category.name : "" }}
           </div>
         </div>
 
@@ -208,12 +234,14 @@ import { Notyf } from "notyf";
 import SidebarView from "@/components/SidebarView.vue";
 
 /* All Posts stored in a JSON */
+import testUsers from "../data/users.json";
 import testOrganisation from "../data/organisations.json";
 
 const store = useStore();
-const { user, organisation } = storeToRefs(store);
+const { organisation } = storeToRefs(store);
 
 const tab = ref("details");
+const user = ref();
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -264,17 +292,26 @@ const loadTab = (value: string) => {
   tab.value = value;
 };
 
-async function fetchOrganisation() {
-  let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    console.log("user.value.orgId", user.value.orgId);
-    return organisation.id === user.value.orgId;
+function fetchOrganisation() {
+  let filteredUser = testUsers.data.filter((user) => {
+    // return user.id === (route.params.id as string);
+    // console.log("user.id", user.id);
+    return user.id === "1";
   });
-  console.log("Organisation", filteredOrganisation[0]);
+  // console.log("filteredUser[0]", filteredUser[0]);
+  user.value = filteredUser[0];
+  store.setUser(user.value);
+
+  let filteredOrganisation = testOrganisation.data.filter((organisation) => {
+    // console.log("User OrgId", user.value.orgId);
+    return organisation.id === (user.value.orgId as string);
+  });
+  // console.log("Organisation", filteredOrganisation[0]);
   store.setOrganisation(filteredOrganisation[0] as any);
 }
 
 onMounted(async () => {
-  await fetchOrganisation();
+  fetchOrganisation();
 });
 </script>
 <style lang="scss">
@@ -456,6 +493,14 @@ onMounted(async () => {
     margin: 0;
   }
 
+  .organisation-joined {
+    color: $grey-60;
+    font-size: 15px;
+    font-weight: normal;
+    text-align: left;
+    margin: 0 0 4px 0;
+  }
+
   .organisation-description {
     width: 100%;
     color: $black;
@@ -503,7 +548,7 @@ onMounted(async () => {
   margin: 0 0 8px 0;
 
   .organisation-box-label {
-    width: 120px;
+    width: 140px;
     display: inline-block;
     color: $grey-90;
     font-size: 14px;

@@ -213,11 +213,8 @@ section#content {
   transition: all 0.5s linear;
   cursor: pointer;
 
-  &:hover,
-  &:active,
-  &:focus,
-  &:focus-visible {
-    border: 2px solid $grasp-cyan;
+  &:hover {
+    color: $grasp-cyan;
   }
 }
 
