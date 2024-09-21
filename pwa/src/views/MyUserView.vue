@@ -6,8 +6,7 @@
         <div class="row">
           <div class="title-name">My Profile</div>
           <div class="title-actions">
-            <!-- <button class="back-button">Back</button> -->
-            <!-- <button class="create-button">Add Members</button> -->
+            <button class="create-button">Add Organisation</button>
           </div>
         </div>
         <p></p>
@@ -76,8 +75,13 @@
           </div>
         </div>
 
-        <div class="user-box-header">Organisation</div>
-        <div class="user-box">
+        <div v-if="user?.role && organisation?.title" class="user-box-header">
+          Organisation
+          <div class="role-indicator">
+            {{ prettyName(user.role) }}
+          </div>
+        </div>
+        <div v-if="user?.role && organisation?.title" class="user-box">
           <button class="edit-link-button" @click="editLink('organisation')">
             <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
           </button>
@@ -175,13 +179,15 @@
 
       <!-- Activity Tab  -->
       <div v-if="tab === 'activity'" class="tab-box">
-        <div class="user-box-header">Transactions</div>
+        <div class="user-box-header">Transactions Overview</div>
         <div class="user-box">
           <div class="user-box-value">
             <span class="user-box-label">Date</span>
             {{ user?.created_date ? user.created_date : "" }}
           </div>
         </div>
+        <ActivityList />
+        <div class="line-divider"></div>
       </div>
       <!-- END Activity Tab  -->
       <!-- <div class="line-divider"></div> -->
@@ -194,10 +200,12 @@ import { ref, provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { prettyName } from "@/services/prettyName";
 import { Notyf } from "notyf";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
+import ActivityList from "@/components/AdminComponents/ActivityList.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
@@ -478,13 +486,42 @@ onBeforeMount(async () => {
 }
 
 .user-box-header {
+  width: 99%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
   font-family: "Poppins", sans-serif;
   color: $grey-90;
-  width: 99%;
   font-size: 16px;
   font-weight: 600;
   text-align: left;
   margin: 0 0 4px 8px;
+
+  .role-indicator {
+    width: auto;
+    outline: transparent solid 1px;
+    outline-offset: 1px;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease-out 0s;
+    background: $grasp-cyan;
+    font-size: 12px;
+    text-align: center;
+    text-wrap: nowrap;
+    padding-inline: 12px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    --badge-color: $grey-40;
+    color: $black;
+    box-shadow: none;
+    border-width: 1.5px;
+    border-style: solid;
+    border-image: initial;
+    border-color: #4d5358;
+    z-index: 999999;
+    margin-left: 26px;
+  }
 }
 .user-box {
   width: 99%;

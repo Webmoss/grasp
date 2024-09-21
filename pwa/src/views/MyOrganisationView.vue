@@ -184,42 +184,31 @@
 
       <!-- Members Tab  -->
       <div v-if="tab === 'members'" class="tab-box">
-        <div class="title-bar">
-          <div class="row">
-            <div class="title-name">Members</div>
-            <div class="title-actions">
-              <button class="create-button">Add</button>
-            </div>
-          </div>
-          <p>Add members to your Organisation.</p>
-        </div>
-      </div>
-      <!-- END Members Tab  -->
-
-      <!-- Activity Tab  -->
-      <div v-if="tab === 'activity'" class="tab-box">
-        <div class="title-bar">
-          <div class="row">
-            <div class="title-name">Activity</div>
-            <div class="title-actions">
-              <button class="create-button">Add</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="organisation-box-header">Activity</div>
+        <div class="organisation-box-header">Member Management</div>
         <div class="organisation-box">
           <div class="organisation-box-value">
             <span class="organisation-box-label">Date</span>
-            {{ organisation?.created_date ? organisation.created_date : "" }}
-          </div>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Last Updated</span>
-            {{ organisation?.updated_date ? organisation.updated_date : "" }}
+            {{ user?.created_date ? user.created_date : "" }}
           </div>
         </div>
+        <UsersList />
+        <div class="line-divider"></div>
       </div>
       <!-- END Members Tab  -->
+
+      <!-- Activity Overview Tab  -->
+      <div v-if="tab === 'activity'" class="tab-box">
+        <div class="organisation-box-header">Transactions Overview</div>
+        <div class="organisation-box">
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Date</span>
+            {{ user?.created_date ? user.created_date : "" }}
+          </div>
+        </div>
+        <ActivityList />
+        <div class="line-divider"></div>
+      </div>
+      <!-- END Activity Tab  -->
     </div>
   </section>
 </template>
@@ -232,6 +221,8 @@ import { Notyf } from "notyf";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
+import UsersList from "@/components/AdminComponents/UsersList.vue";
+import ActivityList from "@/components/AdminComponents/ActivityList.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
@@ -513,9 +504,9 @@ onMounted(async () => {
 
 .organisation-box-header {
   font-family: "Poppins", sans-serif;
-  color: $grey-80;
+  color: $grey-100;
   width: 99%;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   text-align: left;
   margin: 0 0 4px 8px;
@@ -543,8 +534,6 @@ onMounted(async () => {
   color: $grey-90;
   font-size: 14px;
   font-weight: 500;
-  // text-decoration: none;
-  // text-transform: uppercase;
   margin: 0 0 8px 0;
 
   .organisation-box-label {

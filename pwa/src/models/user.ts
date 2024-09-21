@@ -1,6 +1,8 @@
 export interface userObject {
   id: string | null | undefined;
+  role: string | null | undefined;
   orgId: string | null | undefined;
+  orgName: string | null | undefined;
   campusId: string | null | undefined;
   wallet: string | null | undefined;
   type: string;
