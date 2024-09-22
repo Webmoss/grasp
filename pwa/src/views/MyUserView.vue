@@ -136,23 +136,23 @@
           </button>
           <div class="user-box-value">
             <span class="user-box-label">Website</span>
-            {{ user?.website ? user.website : "" }}
+            {{ user?.website?.title ? user.website.title : "" }}
           </div>
           <div class="user-box-value">
             <span class="user-box-label">Twitter</span>
-            {{ user?.twitter ? user.twitter : "" }}
+            {{ user?.twitter?.title ? user.twitter.title : "" }}
           </div>
           <div class="user-box-value">
             <span class="user-box-label">Discord</span>
-            {{ user?.discord ? user.discord : "" }}
+            {{ user?.discord?.title ? user.discord.title : "" }}
           </div>
           <div class="user-box-value">
             <span class="user-box-label">Telegram</span>
-            {{ user?.telegram ? user.telegram : "" }}
+            {{ user?.telegram?.title ? user.telegram.title : "" }}
           </div>
           <div class="user-box-value">
             <span class="user-box-label">LinkedIn</span>
-            {{ user?.linkedin ? user.linkedin : "" }}
+            {{ user?.linkedin?.title ? user.linkedin.title : "" }}
           </div>
         </div>
 
@@ -190,7 +190,6 @@
         <div class="line-divider"></div>
       </div>
       <!-- END Activity Tab  -->
-      <!-- <div class="line-divider"></div> -->
     </div>
   </section>
 </template>

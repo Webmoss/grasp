@@ -1,3 +1,4 @@
+import { linkObject } from "./link";
 export interface userObject {
   id: string | null | undefined;
   role: string | null | undefined;
@@ -17,11 +18,11 @@ export interface userObject {
   phone: string | null | undefined;
   city: string | null | undefined;
   country: string | null | undefined;
-  website: string | null | undefined;
-  twitter: string | null | undefined;
-  discord: string | null | undefined;
-  telegram: string | null | undefined;
-  linkedin: string | null | undefined;
+  website: linkObject;
+  twitter: linkObject;
+  discord: linkObject;
+  telegram: linkObject;
+  linkedin: linkObject;
   created_date: string | null | undefined;
   updated_date: string | null | undefined;
   enabled: boolean;

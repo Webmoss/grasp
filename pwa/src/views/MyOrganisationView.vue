@@ -118,23 +118,23 @@
           </button>
           <div class="organisation-box-value">
             <span class="organisation-box-label">Website</span>
-            {{ organisation?.website ? organisation.website : "" }}
+            {{ organisation?.website?.title ? organisation.website.title : "" }}
           </div>
           <div class="organisation-box-value">
             <span class="organisation-box-label">Twitter</span>
-            {{ organisation?.twitter ? organisation.twitter : "" }}
+            {{ organisation?.twitter?.title ? organisation.twitter.title : "" }}
           </div>
           <div class="organisation-box-value">
             <span class="organisation-box-label">Discord</span>
-            {{ organisation?.discord ? organisation.discord : "" }}
+            {{ organisation?.discord?.title ? organisation.discord.title : "" }}
           </div>
           <div class="organisation-box-value">
             <span class="organisation-box-label">Telegram</span>
-            {{ organisation?.telegram ? organisation.telegram : "" }}
+            {{ organisation?.telegram?.title ? organisation.telegram.title : "" }}
           </div>
           <div class="organisation-box-value">
             <span class="organisation-box-label">LinkedIn</span>
-            {{ organisation?.linkedin ? organisation.linkedin : "" }}
+            {{ organisation?.linkedin?.title ? organisation.linkedin.title : "" }}
           </div>
         </div>
 
