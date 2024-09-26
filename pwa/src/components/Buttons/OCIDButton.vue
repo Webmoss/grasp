@@ -55,7 +55,8 @@ const { loading, eduUsername, ocConnected } = storeToRefs(store);
 const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
     ? process.env.VUE_APP_AUTH_REDIRECT_URI
-    : "http://grasp.academy/dashboard",
+    : "https://grasp.academy/dashboard",
+  referralCode: "PARTNER6",
 };
 
 console.log("OCID Opts:", opts);
