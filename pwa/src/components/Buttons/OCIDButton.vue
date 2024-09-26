@@ -106,12 +106,12 @@ async function connect() {
   store.setLoading(true);
   try {
     const authSdk = new OCAuthSandbox(opts);
-    await authSdk.signInWithRedirect({
-      state: "opencampus",
-    });
-    // await authSdk.handleLoginRedirect({
+    // await authSdk.signInWithRedirect({
     //   state: "opencampus",
     // });
+    await authSdk.handleLoginRedirect({
+      state: "opencampus",
+    });
 
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */
