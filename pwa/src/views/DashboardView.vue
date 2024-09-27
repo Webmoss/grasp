@@ -181,6 +181,7 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { userObject } from "src/models/user";
 import { courseObject } from "src/models/course";
+import { ethers } from "ethers";
 import { Web3Auth } from "@web3auth/modal";
 import {
   CHAIN_NAMESPACES,
@@ -404,17 +405,78 @@ async function fetchCourses() {
   store.setCourses((testCourses.data as unknown) as courseObject[]);
 }
 
+/**
+ * Get Account ETH Balance
+ */
+async function checkETHBalance(account: string) {
+  try {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log(`Please connect 🦊 Metamask to continue!`);
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const wei = await provider.getBalance(account);
+    const ethBalance = ethers.utils.formatEther(wei);
+    const store = useStore();
+    store.setBalance(ethBalance);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/**
+ * Check if our Wallet is Connected to 🦊 Metamask
+ */
+async function checkIfWalletIsConnected() {
+  try {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log(`Please connect 🦊 Metamask to continue!`);
+      return;
+    }
+    /* Get our Current Account */
+    const accounts = await ethereum.request({ method: "eth_accounts" });
+
+    /* Update our Current Account in the Store */
+    if (accounts.length !== 0) {
+      const store = useStore();
+      store.setAccount(accounts[0]);
+
+      /* Get our Account Balance */
+      await checkETHBalance(accounts[0]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// onMounted(async () => {
+//   const init = async () => {
+//     try {
+//       await web3auth.initModal();
+//       provider = web3auth.provider;
+
+//       if (web3auth.connected) {
+//         console.log("Dashboard Web3Auth Connected", web3auth.connected);
+//         store.setLoggedIn(true);
+//         await getUserInfo();
+//         await getBalance();
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+//   init();
+// });
+
 onMounted(async () => {
   const init = async () => {
     try {
-      await web3auth.initModal();
-      provider = web3auth.provider;
+      if (loggedIn) {
+        console.log("MetaMask Connected", loggedIn);
 
-      if (web3auth.connected) {
-        console.log("Dashboard Web3Auth Connected", web3auth.connected);
-        store.setLoggedIn(true);
-        await getUserInfo();
-        await getBalance();
+        await checkIfWalletIsConnected();
       }
     } catch (error) {
       console.error(error);

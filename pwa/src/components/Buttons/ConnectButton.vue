@@ -27,6 +27,7 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { Web3Auth } from "@web3auth/modal";
+// import type { Web3AuthOptions } from "@web3auth/modal";
 import {
   CHAIN_NAMESPACES,
   IProvider,
@@ -159,7 +160,9 @@ async function connect() {
 }
 
 const logout = async () => {
-  await web3auth.logout();
+  if (web3auth.connected) {
+    await web3auth.logout();
+  }
   provider = null;
   store.setLoggedIn(false);
   router.push({ name: "home" });

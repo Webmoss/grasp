@@ -6,7 +6,8 @@
         ><h1>Grasp</h1>
       </router-link>
       <div class="mobile-connect">
-        <ConnectButton btnSize="small" />
+        <!-- <ConnectButton btnSize="small" /> -->
+        <MetaMaskButton btnSize="small" />
       </div>
     </div>
     <div class="header-menu">
@@ -68,7 +69,10 @@
           </ul>
         </div>
         <div class="right">
-          <ConnectButton btnSize="small" />
+          <div class="connect-button-row">
+            <!-- <ConnectButton btnSize="small" /> -->
+            <MetaMaskButton btnSize="small" />
+          </div>
         </div>
       </nav>
     </div>
@@ -79,16 +83,15 @@ import { computed } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
-import ConnectButton from "@/components/Buttons/ConnectButton.vue";
+// import ConnectButton from "@/components/Buttons/ConnectButton.vue";
+import MetaMaskButton from "@/components/Buttons/MetaMaskButton.vue";
 
 const route = useRoute();
 const store = useStore();
 const { loggedIn } = storeToRefs(store);
 
 const homeLink = computed(() => {
-  return route.name === "home"
-    ? true
-    : false;
+  return route.name === "home" ? true : false;
 });
 
 function scrollPageToTop() {
@@ -280,6 +283,20 @@ function navigateAndScroll(to: any) {
 
         .menu-icon {
           margin: 0 0 -2px 0;
+        }
+      }
+
+      .connect-button-row {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        padding: 0;
+
+        @include breakpoint($break-sm) {
+          width: 98%;
+          justify-content: space-evenly;
+          margin: 0 auto;
         }
       }
 
