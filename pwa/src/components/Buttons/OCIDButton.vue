@@ -103,6 +103,9 @@ const NotfyProvider = new Notyf({
 provide("notyf", NotfyProvider);
 
 const connect = async () => {
+
+  console.log("Connect OCID");
+
   store.setLoading(true);
   try {
     const authSdk = new OCAuthSandbox(opts);
@@ -158,6 +161,9 @@ const connect = async () => {
 }
 
 const fetchOCID = async () => {
+
+  console.log("Fetch OCID");
+
   try {
     const authSdk = new OCAuthSandbox(opts);
 

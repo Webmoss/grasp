@@ -269,7 +269,7 @@ async function fetchUser() {
   let filteredUser = testUsers.data.filter((user) => {
     // return user.id === (route.params.id as string);
     // console.log("user.id", user.id);
-    return user.id === "1";
+    return user.id === "3";
   });
   store.setUser(filteredUser[0] as any);
 
