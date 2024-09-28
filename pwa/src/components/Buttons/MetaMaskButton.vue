@@ -1,10 +1,24 @@
 <template>
   <button
-    v-if="!account || !loggedIn"
+    v-if="loading"
     :class="btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'"
     @click="connectWallet()"
   >
     <img src="@/assets/svgs/MetaMask.svg" /> Connect
+  </button>
+  <button
+    v-else-if="!account || !loggedIn"
+    :class="btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'"
+    @click="connectWallet()"
+  >
+    <img src="@/assets/svgs/MetaMask.svg" /> Connect
+  </button>
+  <button
+    v-else
+    @click="logout()"
+    :class="btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'"
+  >
+    Logout
   </button>
 </template>
 <script lang="ts" setup>
@@ -32,22 +46,22 @@ defineProps({
 
 const store = useStore();
 const router = useRouter();
-const { account, loggedIn } = storeToRefs(store);
+const { loading, account, loggedIn } = storeToRefs(store);
 
-async function connectWallet() {
+const connectWallet = async () => {
   store.setLoading(true);
   try {
     const { ethereum } = window;
-    if (!ethereum) {
+    if (!ethereum && !ethereum.isMetaMask) {
       alert("Please connect 🦊 Metamask to continue!");
       return;
     }
 
     const [accountAddress] = await ethereum.request({
       method: "eth_requestAccounts",
-    });
+    }) as string;
 
-    console.log("accountAddress", accountAddress);
+    console.log("Metamask Account", accountAddress);
 
     if (accountAddress) {
       store.setAccount(accountAddress);
@@ -59,7 +73,29 @@ async function connectWallet() {
     console.log("Error", error);
     store.setLoading(false);
   }
-}
+};
+
+const logout = async () => {
+  try {
+    // const { ethereum } = window;
+    // if (!ethereum && !ethereum.isMetaMask) {
+    //   alert("Please connect 🦊 Metamask to continue!");
+    //   return;
+    // }
+
+    // const [accountAddress] = await ethereum.request({
+    //   method: "eth_requestAccounts",
+    // });
+
+    // console.log("Metamask Account Address", accountAddress);
+
+    store.setAccount("");
+    store.setLoggedIn(false);
+    router.push({ name: "home" });
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
 </script>
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";

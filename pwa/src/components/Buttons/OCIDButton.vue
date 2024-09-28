@@ -102,16 +102,19 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-async function connect() {
+const connect = async () => {
   store.setLoading(true);
   try {
     const authSdk = new OCAuthSandbox(opts);
-    // await authSdk.signInWithRedirect({
-    //   state: "opencampus",
-    // });
-    await authSdk.handleLoginRedirect({
+    let authed = await authSdk.signInWithRedirect({
       state: "opencampus",
     });
+    console.log("authed", authed);
+
+    // let authed = await authSdk.handleLoginRedirect({
+    //   state: "opencampus",
+    // });
+    // console.log("authed", authed);
 
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */

@@ -113,7 +113,7 @@
             </div>
             <div class="my-account">
               <div class="account-address">
-                {{ eduEthAddress ? truncate(eduEthAddress, 8) : "0x000" }}
+                {{ eduEthAddress ? formatAddress(eduEthAddress) : "0x000" }}
               </div>
               <button class="copy-button" @click="copyClipboard(eduEthAddress)">
                 <img src="../assets/svgs/ContentCopy.svg" />
@@ -125,7 +125,7 @@
             <h2>Account</h2>
             <div class="my-account">
               <div class="account-address">
-                {{ account ? truncate(account, 8) : "0x000" }}
+                {{ account ? formatAddress(account) : "0x000" }}
               </div>
               <button class="copy-button" @click="copyClipboard(account)">
                 <img src="../assets/svgs/ContentCopy-White.svg" />
@@ -134,10 +134,10 @@
             <div class="my-wallet">
               <div class="my-wallet-amount">
                 <img src="../assets/svgs/EduCoin.svg" /><span class="">
-                  {{ balance ? balance : "0.00" }}</span
+                  {{ balance ? truncate(balance, 10) : "0.00" }}</span
                 >
               </div>
-              <button class="refresh-button" @click="getBalance">
+              <button class="refresh-button" @click="checkEDUBalance(account)">
                 <img src="../assets/svgs/Refresh.svg" />
               </button>
             </div>
@@ -148,7 +148,7 @@
             <div class="my-sales">
               <div class="my-sales-amount">
                 <img src="../assets/svgs/EduCoin.svg" /><span class="">
-                  {{ sales ? sales : "0.00" }}</span
+                  {{ salesTotal ? salesTotal : "0.00" }}</span
                 >
               </div>
               <div class="my-sales-percentage">
@@ -177,22 +177,25 @@
 <script setup lang="ts">
 import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
 import { Notyf } from "notyf";
-import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
+import { useStore } from "@/store";
+import { useRouter } from "vue-router";
 import { userObject } from "src/models/user";
 import { courseObject } from "src/models/course";
+import { lessonObject } from "src/models/lesson";
 import { ethers } from "ethers";
-import { Web3Auth } from "@web3auth/modal";
-import {
-  CHAIN_NAMESPACES,
-  IProvider,
-  WEB3AUTH_NETWORK,
-  CustomChainConfig,
-  OPENLOGIN_NETWORK_TYPE,
-} from "@web3auth/base";
-import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-import { MetamaskAdapter } from "@web3auth/metamask-adapter";
-import Web3 from "web3";
+
+// import { Web3Auth } from "@web3auth/modal";
+// import {
+//   CHAIN_NAMESPACES,
+//   IProvider,
+//   WEB3AUTH_NETWORK,
+//   CustomChainConfig,
+//   OPENLOGIN_NETWORK_TYPE,
+// } from "@web3auth/base";
+// import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
+// import { MetamaskAdapter } from "@web3auth/metamask-adapter";
+// import Web3 from "web3";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
@@ -202,78 +205,77 @@ import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 /* All Posts stored in a JSON */
 import testCourses from "../data/courses.json";
 import testLessons from "../data/lessons.json";
-import nfts from "../data/nfts.json";
+// import nfts from "../data/nfts.json";
 
-interface BaseAdapterSettings {
-  clientId?: string;
-  sessionTime?: number;
-  chainConfig?: CustomChainConfig;
-  web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
-}
+// interface BaseAdapterSettings {
+//   clientId?: string;
+//   sessionTime?: number;
+//   chainConfig?: CustomChainConfig;
+//   web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
+// }
 
 const store = useStore();
-const { loggedIn, eduUsername, eduEthAddress, account, balance, courses } = storeToRefs(
-  store
-);
+const router = useRouter();
+const { loggedIn, account, balance, eduUsername, eduEthAddress, courses } = storeToRefs(store);
 
-let provider = <IProvider | null>null;
+// let provider = <IProvider | null>null;
 
 const tab = ref("courses");
 const sales = ref(0);
 const percentage = ref(0);
 
 /* Get from https://dashboard.web3auth.io */
-const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
-  ? process.env.VUE_APP_WEB3AUTH_CLIENTID
-  : "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
+// const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
+//   ? process.env.VUE_APP_WEB3AUTH_CLIENTID
+//   : "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
 
-const metamaskAdapter = new MetamaskAdapter({
-  clientId,
-  sessionTime: 3600, // 1 hour in seconds
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-    chainId: "0xA045C",
-    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
-  },
-  web3AuthNetwork: "sapphire_devnet",
-});
+// const metamaskAdapter = new MetamaskAdapter({
+//   clientId,
+//   sessionTime: 3600, // 1 hour in seconds
+//   chainConfig: {
+//     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
+//     chainId: "0xA045C",
+//     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+//     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+//   },
+//   web3AuthNetwork: "sapphire_devnet",
+// });
 
 /* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
-metamaskAdapter.setAdapterSettings({
-  sessionTime: 86400, // 1 day in seconds
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-    chainId: "0xA045C",
-    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
-  },
-  web3AuthNetwork: "sapphire_devnet",
-});
+// metamaskAdapter.setAdapterSettings({
+//   sessionTime: 86400, // 1 day in seconds
+//   chainConfig: {
+//     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
+//     chainId: "0xA045C",
+//     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+//     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+//   },
+//   web3AuthNetwork: "sapphire_devnet",
+// });
 
-const chainConfig = {
-  chainId: "0xA045C", // Chain Id 656476 in hex
-  chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-  rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-  displayName: "Open Campus Codex",
-  blockExplorer: "https://opencampus-codex.blockscout.com/",
-  ticker: "EDU",
-  tickerName: "EDU",
-  logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",
-};
+// const chainConfig = {
+//   chainId: "0xA045C", // Chain Id 656476 in hex
+//   chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
+//   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+//   displayName: "Open Campus Codex",
+//   blockExplorer: "https://opencampus-codex.blockscout.com/",
+//   ticker: "EDU",
+//   tickerName: "EDU",
+//   logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",
+// };
 
-const privateKeyProvider = new EthereumPrivateKeyProvider({
-  config: { chainConfig: chainConfig },
-});
+// const privateKeyProvider = new EthereumPrivateKeyProvider({
+//   config: { chainConfig: chainConfig },
+// });
 
-const web3auth = new Web3Auth({
-  clientId,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-  privateKeyProvider: privateKeyProvider,
-});
+// const web3auth = new Web3Auth({
+//   clientId,
+//   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
+//   privateKeyProvider: privateKeyProvider,
+// });
 
 // it will add/update  the metamask adapter in to web3auth class
-web3auth.configureAdapter(metamaskAdapter);
+// web3auth.configureAdapter(metamaskAdapter);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -337,67 +339,79 @@ const truncate = (data: string, num: number) => {
   return reqdString;
 };
 
-const getUserInfo = async () => {
-  const user = await web3auth.getUserInfo();
-  store.setUser(user as userObject);
-};
+/* Display a readable user address */
+const formatAddress = (addr: string) => {
+  const upperAfterLastTwo = addr.slice(0, 2) + addr.slice(2)
+  return `${upperAfterLastTwo.substring(0, 5)}...${upperAfterLastTwo.substring(39)}`
+}
 
-const getBalance = async () => {
-  if (!provider) {
-    NotfyProvider.error("Provider not initialized yet!");
-    return;
-  }
-  const web3 = new Web3(provider as any);
-  const address = (await web3.eth.getAccounts())[0];
-  store.setAccount(address);
+// const getUserInfo = async () => {
+//   const user = await web3auth.getUserInfo();
+//   store.setUser(user as userObject);
+// };
 
-  /* Get user's balance in EDU Token */
-  const balance = web3.utils.fromWei(
-    await web3.eth.getBalance(address), // Balance is in wei
-    "ether"
-  );
-  store.setBalance(balance);
-};
+/* Web3 Auth Method to get Balance */
+// const getBalance = async () => {
+//   if (!provider) {
+//     NotfyProvider.error("Provider not initialized yet!");
+//     return;
+//   }
+//   const web3 = new Web3(provider as any);
+//   const address = (await web3.eth.getAccounts())[0];
+//   store.setAccount(address);
 
-const signMessage = async () => {
-  provider = web3auth.provider;
-  if (!provider) {
-    NotfyProvider.error("Provider not initialized yet!");
-    return;
-  }
-  const web3 = new Web3(provider as any);
+//   /* Get user's balance in EDU Token */
+//   const balance = web3.utils.fromWei(
+//     await web3.eth.getBalance(address), // Balance is in wei
+//     "ether"
+//   );
+//   store.setBalance(balance);
+// };
 
-  // Get user's Ethereum public address
-  const fromAddress = (await web3.eth.getAccounts())[0];
+// const signMessage = async () => {
+//   provider = web3auth.provider;
+//   if (!provider) {
+//     NotfyProvider.error("Provider not initialized yet!");
+//     return;
+//   }
+//   const web3 = new Web3(provider as any);
 
-  const originalMessage = "YOUR_MESSAGE";
+//   // Get user's Ethereum public address
+//   const fromAddress = (await web3.eth.getAccounts())[0];
 
-  // Sign the message
-  const signedMessage = await web3.eth.personal.sign(
-    originalMessage,
-    fromAddress,
-    "test password!" // configure your own password here.
-  );
-  NotfyProvider.success(`"Message signed:" ${signedMessage}`);
-};
+//   const originalMessage = "YOUR_MESSAGE";
+
+//   // Sign the message
+//   const signedMessage = await web3.eth.personal.sign(
+//     originalMessage,
+//     fromAddress,
+//     "test password!" // configure your own password here.
+//   );
+//   NotfyProvider.success(`"Message signed:" ${signedMessage}`);
+// };
+
+const salesTotal = computed(() => {
+  let total = 0;
+  total = coursesTotal.value + lessonTotal.value;
+  // console.log(" Sales Total", total);
+  return total;
+});
 
 const coursesTotal = computed(() => {
   let total = 0;
-
   testCourses.data.forEach((val) => {
     total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
   });
-  // console.log("coursesTotal", total);
+  // console.log("Courses Total", total);
   return total;
 });
 
 const lessonTotal = computed(() => {
   let total = 0;
-
   testLessons.data.forEach((val) => {
     total += Number(val.price) * Number(val.sales); // or if you pass float numbers , use parseFloat()
   });
-  // console.log("lessonTotal", total);
+  // console.log("Lessons Total", total);
   return total;
 });
 
@@ -405,10 +419,14 @@ async function fetchCourses() {
   store.setCourses((testCourses.data as unknown) as courseObject[]);
 }
 
+async function fetchLessons() {
+  store.setLessons((testLessons.data as unknown) as lessonObject[]);
+}
+
 /**
- * Get Account ETH Balance
+ * Get Account EDU Balance
  */
-async function checkETHBalance(account: string) {
+const checkEDUBalance = async (account: string) => {
   try {
     const { ethereum } = window;
     if (!ethereum) {
@@ -417,9 +435,9 @@ async function checkETHBalance(account: string) {
     }
     const provider = new ethers.providers.Web3Provider(ethereum);
     const wei = await provider.getBalance(account);
-    const ethBalance = ethers.utils.formatEther(wei);
+    const eduBalance = ethers.utils.formatEther(wei);
     const store = useStore();
-    store.setBalance(ethBalance);
+    store.setBalance(eduBalance);
   } catch (error) {
     console.log(error);
   }
@@ -428,7 +446,7 @@ async function checkETHBalance(account: string) {
 /**
  * Check if our Wallet is Connected to 🦊 Metamask
  */
-async function checkIfWalletIsConnected() {
+ const checkIfWalletIsConnected = async () => {
   try {
     const { ethereum } = window;
     if (!ethereum) {
@@ -443,8 +461,8 @@ async function checkIfWalletIsConnected() {
       const store = useStore();
       store.setAccount(accounts[0]);
 
-      /* Get our Account Balance */
-      await checkETHBalance(accounts[0]);
+      /* Get our Account EDU Balance */
+      await checkEDUBalance(accounts[0]);
     }
   } catch (error) {
     console.log(error);
@@ -473,10 +491,11 @@ async function checkIfWalletIsConnected() {
 onMounted(async () => {
   const init = async () => {
     try {
-      if (loggedIn) {
-        console.log("MetaMask Connected", loggedIn);
-
+      if (loggedIn.value) {
+        console.log("MetaMask Connected", loggedIn.value);
         await checkIfWalletIsConnected();
+      } else {
+        router.push({ name: "home" });
       }
     } catch (error) {
       console.error(error);
@@ -489,6 +508,7 @@ onBeforeMount(async () => {
   sales.value = 0;
   percentage.value = 0;
   await fetchCourses();
+  await fetchLessons();
 });
 </script>
 
