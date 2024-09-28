@@ -106,15 +106,17 @@ const connect = async () => {
   store.setLoading(true);
   try {
     const authSdk = new OCAuthSandbox(opts);
-    let authed = await authSdk.signInWithRedirect({
-      state: "opencampus",
-    });
-    console.log("authed", authed);
 
-    // let authed = await authSdk.handleLoginRedirect({
+    /* This returns code and state as query params BREAKS Netlify currently */
+    // let authed = await authSdk.signInWithRedirect({
     //   state: "opencampus",
     // });
     // console.log("authed", authed);
+
+    let authed = await authSdk.handleLoginRedirect({
+      state: "opencampus",
+    });
+    console.log("authed", authed);
 
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */
