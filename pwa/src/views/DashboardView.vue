@@ -202,7 +202,7 @@ import SidebarView from "@/components/SidebarView.vue";
 import OCIDButton from "@/components/Buttons/OCIDButton.vue";
 import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 
-/* All Posts stored in a JSON */
+/* All Data stored in a JSON for now */
 import testCourses from "../data/courses.json";
 import testLessons from "../data/lessons.json";
 // import nfts from "../data/nfts.json";
@@ -490,11 +490,11 @@ const checkEDUBalance = async (account: string) => {
 // });
 
 watch(
-  () => route.params.code,
+  () => route.query.code,
   (newCode, oldCode) => {
     /* React to route changes */
-    console.log("Code", route.params.code);
-    console.log("State", route.params.state);
+    console.log("Code", route.query.code);
+    console.log("State", route.query.state);
   }
 )
 
