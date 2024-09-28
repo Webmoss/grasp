@@ -175,12 +175,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
+import { ref, computed, provide, watch, onMounted, onBeforeMount } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
-import { useRouter } from "vue-router";
-import { userObject } from "src/models/user";
+import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
+// import { userObject } from "src/models/user";
 import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
 import { ethers } from "ethers";
@@ -215,6 +215,7 @@ import testLessons from "../data/lessons.json";
 // }
 
 const store = useStore();
+const route = useRoute();
 const router = useRouter();
 const { loggedIn, account, balance, eduUsername, eduEthAddress, courses } = storeToRefs(store);
 
@@ -488,7 +489,23 @@ const checkEDUBalance = async (account: string) => {
 //   init();
 // });
 
+watch(
+  () => route.params.code,
+  (newCode, oldCode) => {
+    /* React to route changes */
+    console.log("Code", route.params.code);
+    console.log("State", route.params.state);
+  }
+)
+
+onBeforeRouteUpdate(async (to, from) => {
+  /* React to route changes */
+  await checkIfWalletIsConnected();
+  // userData.value = await fetchUser(to.params.id)
+})
+
 onMounted(async () => {
+
   const init = async () => {
     try {
       if (loggedIn.value) {

@@ -85,7 +85,7 @@ const routes = [
     component: () => import("@/views/NftView.vue"),
   },
   {
-    path: "/dashboard",
+    path: "/dashboard/:code?/:state?",
     name: "dashboard",
     meta: {
       guest: true,
