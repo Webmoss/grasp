@@ -6,7 +6,9 @@
         <div class="row">
           <div class="title-name">My Profile</div>
           <div class="title-actions">
-            <button class="create-button">Add Organisation</button>
+            <button class="create-button" @click="showHideModal()">
+              Add Organisation
+            </button>
           </div>
         </div>
         <p></p>
@@ -191,6 +193,7 @@
       </div>
       <!-- END Activity Tab  -->
     </div>
+    <OrganisationModal :showModal="showModal" @close="showHideModal" />
   </section>
 </template>
 
@@ -205,6 +208,7 @@ import { Notyf } from "notyf";
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
 import ActivityList from "@/components/AdminComponents/ActivityList.vue";
+import OrganisationModal from "@/components/OrganisationComponents/OrganisationModal.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
@@ -256,6 +260,7 @@ const store = useStore();
 const { user, organisation } = storeToRefs(store);
 
 const tab = ref("details");
+const showModal = ref(false);
 
 function editLink(value: string) {
   console.log("Edit", value);
@@ -263,6 +268,10 @@ function editLink(value: string) {
 
 const loadTab = (value: string) => {
   tab.value = value;
+};
+
+const showHideModal = () => {
+  showModal.value = !showModal.value;
 };
 
 async function fetchUser() {
@@ -347,7 +356,6 @@ onBeforeMount(async () => {
   background-color: transparent;
   border: none;
   padding: 0;
-  z-index: 999;
   cursor: pointer;
 }
 
@@ -409,7 +417,6 @@ onBeforeMount(async () => {
     border-style: solid;
     border-image: initial;
     border-color: #4d5358;
-    z-index: 999999;
   }
 }
 

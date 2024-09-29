@@ -318,10 +318,20 @@
               Cancel
             </button>
             <div class="button-container">
-              <button v-if="step >= 1" type="button" class="draft-grey" @click="saveDraft()">
+              <button
+                v-if="step >= 1"
+                type="button"
+                class="draft-grey"
+                @click="saveDraft()"
+              >
                 Save Draft
               </button>
-              <button v-if="step > 1" type="button" class="cancel-button" @click="goBack()">
+              <button
+                v-if="step > 1"
+                type="button"
+                class="cancel-button"
+                @click="goBack()"
+              >
                 Back
               </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
@@ -537,7 +547,7 @@ function onNftFilePicked(event: any) {
 /**
  * * Add link
  */
- function addLink() {
+function addLink() {
   form.links.push({ label: linkText.value, url: linkURL.value });
   linkText.value = "";
   linkURL.value = "";
@@ -630,13 +640,14 @@ const nextStep = () => {
 
   .btn-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     color: $grasp-blue;
     font-size: 24px;
     font-weight: bold;
     background: transparent;
     border: none;
+    z-index: 999;
     cursor: pointer;
   }
 }
@@ -706,14 +717,15 @@ const nextStep = () => {
 
   .form-container {
     width: 560px;
-    height: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     align-content: center;
-    padding: 0;
-    z-index: 999;
+    padding: 0 0 180px 0;
+    z-index: 999996;
+    overflow-x: scroll;
 
     h2 {
       width: 100%;
@@ -1306,6 +1318,9 @@ const nextStep = () => {
   flex-direction: row;
   justify-content: center;
   padding: 30px 0 50px 0;
+  background: $white;
+  box-shadow: 0px 16px 32px 0px rgba(52, 58, 64, 0.3);
+  z-index: 999999;
 
   .footer-container {
     width: 740px;

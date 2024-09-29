@@ -23,7 +23,7 @@
               <li>
                 <img v-if="step >= 1" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" />
-                Lesson Details
+                Organisation Details
               </li>
               <li>
                 <img v-if="step >= 2" src="../../assets/svgs/Check.svg" height="20" />
@@ -32,24 +32,28 @@
               </li>
               <li>
                 <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Lesson
-                Content
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
+                Contact Details
               </li>
               <li>
                 <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Set
-                Pricing
-              </li>
-              <li>
-                <img v-if="step >= 5" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Lesson
-                NFT
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
+                Members
               </li>
             </ul>
           </div>
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
-            <h2>Lesson Details</h2>
+            <h2>Organisation Details</h2>
+            <div class="input-row mb-10">
+              <label for="name">Type</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter the Organisation type"
+                v-model="form.type"
+              />
+            </div>
             <div class="input-row mb-10">
               <label for="category">Main Category</label>
               <select
@@ -72,19 +76,8 @@
               <input
                 type="text"
                 name="title"
-                placeholder="Enter a title,eg. My Lesson"
+                placeholder="Enter a title,eg. My Course"
                 v-model="form.title"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="description">Excerpt</label>
-              <textarea
-                rows="4"
-                cols="50"
-                type="text"
-                name="excerpt"
-                placeholder="Enter a short description"
-                v-model="form.excerpt"
               />
             </div>
             <div class="input-row mb-10">
@@ -101,9 +94,9 @@
           </div>
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
-            <h2>Lesson Assets</h2>
+            <h2>Organisation Assets</h2>
             <div class="input-row mb-10">
-              <label for="banner">Upload Lesson Banner (1500x200px)</label>
+              <label for="banner">Upload Organisation Banner (1500x200px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onBannerPick">
                   <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
@@ -119,7 +112,7 @@
               </div>
             </div>
             <div class="input-row mb-10">
-              <label for="image">Upload Lesson Icon (500x500px)</label>
+              <label for="image">Upload Organisation Icon (500x500px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onIconPick">
                   <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
@@ -135,23 +128,7 @@
               </div>
             </div>
             <div class="input-row mb-10">
-              <label for="image">Lesson NFT Image (1000x1000px)</label>
-              <div class="upload-box">
-                <button class="select-file-button" @click="onNftPick">
-                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
-                </button>
-                {{ nftImage?.name }}
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="fileNftInput"
-                  accept="image/*"
-                  @change="onNftFilePicked"
-                />
-              </div>
-            </div>
-            <div class="input-row mb-10">
-              <label for="links">Add Lesson Links</label>
+              <label for="links">Add Social Links</label>
               <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <span class="link-text">{{ link.label }}</span>
@@ -178,224 +155,93 @@
           </div>
           <!-- Step 3 -->
           <div v-if="step === 3" class="form-container">
-            <h2>Lesson Content</h2>
+            <h2>Add Contact Details</h2>
             <div class="input-row mb-10">
-              <label for="type">Lesson Type</label>
-              <CheckBoxGroup
-                :items="[
-                  {
-                    label: 'Article',
-                    value: 'article',
-                    checked: true,
-                  },
-                  {
-                    label: 'Publisher NFT',
-                    value: 'publisher',
-                    checked: false,
-                  },
-                  {
-                    label: 'Tiny Tap',
-                    value: 'tinytap',
-                    checked: false,
-                  },
-                  {
-                    label: 'Video',
-                    value: 'video',
-                    checked: false,
-                  },
-                  {
-                    label: 'Quest',
-                    value: 'quest',
-                    checked: false,
-                  },
-                  {
-                    label: 'Task',
-                    value: 'task',
-                    checked: false,
-                  },
-                ]"
-                @on-change="onChange"
-              />
-            </div>
-
-            <div v-if="form.type === 'article'" class="input-row mb-10">
-              <label for="article">Article Content</label>
-              <textarea
-                rows="20"
-                cols="30"
-                type="text"
-                name="article"
-                placeholder="Enter lesson content"
-                v-model="form.content"
-              />
-            </div>
-
-            <div v-if="form.type === 'publisher'" class="input-row mb-10">
-              <label for="publisher">Publisher NFT</label>
+              <label for="contact">Contact</label>
               <input
                 type="text"
-                name="publisher"
-                placeholder="Enter the Publisher NFT title"
-                :value="form.content"
+                name="contact"
+                placeholder="Enter a contact person"
+                v-model="form.contact"
               />
             </div>
-
-            <div v-if="form.type === 'tinytap'" class="input-row mb-10">
-              <label for="tinytap">TinyTap NFT</label>
+            <div class="input-row mb-10">
+              <label for="email">Email</label>
               <input
                 type="text"
-                name="tinytap"
-                placeholder="Enter the TinyTap NFT title"
-                :value="form.content"
+                name="email"
+                placeholder="Enter organisation email"
+                v-model="form.email"
               />
             </div>
-
-            <div v-if="form.type === 'video'" class="input-row mb-10">
-              <label for="video">Video</label>
+            <div class="input-row mb-10">
+              <label for="phone">Phone</label>
               <input
                 type="text"
-                name="video"
-                placeholder="Enter the Video link"
-                :value="form.content"
+                name="phone"
+                placeholder="Enter a title,eg. My Course"
+                v-model="form.phone"
               />
             </div>
-
-            <div v-if="form.type === 'quest'" class="input-row mb-10">
-              <label for="links">Quest Steps</label>
-              <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
-                <span class="link-text">{{ link.label }}</span>
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
-                <input
-                  type="text"
-                  name="questText"
-                  placeholder="Quest title"
-                  v-model="questText"
-                />
-                <input
-                  type="text"
-                  name="questStep"
-                  placeholder="Quest step"
-                  v-model="questStep"
-                />
-                <button class="add-link-button" @click="addQuest()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest step" />
-                </button>
-              </div>
+            <div class="input-row mb-10">
+              <label for="country">Country</label>
+              <input
+                type="text"
+                name="country"
+                placeholder="Enter country"
+                v-model="form.country"
+              />
             </div>
-
-            <!-- Lesson Task Content -->
-            <div v-if="form.type === 'task'" class="input-row mb-10">
-              <label for="links">Add Tasks</label>
-              <div v-for="(task, i) in form.tasks" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/Check.svg" alt="Lesson Task" />
-                <span class="link-text">{{ task.label }}</span>
-              </div>
-              <div class="input-box-column mb-10">
-                <input
-                  type="text"
-                  name="taskText"
-                  placeholder="Task Label"
-                  v-model="taskText"
-                />
-                <textarea
-                  rows="6"
-                  cols="50"
-                  type="text"
-                  name="taskStep"
-                  placeholder="Enter a description of the task step"
-                  v-model="taskStep"
-                />
-                <button class="add-task-button" @click="addTask()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Task" />
-                </button>
-              </div>
+            <div class="input-row mb-10">
+              <label for="city">City</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Enter city"
+                v-model="form.city"
+              />
             </div>
           </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
-            <h2>Pricing</h2>
-            <!-- <div class="input-row mb-10">
-              <label for="name">Token</label>
-              <input
-                type="text"
-                name="token"
-                placeholder="Enter the token to charge for the course"
-                :value="form.token"
-              />
-            </div> -->
+            <h2>Add Members</h2>
             <div class="input-row mb-10">
-              <label for="price">Course Price</label>
+              <label for="name">Members</label>
               <input
                 type="text"
-                name="price"
-                placeholder="Enter a price for the full course"
-                v-model="form.price"
+                name="members"
+                placeholder="Add members to your organisation"
+                :value="selectedMembers"
               />
             </div>
-            <div class="input-row mb-10">
-              <label for="discount">Discount %</label>
-              <input
-                type="text"
-                name="discount"
-                placeholder="Enter a course discount %"
-                v-model="form.discount"
-              />
-            </div>
-            <div class="date-row mb-10">
-              <label for="from_date">Discount Period</label>
-              <div class="date-inputs">
-                <input
-                  type="date"
-                  name="from_date"
-                  placeholder="Enter a course discount from date"
-                  v-model="form.from_date"
-                />
-                <input
-                  type="date"
-                  name="to_date"
-                  placeholder="Enter a course discount to date"
-                  v-model="form.to_date"
-                />
-              </div>
-            </div>
-          </div>
-          <!-- Step 5 -->
-          <div v-if="step === 5" class="form-container">
-            <h2>Course NFT Preview</h2>
-            <div class="nft-preview">
-              <div class="nft-image">
-                <img :src="nftImageUrl ? nftImageUrl : 'rectangle.svg'" />
-              </div>
-              <div class="nft-column">
-                <div class="nft-title">
-                  {{ form.title ? form.title : "" }}
-                </div>
-                <div class="nft-excerpt">
-                  {{ form.excerpt ? form.excerpt : "" }}
-                </div>
-              </div>
-              <div class="nft-card-row">
-                <div class="nft-category">
-                  <div class="nft-date">
-                    {{ form.created_date ? form.created_date : "" }}
+
+            <div class="my-members-box">
+              <template v-for="(member, i) in testUsers.data" :key="i">
+                <div class="list-item">
+                  <div class="member-copy">
+                    <div class="member-role">
+                      {{ member.role ? member.role : "" }}
+                    </div>
                   </div>
-                  <div v-if="form.category" class="category-indicator">
-                    {{ form.category ? form.category : "" }}
+                  <div class="member-copy">
+                    <div class="member-name">
+                      {{ member.name ? member.name : "" }}
+                    </div>
+                  </div>
+                  <div class="lesson-list-buttons">
+                    <div class="lesson-category">
+                      <span class="category-indicator">{{
+                        member.type ? member.type : ""
+                      }}</span>
+                    </div>
+                    <div class="actions">
+                      <button class="add-link-button" @click="addMembers(member as any)">
+                        <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div class="button-column">
-                  <BuyButton
-                    :btn-size="'small'"
-                    :color="'blue'"
-                    :course-id="form.id"
-                    :price="form.price"
-                    :discount="form.discount"
-                  />
-                </div>
-              </div>
+              </template>
             </div>
           </div>
         </section>
@@ -426,14 +272,14 @@
               >
                 Back
               </button>
-              <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
+              <button v-if="step < 4" type="button" class="btn-blue" @click="nextStep()">
                 Next
               </button>
               <button
-                v-if="step === 5"
+                v-if="step === 4"
                 type="button"
                 class="btn-blue"
-                @click="createLesson()"
+                @click="createOrganisation()"
               >
                 Done
               </button>
@@ -447,16 +293,10 @@
 <script setup lang="ts">
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
+import { userObject } from "src/models/user";
 import BuyButton from "../Buttons/BuyButton.vue";
-import CheckBoxGroup from "../CheckBox/CheckBoxGroup.vue";
 
-const onChange = (val: any) => {
-  console.log("val", val);
-
-  let result = val.find((obj: { checked: boolean }) => obj.checked === true);
-  form.type = result.value;
-  console.log("form.type", form.type);
-};
+import testUsers from "../../data/users.json";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
@@ -466,31 +306,39 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  course: {
+    type: Object,
+    default: {},
+    required: false,
+  },
 });
 
 const form: any = reactive({
   id: undefined,
-  type: "article",
-  category: undefined,
+  type: undefined,
+  category: "",
   categories: [],
   banner: undefined,
   image: undefined,
   title: undefined,
-  excerpt: undefined,
   description: undefined,
-  content: undefined,
-  tasks: [],
-  quests: [],
-  price: undefined,
-  sales: undefined,
-  total: undefined,
-  token: undefined,
-  nft: {},
-  links: [],
-  step: 0,
-  isLive: false,
+  contact: undefined,
+  email: undefined,
+  phone: undefined,
+  city: undefined,
+  country: undefined,
+  website: undefined,
+  twitter: undefined,
+  discord: undefined,
+  telegram: undefined,
+  linkedin: undefined,
   created_date: undefined,
   updated_date: undefined,
+  enabled: false,
+  verified: false,
+  blocked: false,
+  links: [],
+  members: [],
 });
 
 const options = ref([
@@ -512,12 +360,7 @@ const options = ref([
 const step = ref(1);
 const linkText = ref("");
 const linkURL = ref("");
-
-const taskText = ref("");
-const taskStep = ref("");
-
-const questText = ref("");
-const questStep = ref("");
+const selectedMembers = ref([]);
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -566,17 +409,6 @@ function onIconFilePicked(event: any) {
   iconImage.value = files[0];
 }
 
-function onNftFilePicked(event: any) {
-  const files = event.target.files;
-  let filename = files[0].name;
-  const fileReader = new FileReader();
-  fileReader.addEventListener("load", () => {
-    nftImageUrl.value = fileReader.result;
-  });
-  fileReader.readAsDataURL(files[0]);
-  nftImage.value = files[0];
-}
-
 /**
  * * Add link
  */
@@ -587,23 +419,11 @@ function addLink() {
 }
 
 /**
- * * Add a Task to Lesson content
+ * * Add Member to Organisation
  */
-function addTask() {
-  form.tasks.push({ label: taskText.value, description: taskStep.value });
-  console.log("form.content", form.tasks);
-  taskText.value = "";
-  taskStep.value = "";
-}
-
-/**
- * * Add a Quest Step to Lesson content
- */
-function addQuest() {
-  form.quests.push({ label: questText.value, description: questStep.value });
-  console.log("form.content", form.quests);
-  questText.value = "";
-  questStep.value = "";
+function addMembers(members: userObject) {
+  selectedMembers.value.push(members.name as never);
+  form.members.push(members);
 }
 
 /**
@@ -614,10 +434,10 @@ function selectCategory(event: Event) {
 }
 
 const saveDraft = async () => {
-  console.log("Save Draft Lesson", form);
+  console.log("Save Draft Organisation", form);
   try {
-    if (!form.name) {
-      // await store.createCourse(form);
+    if (!form.title) {
+      // await store.createOrganisation(form);
     }
   } catch {
     console.log("An error has occurred!");
@@ -627,11 +447,11 @@ const saveDraft = async () => {
   }
 };
 
-const createLesson = async () => {
-  console.log("Create Lesson", form);
+const createOrganisation = async () => {
+  console.log("Create Organidation", form);
   try {
-    if (!form) {
-      // await store.createLesson(form);
+    if (!form.title) {
+      // await store.createOrganisation(form);
     }
   } catch {
     console.log("An error has occurred!");
@@ -857,85 +677,6 @@ const nextStep = () => {
       }
     }
 
-    .input-box-column {
-      width: 98%;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-content: center;
-      align-items: flex-start;
-      color: $black;
-      font-size: 14px;
-      line-height: 24px;
-      text-align: left;
-      margin-bottom: 5px;
-
-      img,
-      svg {
-        width: 20px;
-        margin: 0 12px;
-      }
-
-      input {
-        width: 100%;
-        height: 30px;
-        color: $black;
-        background-color: #fdfdfd;
-        border: 1px solid #d9d9d9;
-        border-radius: 10px;
-        letter-spacing: 1px;
-        font-size: 14px;
-        line-height: 24px;
-        margin-bottom: 8px;
-        padding: 1% 2%;
-        text-align: left;
-      }
-
-      input::placeholder {
-        color: #a8a8a8;
-        letter-spacing: 1px;
-      }
-
-      input:read-only {
-        color: #1a1a1a;
-        border: 1px dashed #e0e0e0;
-        letter-spacing: 1px;
-        cursor: not-allowed;
-      }
-
-      input:focus {
-        border: 1px solid $grasp-blue;
-        outline: none;
-      }
-
-      textarea {
-        width: 100%;
-        height: auto;
-        color: $black;
-        background-color: #fdfdfd;
-        border: 1px solid #d9d9d9;
-        border-radius: 10px;
-        letter-spacing: 1px;
-        font-size: 14px;
-        line-height: 24px;
-        margin-bottom: 5px;
-        padding: 1% 2%;
-        text-align: left;
-        resize: none;
-      }
-
-      textarea::placeholder {
-        color: #a8a8a8;
-        letter-spacing: 1px;
-      }
-
-      textarea:focus {
-        border: 1px solid $grasp-blue;
-        outline: none;
-      }
-    }
-
     .upload-box {
       width: 98%;
       height: 60px;
@@ -1119,7 +860,7 @@ const nextStep = () => {
 
     input:read-only {
       height: 40px;
-      color: #1a1a1a;
+      color: #a8a8a8;
       border: 1px dashed #e0e0e0;
       letter-spacing: 1px;
       cursor: not-allowed;
@@ -1178,7 +919,6 @@ const nextStep = () => {
         text-align: left;
       }
     }
-
     .category-select {
       width: 98%;
       height: 40px;
@@ -1201,6 +941,125 @@ const nextStep = () => {
         color: $grey-90;
         border: 0.5px solid $grey-50;
         outline: -webkit-focus-ring-color auto 0px;
+      }
+    }
+
+    .my-members-box {
+      width: 94%;
+      margin: 30px 0 30px 0;
+
+      .list-item {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+        background: $white;
+        border: 0.5px solid $grey-50;
+        border-radius: 8px;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+        margin: 0 0 8px 0;
+        padding: 6px 0 6px 8px;
+        transition: all 0.5s linear;
+
+        .member-copy {
+          width: auto;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: flex-start;
+          align-items: flex-start;
+          padding: 0;
+
+          .member-role {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            color: $black;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+            text-transform: capitalize;
+            margin: 0;
+          }
+          .member-name {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            color: $grasp-blue;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+            margin: 0;
+          }
+        }
+
+        .lesson-list-buttons {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          align-items: center;
+          padding: 0 8px;
+
+          .lesson-category {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+
+            color: $black !important;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin: 0;
+
+            .category-indicator {
+              width: auto;
+              outline: transparent solid 2px;
+              outline-offset: 2px;
+              border-radius: 9999px;
+              transition: background-color 0.2s ease-out 0s;
+              background: $grasp-cyan;
+              font-size: 12px;
+              text-align: center;
+              text-wrap: nowrap;
+              padding-inline: 8px;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              --badge-color: $grey-40;
+              color: $grey-90;
+              box-shadow: none;
+              border-width: 1.5px;
+              border-style: solid;
+              border-image: initial;
+              border-color: #4d5358;
+            }
+          }
+
+          .actions {
+            width: 100%;
+            min-width: 50px;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 4px 0;
+          }
+        }
       }
     }
 
