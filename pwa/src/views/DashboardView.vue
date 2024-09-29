@@ -439,7 +439,6 @@ const checkEDUBalance = async (account: string) => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const wei = await provider.getBalance(account);
     const eduBalance = ethers.utils.formatEther(wei);
-    const store = useStore();
     store.setBalance(eduBalance);
   } catch (error) {
     console.log(error);
@@ -461,9 +460,7 @@ const checkIfWalletIsConnected = async () => {
 
     /* Update our Current Account in the Store */
     if (accounts.length !== 0) {
-      const store = useStore();
       store.setAccount(accounts[0]);
-
       /* Get our Account EDU Balance */
       await checkEDUBalance(accounts[0]);
     }
@@ -502,6 +499,9 @@ watch(
 
 onBeforeRouteUpdate(async (to, from) => {
   /* React to route changes */
+  /* React to route changes */
+  console.log("Code", route.query.code);
+  console.log("State", route.query.state);
   await checkIfWalletIsConnected();
   // userData.value = await fetchUser(to.params.id)
 });
