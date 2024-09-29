@@ -3,22 +3,25 @@
     <div class="footer-menu">
       <nav class="footer-navbar">
         <a
-          href="https://dorahacks.io/buidl/14231"
-          alt="Open Campus Hackathon"
+          href="https://x.com/GraspAcademy"
+          alt="Grasp Twitter"
           target="_blank"
           rel="noopener"
-          >showcase</a
         >
-        <a href="https://x.com/GraspAcademy" alt="Twitter" target="_blank" rel="noopener"
-          >twitter</a
-        >
+          <img src="../../assets/svgs/Twitter.svg" height="20px" class="footer-logo" />
+        </a>
         <a
-          href="https://github.com/Webmoss/grasp"
-          alt="GitHub"
+          href="https://discord.com/channels/1088034981814738995/1263413496079450153"
+          alt="Grasp Discord"
           target="_blank"
           rel="noopener"
-          >github</a
         >
+          <img
+            src="../../assets/svgs/Discord-White.svg"
+            height="20px"
+            class="footer-logo"
+          />
+        </a>
       </nav>
     </div>
   </section>
@@ -49,7 +52,7 @@
       align-items: center;
       justify-content: flex-end;
       margin: 0;
-      padding: 0.3em;
+      padding: 1em;
 
       @include breakpoint($break-sm) {
         justify-content: center;
@@ -57,9 +60,13 @@
       }
 
       a {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: flex-start;
         color: $white;
-        font-size: 16px;
-        margin-right: 14px;
+        font-size: 20px;
+        margin: 0 16px 0 0;
         padding-bottom: 1px;
         text-decoration: none;
         border-bottom: 0.5px solid transparent;
@@ -70,17 +77,16 @@
           font-size: 14px;
         }
 
-        &:hover,
-        &:active,
-        &:focus,
-        &:focus-visible {
-          border-bottom: 0.5px solid $grasp-cyan;
+        img.footer-logo {
+          margin: 0;
         }
-      }
 
-      svg {
-        cursor: pointer;
-        font-size: 2em;
+        // &:hover,
+        // &:active,
+        // &:focus,
+        // &:focus-visible {
+        //   border-bottom: 0.5px solid $grasp-cyan;
+        // }
       }
     }
   }

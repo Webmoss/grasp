@@ -217,7 +217,9 @@ import testLessons from "../data/lessons.json";
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
-const { loggedIn, account, balance, eduUsername, eduEthAddress, courses } = storeToRefs(store);
+const { loggedIn, account, balance, eduUsername, eduEthAddress, courses } = storeToRefs(
+  store
+);
 
 // let provider = <IProvider | null>null;
 
@@ -342,9 +344,9 @@ const truncate = (data: string, num: number) => {
 
 /* Display a readable user address */
 const formatAddress = (addr: string) => {
-  const upperAfterLastTwo = addr.slice(0, 2) + addr.slice(2)
-  return `${upperAfterLastTwo.substring(0, 5)}...${upperAfterLastTwo.substring(39)}`
-}
+  const upperAfterLastTwo = addr.slice(0, 2) + addr.slice(2);
+  return `${upperAfterLastTwo.substring(0, 5)}...${upperAfterLastTwo.substring(39)}`;
+};
 
 // const getUserInfo = async () => {
 //   const user = await web3auth.getUserInfo();
@@ -442,12 +444,12 @@ const checkEDUBalance = async (account: string) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 /**
  * Check if our Wallet is Connected to 🦊 Metamask
  */
- const checkIfWalletIsConnected = async () => {
+const checkIfWalletIsConnected = async () => {
   try {
     const { ethereum } = window;
     if (!ethereum) {
@@ -468,7 +470,7 @@ const checkEDUBalance = async (account: string) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // onMounted(async () => {
 //   const init = async () => {
@@ -496,13 +498,13 @@ watch(
     console.log("Code", route.query.code);
     console.log("State", route.query.state);
   }
-)
+);
 
 onBeforeRouteUpdate(async (to, from) => {
   /* React to route changes */
   await checkIfWalletIsConnected();
   // userData.value = await fetchUser(to.params.id)
-})
+});
 
 onMounted(async () => {
   const init = async () => {
@@ -510,9 +512,10 @@ onMounted(async () => {
       if (loggedIn.value) {
         console.log("MetaMask Connected", loggedIn.value);
         await checkIfWalletIsConnected();
-      } else {
-        router.push({ name: "home" });
       }
+      // } else {
+      //   router.push({ name: "home" });
+      // }
     } catch (error) {
       console.error(error);
     }

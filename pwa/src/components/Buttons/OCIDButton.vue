@@ -103,7 +103,6 @@ const NotfyProvider = new Notyf({
 provide("notyf", NotfyProvider);
 
 const connect = async () => {
-
   console.log("Connect OCID");
 
   store.setLoading(true);
@@ -156,10 +155,9 @@ const connect = async () => {
     console.log("Error", error);
     store.setLoading(false);
   }
-}
+};
 
 const fetchOCID = async () => {
-
   console.log("Fetch OCID");
 
   try {
