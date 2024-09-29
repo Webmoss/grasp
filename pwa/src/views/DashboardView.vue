@@ -505,7 +505,6 @@ onBeforeRouteUpdate(async (to, from) => {
 })
 
 onMounted(async () => {
-
   const init = async () => {
     try {
       if (loggedIn.value) {

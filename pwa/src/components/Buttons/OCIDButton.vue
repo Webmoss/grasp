@@ -55,7 +55,7 @@ const { loading, eduUsername, ocConnected } = storeToRefs(store);
 const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
     ? process.env.VUE_APP_AUTH_REDIRECT_URI
-    : "https://grasp.academy",
+    : "https://grasp.academy/dashboard",
   referralCode: "GRASP",
 };
 
@@ -111,15 +111,13 @@ const connect = async () => {
     const authSdk = new OCAuthSandbox(opts);
 
     /* This returns code and state as query params BREAKS Netlify currently */
-    // let authed = await authSdk.signInWithRedirect({
-    //   state: "opencampus",
-    // });
-    // console.log("authed", authed);
-
-    let authed = await authSdk.handleLoginRedirect({
+    await authSdk.signInWithRedirect({
       state: "opencampus",
     });
-    console.log("authed", authed);
+
+    // await authSdk.handleLoginRedirect({
+    //   state: "opencampus",
+    // });
 
     if (authSdk) {
       /* Get Auth State from Open Campus ID sdk */
