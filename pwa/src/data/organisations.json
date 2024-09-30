@@ -8,12 +8,12 @@
         { "id": 1, "name" : "IT", "icon" : "" },
         { "id": 2, "name" : "Web3", "icon" : "" }
       ],
-      "banner": "banner1.png",
-      "image": "Image-5.png",
+      "banner": "Grasp-Banner.png",
+      "image": "Grasp-Icon.png",
       "title": "Grasp Academy",
       "description":
-        "Grasp Academy Organisation account description",
-      "contact": "WebMoss",
+        "Grasp Academy is the premier educational content platform where educators and creators can share their work and earn on EDU Chain. Powered by Open Campus, the Grasp web3 platform integrates EduFi, enabling users to learn, earn, and be rewarded for academic excellence.",
+      "contact": "Craig Moss",
       "email": "graspcampus@gmail.com",
       "phone": "082 229 2839",
       "city": "Cape Town",

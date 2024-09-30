@@ -27,13 +27,13 @@
               </li>
               <li>
                 <img v-if="step >= 2" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
-                Assets
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
+                Contact Details
               </li>
               <li>
                 <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
-                Contact Details
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
+                Assets
               </li>
               <li>
                 <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
@@ -50,7 +50,7 @@
               <input
                 type="text"
                 name="name"
-                placeholder="Enter the Organisation type"
+                placeholder="Enter your Organisation type, eg. College"
                 v-model="form.type"
               />
             </div>
@@ -76,7 +76,7 @@
               <input
                 type="text"
                 name="title"
-                placeholder="Enter a title,eg. My Course"
+                placeholder="Enter your Organisation name"
                 v-model="form.title"
               />
             </div>
@@ -87,13 +87,62 @@
                 cols="50"
                 type="text"
                 name="description"
-                placeholder="Enter a full description"
+                placeholder="Enter Organisation description"
                 v-model="form.description"
               />
             </div>
           </div>
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
+            <h2>Add Contact Details</h2>
+            <div class="input-row mb-10">
+              <label for="contact">Primary Contact</label>
+              <input
+                type="text"
+                name="contact"
+                placeholder="Enter a main contact person"
+                v-model="form.contact"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="Enter Organisation email"
+                v-model="form.email"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="phone">Phone</label>
+              <input
+                type="text"
+                name="phone"
+                placeholder="Enter a contact no"
+                v-model="form.phone"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="country">Country</label>
+              <input
+                type="text"
+                name="country"
+                placeholder="Enter country"
+                v-model="form.country"
+              />
+            </div>
+            <div class="input-row mb-10">
+              <label for="city">City</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Enter city"
+                v-model="form.city"
+              />
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div v-if="step === 3" class="form-container">
             <h2>Organisation Assets</h2>
             <div class="input-row mb-10">
               <label for="banner">Upload Organisation Banner (1500x200px)</label>
@@ -112,7 +161,7 @@
               </div>
             </div>
             <div class="input-row mb-10">
-              <label for="image">Upload Organisation Icon (500x500px)</label>
+              <label for="image">Upload Organisation Logo (500x500px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onIconPick">
                   <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
@@ -153,58 +202,9 @@
               </div>
             </div>
           </div>
-          <!-- Step 3 -->
-          <div v-if="step === 3" class="form-container">
-            <h2>Add Contact Details</h2>
-            <div class="input-row mb-10">
-              <label for="contact">Contact</label>
-              <input
-                type="text"
-                name="contact"
-                placeholder="Enter a contact person"
-                v-model="form.contact"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="email">Email</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="Enter organisation email"
-                v-model="form.email"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="phone">Phone</label>
-              <input
-                type="text"
-                name="phone"
-                placeholder="Enter a title,eg. My Course"
-                v-model="form.phone"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="country">Country</label>
-              <input
-                type="text"
-                name="country"
-                placeholder="Enter country"
-                v-model="form.country"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="city">City</label>
-              <input
-                type="text"
-                name="city"
-                placeholder="Enter city"
-                v-model="form.city"
-              />
-            </div>
-          </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
-            <h2>Add Members</h2>
+            <h2>Add Organisation Members</h2>
             <div class="input-row mb-10">
               <label for="name">Members</label>
               <input
@@ -236,7 +236,10 @@
                     </div>
                     <div class="actions">
                       <button class="add-link-button" @click="addMembers(member as any)">
-                        <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
+                        <img
+                          src="../../assets/svgs/Add-Circle.svg"
+                          alt="Add new member"
+                        />
                       </button>
                     </div>
                   </div>
@@ -294,7 +297,6 @@
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
 import { userObject } from "src/models/user";
-import BuyButton from "../Buttons/BuyButton.vue";
 
 import testUsers from "../../data/users.json";
 
@@ -347,14 +349,18 @@ const options = ref([
   { value: "ai", label: "Artificial Intelligence" },
   { value: "architecture", label: "Architecture & Spaces" },
   { value: "craft", label: "Craft" },
+  { value: "education", label: "Education" },
+  { value: "engineering", label: "Engineering" },
   { value: "fashion", label: "Fashion" },
   { value: "illustration", label: "Illustration" },
   { value: "marketing", label: "Marketing & Business" },
   { value: "music", label: "Music & Audio" },
   { value: "photography", label: "Photography" },
   { value: "video", label: "Video" },
-  { value: "web", label: "Web" },
+  { value: "development", label: "Software Development" },
+  { value: "web3", label: "Web3" },
   { value: "writing", label: "Writing" },
+  { value: "other", label: "Other" },
 ]);
 
 const step = ref(1);

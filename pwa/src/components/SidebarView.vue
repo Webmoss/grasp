@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div v-if="user.image && user.name" class="profile">
-      <img v-if="user.image" :src="user.image" :alt="user.name ? user.name : ''" />
+      <img v-if="user.image" :src="`${user.image}`" :alt="user.name ? user.name : ''" />
       <h3 v-if="user.name">{{ user.name }}</h3>
     </div>
     <ul>
@@ -30,20 +30,20 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'organisation' }" active-class="active" exact>
-          <img src="../assets/svgs/accounts-icon.svg" class="icon" />
-          <span class="item">Organisation</span>
-        </router-link>
-      </li>
-      <li>
         <router-link :to="{ name: 'profile' }" active-class="active" exact>
           <img src="../assets/svgs/account-icon.svg" class="icon" />
           <span class="item">Profile</span>
         </router-link>
       </li>
       <li>
+        <router-link :to="{ name: 'organisation' }" active-class="active" exact>
+          <img src="../assets/svgs/accounts-icon.svg" class="icon" />
+          <span class="item">Organisation</span>
+        </router-link>
+      </li>
+      <li>
         <router-link :to="{ name: 'admin' }" active-class="active" exact>
-          <img src="../assets/svgs/account-icon.svg" class="icon" />
+          <img src="../assets/svgs/admin-icon.svg" class="icon" />
           <span class="item">Admin</span>
         </router-link>
       </li>
@@ -64,6 +64,7 @@ import { useStore } from "../store";
 const store = useStore();
 const { user } = storeToRefs(store);
 </script>
+
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";

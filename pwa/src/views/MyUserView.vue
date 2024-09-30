@@ -38,7 +38,7 @@
             <img src="../assets/svgs/edit-square-white.svg" alt="Edit" />
           </button>
           <div class="user-banner">
-            <img v-if="user.banner" :src="`../${user.banner}`" />
+            <img v-if="user.banner" :src="`../../${user.banner}`" />
             <div v-if="user.type" class="type-indicator">
               {{ user.type }}
             </div>
@@ -93,6 +93,8 @@
           </div>
           <div class="user-box-value">
             <span class="user-box-label">Description</span>
+          </div>
+          <div class="user-box-value">
             {{ organisation?.description ? organisation.description : "" }}
           </div>
         </div>
@@ -262,9 +264,9 @@ const { user, organisation } = storeToRefs(store);
 const tab = ref("details");
 const showModal = ref(false);
 
-function editLink(value: string) {
+const editLink = (value: string) => {
   console.log("Edit", value);
-}
+};
 
 const loadTab = (value: string) => {
   tab.value = value;
@@ -276,17 +278,17 @@ const showHideModal = () => {
 
 async function fetchUser() {
   let filteredUser = testUsers.data.filter((user) => {
+    console.log("route.params.id", route.params.id);
     // return user.id === (route.params.id as string);
-    // console.log("user.id", user.id);
-    return user.id === "3";
+    return "3";
   });
   store.setUser(filteredUser[0] as any);
 
   let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    // console.log("User OrgId", filteredUser[0].orgId);
+    console.log("User OrgId", filteredUser[0].orgId);
     return organisation.id === filteredUser[0].orgId;
   });
-  // console.log("Organisation", filteredOrganisation[0]);
+  console.log("Organisation", filteredOrganisation[0]);
   store.setOrganisation(filteredOrganisation[0] as any);
 }
 
@@ -525,7 +527,6 @@ onBeforeMount(async () => {
     border-style: solid;
     border-image: initial;
     border-color: #4d5358;
-    z-index: 999999;
     margin-left: 26px;
   }
 }
@@ -546,7 +547,7 @@ onBeforeMount(async () => {
 }
 
 .user-box-value {
-  width: 100%;
+  width: 98%;
   font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   color: $grey-90;
@@ -555,6 +556,7 @@ onBeforeMount(async () => {
   // text-decoration: none;
   // text-transform: uppercase;
   margin: 0 0 8px 0;
+  padding: 0 1% 0 0;
 
   .user-box-label {
     width: 140px;

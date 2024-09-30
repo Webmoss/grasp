@@ -23,28 +23,23 @@
               <li>
                 <img v-if="step >= 1" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" />
-                Organisation Details
+                Profile Details
               </li>
               <li>
                 <img v-if="step >= 2" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
-                Assets
-              </li>
-              <li>
-                <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
                 <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
                 Contact Details
               </li>
               <li>
-                <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
-                Members
+                <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
+                Assets
               </li>
             </ul>
           </div>
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
-            <h2>Organisation Details</h2>
+            <h2>Profile Details</h2>
             <div class="input-row mb-10">
               <label for="name">Type</label>
               <input
@@ -76,7 +71,7 @@
               <input
                 type="text"
                 name="title"
-                placeholder="Enter a title,eg. My Course"
+                placeholder="Enter a title,eg. Founder"
                 v-model="form.title"
               />
             </div>
@@ -94,67 +89,6 @@
           </div>
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
-            <h2>Organisation Assets</h2>
-            <div class="input-row mb-10">
-              <label for="banner">Upload Organisation Banner (1500x200px)</label>
-              <div class="upload-box">
-                <button class="select-file-button" @click="onBannerPick">
-                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
-                </button>
-                {{ bannerImage?.name }}
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="fileBannerInput"
-                  accept="image/*"
-                  @change="onBannerFilePicked"
-                />
-              </div>
-            </div>
-            <div class="input-row mb-10">
-              <label for="image">Upload Organisation Icon (500x500px)</label>
-              <div class="upload-box">
-                <button class="select-file-button" @click="onIconPick">
-                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
-                </button>
-                {{ iconImage?.name }}
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="fileIconInput"
-                  accept="image/*"
-                  @change="onIconFilePicked"
-                />
-              </div>
-            </div>
-            <div class="input-row mb-10">
-              <label for="links">Add Social Links</label>
-              <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <span class="link-text">{{ link.label }}</span>
-              </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <input
-                  type="text"
-                  name="linkText"
-                  placeholder="Label"
-                  v-model="linkText"
-                />
-                <input
-                  type="text"
-                  name="linkURL"
-                  placeholder="Add link URL"
-                  v-model="linkURL"
-                />
-                <button class="add-link-button" @click="addLink()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- Step 3 -->
-          <div v-if="step === 3" class="form-container">
             <h2>Add Contact Details</h2>
             <div class="input-row mb-10">
               <label for="contact">Contact</label>
@@ -202,46 +136,65 @@
               />
             </div>
           </div>
-          <!-- Step 4 -->
-          <div v-if="step === 4" class="form-container">
-            <h2>Add Members</h2>
+          <!-- Step 3 -->
+          <div v-if="step === 3" class="form-container">
+            <h2>Profile Assets</h2>
             <div class="input-row mb-10">
-              <label for="name">Members</label>
-              <input
-                type="text"
-                name="members"
-                placeholder="Add members to your organisation"
-                :value="selectedMembers"
-              />
+              <label for="banner">Upload Profile Banner (1500x200px)</label>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onBannerPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
+                {{ bannerImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileBannerInput"
+                  accept="image/*"
+                  @change="onBannerFilePicked"
+                />
+              </div>
             </div>
-
-            <div class="my-members-box">
-              <template v-for="(member, i) in testUsers.data" :key="i">
-                <div class="list-item">
-                  <div class="member-copy">
-                    <div class="member-role">
-                      {{ member.role ? member.role : "" }}
-                    </div>
-                  </div>
-                  <div class="member-copy">
-                    <div class="member-name">
-                      {{ member.name ? member.name : "" }}
-                    </div>
-                  </div>
-                  <div class="lesson-list-buttons">
-                    <div class="lesson-category">
-                      <span class="category-indicator">{{
-                        member.type ? member.type : ""
-                      }}</span>
-                    </div>
-                    <div class="actions">
-                      <button class="add-link-button" @click="addMembers(member as any)">
-                        <img src="../../assets/svgs/Add-Circle.svg" alt="Add lesson" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </template>
+            <div class="input-row mb-10">
+              <label for="image">Upload Profile Icon (500x500px)</label>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onIconPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
+                {{ iconImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileIconInput"
+                  accept="image/*"
+                  @change="onIconFilePicked"
+                />
+              </div>
+            </div>
+            <div class="input-row mb-10">
+              <label for="links">Add Social Links</label>
+              <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+                <span class="link-text">{{ link.label }}</span>
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+                <input
+                  type="text"
+                  name="linkText"
+                  placeholder="Label"
+                  v-model="linkText"
+                />
+                <input
+                  type="text"
+                  name="linkURL"
+                  placeholder="Add link URL"
+                  v-model="linkURL"
+                />
+                <button class="add-link-button" @click="addLink()">
+                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -272,16 +225,16 @@
               >
                 Back
               </button>
-              <button v-if="step < 4" type="button" class="btn-blue" @click="nextStep()">
+              <button v-if="step < 3" type="button" class="btn-blue" @click="nextStep()">
                 Next
               </button>
               <button
-                v-if="step === 4"
+                v-if="step === 3"
                 type="button"
                 class="btn-blue"
-                @click="createOrganisation()"
+                @click="createProfile()"
               >
-                Done
+                Create
               </button>
             </div>
           </div>
@@ -294,7 +247,6 @@
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
 import { userObject } from "src/models/user";
-import BuyButton from "../Buttons/BuyButton.vue";
 
 import testUsers from "../../data/users.json";
 
@@ -306,7 +258,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  course: {
+  user: {
     type: Object,
     default: {},
     required: false,
@@ -347,14 +299,18 @@ const options = ref([
   { value: "ai", label: "Artificial Intelligence" },
   { value: "architecture", label: "Architecture & Spaces" },
   { value: "craft", label: "Craft" },
+  { value: "education", label: "Education" },
+  { value: "engineering", label: "Engineering" },
   { value: "fashion", label: "Fashion" },
   { value: "illustration", label: "Illustration" },
   { value: "marketing", label: "Marketing & Business" },
   { value: "music", label: "Music & Audio" },
   { value: "photography", label: "Photography" },
   { value: "video", label: "Video" },
-  { value: "web", label: "Web" },
+  { value: "development", label: "Software Development" },
+  { value: "web3", label: "Web3" },
   { value: "writing", label: "Writing" },
+  { value: "other", label: "Other" },
 ]);
 
 const step = ref(1);
@@ -372,19 +328,11 @@ const fileIconInput: Ref<HTMLElement | null> = ref(null);
 const iconImage = ref();
 const iconImageUrl = ref();
 
-/* Ref: name must match the ref in the template */
-const fileNftInput: Ref<HTMLElement | null> = ref(null);
-const nftImage = ref();
-const nftImageUrl = ref();
-
 function onBannerPick() {
   fileBannerInput.value?.click();
 }
 function onIconPick() {
   fileIconInput.value?.click();
-}
-function onNftPick() {
-  fileNftInput.value?.click();
 }
 
 function onBannerFilePicked(event: any) {
@@ -419,14 +367,6 @@ function addLink() {
 }
 
 /**
- * * Add Member to Organisation
- */
-function addMembers(members: userObject) {
-  selectedMembers.value.push(members.name as never);
-  form.members.push(members);
-}
-
-/**
  * * Update our Course Category
  */
 function selectCategory(event: Event) {
@@ -434,10 +374,10 @@ function selectCategory(event: Event) {
 }
 
 const saveDraft = async () => {
-  console.log("Save Draft Organisation", form);
+  console.log("Save Draft Member", form);
   try {
     if (!form.title) {
-      // await store.createOrganisation(form);
+      // await store.createProfile(form);
     }
   } catch {
     console.log("An error has occurred!");
@@ -447,11 +387,11 @@ const saveDraft = async () => {
   }
 };
 
-const createOrganisation = async () => {
-  console.log("Create Organidation", form);
+const createProfile = async () => {
+  console.log("Create Organisation Member", form);
   try {
     if (!form.title) {
-      // await store.createOrganisation(form);
+      // await store.createProfile(form);
     }
   } catch {
     console.log("An error has occurred!");

@@ -499,14 +499,18 @@ const options = ref([
   { value: "ai", label: "Artificial Intelligence" },
   { value: "architecture", label: "Architecture & Spaces" },
   { value: "craft", label: "Craft" },
+  { value: "education", label: "Education" },
+  { value: "engineering", label: "Engineering" },
   { value: "fashion", label: "Fashion" },
   { value: "illustration", label: "Illustration" },
   { value: "marketing", label: "Marketing & Business" },
   { value: "music", label: "Music & Audio" },
   { value: "photography", label: "Photography" },
   { value: "video", label: "Video" },
-  { value: "web", label: "Web" },
+  { value: "development", label: "Software Development" },
+  { value: "web3", label: "Web3" },
   { value: "writing", label: "Writing" },
+  { value: "other", label: "Other" },
 ]);
 
 const step = ref(1);

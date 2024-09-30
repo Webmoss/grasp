@@ -318,10 +318,20 @@
               Cancel
             </button>
             <div class="button-container">
-              <button v-if="step >= 1" type="button" class="draft-grey" @click="saveDraft()">
+              <button
+                v-if="step >= 1"
+                type="button"
+                class="draft-grey"
+                @click="saveDraft()"
+              >
                 Save Draft
               </button>
-              <button v-if="step > 1" type="button" class="cancel-button" @click="goBack()">
+              <button
+                v-if="step > 1"
+                type="button"
+                class="cancel-button"
+                @click="goBack()"
+              >
                 Back
               </button>
               <button v-if="step < 5" type="button" class="btn-blue" @click="nextStep()">
@@ -395,14 +405,18 @@ const options = ref([
   { value: "ai", label: "Artificial Intelligence" },
   { value: "architecture", label: "Architecture & Spaces" },
   { value: "craft", label: "Craft" },
+  { value: "education", label: "Education" },
+  { value: "engineering", label: "Engineering" },
   { value: "fashion", label: "Fashion" },
   { value: "illustration", label: "Illustration" },
   { value: "marketing", label: "Marketing & Business" },
   { value: "music", label: "Music & Audio" },
   { value: "photography", label: "Photography" },
   { value: "video", label: "Video" },
-  { value: "web", label: "Web" },
+  { value: "development", label: "Software Development" },
+  { value: "web3", label: "Web3" },
   { value: "writing", label: "Writing" },
+  { value: "other", label: "Other" },
 ]);
 
 const lessons = [
@@ -537,7 +551,7 @@ function onNftFilePicked(event: any) {
 /**
  * * Add link
  */
- function addLink() {
+function addLink() {
   form.links.push({ label: linkText.value, url: linkURL.value });
   linkText.value = "";
   linkURL.value = "";

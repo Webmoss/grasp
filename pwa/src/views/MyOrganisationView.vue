@@ -6,7 +6,7 @@
         <div class="row">
           <div class="title-name">Organisation</div>
           <div class="title-actions">
-            <button class="create-button">Add Members</button>
+            <button class="create-button" @click="showHideModal()">Add Members</button>
           </div>
         </div>
         <p></p>
@@ -45,7 +45,7 @@
           <div class="organisation-banner">
             <img v-if="organisation?.banner" :src="`../${organisation.banner}`" />
             <div v-if="organisation?.category" class="category-indicator">
-              {{ organisation.category }}
+              {{ prettyName(organisation.category) }}
             </div>
           </div>
         </div>
@@ -77,7 +77,30 @@
           </div>
         </div>
 
-        <div class="organisation-box-header">Contact Details</div>
+        <div class="organisation-box-header">Categories</div>
+        <div class="organisation-box">
+          <button class="edit-link-button" @click="editLink('contacts')">
+            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+          </button>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Type</span>
+            {{ organisation?.type ? prettyName(organisation.type) : "" }}
+          </div>
+          <div class="organisation-box-value">
+            <span class="organisation-box-label">Main Category</span>
+            {{ organisation?.category ? prettyName(organisation.category) : "" }}
+          </div>
+          <div
+            v-for="category in organisation.categories"
+            :key="category.id"
+            class="organisation-box-value"
+          >
+            <span class="organisation-box-label">Category</span>
+            {{ category?.name ? category.name : "" }}
+          </div>
+        </div>
+
+        <div class="organisation-box-header">Primary Contact</div>
         <div class="organisation-box">
           <button class="edit-link-button" @click="editLink('contacts')">
             <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
@@ -138,29 +161,6 @@
           </div>
         </div>
 
-        <div class="organisation-box-header">Categories</div>
-        <div class="organisation-box">
-          <button class="edit-link-button" @click="editLink('contacts')">
-            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-          </button>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Type</span>
-            {{ organisation?.type ? organisation.type : "" }}
-          </div>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Main Category</span>
-            {{ organisation?.category ? organisation.category : "" }}
-          </div>
-          <div
-            v-for="category in organisation.categories"
-            :key="category.id"
-            class="organisation-box-value"
-          >
-            <span class="organisation-box-label">Category</span>
-            {{ category?.name ? category.name : "" }}
-          </div>
-        </div>
-
         <div class="organisation-box-header">Settings</div>
         <div class="organisation-box">
           <button class="edit-link-button" @click="editLink('settings')">
@@ -210,6 +210,7 @@
       </div>
       <!-- END Activity Tab  -->
     </div>
+    <UserModal :showModal="showModal" @close="showHideModal" />
   </section>
 </template>
 
@@ -217,22 +218,19 @@
 import { ref, provide, onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
+import { prettyName } from "@/services/prettyName";
 import { Notyf } from "notyf";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
 import UsersList from "@/components/AdminComponents/UsersList.vue";
 import ActivityList from "@/components/AdminComponents/ActivityList.vue";
+import UserModal from "@/components/UserComponents/UserModal.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
 import testOrganisation from "../data/organisations.json";
-
-const store = useStore();
-const { organisation } = storeToRefs(store);
-
-const tab = ref("details");
-const user = ref();
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -275,26 +273,39 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-function editLink(value: string) {
+const route = useRoute();
+const store = useStore();
+const { organisation } = storeToRefs(store);
+
+const user = ref();
+const tab = ref("details");
+const showModal = ref(false);
+
+const editLink = (value: string) => {
   console.log("Edit", value);
-}
+};
 
 const loadTab = (value: string) => {
   tab.value = value;
 };
 
+const showHideModal = () => {
+  showModal.value = !showModal.value;
+};
+
 function fetchOrganisation() {
   let filteredUser = testUsers.data.filter((user) => {
+    console.log("route.params.id", route.params.id);
     // return user.id === (route.params.id as string);
-    // console.log("user.id", user.id);
-    return user.id === "1";
+    return "1";
   });
   // console.log("filteredUser[0]", filteredUser[0]);
   user.value = filteredUser[0];
-  store.setUser(user.value);
+  // store.setUser(user.value);
+  // store.setUser(filteredUser[0] as any);
 
   let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    // console.log("User OrgId", user.value.orgId);
+    console.log("User OrgId", user.value.orgId);
     return organisation.id === (user.value.orgId as string);
   });
   // console.log("Organisation", filteredOrganisation[0]);
@@ -305,6 +316,7 @@ onMounted(async () => {
   fetchOrganisation();
 });
 </script>
+
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
@@ -366,7 +378,6 @@ onMounted(async () => {
   background-color: transparent;
   border: none;
   padding: 0;
-  z-index: 999;
   cursor: pointer;
 }
 
@@ -427,7 +438,6 @@ onMounted(async () => {
     border-style: solid;
     border-image: initial;
     border-color: #4d5358;
-    z-index: 999999;
   }
 }
 
@@ -493,12 +503,13 @@ onMounted(async () => {
   }
 
   .organisation-description {
-    width: 100%;
+    width: 98%;
     color: $black;
     font-size: 15px;
     font-weight: normal;
     text-align: left;
     margin: 0 0 20px 0;
+    padding: 0 1% 0 0;
   }
 }
 

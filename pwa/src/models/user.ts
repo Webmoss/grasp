@@ -9,7 +9,6 @@ export interface userObject {
   type: string;
   banner: string;
   image: string;
-  profileImage: string;
   title: string | null;
   name: string | null | undefined;
   description: string | null;
@@ -28,6 +27,8 @@ export interface userObject {
   enabled: boolean;
   verified: boolean;
   blocked: boolean;
+  /* Web3 Auth Values */
+  profileImage: string;
   appState: string | null | undefined;
   aggregateVerifier: string | null | undefined;
   typeOfLogin: string | null | undefined;
