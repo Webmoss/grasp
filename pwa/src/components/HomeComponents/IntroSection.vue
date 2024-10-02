@@ -28,6 +28,9 @@
           <div @click="scrolltoId('educhain')" class="scroll-link">
             EduChain <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
+          <div @click="scrolltoId('roadmap')" class="scroll-link">
+            Roadmap <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
         </div>
         <div class="educhain-banner">
           <img src="../../assets/svgs/EduChain-White.svg" class="educhain-logo" />

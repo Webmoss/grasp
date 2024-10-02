@@ -70,7 +70,7 @@
         padding-bottom: 1px;
         text-decoration: none;
         border-bottom: 0.5px solid transparent;
-        transition: 0.6s;
+        transition: all 0.5s linear;
         cursor: pointer;
 
         @include breakpoint($break-sm) {

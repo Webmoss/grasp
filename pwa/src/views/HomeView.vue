@@ -5,6 +5,7 @@
       <EarnLearn />
       <LearningManagement />
       <OpenCampus />
+      <RoadMap />
       <GoPlus />
       <EduChain />
       <FooterSection />
@@ -18,6 +19,7 @@ import EarnLearn from "@/components/HomeComponents/EarnLearn.vue";
 import LearningManagement from "@/components/HomeComponents/LearningManagement.vue";
 import OpenCampus from "@/components/HomeComponents/OpenCampus.vue";
 import GoPlus from "@/components/HomeComponents/GoPlus.vue";
+import RoadMap from "@/components/HomeComponents/RoadMap.vue";
 import EduChain from "@/components/HomeComponents/EduChain.vue";
 import FooterSection from "@/components/HomeComponents/FooterSection.vue";
 </script>

@@ -57,6 +57,9 @@
                 >Market</router-link
               >
             </li>
+            <li v-if="homeLink" class="menu-link" @click="navigateAndScroll('roadmap')">
+              Roadmap
+            </li>
             <li v-if="loggedIn">
               <router-link
                 :to="{ name: 'dashboard' }"

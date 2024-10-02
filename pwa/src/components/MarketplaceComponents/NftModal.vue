@@ -701,7 +701,7 @@ const nextStep = () => {
         font-size: 15px;
         font-weight: 600;
         text-decoration: none;
-        transition: 0.6s;
+        transition: all 0.5s linear;
         cursor: pointer;
 
         &:hover,
