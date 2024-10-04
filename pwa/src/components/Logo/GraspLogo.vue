@@ -1,15 +1,44 @@
 <template>
   <div class="grasp-logo">
     <div class="grasp-column">
-      <img src="../../assets/svgs/owl-white.svg" class="intro-logo" />
+      <img
+        v-if="color === 'cyan'"
+        src="../../assets/svgs/owl-white.svg"
+        class="intro-logo"
+      />
+      <img
+        v-if="color === 'blue'"
+        src="../../assets/svgs/owl-blue.svg"
+        class="intro-logo"
+      />
+      <img
+        v-if="color === 'white'"
+        src="../../assets/svgs/owl-blue.svg"
+        class="intro-logo"
+      />
     </div>
     <div class="grasp-column">
       <div class="grasp-row"><h1>Grasp</h1></div>
-      <div class="grasp-row"><span class="cyan">Academy</span></div>
+      <div class="grasp-row">
+        <span :class="color">{{ label }}</span>
+      </div>
     </div>
   </div>
 </template>
-<script setup></script>
+<script lang="ts" setup>
+defineProps({
+  label: {
+    type: String,
+    default: "Academy",
+    required: false,
+  },
+  color: {
+    type: String,
+    default: "cyan",
+    required: false,
+  },
+});
+</script>
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
@@ -43,15 +72,23 @@
       margin-block-end: 0;
     }
 
-    span.cyan {
+    span {
       width: 100%;
       font-family: "Maven Pro", sans-serif;
       font-optical-sizing: auto;
-      color: $grasp-cyan;
       font-size: 28px;
       letter-spacing: 0.10786em;
       text-align: left;
       text-transform: uppercase;
+    }
+    span.cyan {
+      color: $grasp-cyan;
+    }
+    span.blue {
+      color: $grasp-blue;
+    }
+    span.white {
+      color: $white;
     }
   }
   .grasp-column {
@@ -63,7 +100,7 @@
 
     img {
       width: 75px;
-      margin: 0 10px;      
+      margin: 0 10px;
     }
   }
 }

@@ -213,15 +213,11 @@ function navigateAndScroll(to: any) {
 
       @include breakpoint($break-sm) {
         width: 100%;
-        align-content: center;
-      }
-
-      @include breakpoint($break-sm) {
-        text-align: left;
-        padding: 0;
         height: auto;
         justify-content: center;
+        align-content: center;
         align-items: center;
+        padding: 0;
       }
 
       .menu-button-row {
@@ -241,6 +237,11 @@ function navigateAndScroll(to: any) {
           margin-block-start: 0;
           margin-block-end: 0;
           height: 26px;
+        }
+
+        li {
+          display: inline-block;
+          margin: 0 8px;
         }
 
         .menu-link,
@@ -263,7 +264,6 @@ function navigateAndScroll(to: any) {
           &:active,
           &:focus,
           &:focus-visible {
-            font-weight: 500;
             border-bottom: 2px solid $grasp-cyan;
           }
         }

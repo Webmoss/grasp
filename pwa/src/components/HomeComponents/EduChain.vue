@@ -9,11 +9,20 @@
         <img src="../../assets/svgs/Open-Campus-ID-White.svg" class="intro-logo" />
       </div>
       <div class="educhain-box-two bg-cyan">
-        <h2>EDU Chain</h2>
+        <img src="../../assets/svgs/EduChain-White.svg" class="educhain-logo" />
         <p>
           EDU Chain links learning experiences with earning opportunities, making every
           step of the journey trackable on the blockchain. EDU Chain is the first L3
           Blockchain built for Education.
+          <br />
+          <br />
+          <a
+            href="https://educhain.xyz/"
+            alt="Open Campus"
+            target="_blank"
+            class="educhain-link"
+            >Learn more <img src="../../assets/svgs/Right-Blue.svg" class="link-icon"
+          /></a>
         </p>
       </div>
       <div class="educhain-box-three bg-white">
@@ -163,19 +172,37 @@ section#educhain {
     }
     .bg-cyan {
       background-color: $grasp-cyan;
-      h2 {
-        color: $grasp-blue;
-        font-size: 1.7rem;
-        margin-bottom: 20px;
-        @include breakpoint($break-sm) {
-          font-size: 1.85rem;
-        }
+
+      img.educhain-logo {
+        width: 220px;
+        margin-top: 20px;
       }
 
-      a {
+      .educhain-link {
+        width: auto;
         color: $grasp-blue;
-        font-weight: bold;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: normal;
         text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s linear;
+        margin-bottom: 6px;
+        padding-bottom: 1px;
+        cursor: pointer;
+
+        &:hover,
+        &:active,
+        &:focus,
+        &:focus-visible {
+          border-bottom: 1px solid $white;
+        }
+
+        img,
+        svg {
+          width: 16px;
+          margin-bottom: -3px;
+        }
       }
 
       p {

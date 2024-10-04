@@ -6,20 +6,18 @@
         <div v-if="showFilter" class="left">
           <MarketplaceSidebarIntro :collection="collection" />
           <section id="footer">
+            <SidebarSponsors />
             <SidebarCollections />
             <MarketplaceSidebar
               :attributes="attributes"
               @update-attribute="updateAttributeSidebar"
             />
-            <SidebarSponsors />
+            <SidebarIntro />
           </section>
         </div>
         <div class="right">
           <MarketplaceSearch />
-          <MarketplacesList
-            v-if="tokens && tokens.length > 0"
-            :tokens="tokens"
-          />
+          <MarketplacesList v-if="tokens && tokens.length > 0" :tokens="tokens" />
           <MarketplacesNoReults v-else-if="!tokens && !loading" />
           <MarketplacesPagination
             v-if="tokens && tokens.length > 0"
@@ -29,8 +27,9 @@
           />
         </div>
         <section id="mobile-footer">
-          <SidebarCollections />
           <SidebarSponsors />
+          <SidebarCollections />
+          <SidebarIntro />
         </section>
       </section>
     </div>
@@ -51,6 +50,7 @@ import MarketplacesBanner from "@/components/MarketplaceComponents/MarketplacesB
 import MarketplaceSidebarIntro from "@/components/MarketplaceComponents/MarketplaceSidebarIntro.vue";
 import MarketplaceSidebar from "@/components/MarketplaceComponents/MarketplaceSidebar.vue";
 import SidebarCollections from "@/components/Sidebar/SidebarCollections.vue";
+import SidebarIntro from "@/components/Sidebar/SidebarIntro.vue";
 import SidebarSponsors from "@/components/Sidebar/SidebarSponsors.vue";
 import MarketplaceSearch from "@/components/MarketplaceComponents/MarketplaceSearch.vue";
 import MarketplacesList from "@/components/MarketplaceComponents/MarketplacesList.vue";
@@ -221,9 +221,7 @@ async function fetchPolygonNfts() {
 /* Get Polygon Collection Data */
 async function fetchPolygonCollections() {
   try {
-    const collectionData = await store.retrievePolygonCollections(
-      contract.value
-    );
+    const collectionData = await store.retrievePolygonCollections(contract.value);
     collection.value = collectionData.collection as collectionObject;
   } catch (error) {
     console.log("Error fetching Polygon Collection :", error);

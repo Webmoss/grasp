@@ -6,18 +6,18 @@
         <div class="left">
           <MarketplaceSidebarIntro :collection="collection" />
           <section id="footer">
+            <SidebarSponsors />
             <SidebarCollections />
             <SidebarIntro />
-            <SidebarSponsors />
           </section>
         </div>
         <div class="right">
           <NFTView />
         </div>
         <section id="mobile-footer">
+          <SidebarSponsors />
           <SidebarCollections />
           <SidebarIntro />
-          <SidebarSponsors />
         </section>
       </section>
     </div>
@@ -180,7 +180,6 @@ section#nft {
 
       .right {
         width: 100%;
-        height: 100%;
         display: flex;
         flex-direction: column;
         align-content: flex-start;

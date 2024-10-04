@@ -1,6 +1,9 @@
 <template>
   <div v-if="collection" class="collection-intro">
     <div class="collection-header">
+      <a alt="EDU Chain" class="sponsor-logo" href="https://educhain.xyz/" target="_blank"
+        ><img src="@/assets/svgs/EduChain-Black.svg" title="EDU Chain" height="80"
+      /></a>
       <div class="collection-image">
         <img :src="collection.image" />
       </div>
@@ -25,7 +28,7 @@
             v-if="collection.externalUrl"
             :href="collection.externalUrl"
             target="_blank"
-            rel="nofollow"
+            rel="noreferrer nofollow"
             :alt="collection.name"
             ><img src="@/assets/svgs/link.svg" width="24"
           /></a>
@@ -33,7 +36,7 @@
             v-if="collection.twitterUsername"
             :href="`https://twitter.com/${collection.twitterUsername}`"
             target="_blank"
-            rel="nofollow"
+            rel="noreferrer nofollow"
             :alt="collection.name"
             ><img src="@/assets/svgs/socials/twitter.svg" width="20"
           /></a>
@@ -41,7 +44,7 @@
             v-if="collection.discordUrl"
             :href="collection.discordUrl"
             target="_blank"
-            rel="nofollow"
+            rel="noreferrer nofollow"
             :alt="collection.name"
             ><img src="@/assets/svgs/Discord.svg" width="24"
           /></a>
@@ -49,7 +52,7 @@
             v-if="collection.id"
             :href="`https://etherscan.io/address/${collection.id}`"
             target="_blank"
-            rel="nofollow"
+            rel="noreferrer nofollow"
             :alt="collection.name"
             ><img src="@/assets/svgs/Etherscan.svg" width="19"
           /></a>

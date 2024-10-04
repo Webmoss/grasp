@@ -152,8 +152,9 @@ section#home {
           line-height: normal;
           text-decoration: none;
           border-bottom: 1px solid transparent;
-          transition: all 0.5s linear;
+          transition: all 0.3s linear;
           margin-bottom: 6px;
+          padding-bottom: 1px;
           cursor: pointer;
 
           &:hover,
@@ -163,7 +164,8 @@ section#home {
             border-bottom: 1px solid $grasp-cyan;
           }
 
-          img {
+          img,
+          svg {
             width: 16px;
             margin-bottom: -3px;
           }

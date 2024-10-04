@@ -2,19 +2,14 @@
   <section id="footer">
     <div class="footer-menu">
       <nav class="footer-navbar">
-        <a
-          href="https://x.com/GraspAcademy"
-          alt="Grasp Twitter"
-          target="_blank"
-          rel="noopener"
-        >
+        <a href="https://x.com/GraspAcademy" alt="Grasp Twitter" target="_blank">
           <img src="../../assets/svgs/Twitter.svg" height="20px" class="footer-logo" />
         </a>
         <a
           href="https://discord.com/channels/1088034981814738995/1263413496079450153"
           alt="Grasp Discord"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
         >
           <img
             src="../../assets/svgs/Discord-White.svg"

@@ -1,10 +1,6 @@
 <template>
   <section id="roadmap">
-    <h1>
-      <img src="../../assets/svgs/owl-blue.svg" class="intro-logo" />Grasp
-      <span class="blue"> Roadmap</span>
-    </h1>
-
+    <GraspLogo label="Roadmap" color="blue" />
     <div class="timeline-box">
       <div class="timeline-box-image">
         <img src="../../assets/images/OC-I.png" />
@@ -13,17 +9,17 @@
         <div class="timeline-current"><span class="black">Q4</span> 2024</div>
         <div class="current-news">
           Grasp Academy was awarded a 3rd place prize in the Open Campus EDU Chain
-          hackathon in Sept 2024. Grasp is currently taking part in the Open Campus
+          hackathon in Sept 2024.<br />Grasp is currently taking part in the Open Campus
           Incubator which is set to finish by December 2024.
 
           <div class="timeline-phase-title">
-            <span class="black"> Planning and Design</span> Month 1-2
+            <span class="black"> Open Campus Incubator</span> Month 1-2
           </div>
           <ul class="timeline-phase-list">
             <li>1. Refining project scope and requirements</li>
             <li>2. Build user interface and user journey</li>
-            <li>3. $GRASP token economics and governance planning</li>
-            <li>4. Finalise integrations with EDU Chain and Open Campus ID</li>
+            <li>3. $GRASP tokenomics and governance planning</li>
+            <li>4. Finalise integrations with EDU Chain and OCID</li>
             <li>5. Onboard Advisors, Partners and Investors</li>
             <li>6. Launch Early Bird Founders NFT</li>
           </ul>
@@ -36,10 +32,10 @@
         <div class="timeline-box-title"><span class="black">Q1</span> 2025</div>
         <div class="line-divider"></div>
         <ul class="timeline-phase-list">
-          <li>1. Complete Grasp platform MVP</li>
-          <li>2. Launch $GRASP governance token on EDU Chain mainnet</li>
+          <li>1. Launch Grasp platform MVP</li>
+          <li>2. Launch $GRASP token on EDU Chain mainnet</li>
           <li>3. Launch first onboarding and educational courses</li>
-          <li>4. Comprehensive testing (functionality, security, and performance)</li>
+          <li>4. Comprehensive testing (functionality, security and performance)</li>
           <li>5. Grasp Investor funding rounds</li>
         </ul>
       </div>
@@ -49,17 +45,17 @@
         <ul class="timeline-phase-list">
           <li>1. Launch Grasp Hootie Hoo NFT</li>
           <li>2. Integrate AI features &amp; functionality</li>
-          <li>3. Integrate EduFi features for grants and loans</li>
+          <li>3. Integrate EduFi features,eg. grants and loans</li>
           <li>4. Integrate SocialFi features for content sharing</li>
-          <li>5. Beta testing and user feedback survey campaign</li>
+          <li>5. Beta testing and user feedback campaigns</li>
         </ul>
       </div>
       <div class="timeline-boxes">
         <div class="timeline-box-title"><span class="black">Q3</span> 2025</div>
         <div class="line-divider"></div>
         <ul class="timeline-phase-list">
-          <li>1. Marketing and Social media campaigns</li>
-          <li>2. Onboard content creators and web3 communities</li>
+          <li>1. Marketing &amp; Social media campaigns</li>
+          <li>2. Onboard Content Creators and web3 communities</li>
           <li>3. Enhance features and functionalities based on feedback</li>
           <li>4. Monitor platform performance and user feedback</li>
           <li>5. Scale the platform to accommodate more users</li>
@@ -69,24 +65,27 @@
         <div class="timeline-box-title"><span class="black">Q4</span> 2025</div>
         <div class="line-divider"></div>
         <ul class="timeline-phase-list">
-          <li>1. Launch Content Creator campaigns</li>
-          <li>2. Launch Grasp Academy Merch lines</li>
-          <li>3. Create fund for our first IRL Grasp Campus for learners</li>
+          <li>1. Launch Content Creator program</li>
+          <li>2. Launch Grasp Merch lines</li>
+          <li>3. Create fund for first IRL Grasp Campus for learners</li>
           <li>4. Review of our KPIs and targets</li>
-          <li>5. Reward our Hooti Hoo family</li>
+          <li>5. Reward our Hootie Hoo's' 🦉 and Capy's 🍊</li>
         </ul>
       </div>
     </div>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import GraspLogo from "../Logo/GraspLogo.vue";
+</script>
 
 <style lang="scss" scoped>
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
 section#roadmap {
+  width: 100%;
   background: $grasp-cyan;
   background-image: url("../../assets/images/hexBG.png");
   background-repeat: no-repeat;
@@ -97,41 +96,38 @@ section#roadmap {
   align-content: center;
   align-items: center;
   justify-content: center;
-  padding: 100px 60px;
+  padding: 60px 0 80px;
 
   @include breakpoint($break-sm) {
-    width: 100%;
-    padding: 20px;
+    background-size: cover;
+    padding: 0;
   }
 
   h1 {
     width: 100%;
     color: $white;
-    font-size: 38px;
+    font-size: 40px;
     text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-content: flex-end;
     align-items: center;
-    margin: 0 0 50px 10px;
+    margin: 0 0 50px 0;
 
     @include breakpoint($break-sm) {
       width: 100%;
       align-content: center;
-      margin: 20px auto 10px;
+      margin: 20px auto;
     }
 
     span.blue {
       color: $grasp-blue;
     }
 
-    img {
+    img.intro-logo {
       width: 40px;
       margin-right: 8px;
-      @include breakpoint($break-sm) {
-        width: 35px;
-      }
     }
   }
 
@@ -152,22 +148,28 @@ section#roadmap {
     line-height: 1.7;
     text-align: left;
     padding: 0;
-    margin: 0 auto 50px;
+    margin: 50px auto;
+    overflow: hidden;
 
     @include breakpoint($break-sm) {
       width: 90%;
-      font-size: 16px;
-      padding: 10px 5% 30px;
-      margin: 0 0 20px 0;
+      flex-direction: column;
+      margin: 0 5% 20px;
     }
 
     .timeline-box-image {
-      width: 35%;
+      width: 355px;
+      height: 355px;
       display: flex;
       flex-direction: row;
       align-content: center;
       align-items: center;
       justify-content: center;
+
+      @include breakpoint($break-sm) {
+        width: 100%;
+        margin: 0;
+      }
 
       img {
         display: block;
@@ -179,13 +181,18 @@ section#roadmap {
     }
 
     .timeline-box-copy {
-      width: 60%;
+      width: calc(100% - 355px);
       display: flex;
       flex-direction: column;
       align-content: flex-start;
       align-items: flex-start;
       justify-content: flex-start;
-      padding: 3% 5%;
+      padding: 3% 5% 2%;
+
+      @include breakpoint($break-sm) {
+        width: 90%;
+        margin: 0;
+      }
 
       .timeline-current {
         width: 100%;
@@ -222,12 +229,6 @@ section#roadmap {
         line-height: 1.7;
         text-align: left;
         margin: 0 auto;
-
-        @include breakpoint($break-sm) {
-          width: 90%;
-          padding: 20px 5%;
-          margin-bottom: 0;
-        }
       }
 
       .timeline-phase-title {
@@ -241,25 +242,37 @@ section#roadmap {
         font-size: 14px;
         font-weight: 600;
         line-height: 20px;
-        margin: 10px auto;
+        margin: 20px auto 10px;
 
         .black {
           color: $grasp-blue;
-          font-size: 26px;
+          font-size: 22px;
           font-weight: 600;
           line-height: 26px;
-          margin-right: 4px;
+          margin-right: 8px;
+
+          @include breakpoint($break-sm) {
+            font-size: 20px;
+          }
         }
       }
     }
   }
 
   .timeline {
+    width: 90%;
     display: flex;
     flex-direction: row;
     align-content: flex-start;
     align-items: flex-start;
     justify-content: space-between;
+
+    @include breakpoint($break-sm) {
+      width: 90%;
+      flex-direction: column;
+      padding: 0 5%;
+      margin: 0;
+    }
 
     .timeline-boxes {
       width: 21%;
@@ -282,8 +295,7 @@ section#roadmap {
 
       @include breakpoint($break-sm) {
         width: 90%;
-        font-size: 16px;
-        padding: 10px 5% 30px;
+        padding: 20px 5%;
         margin: 0 0 20px 0;
       }
     }
@@ -328,18 +340,12 @@ section#roadmap {
       justify-content: flex-start;
       align-items: center;
       align-content: center;
-      margin: 0;
-      padding: 0;
       color: $black;
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.5s linear;
-      cursor: pointer;
-
-      // &:hover {
-      //   color: $grasp-cyan;
-      // }
+      margin: 0;
+      padding: 0;
     }
   }
 
