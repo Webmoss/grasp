@@ -88,9 +88,9 @@ section#roadmap {
   width: 100%;
   background: $grasp-cyan;
   background-image: url("../../assets/images/hexBG.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-position: top left;
-  background-size: 100%;
+  background-size: auto;
   display: flex;
   flex-direction: column;
   align-content: center;
