@@ -19,17 +19,20 @@
           <div @click="scrolltoId('solutions')" class="scroll-link">
             Learn &amp; Earn <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
+          <div @click="scrolltoId('educhain')" class="scroll-link">
+            EduChain <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          </div>
           <div @click="scrolltoId('campus')" class="scroll-link">
             Open Campus <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
           <div @click="scrolltoId('goplus')" class="scroll-link">
             Grasp Plus <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
-          <div @click="scrolltoId('educhain')" class="scroll-link">
-            EduChain <img src="../../assets/svgs/Right.svg" class="link-icon" />
+          <div @click="scrolltoId('tokenomics')" class="scroll-link">
+            Grasp Tokenomics <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
           <div @click="scrolltoId('roadmap')" class="scroll-link">
-            Roadmap <img src="../../assets/svgs/Right.svg" class="link-icon" />
+            Grasp Roadmap <img src="../../assets/svgs/Right.svg" class="link-icon" />
           </div>
         </div>
         <div class="educhain-banner">

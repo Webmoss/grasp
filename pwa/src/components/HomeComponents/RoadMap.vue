@@ -100,7 +100,7 @@ section#roadmap {
 
   @include breakpoint($break-sm) {
     background-size: cover;
-    padding: 0;
+    padding: 30px 0 0 0;
   }
 
   h1 {
@@ -140,7 +140,7 @@ section#roadmap {
     align-items: flex-start;
     background: $white;
     border: 0.5px solid $grey-50;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     color: $black;
     font-size: 14px;
@@ -154,7 +154,8 @@ section#roadmap {
     @include breakpoint($break-sm) {
       width: 90%;
       flex-direction: column;
-      margin: 0 5% 20px;
+      margin: 20px 5%;
+      padding: 0 0 10px 0;
     }
 
     .timeline-box-image {
@@ -252,7 +253,8 @@ section#roadmap {
           margin-right: 8px;
 
           @include breakpoint($break-sm) {
-            font-size: 20px;
+            font-size: 16px;
+            line-height: 22px;
           }
         }
       }
@@ -283,7 +285,7 @@ section#roadmap {
       align-items: flex-start;
       background: $white;
       border: 0.5px solid $grey-50;
-      border-radius: 8px;
+      border-radius: 20px;
       box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
       color: $black;
       font-size: 14px;
@@ -347,12 +349,6 @@ section#roadmap {
       margin: 0;
       padding: 0;
     }
-  }
-
-  .line-divider {
-    width: 98%;
-    margin: 0 auto 5px;
-    border-bottom: 1px solid $grey-30;
   }
 }
 </style>

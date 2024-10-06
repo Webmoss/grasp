@@ -228,7 +228,7 @@ function navigateAndScroll(to: any) {
         padding: 0;
 
         @include breakpoint($break-sm) {
-          width: 98%;
+          width: 100%;
           justify-content: space-evenly;
           margin: 0 auto;
         }
@@ -241,7 +241,10 @@ function navigateAndScroll(to: any) {
 
         li {
           display: inline-block;
-          margin: 0 8px;
+
+          @include breakpoint($break-sm) {
+            margin: 0 2px;
+          }
         }
 
         .menu-link,
@@ -257,7 +260,7 @@ function navigateAndScroll(to: any) {
           cursor: pointer;
 
           @include breakpoint($break-sm) {
-            font-size: 16px !important;
+            font-size: 15px !important;
           }
 
           &:hover,

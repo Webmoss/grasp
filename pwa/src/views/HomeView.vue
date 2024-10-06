@@ -6,6 +6,7 @@
       <LearningManagement />
       <OpenCampus />
       <RoadMap />
+      <Tokenomics />
       <GoPlus />
       <EduChain />
       <FooterSection />
@@ -20,6 +21,7 @@ import LearningManagement from "@/components/HomeComponents/LearningManagement.v
 import OpenCampus from "@/components/HomeComponents/OpenCampus.vue";
 import GoPlus from "@/components/HomeComponents/GoPlus.vue";
 import RoadMap from "@/components/HomeComponents/RoadMap.vue";
+import Tokenomics from "@/components/HomeComponents/Tokenomics.vue";
 import EduChain from "@/components/HomeComponents/EduChain.vue";
 import FooterSection from "@/components/HomeComponents/FooterSection.vue";
 </script>
