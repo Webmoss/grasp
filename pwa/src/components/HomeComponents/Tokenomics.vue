@@ -391,11 +391,13 @@ section#tokenomics {
   padding: 80px 0;
 
   @include breakpoint($break-sm) {
-    background-image: url("../../assets/images/hexBG.png");
-    background-position: top left;
-    background-repeat: repeat;
-    background-size: auto;
-    padding: 150px 0 30px;
+    width: 100%;
+    flex-direction: column;
+    // background-image: url("../../assets/images/hexBG.png");
+    // background-position: top left;
+    // background-repeat: repeat;
+    // background-size: auto;
+    padding: 30px 0 30px;
   }
 
   .left {
@@ -417,6 +419,10 @@ section#tokenomics {
       align-items: center;
       margin-left: 38%;
       margin-bottom: 30px;
+
+      @include breakpoint($break-sm) {
+        margin-left: 5%;
+      }
     }
 
     .token-supply {
@@ -434,9 +440,9 @@ section#tokenomics {
       margin: 0 0 20px 40px;
 
       @include breakpoint($break-sm) {
-        width: 90%;
+        flex-direction: column;
         font-size: 18px;
-        padding: 20px 5%;
+        padding: 10px 0;
         margin: 0;
       }
 
@@ -451,6 +457,14 @@ section#tokenomics {
       align-content: center;
       align-items: flex-start;
       justify-content: space-around;
+
+      @include breakpoint($break-sm) {
+        width: 90%;
+        flex-direction: column;
+        font-size: 18px;
+        padding: 10px 5% 0;
+        margin: 0;
+      }
     }
 
     .tokenomics-chart-row {
@@ -461,9 +475,23 @@ section#tokenomics {
       justify-content: center;
       margin: 60px auto 100px;
 
+      @include breakpoint($break-sm) {
+        width: 94%;
+        flex-direction: column;
+        font-size: 18px;
+        padding: 10px 3%;
+        margin: 0;
+      }
+
       .tokenomics-chart {
-        width: 60%;
+        width: 80%;
         margin: 0 auto;
+
+        @include breakpoint($break-sm) {
+          width: 100%;
+          padding: 0;
+          margin: 0;
+        }
       }
     }
 
@@ -479,6 +507,10 @@ section#tokenomics {
       margin-block-end: 10px;
       margin: 0 0 10px 0;
       border-bottom: 1px solid $grasp-cyan;
+
+      @include breakpoint($break-sm) {
+        margin-block-end: 0px;
+      }
     }
 
     .tokenomics-box {
@@ -488,6 +520,12 @@ section#tokenomics {
       align-content: flex-start;
       align-items: flex-start;
       justify-content: flex-start;
+
+      @include breakpoint($break-sm) {
+        width: 100%;
+        padding: 0;
+        margin: 0 0 5px 0;
+      }
 
       .tokenomics-description {
         width: 100%;
@@ -503,9 +541,9 @@ section#tokenomics {
         margin: 0 0 30px 0;
 
         @include breakpoint($break-sm) {
-          width: 90%;
+          width: 100%;
           font-size: 15px;
-          padding: 20px 5%;
+          padding: 10px 0;
           margin-bottom: 0;
         }
       }
@@ -519,6 +557,13 @@ section#tokenomics {
       align-content: flex-start;
       align-items: flex-start;
       margin: 0 auto;
+
+      @include breakpoint($break-sm) {
+        width: 90%;
+        flex-direction: column;
+        padding: 10px 5%;
+        margin: 0;
+      }
 
       h1 {
         color: $white;
@@ -549,8 +594,7 @@ section#tokenomics {
 
         @include breakpoint($break-sm) {
           width: 100%;
-          font-size: 18px;
-          padding: 20px 5%;
+          padding: 0;
           margin: 0;
         }
       }
@@ -617,6 +661,12 @@ section#tokenomics {
     align-content: center;
     align-items: center;
 
+    @include breakpoint($break-sm) {
+      width: 90%;
+      align-items: center;
+      padding: 10px 5%;
+    }
+
     .grasp-allocation {
       width: 95%;
       display: flex;
@@ -632,6 +682,12 @@ section#tokenomics {
       margin: 0 5% 10px 0;
       overflow: hidden;
 
+      @include breakpoint($break-sm) {
+        width: 94%;
+        padding: 10px 3%;
+        margin: 0 0 10px 0;
+      }
+
       .allocation {
         width: 100%;
         color: $black;
@@ -642,6 +698,7 @@ section#tokenomics {
         margin: 0;
 
         @include breakpoint($break-sm) {
+          width: 100%;
           font-size: 12px;
         }
 
@@ -658,6 +715,10 @@ section#tokenomics {
           margin-inline-start: 0px;
           margin-inline-end: 0px;
 
+          @include breakpoint($break-sm) {
+            flex-direction: column;
+          }
+
           .allocation-amount {
             color: $black;
             font-size: 12px;
@@ -667,7 +728,8 @@ section#tokenomics {
             margin: 0;
 
             @include breakpoint($break-sm) {
-              font-size: 12px;
+              width: 100%;
+              text-align: left;
             }
           }
         }
