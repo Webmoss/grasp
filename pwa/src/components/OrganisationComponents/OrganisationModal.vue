@@ -32,20 +32,20 @@
               </li>
               <li>
                 <img v-if="step >= 3" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
-                Assets
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
+                Members
               </li>
               <li>
                 <img v-if="step >= 4" src="../../assets/svgs/Check.svg" height="20" />
-                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Add
-                Members
+                <img v-else src="../../assets/svgs/Check-Grey.svg" height="20" /> Upload
+                Assets
               </li>
             </ul>
           </div>
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
             <h2>Organisation Details</h2>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="name">Type</label>
               <input
                 type="text"
@@ -54,7 +54,7 @@
                 v-model="form.type"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="category">Main Category</label>
               <select
                 v-model="form.category"
@@ -71,7 +71,7 @@
                 </option>
               </select>
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="title">Title</label>
               <input
                 type="text"
@@ -80,7 +80,16 @@
                 v-model="form.title"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
+              <label for="contact">Primary Contact</label>
+              <input
+                type="text"
+                name="contact"
+                placeholder="Enter a main contact person"
+                v-model="form.contact"
+              />
+            </div>
+            <div class="description-row">
               <label for="description">Description</label>
               <textarea
                 rows="6"
@@ -95,16 +104,7 @@
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
             <h2>Add Contact Details</h2>
-            <div class="input-row mb-10">
-              <label for="contact">Primary Contact</label>
-              <input
-                type="text"
-                name="contact"
-                placeholder="Enter a main contact person"
-                v-model="form.contact"
-              />
-            </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="email">Email</label>
               <input
                 type="text"
@@ -113,7 +113,7 @@
                 v-model="form.email"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="phone">Phone</label>
               <input
                 type="text"
@@ -122,7 +122,7 @@
                 v-model="form.phone"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="country">Country</label>
               <input
                 type="text"
@@ -131,7 +131,7 @@
                 v-model="form.country"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-20">
               <label for="city">City</label>
               <input
                 type="text"
@@ -140,72 +140,89 @@
                 v-model="form.city"
               />
             </div>
-          </div>
-          <!-- Step 3 -->
-          <div v-if="step === 3" class="form-container">
-            <h2>Organisation Assets</h2>
-            <div class="input-row mb-10">
-              <label for="banner">Upload Organisation Banner (1500x200px)</label>
-              <div class="upload-box">
-                <button class="select-file-button" @click="onBannerPick">
-                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
-                </button>
-                {{ bannerImage?.name }}
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="fileBannerInput"
-                  accept="image/*"
-                  @change="onBannerFilePicked"
-                />
-              </div>
-            </div>
-            <div class="input-row mb-10">
-              <label for="image">Upload Organisation Logo (500x500px)</label>
-              <div class="upload-box">
-                <button class="select-file-button" @click="onIconPick">
-                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
-                </button>
-                {{ iconImage?.name }}
-                <input
-                  type="file"
-                  style="display: none"
-                  ref="fileIconInput"
-                  accept="image/*"
-                  @change="onIconFilePicked"
-                />
-              </div>
-            </div>
-            <div class="input-row mb-10">
-              <label for="links">Add Social Links</label>
-              <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <span class="link-text">{{ link.label }}</span>
-              </div>
+            <div class="description-row">
+              <label for="city">Add Social Links</label>
               <div class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
                 <input
                   type="text"
-                  name="linkText"
-                  placeholder="Label"
-                  v-model="linkText"
+                  name="websiteTitle"
+                  placeholder="Website Title"
+                  v-model="form.website.title"
                 />
                 <input
                   type="text"
-                  name="linkURL"
-                  placeholder="Add link URL"
-                  v-model="linkURL"
+                  name="websiteUrl"
+                  placeholder="Website link"
+                  v-model="form.website.url"
                 />
-                <button class="add-link-button" @click="addLink()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
-                </button>
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/twitter.svg" alt="Twitter" />
+                <input
+                  type="text"
+                  name="twitterTitle"
+                  placeholder="Twitter Username"
+                  v-model="form.twitter.title"
+                />
+                <input
+                  type="text"
+                  name="twitterUrl"
+                  placeholder="Twitter link"
+                  v-model="form.twitter.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/Discord.svg" alt="Discord" />
+                <input
+                  type="text"
+                  name="discordTitle"
+                  placeholder="Discord Title"
+                  v-model="form.discord.title"
+                />
+                <input
+                  type="text"
+                  name="discordUrl"
+                  placeholder="Discord link"
+                  v-model="form.discord.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/telegram.svg" alt="Telegram" />
+                <input
+                  type="text"
+                  name="telegramTitle"
+                  placeholder="Telegram Title"
+                  v-model="form.telegram.title"
+                />
+                <input
+                  type="text"
+                  name="telegramUrl"
+                  placeholder="Telegram link"
+                  v-model="form.telegram.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/linkedin.svg" alt="LinkedIn" />
+                <input
+                  type="text"
+                  name="linkedinTitle"
+                  placeholder="LinkedIn Title"
+                  v-model="form.linkedin.title"
+                />
+                <input
+                  type="text"
+                  name="linkedinUrl"
+                  placeholder="LinkedIn link"
+                  v-model="form.linkedin.url"
+                />
               </div>
             </div>
           </div>
-          <!-- Step 4 -->
-          <div v-if="step === 4" class="form-container">
+          <!-- Step 3 -->
+          <div v-if="step === 3" class="form-container">
             <h2>Add Organisation Members</h2>
-            <div class="input-row mb-10">
+            <div class="description-row mb-10">
               <label for="name">Members</label>
               <input
                 type="text"
@@ -247,13 +264,83 @@
               </template>
             </div>
           </div>
+          <!-- Step 4 -->
+          <div v-if="step === 4" class="form-container">
+            <h2>Organisation Assets</h2>
+            <div class="input-row mb-10">
+              <label for="banner">Upload Organisation Banner (1500x200px)</label>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onBannerPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
+                {{ bannerImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileBannerInput"
+                  accept="image/*"
+                  @change="onBannerFilePicked"
+                />
+              </div>
+            </div>
+            <div class="input-row mb-10">
+              <label for="image">Upload Organisation Logo (500x500px)</label>
+              <div class="upload-box">
+                <button class="select-file-button" @click="onIconPick">
+                  <img src="../../assets/svgs/File_upload.svg" height="20" /> Select file
+                </button>
+                {{ iconImage?.name }}
+                <input
+                  type="file"
+                  style="display: none"
+                  ref="fileIconInput"
+                  accept="image/*"
+                  @change="onIconFilePicked"
+                />
+              </div>
+            </div>
+
+            <h2>Admin Settings</h2>
+            <div class="checkbox-row">
+              <div class="checkbox-box">
+                <label for="enabled">Enabled</label>
+                <input
+                  type="checkbox"
+                  id="enabled"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.enabled"
+                />
+              </div>
+              <div class="checkbox-box">
+                <label for="verified">Verified</label>
+                <input
+                  type="checkbox"
+                  id="verified"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.verified"
+                />
+              </div>
+              <div class="checkbox-box">
+                <label for="blocked">Blocked</label>
+                <input
+                  type="checkbox"
+                  id="blocked"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.blocked"
+                />
+              </div>
+            </div>
+          </div>
         </section>
         <footer class="modal-footer">
           <div class="footer-container">
             <button
               type="button"
               class="cancel-button"
-              @click="emit('close')"
+              @click="cancelCreate()"
               aria-label="Close modal"
             >
               Cancel
@@ -308,7 +395,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  course: {
+  organisation: {
     type: Object,
     default: {},
     required: false,
@@ -329,17 +416,16 @@ const form: any = reactive({
   phone: undefined,
   city: undefined,
   country: undefined,
-  website: undefined,
-  twitter: undefined,
-  discord: undefined,
-  telegram: undefined,
-  linkedin: undefined,
+  website: { title: "", url: "", alt: "", icon: "website" },
+  twitter: { title: "", url: "", alt: "", icon: "twitter" },
+  discord: { title: "", url: "", alt: "", icon: "discord" },
+  telegram: { title: "", url: "", alt: "", icon: "telegram" },
+  linkedin: { title: "", url: "", alt: "", icon: "linkedin" },
   created_date: undefined,
   updated_date: undefined,
   enabled: false,
   verified: false,
   blocked: false,
-  links: [],
   members: [],
 });
 
@@ -364,8 +450,6 @@ const options = ref([
 ]);
 
 const step = ref(1);
-const linkText = ref("");
-const linkURL = ref("");
 const selectedMembers = ref([]);
 
 /* Ref: name must match the ref in the template */
@@ -418,11 +502,11 @@ function onIconFilePicked(event: any) {
 /**
  * * Add link
  */
-function addLink() {
-  form.links.push({ label: linkText.value, url: linkURL.value });
-  linkText.value = "";
-  linkURL.value = "";
-}
+// function addLink() {
+//   form.links.push({ label: linkText.value, url: linkURL.value });
+//   linkText.value = "";
+//   linkURL.value = "";
+// }
 
 /**
  * * Add Member to Organisation
@@ -439,12 +523,44 @@ function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
 
+const cancelCreate = async () => {
+  form.value = {
+    id: undefined,
+    type: undefined,
+    category: "",
+    categories: [],
+    banner: undefined,
+    image: undefined,
+    title: undefined,
+    description: undefined,
+    contact: undefined,
+    email: undefined,
+    phone: undefined,
+    city: undefined,
+    country: undefined,
+    website: { title: "", url: "", alt: "", icon: "website" },
+    twitter: { title: "", url: "", alt: "", icon: "twitter" },
+    discord: { title: "", url: "", alt: "", icon: "discord" },
+    telegram: { title: "", url: "", alt: "", icon: "telegram" },
+    linkedin: { title: "", url: "", alt: "", icon: "linkedin" },
+    created_date: undefined,
+    updated_date: undefined,
+    enabled: false,
+    verified: false,
+    blocked: false,
+    members: [],
+  };
+  step.value = 1;
+  emit("close");
+};
+
 const saveDraft = async () => {
   console.log("Save Draft Organisation", form);
   try {
     if (!form.title) {
       // await store.createOrganisation(form);
     }
+    step.value = 1;
   } catch {
     console.log("An error has occurred!");
   } finally {
@@ -459,6 +575,7 @@ const createOrganisation = async () => {
     if (!form.title) {
       // await store.createOrganisation(form);
     }
+    step.value = 1;
   } catch {
     console.log("An error has occurred!");
   } finally {
@@ -610,6 +727,25 @@ const nextStep = () => {
 
     .input-row {
       width: 100%;
+      max-width: 400px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
+    }
+
+    .description-row {
+      width: 100%;
       max-width: 540px;
       position: relative;
       display: flex;
@@ -624,6 +760,104 @@ const nextStep = () => {
         line-height: 24px;
         text-align: left;
         padding: 4px 0 0 0;
+      }
+    }
+
+    .radio-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .radio-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
+      }
+    }
+
+    .checkbox-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .checkbox-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
       }
     }
 
@@ -1187,8 +1421,14 @@ const nextStep = () => {
       }
     }
 
+    .mb-20 {
+      margin-bottom: 20px;
+    }
     .mb-10 {
       margin-bottom: 10px;
+    }
+    .mb-5 {
+      margin-bottom: 5px;
     }
   }
 }

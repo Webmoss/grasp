@@ -393,12 +393,31 @@ const nextStep = () => {
 
     .input-row {
       width: 100%;
+      max-width: 400px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .description-row {
+      width: 100%;
       max-width: 540px;
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
     }
 
     label {
@@ -490,8 +509,14 @@ const nextStep = () => {
       }
     }
 
+    .mb-20 {
+      margin-bottom: 20px;
+    }
     .mb-10 {
       margin-bottom: 10px;
+    }
+    .mb-5 {
+      margin-bottom: 5px;
     }
   }
 }

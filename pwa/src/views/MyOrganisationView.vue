@@ -44,8 +44,8 @@
           </button>
           <div class="organisation-banner">
             <img v-if="organisation?.banner" :src="`../${organisation.banner}`" />
-            <div v-if="organisation?.category" class="category-indicator">
-              {{ prettyName(organisation.category) }}
+            <div v-if="organisation?.type" class="category-indicator">
+              {{ prettyName(organisation.type) }}
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
             <div class="organisation-title">
               {{ organisation?.title ? organisation.title : "" }}
             </div>
-            <div class="organisation-joined">
+            <div v-if="organisation?.created_date" class="organisation-joined">
               Joined {{ organisation?.created_date ? organisation.created_date : "" }}
             </div>
             <div class="organisation-description">
@@ -91,6 +91,7 @@
             {{ organisation?.category ? prettyName(organisation.category) : "" }}
           </div>
           <div
+            v-if="organisation?.categories"
             v-for="category in organisation.categories"
             :key="category.id"
             class="organisation-box-value"
@@ -161,24 +162,53 @@
           </div>
         </div>
 
-        <div class="organisation-box-header">Settings</div>
-        <div class="organisation-box">
-          <button class="edit-link-button" @click="editLink('settings')">
-            <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
-          </button>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Enabled </span>
-            {{ organisation?.enabled ? organisation.enabled : "" }}
+        <template v-if="user?.role === 'admin'">
+          <div class="organisation-box-header">Settings</div>
+          <div class="organisation-checkbox">
+            <button class="edit-link-button" @click="editLink('settings')">
+              <img src="../assets/svgs/edit-square-grey-40.svg" alt="Edit" />
+            </button>
+            <div class="organisation-checkbox-value">
+              <span class="organisation-checkbox-label">Enabled </span>
+              <img
+                v-if="!organisation.enabled"
+                src="../assets/svgs/CheckBoxOutline.svg"
+                height="22"
+              />
+              <img
+                v-if="organisation.enabled"
+                src="../assets/svgs/CheckBox.svg"
+                height="22"
+              />
+            </div>
+            <div class="organisation-checkbox-value">
+              <span class="organisation-checkbox-label">Verified</span>
+              <img
+                v-if="!organisation.verified"
+                src="../assets/svgs/CheckBoxOutline.svg"
+                height="22"
+              />
+              <img
+                v-if="organisation.verified"
+                src="../assets/svgs/CheckBox.svg"
+                height="22"
+              />
+            </div>
+            <div class="organisation-checkbox-value">
+              <span class="organisation-checkbox-label">Blocked</span>
+              <img
+                v-if="!organisation.blocked"
+                src="../assets/svgs/CheckBoxOutline.svg"
+                height="22"
+              />
+              <img
+                v-if="organisation.blocked"
+                src="../assets/svgs/CheckBox.svg"
+                height="22"
+              />
+            </div>
           </div>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Verified</span>
-            {{ organisation?.verified ? organisation.verified : "False" }}
-          </div>
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Blocked</span>
-            {{ organisation?.blocked ? organisation.blocked : "False" }}
-          </div>
-        </div>
+        </template>
       </div>
       <!-- END Details Tab  -->
 
@@ -210,7 +240,11 @@
       </div>
       <!-- END Activity Tab  -->
     </div>
-    <UserModal :showModal="showModal" @close="showHideModal" />
+    <UserModal
+      :organisation="organisation"
+      :showModal="showModal"
+      @close="showHideModal"
+    />
   </section>
 </template>
 
@@ -224,8 +258,8 @@ import { Notyf } from "notyf";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
-import UsersList from "@/components/AdminComponents/UsersList.vue";
-import ActivityList from "@/components/AdminComponents/ActivityList.vue";
+import UsersList from "@/components/Admin/UsersList.vue";
+import ActivityList from "@/components/Admin/ActivityList.vue";
 import UserModal from "@/components/UserComponents/UserModal.vue";
 
 /* All Posts stored in a JSON */
@@ -297,7 +331,7 @@ function fetchOrganisation() {
   let filteredUser = testUsers.data.filter((user) => {
     console.log("route.params.id", route.params.id);
     // return user.id === (route.params.id as string);
-    return "1";
+    return user.id === "3";
   });
   // console.log("filteredUser[0]", filteredUser[0]);
   user.value = filteredUser[0];
@@ -320,49 +354,6 @@ onMounted(async () => {
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
-
-.tab-switcher {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-content: flex-start;
-  align-items: center;
-  padding: 0;
-  margin: 0 auto 20px;
-
-  .tab-button {
-    font-family: "Poppins", sans-serif;
-    color: $black;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    margin-right: 16px;
-    padding-bottom: 2px;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: 0.4s all linear;
-    cursor: pointer;
-
-    @include breakpoint($break-sm) {
-      font-size: 16px !important;
-    }
-
-    &:hover,
-    &:active,
-    &:focus,
-    &:focus-visible {
-      border-bottom: 2px solid $grasp-blue;
-    }
-  }
-  .tab-button.active {
-    padding-bottom: 2px;
-    border-bottom: 2px solid $grasp-blue;
-  }
-}
-.tab-box {
-  width: 100%;
-  margin: 0;
-}
 
 .edit-link-button {
   position: absolute;
@@ -425,7 +416,7 @@ onMounted(async () => {
     border-radius: 9999px;
     transition: background-color 0.2s ease-out 0s;
     background: $white;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     text-wrap: nowrap;
     padding-inline: 16px;
@@ -466,9 +457,10 @@ onMounted(async () => {
     overflow: hidden;
 
     img {
-      display: block;
       width: 100%;
       height: 100%;
+      object-fit: cover;
+      object-position: center;
       margin: 0;
       padding: 0;
     }
@@ -487,9 +479,9 @@ onMounted(async () => {
   .organisation-title {
     font-family: "Poppins", sans-serif;
     color: $grasp-blue;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 600;
-    line-height: 35px;
+    line-height: 30px;
     text-align: left;
     margin: 0;
   }
@@ -555,6 +547,49 @@ onMounted(async () => {
     font-weight: 600;
     text-decoration: none;
     text-transform: capitalize;
+  }
+}
+
+.organisation-checkbox {
+  width: 99%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  background: $white;
+  border: 0.5px solid $grey-50;
+  border-radius: 8px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  margin: 0 0 24px 0;
+  padding: 12px 0 12px 12px;
+
+  .organisation-checkbox-value {
+    font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: $grey-90;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 48px 0 0;
+    padding: 0;
+
+    .organisation-checkbox-label {
+      color: $grey-90;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 20px;
+      text-wrap: nowrap;
+      font-style: normal;
+      text-transform: capitalize;
+      margin: 0 24px 0 0;
+    }
+
+    img,
+    svg {
+      width: 20px;
+      margin-bottom: -6px;
+    }
   }
 }
 

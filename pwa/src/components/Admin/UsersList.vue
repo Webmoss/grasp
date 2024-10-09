@@ -1,82 +1,85 @@
 <template>
-  <div class="list-item">
-    <div class="list-item-box">
-      <div class="list-item-header-role">Role</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-name">Full Name</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-organisation">Organisation</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-courses">Courses</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-lessons">Lessons</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-nfts">NFTs</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-categories">Category</div>
-    </div>
-    <div class="list-item-box">
-      <div class="list-item-header-sales">Sales</div>
-    </div>
-  </div>
-  <template v-for="(user, index) in testUsers.data" :key="index">
+  <div class="tab-box">
     <div class="list-item">
       <div class="list-item-box">
-        <div class="list-item-role">
-          <span class="list-item-index">{{ index + 1 }}.</span>
-          {{ user.title ? user.title : "-" }}
-        </div>
+        <div class="list-item-header-role">Role</div>
       </div>
       <div class="list-item-box">
-        <div class="list-item-name">
-          {{ user.name ? user.name : "-" }}
-        </div>
+        <div class="list-item-header-name">Full Name</div>
       </div>
       <div class="list-item-box">
-        <div class="list-item-organisation">
-          {{ user.orgId ? user.orgId : "-" }}
-        </div>
+        <div class="list-item-header-organisation">Organisation</div>
       </div>
       <div class="list-item-box">
-        <div class="list-item-courses">
-          {{ courses ? courses : "-" }}
-        </div>
+        <div class="list-item-header-courses">Courses</div>
       </div>
       <div class="list-item-box">
-        <div class="list-item-lessons">
-          {{ lessons ? lessons : "-" }}
-        </div>
+        <div class="list-item-header-lessons">Lessons</div>
       </div>
       <div class="list-item-box">
-        <div class="list-item-nfts">
-          {{ nfts ? nfts : "-" }}
-        </div>
+        <div class="list-item-header-nfts">NFTs</div>
       </div>
-      <div class="list-item-sales">
-        <div v-if="user && user.type" class="list-item-category">
-          <span class="category-indicator">{{ user.type ? user.type : "" }}</span>
-        </div>
+      <div class="list-item-box">
+        <div class="list-item-header-categories">Category</div>
       </div>
-      <div class="list-item-sales">
-        <div class="sales">
-          <span class="list-item-index">Total </span
-          ><span class="sales-amount">
-            <img src="../../assets/svgs/EduCoin.svg" />
-            {{ sales ? sales : "0.00" }}</span
-          >
-        </div>
+      <div class="list-item-box">
+        <div class="list-item-header-sales">Sales</div>
       </div>
     </div>
-  </template>
+    <template v-for="(user, index) in testUsers.data" :key="index">
+      <div class="list-item">
+        <div class="list-item-box">
+          <div class="list-item-role">
+            <span class="list-item-index">{{ index + 1 }}.</span>
+            {{ user.role ? prettyName(user.role) : "-" }}
+          </div>
+        </div>
+        <div class="list-item-box">
+          <div class="list-item-name">
+            {{ user.name ? user.name : "-" }}
+          </div>
+        </div>
+        <div class="list-item-box">
+          <div class="list-item-organisation">
+            {{ user.orgName ? user.orgName : "-" }}
+          </div>
+        </div>
+        <div class="list-item-box">
+          <div class="list-item-courses">
+            {{ courses ? courses : "-" }}
+          </div>
+        </div>
+        <div class="list-item-box">
+          <div class="list-item-lessons">
+            {{ lessons ? lessons : "-" }}
+          </div>
+        </div>
+        <div class="list-item-box">
+          <div class="list-item-nfts">
+            {{ nfts ? nfts : "-" }}
+          </div>
+        </div>
+        <div class="list-item-sales">
+          <div v-if="user && user.type" class="list-item-category">
+            <span class="category-indicator">{{ user.type ? user.type : "" }}</span>
+          </div>
+        </div>
+        <div class="list-item-sales">
+          <div class="sales">
+            <span class="list-item-index">Total </span
+            ><span class="sales-amount">
+              <img src="../../assets/svgs/EduCoin.svg" />
+              {{ sales ? sales : "0.00" }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
 </template>
 <script setup lang="ts">
-import { ref, provide, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
+import { prettyName } from "@/services/prettyName";
 
 /* All Posts stored in a JSON */
 import testUsers from "../../data/users.json";
@@ -131,7 +134,7 @@ const sales = ref(0);
       padding: 0 0 0 24px;
     }
     .list-item-role {
-      min-width: 72px;
+      min-width: 80px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -140,7 +143,7 @@ const sales = ref(0);
       font-family: "Poppins", sans-serif;
       color: $grey-90;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       text-align: left;
       margin: 0;
 

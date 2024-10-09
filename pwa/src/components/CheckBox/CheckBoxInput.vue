@@ -7,8 +7,12 @@
     @click="handleClick"
   >
     <span :class="iconClass">
-      <img v-if="!props.checked" src="../../assets/svgs/CheckBoxOutline.svg" height="22" />
-      <img  v-if="props.checked" src="../../assets/svgs/CheckBox.svg" height="22" />
+      <img
+        v-if="!props.checked"
+        src="../../assets/svgs/CheckBoxOutline.svg"
+        height="22"
+      />
+      <img v-if="props.checked" src="../../assets/svgs/CheckBox.svg" height="22" />
     </span>
     <span :id="`label-${props.id}`" class="label">
       {{ props.label }}
@@ -19,7 +23,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-const emit = defineEmits(['onChange']);
+const emit = defineEmits(["onChange"]);
 
 const props = defineProps({
   value: {
@@ -70,11 +74,12 @@ const handleClick = () => {
 @import "../../assets/styles/mixins.scss";
 
 .check-box {
+  width: 30%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   border: 1px solid transparent;
-  padding: 0.5rem;
+  padding: 0 0.5rem 5px;
   user-select: none;
   cursor: pointer;
 }

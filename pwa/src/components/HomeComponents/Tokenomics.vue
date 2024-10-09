@@ -349,7 +349,7 @@ const data = {
   ],
   datasets: [
     {
-      label: "Allocation % ",
+      label: "Allocation %",
       data: [35, 18, 2, 10, 10, 6, 10, 9],
       backgroundColor: [
         "rgba(20, 27, 235, 1)",
@@ -371,6 +371,24 @@ const data = {
 const tokenomicsData = {
   type: "pie",
   data: data,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+        position: "right", // Move labels to the right
+        labels: {
+          // This more specific font property overrides the global property
+          color: "#ffffff",
+          font: {
+            size: 14,
+            family: "'Poppins', sans-serif",
+          },
+        },
+      },
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

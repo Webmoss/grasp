@@ -8,20 +8,19 @@
       <div class="timeline-box-copy">
         <div class="timeline-current"><span class="black">Q4</span> 2024</div>
         <div class="current-news">
-          Grasp Academy was awarded a 3rd place prize in the Open Campus EDU Chain
-          hackathon in Sept 2024.<br />Grasp is currently taking part in the Open Campus
-          Incubator which is set to finish by December 2024.
-
+          Grasp Academy was awarded a 3rd place in the Open Campus EDU Chain hackathon in
+          Sept 2024.<br />Grasp is currently taking part in the first Open Campus
+          Incubator for builders, which is set to finish by December 2024.
           <div class="timeline-phase-title">
             <span class="black"> Open Campus Incubator</span> Month 1-2
           </div>
           <ul class="timeline-phase-list">
-            <li>1. Refining project scope and requirements</li>
-            <li>2. Build user interface and user journey</li>
-            <li>3. $GRASP tokenomics and governance planning</li>
-            <li>4. Finalise integrations with EDU Chain and OCID</li>
-            <li>5. Onboard Advisors, Partners and Investors</li>
-            <li>6. Launch Early Bird Founders NFT</li>
+            <li>1. Refine project scope &amp; requirements</li>
+            <li>2. Build user interface and journey</li>
+            <li>3. Onboard Advisors, Partners &amp; Investors</li>
+            <li>4. Finalise integrations with EDU Chain &amp; OCID</li>
+            <li>5. $GRASP tokenomics and governance planning</li>
+            <li>6. Launch $GRASP token on EDU Chain mainnet</li>
           </ul>
         </div>
       </div>
@@ -33,10 +32,12 @@
         <div class="line-divider"></div>
         <ul class="timeline-phase-list">
           <li>1. Launch Grasp platform MVP</li>
-          <li>2. Launch $GRASP token on EDU Chain mainnet</li>
-          <li>3. Launch first onboarding and educational courses</li>
-          <li>4. Comprehensive testing (functionality, security and performance)</li>
-          <li>5. Grasp Investor funding rounds</li>
+          <li>
+            2. Create onboarding &amp; educational courses about EDU Chain and partners
+          </li>
+          <li>3. Comprehensive platform testing</li>
+          <li>4. Grasp Investor funding rounds</li>
+          <li>5. Launch Early Bird NFT</li>
         </ul>
       </div>
       <div class="timeline-boxes">

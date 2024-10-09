@@ -30,7 +30,7 @@
       <div class="list-item-box">
         <div class="list-item-role">
           <span class="list-item-index">{{ index + 1 }}.</span>
-          {{ user.title ? user.title : "-" }}
+          {{ user.title ? prettyName(user.title) : "-" }}
         </div>
       </div>
       <div class="list-item-box">
@@ -76,7 +76,8 @@
   </template>
 </template>
 <script setup lang="ts">
-import { ref, provide, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
+import { prettyName } from "@/services/prettyName";
 
 /* All Posts stored in a JSON */
 import testUsers from "../../data/users.json";
@@ -131,7 +132,7 @@ const sales = ref(0);
       padding: 0 0 0 24px;
     }
     .list-item-role {
-      min-width: 72px;
+      min-width: 80px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -140,7 +141,7 @@ const sales = ref(0);
       font-family: "Poppins", sans-serif;
       color: $grey-90;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       text-align: left;
       margin: 0;
 

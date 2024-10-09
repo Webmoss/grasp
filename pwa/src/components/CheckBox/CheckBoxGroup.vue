@@ -1,6 +1,20 @@
+<template>
+  <div class="checkbox-group-wrapper">
+    <CheckBoxInput
+      v-for="item in itemsRef"
+      :id="item.id"
+      :key="item.id"
+      :label="item.label"
+      :value="item.value"
+      :checked="item.checked"
+      @on-change="handleOnChange"
+    />
+  </div>
+</template>
+
 <script setup>
-import { nanoid } from "nanoid";
 import { ref } from "vue";
+import { nanoid } from "nanoid";
 import CheckBoxInput from "./CheckBoxInput.vue";
 
 const props = defineProps({
@@ -44,22 +58,16 @@ const handleOnChange = (id) => {
 };
 </script>
 
-<template>
-  <div class="checkbox-group-wrapper">
-    <CheckBoxInput
-      v-for="item in itemsRef"
-      :id="item.id"
-      :key="item.id"
-      :label="item.label"
-      :value="item.value"
-      :checked="item.checked"
-      @on-change="handleOnChange"
-    />
-  </div>
-</template>
-
 <style lang="scss">
 .checkbox-group-wrapper {
-  padding: 0.5rem;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: center;
+  padding: 0;
 }
 </style>

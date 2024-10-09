@@ -50,16 +50,16 @@
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
             <h2>Course Details</h2>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="name">Type</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter a course type, eg. Activity, Independent Study, etc."
+                placeholder="Enter a course type, eg. Article, Quest"
                 v-model="form.type"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="category">Main Category</label>
               <select
                 v-model="form.category"
@@ -76,7 +76,7 @@
                 </option>
               </select>
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="title">Title</label>
               <input
                 type="text"
@@ -85,25 +85,25 @@
                 v-model="form.title"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="description-row mb-5">
               <label for="excerpt">Excerpt</label>
               <textarea
                 rows="4"
                 cols="50"
                 type="text"
                 name="excerpt"
-                placeholder="Enter a short description"
+                placeholder="Enter a short course excerpt"
                 v-model="form.excerpt"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="description-row mb-5">
               <label for="description">Description</label>
               <textarea
-                rows="6"
+                rows="8"
                 cols="50"
                 type="text"
                 name="description"
-                placeholder="Enter a full description"
+                placeholder="Enter a long course description"
                 v-model="form.description"
               />
             </div>
@@ -111,7 +111,7 @@
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
             <h2>Course Assets</h2>
-            <div class="input-row mb-10">
+            <div class="description-row mb-5">
               <label for="banner">Upload Course Banner (1500x200px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onBannerPick">
@@ -127,7 +127,7 @@
                 />
               </div>
             </div>
-            <div class="input-row mb-10">
+            <div class="description-row mb-5">
               <label for="image">Upload Course Icon (500x500px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onIconPick">
@@ -143,7 +143,7 @@
                 />
               </div>
             </div>
-            <div class="input-row mb-10">
+            <div class="description-row mb-20">
               <label for="image">Course NFT Image (1000x1000px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onNftPick">
@@ -159,7 +159,7 @@
                 />
               </div>
             </div>
-            <div class="input-row mb-10">
+            <div class="description-row mb-10">
               <label for="links">Add Course Links</label>
               <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
                 <img src="../../assets/svgs/socials/website.svg" alt="Website" />
@@ -176,7 +176,7 @@
                 <input
                   type="text"
                   name="linkURL"
-                  placeholder="Add link URL"
+                  placeholder="Add link"
                   v-model="linkURL"
                 />
                 <button class="add-link-button" @click="addLink()">
@@ -188,7 +188,7 @@
           <!-- Step 3 -->
           <div v-if="step === 3" class="form-container">
             <h2>Add Lessons</h2>
-            <div class="input-row mb-10">
+            <div class="description-row mb-10">
               <label for="name">Lessons</label>
               <input
                 type="text"
@@ -312,7 +312,7 @@
             <button
               type="button"
               class="cancel-button"
-              @click="emit('close')"
+              @click="cancelCreate()"
               aria-label="Close modal"
             >
               Cancel
@@ -353,13 +353,18 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive } from "vue";
+import { ref, Ref, reactive, onBeforeMount } from "vue";
 import { useStore } from "../../store";
+import { storeToRefs } from "pinia";
 import { lessonObject } from "src/models/lesson";
 import BuyButton from "../Buttons/BuyButton.vue";
 
+/* All Posts stored in a JSON */
+import testLessons from "../../data/lessons.json";
+
 const emit = defineEmits(["close"]);
 const store = useStore();
+const { lessons } = storeToRefs(store);
 
 const props = defineProps({
   showModal: {
@@ -418,72 +423,6 @@ const options = ref([
   { value: "writing", label: "Writing" },
   { value: "other", label: "Other" },
 ]);
-
-const lessons = [
-  {
-    id: 1,
-    type: "article",
-    category: "educhain",
-    categories: [],
-    banner: "",
-    image: "",
-    title: "Introduction",
-    excerpt:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    description:
-      "EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education. EDU Chain links learning experiences with earning opportunities, making every step of the journey trackable on the blockchain. EDU Chain is the first L3 Blockchain built for Education.",
-    price: 10,
-    sales: 1000,
-    token: "EDU",
-    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
-    step: 1,
-    isLive: true,
-    created_date: "30/03/2023",
-    updated_date: "",
-  },
-  {
-    id: 2,
-    type: "video",
-    category: "educhain",
-    categories: [],
-    banner: "",
-    image: "",
-    title: "What is Open Campus ID",
-    excerpt:
-      "Open Campus ID is a Soulbound Token, a non-transferable NFT that are virtual representations of learners' online personas.",
-    description:
-      "Open Campus ID is Open Campus' blockchain protocol that issues Decentralized Identifiers (DIDs) in the form of Soulbound Tokens (SBTs), non-transferable NFTs that are virtual representations of learners' online personas. The primary benefit for learners is they have control over what information is associated with their OC IDs. They can decide which pieces of information they want to share and when they want to share them, including their learning profile.",
-    price: 10,
-    sales: 1000,
-    token: "EDU",
-    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
-    step: 2,
-    isLive: true,
-    created_date: "30/03/2023",
-    updated_date: "",
-  },
-  {
-    id: 3,
-    type: "game",
-    category: "games",
-    categories: [],
-    banner: "",
-    image: "",
-    title: "Time and Energy",
-    excerpt:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    description:
-      "Software is like a pebble in a river...it only get's smoother with time and energy",
-    price: 10,
-    sales: 1000,
-    token: "EDU",
-    links: ["https://id.opencampus.xyz/", "https://x.com/opencampus_xyz"],
-    step: 3,
-    isLive: true,
-    created_date: "30/03/2023",
-    updated_date: "",
-  },
-];
 
 const step = ref(1);
 const linkText = ref("");
@@ -572,6 +511,36 @@ function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
 
+const cancelCreate = () => {
+  form.value = {
+    id: undefined,
+    type: undefined,
+    category: "",
+    categories: [],
+    banner: undefined,
+    image: undefined,
+    title: undefined,
+    excerpt: undefined,
+    description: undefined,
+    price: undefined,
+    discount: undefined,
+    from_date: undefined,
+    to_date: undefined,
+    sales: undefined,
+    total: undefined,
+    token: undefined,
+    nft: {},
+    links: [],
+    lessons: [],
+    step: 0,
+    isLive: false,
+    created_date: undefined,
+    updated_date: undefined,
+  };
+  step.value = 1;
+  emit("close");
+};
+
 const saveDraft = async () => {
   console.log("Save Draft Course", form);
   try {
@@ -606,6 +575,14 @@ const goBack = () => {
 const nextStep = () => {
   step.value += 1;
 };
+
+async function fetchLessons() {
+  store.setLessons((testLessons.data as unknown) as lessonObject[]);
+}
+
+onBeforeMount(async () => {
+  await fetchLessons();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -743,6 +720,24 @@ const nextStep = () => {
 
     .input-row {
       width: 100%;
+      max-width: 400px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
+    }
+    .description-row {
+      width: 100%;
       max-width: 540px;
       position: relative;
       display: flex;
@@ -757,6 +752,104 @@ const nextStep = () => {
         line-height: 24px;
         text-align: left;
         padding: 4px 0 0 0;
+      }
+    }
+
+    .radio-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .radio-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
+      }
+    }
+
+    .checkbox-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .checkbox-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
       }
     }
 
@@ -1307,8 +1400,14 @@ const nextStep = () => {
       }
     }
 
+    .mb-20 {
+      margin-bottom: 20px;
+    }
     .mb-10 {
       margin-bottom: 10px;
+    }
+    .mb-5 {
+      margin-bottom: 5px;
     }
   }
 }

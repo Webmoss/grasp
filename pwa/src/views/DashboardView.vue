@@ -551,48 +551,6 @@ onBeforeMount(async () => {
     margin: 0 0 14px 0;
   }
 
-  .tab-switcher {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-content: flex-start;
-    align-items: center;
-    padding: 0;
-    margin: 0 auto 20px;
-
-    .tab-button {
-      font-family: "Poppins", sans-serif;
-      color: $black;
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 20px;
-      margin-right: 16px;
-      padding-bottom: 2px;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: 0.4s all linear;
-      cursor: pointer;
-
-      @include breakpoint($break-sm) {
-        font-size: 16px !important;
-      }
-
-      &:hover,
-      &:active,
-      &:focus,
-      &:focus-visible {
-        border-bottom: 2px solid $grasp-blue;
-      }
-    }
-    .tab-button.active {
-      padding-bottom: 2px;
-      border-bottom: 2px solid $grasp-blue;
-    }
-  }
-  .tab-box {
-    width: 90%;
-    margin: 0;
-  }
   .my-courses-box,
   .my-lessons-box {
     width: 100%;
@@ -892,7 +850,7 @@ onBeforeMount(async () => {
 }
 
 .right {
-  padding: 60px 0 0 0;
+  padding: 56px 0 0 2%;
 
   .my-wallet-box {
     width: calc(100% - 32px);

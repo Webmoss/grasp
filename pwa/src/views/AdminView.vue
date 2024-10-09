@@ -129,10 +129,10 @@ import { storeToRefs } from "pinia";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
-import UsersList from "@/components/AdminComponents/UsersList.vue";
-import CoursesList from "@/components/AdminComponents/CoursesList.vue";
-import LessonsList from "@/components/AdminComponents/LessonsList.vue";
-import ActivityList from "@/components/AdminComponents/ActivityList.vue";
+import UsersList from "@/components/Admin/UsersList.vue";
+import CoursesList from "@/components/Admin/CoursesList.vue";
+import LessonsList from "@/components/Admin/LessonsList.vue";
+import ActivityList from "@/components/Admin/ActivityList.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";
@@ -168,49 +168,6 @@ onBeforeMount(async () => {
 <style lang="scss">
 @import "../assets/styles/variables.scss";
 @import "../assets/styles/mixins.scss";
-
-.tab-switcher {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-content: flex-start;
-  align-items: center;
-  padding: 0;
-  margin: 0 auto 20px;
-
-  .tab-button {
-    font-family: "Poppins", sans-serif;
-    color: $black;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    margin-right: 16px;
-    padding-bottom: 2px;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: 0.4s all linear;
-    cursor: pointer;
-
-    @include breakpoint($break-sm) {
-      font-size: 16px !important;
-    }
-
-    &:hover,
-    &:active,
-    &:focus,
-    &:focus-visible {
-      border-bottom: 2px solid $grasp-blue;
-    }
-  }
-  .tab-button.active {
-    padding-bottom: 2px;
-    border-bottom: 2px solid $grasp-blue;
-  }
-}
-.tab-box {
-  width: 100%;
-  margin: 0;
-}
 
 .box-header {
   font-family: "Poppins", sans-serif;

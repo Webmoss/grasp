@@ -40,100 +40,187 @@
           <!-- Step 1 -->
           <div v-if="step === 1" class="form-container">
             <h2>Profile Details</h2>
-            <div class="input-row mb-10">
-              <label for="name">Type</label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter the Organisation type"
-                v-model="form.type"
-              />
-            </div>
-            <div class="input-row mb-10">
-              <label for="category">Main Category</label>
-              <select
-                v-model="form.category"
-                class="category-select"
-                name="category"
-                @change="selectCategory($event)"
-              >
-                <option
-                  v-for="option in options"
-                  :key="option.value"
-                  :value="option.value"
-                >
-                  {{ option.label }}
-                </option>
-              </select>
-            </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="title">Title</label>
               <input
                 type="text"
                 name="title"
-                placeholder="Enter a title,eg. Founder"
+                placeholder="Enter a title,eg. Prof."
                 v-model="form.title"
               />
             </div>
-            <div class="input-row mb-10">
-              <label for="description">Description</label>
+            <div class="input-row mb-5">
+              <label for="name">Full name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter users full name,eg. Bob Smith"
+                v-model="form.name"
+              />
+            </div>
+            <div class="input-row mb-5">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter a username"
+                v-model="form.username"
+              />
+            </div>
+            <div class="description-row mb-20">
+              <label for="description">About</label>
               <textarea
                 rows="6"
                 cols="50"
                 type="text"
                 name="description"
-                placeholder="Enter a full description"
+                placeholder="Enter a bio about the user"
                 v-model="form.description"
               />
+            </div>
+            <div class="input-row mb-5">
+              <label for="type">Type</label>
+              <input
+                type="text"
+                name="type"
+                placeholder="Enter the users type"
+                v-model="form.type"
+              />
+            </div>
+            <div class="description-row mb-5">
+              <label for="role">Role</label>
+              <div class="radio-row">
+                <div class="radio-box">
+                  <label for="admin">Admin</label>
+                  <input type="radio" id="admin" value="admin" v-model="form.role" />
+                </div>
+                <div class="radio-box">
+                  <label for="editor">Editor</label>
+                  <input type="radio" id="editor" value="editor" v-model="form.role" />
+                </div>
+                <div class="radio-box">
+                  <label for="view">View only</label>
+                  <input type="radio" id="view" value="view" v-model="form.role" />
+                </div>
+              </div>
             </div>
           </div>
           <!-- Step 2 -->
           <div v-if="step === 2" class="form-container">
             <h2>Add Contact Details</h2>
-            <div class="input-row mb-10">
-              <label for="contact">Contact</label>
-              <input
-                type="text"
-                name="contact"
-                placeholder="Enter a contact person"
-                v-model="form.contact"
-              />
-            </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="email">Email</label>
               <input
                 type="text"
                 name="email"
-                placeholder="Enter organisation email"
+                placeholder="Enter users email"
                 v-model="form.email"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="phone">Phone</label>
               <input
                 type="text"
                 name="phone"
-                placeholder="Enter a title,eg. My Course"
+                placeholder="Enter users contact number"
                 v-model="form.phone"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-5">
               <label for="country">Country</label>
               <input
                 type="text"
                 name="country"
-                placeholder="Enter country"
+                placeholder="Enter users country"
                 v-model="form.country"
               />
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-20">
               <label for="city">City</label>
               <input
                 type="text"
                 name="city"
-                placeholder="Enter city"
+                placeholder="Enter users city"
                 v-model="form.city"
               />
+            </div>
+            <div class="description-row">
+              <label for="city">Add Social Links</label>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+                <input
+                  type="text"
+                  name="websiteTitle"
+                  placeholder="Website Title"
+                  v-model="form.website.title"
+                />
+                <input
+                  type="text"
+                  name="websiteUrl"
+                  placeholder="Website link"
+                  v-model="form.website.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/twitter.svg" alt="Twitter" />
+                <input
+                  type="text"
+                  name="twitterTitle"
+                  placeholder="Twitter Username"
+                  v-model="form.twitter.title"
+                />
+                <input
+                  type="text"
+                  name="twitterUrl"
+                  placeholder="Twitter link"
+                  v-model="form.twitter.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/Discord.svg" alt="Discord" />
+                <input
+                  type="text"
+                  name="discordTitle"
+                  placeholder="Discord Title"
+                  v-model="form.discord.title"
+                />
+                <input
+                  type="text"
+                  name="discordUrl"
+                  placeholder="Discord link"
+                  v-model="form.discord.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/telegram.svg" alt="Telegram" />
+                <input
+                  type="text"
+                  name="telegramTitle"
+                  placeholder="Telegram Title"
+                  v-model="form.telegram.title"
+                />
+                <input
+                  type="text"
+                  name="telegramUrl"
+                  placeholder="Telegram link"
+                  v-model="form.telegram.url"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/socials/linkedin.svg" alt="LinkedIn" />
+                <input
+                  type="text"
+                  name="linkedinTitle"
+                  placeholder="LinkedIn Title"
+                  v-model="form.linkedin.title"
+                />
+                <input
+                  type="text"
+                  name="linkedinUrl"
+                  placeholder="LinkedIn link"
+                  v-model="form.linkedin.url"
+                />
+              </div>
             </div>
           </div>
           <!-- Step 3 -->
@@ -155,7 +242,7 @@
                 />
               </div>
             </div>
-            <div class="input-row mb-10">
+            <div class="input-row mb-20">
               <label for="image">Upload Profile Icon (500x500px)</label>
               <div class="upload-box">
                 <button class="select-file-button" @click="onIconPick">
@@ -171,29 +258,38 @@
                 />
               </div>
             </div>
-            <div class="input-row mb-10">
-              <label for="links">Add Social Links</label>
-              <div v-for="(link, i) in form.links" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
-                <span class="link-text">{{ link.label }}</span>
+
+            <h2>Admin Settings</h2>
+            <div class="checkbox-row">
+              <div class="checkbox-box">
+                <label for="enabled">Enabled</label>
+                <input
+                  type="checkbox"
+                  id="enabled"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.enabled"
+                />
               </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Website" />
+              <div class="checkbox-box">
+                <label for="verified">Verified</label>
                 <input
-                  type="text"
-                  name="linkText"
-                  placeholder="Label"
-                  v-model="linkText"
+                  type="checkbox"
+                  id="verified"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.verified"
                 />
+              </div>
+              <div class="checkbox-box">
+                <label for="blocked">Blocked</label>
                 <input
-                  type="text"
-                  name="linkURL"
-                  placeholder="Add link URL"
-                  v-model="linkURL"
+                  type="checkbox"
+                  id="blocked"
+                  :true-value="true"
+                  :false-value="false"
+                  v-model="form.blocked"
                 />
-                <button class="add-link-button" @click="addLink()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add link" />
-                </button>
               </div>
             </div>
           </div>
@@ -203,7 +299,7 @@
             <button
               type="button"
               class="cancel-button"
-              @click="emit('close')"
+              @click="cancelCreate()"
               aria-label="Close modal"
             >
               Cancel
@@ -245,78 +341,56 @@
 </template>
 <script setup lang="ts">
 import { ref, Ref, reactive } from "vue";
-import { useStore } from "../../store";
-import { userObject } from "src/models/user";
-
-import testUsers from "../../data/users.json";
+// import { useStore } from "../../store";
+// import { userObject } from "src/models/user";
+// import { organisationObject } from "src/models/organisation";
 
 const emit = defineEmits(["close"]);
-const store = useStore();
+// const store = useStore();
 
 const props = defineProps({
   showModal: {
     type: Boolean,
     default: false,
   },
-  user: {
+  organisation: {
     type: Object,
     default: {},
     required: false,
   },
 });
 
-const form: any = reactive({
+let form: any = reactive({
   id: undefined,
+  role: undefined,
+  orgId: props.organisation.id ? props.organisation.id : undefined,
+  orgName: props.organisation.title ? props.organisation.title : undefined,
+  campusId: undefined,
+  wallet: undefined,
   type: undefined,
-  category: "",
-  categories: [],
   banner: undefined,
   image: undefined,
   title: undefined,
+  name: undefined,
   description: undefined,
-  contact: undefined,
+  username: undefined,
   email: undefined,
   phone: undefined,
   city: undefined,
   country: undefined,
-  website: undefined,
-  twitter: undefined,
-  discord: undefined,
-  telegram: undefined,
-  linkedin: undefined,
+  website: { title: "", url: "", alt: "", icon: "website" },
+  twitter: { title: "", url: "", alt: "", icon: "twitter" },
+  discord: { title: "", url: "", alt: "", icon: "discord" },
+  telegram: { title: "", url: "", alt: "", icon: "telegram" },
+  linkedin: { title: "", url: "", alt: "", icon: "linkedin" },
   created_date: undefined,
   updated_date: undefined,
   enabled: false,
   verified: false,
   blocked: false,
-  links: [],
-  members: [],
 });
 
-const options = ref([
-  { value: "", label: "Choose Category" },
-  { value: "animation", label: "Animation" },
-  { value: "ai", label: "Artificial Intelligence" },
-  { value: "architecture", label: "Architecture & Spaces" },
-  { value: "craft", label: "Craft" },
-  { value: "education", label: "Education" },
-  { value: "engineering", label: "Engineering" },
-  { value: "fashion", label: "Fashion" },
-  { value: "illustration", label: "Illustration" },
-  { value: "marketing", label: "Marketing & Business" },
-  { value: "music", label: "Music & Audio" },
-  { value: "photography", label: "Photography" },
-  { value: "video", label: "Video" },
-  { value: "development", label: "Software Development" },
-  { value: "web3", label: "Web3" },
-  { value: "writing", label: "Writing" },
-  { value: "other", label: "Other" },
-]);
-
 const step = ref(1);
-const linkText = ref("");
-const linkURL = ref("");
-const selectedMembers = ref([]);
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -357,21 +431,39 @@ function onIconFilePicked(event: any) {
   iconImage.value = files[0];
 }
 
-/**
- * * Add link
- */
-function addLink() {
-  form.links.push({ label: linkText.value, url: linkURL.value });
-  linkText.value = "";
-  linkURL.value = "";
-}
-
-/**
- * * Update our Course Category
- */
-function selectCategory(event: Event) {
-  form.category = (event.target as HTMLInputElement).value;
-}
+const cancelCreate = async () => {
+  form.value = {
+    id: undefined,
+    role: undefined,
+    orgId: props.organisation.id ? props.organisation.id : undefined,
+    orgName: props.organisation.title ? props.organisation.title : undefined,
+    campusId: undefined,
+    wallet: undefined,
+    type: undefined,
+    banner: undefined,
+    image: undefined,
+    title: undefined,
+    name: undefined,
+    description: undefined,
+    username: undefined,
+    email: undefined,
+    phone: undefined,
+    city: undefined,
+    country: undefined,
+    website: { title: "", url: "", alt: "", icon: "website" },
+    twitter: { title: "", url: "", alt: "", icon: "twitter" },
+    discord: { title: "", url: "", alt: "", icon: "discord" },
+    telegram: { title: "", url: "", alt: "", icon: "telegram" },
+    linkedin: { title: "", url: "", alt: "", icon: "linkedin" },
+    created_date: undefined,
+    updated_date: undefined,
+    enabled: false,
+    verified: false,
+    blocked: false,
+  };
+  step.value = 1;
+  emit("close");
+};
 
 const saveDraft = async () => {
   console.log("Save Draft Member", form);
@@ -544,6 +636,25 @@ const nextStep = () => {
 
     .input-row {
       width: 100%;
+      max-width: 400px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .link-text {
+        color: $black;
+        letter-spacing: 1px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: left;
+        padding: 4px 0 0 0;
+      }
+    }
+
+    .description-row {
+      width: 100%;
       max-width: 540px;
       position: relative;
       display: flex;
@@ -558,6 +669,104 @@ const nextStep = () => {
         line-height: 24px;
         text-align: left;
         padding: 4px 0 0 0;
+      }
+    }
+
+    .radio-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .radio-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
+      }
+    }
+
+    .checkbox-row {
+      width: 98%;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px solid #d9d9d9;
+      border-radius: 10px;
+
+      .checkbox-box {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 48px 0 0;
+        padding: 1% 2%;
+
+        label {
+          color: $black;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 20px;
+          font-style: normal;
+          text-wrap: nowrap;
+          margin: 0 36px 0 0;
+        }
+
+        input {
+          width: 15px;
+          color: $black;
+        }
+
+        input:read-only {
+          height: 15px;
+          color: $grasp-blue;
+          cursor: pointer;
+        }
+
+        input:focus {
+          border: 1px solid $grasp-blue;
+          outline: none;
+        }
       }
     }
 
@@ -1121,8 +1330,14 @@ const nextStep = () => {
       }
     }
 
+    .mb-20 {
+      margin-bottom: 20px;
+    }
     .mb-10 {
       margin-bottom: 10px;
+    }
+    .mb-5 {
+      margin-bottom: 5px;
     }
   }
 }

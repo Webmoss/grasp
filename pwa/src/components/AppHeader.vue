@@ -271,8 +271,6 @@ function navigateAndScroll(to: any) {
           }
         }
         .menu-link.active {
-          padding-bottom: 2px;
-          font-weight: 500;
           border-bottom: 2px solid $grasp-cyan;
         }
 
