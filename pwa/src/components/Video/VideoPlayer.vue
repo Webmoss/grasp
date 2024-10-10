@@ -74,14 +74,22 @@ const emit = defineEmits<{
       | "click"
       | "canplay"
       | "canplaythrough"
+      | "compositionstart"
+      | "compositionupdate"
+      | "compositionend"
+      | "contextlost"
+      | "contextmenu"
+      | "contextrestored"
       | "close"
+      | "copy"
       | "play"
+      | "playing"
       | "pause"
+      | "input"
       | "ended"
       | "encrypted"
       | "loadeddata"
       | "waiting"
-      | "playing"
       | "timeupdate"
       | "statechanged"
       | "fullscreenchange"
@@ -125,7 +133,6 @@ const unmute = () => {
   videoMuted.value = false;
 };
 const toggleMute = () => {
-  if (!videoMuted.value) return;
   videoMuted.value ? unmute() : mute();
 };
 const setMuted = (state: boolean) => {
@@ -137,29 +144,33 @@ const convertTimeToDuration = (seconds: number): string => {
     .join(":");
 };
 
-const handleEvent = (which: keyof HTMLMediaElementEventMap) => (event: Event) => {
-  if (which === "loadeddata") {
-    duration.value = videoPlayer.value?.duration || 0;
-  }
-  if (which === "timeupdate") {
-    percentagePlayed.value =
-      ((videoPlayer.value?.currentTime ?? 0) / (duration.value || 1)) * 100;
-  }
-  emit(which, { event, player: videoPlayer.value });
+const handleEvent = (which: keyof HTMLMediaElementEventMap) => {
+  const debouncedUpdate = debounce((event: Event) => {
+    if (which === "loadeddata") {
+      duration.value = videoPlayer.value?.duration || 0;
+    }
+    if (which === "timeupdate") {
+      if (!videoPlayer.value) return;
+      percentagePlayed.value =
+        (videoPlayer.value?.currentTime / videoPlayer.value?.duration) * 100;
+    }
+    emit(which, { event, player: videoPlayer.value });
+  }, 200);
+
+  return debouncedUpdate;
+};
+
+const bindVideoEvent = (which: keyof HTMLMediaElementEventMap) => {
+  videoPlayer.value?.addEventListener(which, eventHandlers[which], true);
+};
+const unbindVideoEvent = (which: keyof HTMLMediaElementEventMap) => {
+  videoPlayer.value?.removeEventListener(which, eventHandlers[which], true);
 };
 
 const eventHandlers = EVENTS.reduce((handlers, event) => {
   handlers[event] = handleEvent(event);
   return handlers;
 }, {} as Record<keyof HTMLMediaElementEventMap, (event: Event) => void>);
-
-const bindVideoEvent = (which: keyof HTMLMediaElementEventMap) => {
-  videoPlayer.value?.addEventListener(which, eventHandlers[which], true);
-};
-
-const unbindVideoEvent = (which: keyof HTMLMediaElementEventMap) => {
-  videoPlayer.value?.removeEventListener(which, eventHandlers[which], true);
-};
 
 defineExpose({
   videoPlayer,

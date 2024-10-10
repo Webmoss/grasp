@@ -237,16 +237,16 @@
                 type="text"
                 name="video"
                 placeholder="Enter the Video link"
-                :value="form.content"
+                v-model="form.video"
               />
               <VideoPlayer
+                v-if="form.video"
                 :class="'videoplayer'"
-                src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
+                :src="form.video"
                 :muted="true"
                 :autoplay="false"
                 :controls="true"
                 :loop="false"
-                poster="https://demo-res.cloudinary.com/video/upload/q_auto,f_auto,w_500/dog.jpg"
                 @play="onPlayerPlay"
                 @pause="onPlayerPause"
                 @ended="onPlayerEnded"
@@ -289,6 +289,9 @@
                   </div>
                 </template>
               </VideoPlayer>
+              <div v-else class="no-video-banner">
+                <img src="../../assets/images/VideoUpload.png" width="540" />
+              </div>
             </div>
 
             <div v-if="form.type === 'publisher'" class="description-row mb-10">
@@ -297,7 +300,7 @@
                 type="text"
                 name="publisher"
                 placeholder="Enter the Publisher NFT title"
-                :value="form.content"
+                v-model="form.content"
               />
             </div>
 
@@ -307,24 +310,28 @@
                 type="text"
                 name="tinytap"
                 placeholder="Enter the TinyTap NFT title"
-                :value="form.content"
+                v-model="form.content"
               />
             </div>
 
             <div v-if="form.type === 'quest'" class="description-row mb-10">
-              <label for="links">Quest Steps</label>
-              <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-10">
+              <label for="questText">Quest Steps</label>
+              <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-20">
                 <img src="../../assets/svgs/socials/website.svg" alt="Step" />
                 <span class="link-text">{{ link.label }}</span>
               </div>
-              <div class="input-box mb-10">
-                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
+              <div class="input-row mb-10">
+                <!-- <img src="../../assets/svgs/socials/website.svg" alt="Step" /> -->
+                <label for="questText">Quest Title</label>
                 <input
                   type="text"
                   name="questText"
-                  placeholder="Quest title"
+                  placeholder="Enter a name for the quest"
                   v-model="questText"
                 />
+              </div>
+              <div class="input-box-column mb-10">
+                <label for="questStep">Quest Step</label>
                 <input
                   type="text"
                   name="questStep"
@@ -332,17 +339,20 @@
                   v-model="questStep"
                 />
               </div>
-              <div class="input-box mb-10">
+              <div class="input-box-column mb-10">
+                <label for="questDetails">Description</label>
                 <textarea
                   rows="6"
                   cols="50"
                   type="text"
-                  name="taskStep"
-                  placeholder="Enter a description of the task step"
+                  name="questDetails"
+                  placeholder="Enter a description of the Quest"
                   v-model="questDetails"
                 />
+              </div>
+              <div class="input-row mb-10">
                 <button class="add-link-button" @click="addQuest()">
-                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest step" />
+                  <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest Step" />
                 </button>
               </div>
             </div>
@@ -355,18 +365,22 @@
                 <span class="link-text">{{ task.label }}</span>
               </div>
               <div class="input-box-column mb-10">
+                <label for="price">Task Label</label>
                 <input
                   type="text"
                   name="taskText"
-                  placeholder="Task Label"
+                  placeholder="Enter a label for the task"
                   v-model="taskText"
                 />
+              </div>
+              <div class="input-box-column mb-10">
+                <label for="price">Description</label>
                 <textarea
                   rows="6"
                   cols="50"
                   type="text"
                   name="taskStep"
-                  placeholder="Enter a description of the task step"
+                  placeholder="Enter a description of the task"
                   v-model="taskStep"
                 />
                 <button class="add-task-button" @click="addTask()">
@@ -506,7 +520,7 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive, onMounted } from "vue";
+import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
 import BuyButton from "../Buttons/BuyButton.vue";
 import CheckBoxGroup from "../CheckBox/CheckBoxGroup.vue";
@@ -543,6 +557,7 @@ const form: any = reactive({
   excerpt: undefined,
   description: undefined,
   content: undefined,
+  video: undefined,
   tasks: [],
   quests: [],
   price: undefined,
@@ -693,20 +708,35 @@ function selectCategory(event: Event) {
 /**
  ** Video Methods https://codesandbox.io/p/sandbox/eloquent-mahavira-9kgrc?file=%2Fsrc%2FApp.vue%3A4%2C7-20%2C41&from-embed&initialpath=%2F
  */
-const onPlayerPlay = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+const onPlayerPlay = ({
+  event,
+  player,
+}: {
+  event: PlayEvent;
+  player: HTMLVideoElement;
+}): void => {
   console.log("onPlayerPlay", event.type);
-  player.setPlaying(true);
-  // vidPlayer.value.videoPlayer.setPlaying(true);
+  player.play();
 };
-const onPlayerPause = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+const onPlayerPause = ({
+  event,
+  player,
+}: {
+  event: PlayEvent;
+  player: HTMLVideoElement;
+}): void => {
   console.log("onPlayerPause", event.type);
-  player.setPlaying(false);
-  // vidPlayer.value.videoPlayer.setPlaying(false);
+  player.pause();
 };
-const onPlayerEnded = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+const onPlayerEnded = ({
+  event,
+  player,
+}: {
+  event: PlayEvent;
+  player: HTMLVideoElement;
+}): void => {
   console.log("onPlayerEnded", event.type);
-  player.setPlaying(false);
-  // vidPlayer.value.videoPlayer.setPlaying(false);
+  player.pause();
 };
 const onPlayerLoadeddata = ({ event }: { event: PlayEvent }): void => {
   console.log("onPlayerLoadeddata", event.type);
@@ -746,6 +776,7 @@ const cancelCreate = () => {
     excerpt: undefined,
     description: undefined,
     content: undefined,
+    video: undefined,
     tasks: [],
     quests: [],
     price: undefined,
@@ -797,13 +828,6 @@ const goBack = () => {
 const nextStep = () => {
   step.value += 1;
 };
-
-onMounted(() => {
-  console.log("vidPlayer.value", vidPlayer.value);
-  if (vidPlayer.value) {
-    console.log("VideoPlayer Child ref", vidPlayer.value.videoPlayer);
-  }
-});
 </script>
 
 <style lang="scss" scoped>
@@ -1611,14 +1635,24 @@ onMounted(() => {
 .videoplayer {
   width: 100%;
   max-width: 100%; // Ensure it doesn't overflow
-  margin: 10px auto;
+  margin: 20px auto 20px;
   height: auto; // Keep aspect ratio
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.no-video-banner {
+  width: 100%;
+  max-width: 100%;
+  margin: 20px auto 10px;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .videoplayer-controls {
   width: 100%;
   display: flex;
-  margin: 4px auto;
   font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   color: $black;
@@ -1626,6 +1660,7 @@ onMounted(() => {
   font-weight: 500;
   text-decoration: none;
   text-transform: uppercase;
+  margin: 10px auto 0;
 }
 
 .videoplayer-controls-toggleplay,
