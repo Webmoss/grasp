@@ -79,8 +79,8 @@ const handleClick = () => {
   justify-content: flex-start;
   align-items: center;
   border: 1px solid transparent;
-  padding: 0 0.5rem 5px;
   user-select: none;
+  padding: 1%;
   cursor: pointer;
 }
 

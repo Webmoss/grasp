@@ -430,7 +430,7 @@ const nextStep = () => {
     }
 
     input {
-      width: 94%;
+      width: 96%;
       height: 30px;
       color: $grasp-blue;
       background-color: #fdfdfd;
@@ -462,9 +462,9 @@ const nextStep = () => {
     }
 
     textarea {
-      width: 94%;
-      height: 70px;
-      color: $grasp-blue;
+      width: 96%;
+      height: auto;
+      color: $black;
       background-color: #fdfdfd;
       border: 1px solid #d9d9d9;
       border-radius: 10px;

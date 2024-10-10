@@ -1071,7 +1071,7 @@ onBeforeMount(async () => {
     }
 
     input {
-      width: 94%;
+      width: 96%;
       height: 30px;
       color: $black;
       background-color: #fdfdfd;
@@ -1105,7 +1105,7 @@ onBeforeMount(async () => {
     }
 
     textarea {
-      width: 94%;
+      width: 96%;
       height: auto;
       color: $black;
       background-color: #fdfdfd;

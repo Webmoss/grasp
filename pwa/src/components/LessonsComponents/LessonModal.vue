@@ -189,16 +189,6 @@
                     checked: true,
                   },
                   {
-                    label: 'Publisher NFT',
-                    value: 'publisher',
-                    checked: false,
-                  },
-                  {
-                    label: 'Tiny Tap',
-                    value: 'tinytap',
-                    checked: false,
-                  },
-                  {
                     label: 'Video',
                     value: 'video',
                     checked: false,
@@ -213,8 +203,19 @@
                     value: 'task',
                     checked: false,
                   },
+
+                  {
+                    label: 'Publisher NFT',
+                    value: 'publisher',
+                    checked: false,
+                  },
+                  {
+                    label: 'Tiny Tap',
+                    value: 'tinytap',
+                    checked: false,
+                  },
                 ]"
-                @on-change="onChange"
+                @on-change="onTypeChange"
               />
             </div>
 
@@ -228,6 +229,66 @@
                 placeholder="Enter lesson content"
                 v-model="form.content"
               />
+            </div>
+
+            <div v-if="form.type === 'video'" class="description-row mb-10">
+              <label for="video">Video</label>
+              <input
+                type="text"
+                name="video"
+                placeholder="Enter the Video link"
+                :value="form.content"
+              />
+              <VideoPlayer
+                :class="'videoplayer'"
+                src="https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4"
+                :muted="true"
+                :autoplay="false"
+                :controls="true"
+                :loop="false"
+                poster="https://demo-res.cloudinary.com/video/upload/q_auto,f_auto,w_500/dog.jpg"
+                @play="onPlayerPlay"
+                @pause="onPlayerPause"
+                @ended="onPlayerEnded"
+                @loadeddata="onPlayerLoadeddata"
+                @waiting="onPlayerWaiting"
+                @playing="onPlayerPlaying"
+                @timeupdate="onPlayerTimeupdate"
+                @canplay="onPlayerCanplay"
+                @canplaythrough="onPlayerCanplaythrough"
+                @statechanged="playerStateChanged"
+              >
+                <template
+                  v-slot:controls="{
+                    togglePlay,
+                    playing,
+                    percentagePlayed,
+                    seekToPercentage,
+                    duration,
+                    convertTimeToDuration,
+                    videoMuted,
+                    toggleMute,
+                  }"
+                >
+                  <div class="videoplayer-controls">
+                    <button @click="togglePlay()" class="videoplayer-controls-toggleplay">
+                      {{ playing ? "pause" : "play" }}
+                    </button>
+                    <div class="videoplayer-controls-time">
+                      {{ convertTimeToDuration(time) }}<br />
+                      {{ convertTimeToDuration(duration) }}
+                    </div>
+                    <VideoPlayerTrack
+                      :percentage="percentagePlayed"
+                      @seek="seekToPercentage"
+                      class="videoplayer-controls-track"
+                    />
+                    <button @click="toggleMute()" class="videoplayer-controls-togglemute">
+                      {{ videoMuted ? "unmute" : "mute" }}
+                    </button>
+                  </div>
+                </template>
+              </VideoPlayer>
             </div>
 
             <div v-if="form.type === 'publisher'" class="description-row mb-10">
@@ -246,16 +307,6 @@
                 type="text"
                 name="tinytap"
                 placeholder="Enter the TinyTap NFT title"
-                :value="form.content"
-              />
-            </div>
-
-            <div v-if="form.type === 'video'" class="description-row mb-10">
-              <label for="video">Video</label>
-              <input
-                type="text"
-                name="video"
-                placeholder="Enter the Video link"
                 :value="form.content"
               />
             </div>
@@ -279,6 +330,16 @@
                   name="questStep"
                   placeholder="Quest step"
                   v-model="questStep"
+                />
+              </div>
+              <div class="input-box mb-10">
+                <textarea
+                  rows="6"
+                  cols="50"
+                  type="text"
+                  name="taskStep"
+                  placeholder="Enter a description of the task step"
+                  v-model="questDetails"
                 />
                 <button class="add-link-button" @click="addQuest()">
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest step" />
@@ -445,23 +506,26 @@
   </transition>
 </template>
 <script setup lang="ts">
-import { ref, Ref, reactive } from "vue";
+import { ref, Ref, reactive, onMounted } from "vue";
 import { useStore } from "../../store";
 import BuyButton from "../Buttons/BuyButton.vue";
 import CheckBoxGroup from "../CheckBox/CheckBoxGroup.vue";
-
-const onChange = (val: any) => {
-  console.log("val", val);
-
-  let result = val.find((obj: { checked: boolean }) => obj.checked === true);
-  form.type = result.value;
-  console.log("form.type", form.type);
-};
+import VideoPlayer from "../Video/VideoPlayer.vue";
+import VideoPlayerTrack from "../Video/VideoPlayerTrack.vue";
 
 const emit = defineEmits(["close"]);
 const store = useStore();
 
-const props = defineProps({
+interface Player {
+  setPlaying: (isPlaying: boolean) => void;
+}
+
+interface PlayEvent {
+  target: any;
+  type: string;
+}
+
+defineProps({
   showModal: {
     type: Boolean,
     default: false,
@@ -522,6 +586,10 @@ const taskStep = ref("");
 
 const questText = ref("");
 const questStep = ref("");
+const questDetails = ref("");
+
+const vidPlayer = ref();
+const time = ref(0);
 
 /* Ref: name must match the ref in the template */
 const fileBannerInput: Ref<HTMLElement | null> = ref(null);
@@ -581,6 +649,11 @@ function onNftFilePicked(event: any) {
   nftImage.value = files[0];
 }
 
+const onTypeChange = (val: any) => {
+  let result = val.find((obj: { checked: boolean }) => obj.checked === true);
+  form.type = result.value;
+};
+
 /**
  * * Add link
  */
@@ -616,6 +689,50 @@ function addQuest() {
 function selectCategory(event: Event) {
   form.category = (event.target as HTMLInputElement).value;
 }
+
+/**
+ ** Video Methods https://codesandbox.io/p/sandbox/eloquent-mahavira-9kgrc?file=%2Fsrc%2FApp.vue%3A4%2C7-20%2C41&from-embed&initialpath=%2F
+ */
+const onPlayerPlay = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+  console.log("onPlayerPlay", event.type);
+  player.setPlaying(true);
+  // vidPlayer.value.videoPlayer.setPlaying(true);
+};
+const onPlayerPause = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+  console.log("onPlayerPause", event.type);
+  player.setPlaying(false);
+  // vidPlayer.value.videoPlayer.setPlaying(false);
+};
+const onPlayerEnded = ({ event, player }: { event: PlayEvent; player: Player }): void => {
+  console.log("onPlayerEnded", event.type);
+  player.setPlaying(false);
+  // vidPlayer.value.videoPlayer.setPlaying(false);
+};
+const onPlayerLoadeddata = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerLoadeddata", event.type);
+};
+const onPlayerWaiting = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerWaiting", event.type);
+};
+const onPlayerPlaying = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerPlaying", event.type);
+};
+const onPlayerTimeupdate = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerTimeupdate", {
+    event: event.type,
+    time: event.target.currentTime,
+  });
+  time.value = event.target.currentTime;
+};
+const onPlayerCanplay = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerCanplay", event.type);
+};
+const onPlayerCanplaythrough = ({ event }: { event: PlayEvent }): void => {
+  console.log("onPlayerCanplaythrough", event.type);
+};
+const playerStateChanged = ({ event }: { event: PlayEvent }): void => {
+  console.log("playerStateChanged", event.type);
+};
 
 const cancelCreate = () => {
   form.value = {
@@ -680,6 +797,13 @@ const goBack = () => {
 const nextStep = () => {
   step.value += 1;
 };
+
+onMounted(() => {
+  console.log("vidPlayer.value", vidPlayer.value);
+  if (vidPlayer.value) {
+    console.log("VideoPlayer Child ref", vidPlayer.value.videoPlayer);
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -1248,7 +1372,7 @@ const nextStep = () => {
     }
 
     input {
-      width: 94%;
+      width: 96%;
       height: 30px;
       color: $black;
       background-color: #fdfdfd;
@@ -1282,7 +1406,7 @@ const nextStep = () => {
     }
 
     textarea {
-      width: 94%;
+      width: 96%;
       height: auto;
       color: $black;
       background-color: #fdfdfd;
@@ -1482,6 +1606,73 @@ const nextStep = () => {
       margin-bottom: 5px;
     }
   }
+}
+
+.videoplayer {
+  width: 100%;
+  max-width: 100%; // Ensure it doesn't overflow
+  margin: 10px auto;
+  height: auto; // Keep aspect ratio
+}
+
+.videoplayer-controls {
+  width: 100%;
+  display: flex;
+  margin: 4px auto;
+  font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  color: $black;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.videoplayer-controls-toggleplay,
+.videoplayer-controls-togglemute {
+  flex: 1;
+  color: $white;
+  width: auto;
+  height: 30px;
+  display: flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: $grasp-blue;
+  border: 0.5px solid $grasp-blue;
+  text-transform: capitalize;
+  border-radius: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: all 0.4s linear;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    color: $white;
+    border: 0.5px solid $grasp-cyan;
+  }
+}
+
+.videoplayer-controls-time {
+  flex: 2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  // line-height: 2.8;
+  padding: 0 2px;
+}
+
+.videoplayer-controls-track {
+  // flex: 5;
+  line-height: 2.7;
+  padding-right: 10px;
 }
 
 .modal-footer {
