@@ -1,7 +1,7 @@
 import { categoryObject } from "./category";
 import { linkObject } from "./link";
 export interface organisationObject {
-  id: string | null | undefined;
+  id: string;
   type: string;
   category: string;
   categories: Array<categoryObject>;

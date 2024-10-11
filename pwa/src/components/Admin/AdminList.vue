@@ -1,229 +1,96 @@
 <template>
-  <div class="tab-box">
-    <div class="box-header">{{ label }} Activity</div>
-    <div class="box">
-      <div class="box-value">
-        <span class="box-label">From Date</span>
-        {{ fromDate ? fromDate : "" }}
-      </div>
-      <div class="box-value">
-        <span class="box-label">To Date</span>
-        {{ toDate ? toDate : "" }}
-      </div>
+  <div class="list-item">
+    <div class="list-item-box">
+      <div class="list-item-header-role">Role</div>
     </div>
-    <AdminSearch />
-    <div class="tab-box">
-      <div class="list-item">
-        <div class="list-item-box">
-          <div class="list-item-header-role">Role</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-name">Full Name</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-organisation">Organisation</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-courses">Courses</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-lessons">Lessons</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-nfts">NFTs</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-categories">Category</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-sales">Sales</div>
-        </div>
-      </div>
-      <template v-for="(user, index) in members" :key="index">
-        <div class="list-item">
-          <div class="list-item-box">
-            <div class="list-item-role">
-              <span class="list-item-index">{{ index + 1 }}.</span>
-              {{ user.role ? prettyName(user.role) : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-name">
-              {{ user.name ? user.name : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-organisation">
-              {{ user.orgName ? user.orgName : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-courses">
-              {{ courses ? courses : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-lessons">
-              {{ lessons ? lessons : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-nfts">
-              {{ nfts ? nfts : "-" }}
-            </div>
-          </div>
-          <div class="list-item-sales">
-            <div v-if="user && user.type" class="list-item-category">
-              <span class="category-indicator">{{ user.type ? user.type : "" }}</span>
-            </div>
-          </div>
-          <div class="list-item-sales">
-            <div class="sales">
-              <span class="list-item-index">Total </span
-              ><span class="sales-amount">
-                <img src="../../assets/svgs/EduCoin.svg" />
-                {{ sales ? sales : "0.00" }}</span
-              >
-            </div>
-          </div>
-        </div>
-      </template>
+    <div class="list-item-box">
+      <div class="list-item-header-name">Full Name</div>
     </div>
-    <AdminPagination :pagination="pagination" :total="total" :last-page="lastPage" />
+    <div class="list-item-box">
+      <div class="list-item-header-organisation">Organisation</div>
+    </div>
+    <div class="list-item-box">
+      <div class="list-item-header-courses">Courses</div>
+    </div>
+    <div class="list-item-box">
+      <div class="list-item-header-lessons">Lessons</div>
+    </div>
+    <div class="list-item-box">
+      <div class="list-item-header-nfts">NFTs</div>
+    </div>
+    <div class="list-item-box">
+      <div class="list-item-header-categories">Category</div>
+    </div>
+    <div class="list-item-box">
+      <div class="list-item-header-sales">Sales</div>
+    </div>
   </div>
+  <template v-for="(user, index) in testUsers.data" :key="index">
+    <div class="list-item">
+      <div class="list-item-box">
+        <div class="list-item-role">
+          <span class="list-item-index">{{ index + 1 }}.</span>
+          {{ user.title ? prettyName(user.title) : "-" }}
+        </div>
+      </div>
+      <div class="list-item-box">
+        <div class="list-item-name">
+          {{ user.name ? user.name : "-" }}
+        </div>
+      </div>
+      <div class="list-item-box">
+        <div class="list-item-organisation">
+          {{ user.orgId ? user.orgId : "-" }}
+        </div>
+      </div>
+      <div class="list-item-box">
+        <div class="list-item-courses">
+          {{ courses ? courses : "-" }}
+        </div>
+      </div>
+      <div class="list-item-box">
+        <div class="list-item-lessons">
+          {{ lessons ? lessons : "-" }}
+        </div>
+      </div>
+      <div class="list-item-box">
+        <div class="list-item-nfts">
+          {{ nfts ? nfts : "-" }}
+        </div>
+      </div>
+      <div class="list-item-sales">
+        <div v-if="user && user.type" class="list-item-category">
+          <span class="category-indicator">{{ user.type ? user.type : "" }}</span>
+        </div>
+      </div>
+      <div class="list-item-sales">
+        <div class="sales">
+          <span class="list-item-index">Total </span
+          ><span class="sales-amount">
+            <img src="../../assets/svgs/EduCoin.svg" />
+            {{ sales ? sales : "0.00" }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </template>
 </template>
-<script lang="ts" setup>
-import { ref, computed, onMounted, watch } from "vue";
-import { useStore } from "@/store";
-import { storeToRefs } from "pinia";
-import { userObject } from "src/models/user";
+<script setup lang="ts">
+import { ref, onBeforeMount } from "vue";
 import { prettyName } from "@/services/prettyName";
-import AdminSearch from "@/components/Admin/AdminSearch.vue";
-import AdminPagination from "@/components/Admin/AdminPagination.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../../data/users.json";
-
-const store = useStore();
-const { members, pagination, filter } = storeToRefs(store);
-
-const props = defineProps({
-  label: {
-    type: String,
-    default: "User",
-  },
-  orgId: {
-    type: String,
-    default: "",
-  },
-  userId: {
-    type: String,
-    default: "",
-  },
-});
-
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-const fromDate = ref("");
-const toDate = ref("");
 
 const courses = ref(0);
 const lessons = ref(0);
 const nfts = ref(0);
 const sales = ref(0);
-
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
-const total = computed(() => {
-  return members.value ? members.value.length : 0;
-});
-
-const fetchMembers = () => {
-  console.log("filter.value.search_term", filter.value.search_term);
-  let filteredMembers = testUsers.data;
-
-  if (props.orgId) {
-    filteredMembers = filteredMembers.filter((user) => user.orgId === props.orgId);
-  }
-
-  if (props.userId) {
-    filteredMembers = filteredMembers.filter((user) => user.id === props.userId);
-  }
-
-  if (filter.value.search_term !== "") {
-    filteredMembers = filteredMembers.filter((user) =>
-      user.name.toLowerCase().includes(filter.value.search_term.toLowerCase())
-    );
-  }
-  store.setMembers((filteredMembers as unknown) as userObject[]);
-};
-
-watch(shouldGetData, async (newValue) => {
-  if (newValue) {
-    await fetchMembers();
-  }
-  lastSearchTerm.value = newSearchTerm.value as string;
-});
-
-onMounted(() => {
-  fetchMembers();
-});
 </script>
 
 <style lang="scss">
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
-
-.box-header {
-  font-family: "Poppins", sans-serif;
-  color: $grey-100;
-  width: 99%;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: left;
-  margin: 0 0 4px 8px;
-}
-.box {
-  width: 99%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: flex-start;
-  align-items: flex-start;
-  background: $white;
-  border: 0.5px solid $grey-50;
-  border-radius: 8px;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-  margin: 0 0 24px 0;
-  padding: 12px 0 4px 12px;
-}
-
-.box-value {
-  width: 100%;
-  font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  color: $grey-90;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0 0 8px 0;
-
-  .box-label {
-    width: 140px;
-    display: inline-block;
-    color: $grey-90;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    text-transform: capitalize;
-  }
-}
 
 .list-item {
   width: 100%;

@@ -65,59 +65,10 @@
       </div>
       <!-- END Reporting Tab -->
 
-      <div v-if="tab === 'users'" class="tab-box">
-        <div class="box-header">User Management</div>
-        <div class="box">
-          <div class="box-value">
-            <span class="box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <UsersList />
-        <div class="line-divider"></div>
-      </div>
-
-      <!-- Course Sales Tab -->
-      <div v-if="tab === 'courses'" class="tab-box">
-        <div class="box-header">Course Sales</div>
-        <div class="box">
-          <div class="box-value">
-            <span class="box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <CoursesList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Course Sales Tab -->
-
-      <!-- Lesson Sales Tab -->
-      <div v-if="tab === 'lessons'" class="tab-box">
-        <div class="box-header">Lesson Sales</div>
-        <div class="box">
-          <div class="box-value">
-            <span class="box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <LessonsList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Lesson Sales Tab -->
-
-      <!-- Activity Overview Tab -->
-      <div v-if="tab === 'activity'" class="tab-box">
-        <div class="box-header">Transactions Overview</div>
-        <div class="box">
-          <div class="box-value">
-            <span class="box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <ActivityList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Lesson Sales Tab -->
+      <UsersList v-if="tab === 'users'" :label="'User'" />
+      <ActivityList v-if="tab === 'activity'" />
+      <CoursesList v-if="tab === 'courses'" />
+      <LessonsList v-if="tab === 'lessons'" />
     </div>
   </section>
 </template>

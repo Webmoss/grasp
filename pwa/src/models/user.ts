@@ -1,6 +1,6 @@
 import { linkObject } from "./link";
 export interface userObject {
-  id: string | null | undefined;
+  id: string;
   role: string | null | undefined;
   orgId: string | null | undefined;
   orgName: string | null | undefined;

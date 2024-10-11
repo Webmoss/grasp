@@ -197,19 +197,7 @@
       </div>
       <!-- END Details Tab  -->
 
-      <!-- Activity Tab  -->
-      <div v-if="tab === 'activity'" class="tab-box">
-        <div class="user-box-header">Transactions Overview</div>
-        <div class="user-box">
-          <div class="user-box-value">
-            <span class="user-box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <ActivityList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Activity Tab  -->
+      <ActivityList v-if="tab === 'activity'" :label="'Profile'" :userId="user.id" />
     </div>
     <OrganisationModal :showModal="showModal" @close="showHideModal" />
   </section>

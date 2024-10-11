@@ -212,33 +212,12 @@
       </div>
       <!-- END Details Tab  -->
 
-      <!-- Members Tab  -->
-      <div v-if="tab === 'members'" class="tab-box">
-        <div class="organisation-box-header">Member Management</div>
-        <div class="organisation-box">
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <UsersList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Members Tab  -->
-
-      <!-- Activity Overview Tab  -->
-      <div v-if="tab === 'activity'" class="tab-box">
-        <div class="organisation-box-header">Transactions Overview</div>
-        <div class="organisation-box">
-          <div class="organisation-box-value">
-            <span class="organisation-box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <ActivityList />
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Activity Tab  -->
+      <UsersList v-if="tab === 'members'" :label="'Member'" :orgId="organisation.id" />
+      <ActivityList
+        v-if="tab === 'activity'"
+        :label="'Organisation'"
+        :orgId="organisation.id"
+      />
     </div>
     <UserModal
       :organisation="organisation"
@@ -327,11 +306,11 @@ const showHideModal = () => {
   showModal.value = !showModal.value;
 };
 
-function fetchOrganisation() {
+const fetchOrganisation = () => {
   let filteredUser = testUsers.data.filter((user) => {
     console.log("route.params.id", route.params.id);
     // return user.id === (route.params.id as string);
-    return user.id === "3";
+    return user.id === "1";
   });
   // console.log("filteredUser[0]", filteredUser[0]);
   user.value = filteredUser[0];
@@ -342,11 +321,11 @@ function fetchOrganisation() {
     console.log("User OrgId", user.value.orgId);
     return organisation.id === (user.value.orgId as string);
   });
-  // console.log("Organisation", filteredOrganisation[0]);
+  console.log("Organisation", filteredOrganisation[0]);
   store.setOrganisation(filteredOrganisation[0] as any);
-}
+};
 
-onMounted(async () => {
+onMounted(() => {
   fetchOrganisation();
 });
 </script>
