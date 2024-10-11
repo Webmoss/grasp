@@ -92,6 +92,10 @@ const routes = [
       title: "Dashboard",
     },
     component: () => import("@/views/DashboardView.vue"),
+    props: (route: { params: { code: any; state: any; }; query: { code: any; state: any; }; }) => ({
+      code: route.params.code || route.query.code,
+      state: route.params.state || route.query.state
+    })
   },
   {
     path: "/my-courses",

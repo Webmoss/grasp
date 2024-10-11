@@ -214,6 +214,11 @@ import testLessons from "../data/lessons.json";
 //   web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
 // }
 
+const props = defineProps<{
+  code?: string;
+  state?: string;
+}>();
+
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
@@ -525,12 +530,28 @@ const handleQueryParams = () => {
     // or use them to authenticate the user
     // After handling, remove the query parameters from the URL
     router.replace({ query: {} });
-    console.log("Received code:", ocAccessToken);
+    console.log("Received ocAccessToken code:", ocAccessToken.value);
     store.setLoggedIn(true);
   }
 };
 
+const handleAuthParams = () => {
+  if (props.code && props.state) {
+    console.log("Received code:", props.code);
+    console.log("Received state:", props.state);
+    // Here you can add logic to handle the code and state
+    // For example, you might want to send these to your backend
+    // or use them to authenticate the user
+    // store.setOCAccessToken(props.code);
+    // store.setLoggedIn(true);
+
+    // After handling, remove the query parameters from the URL
+    router.replace({ path: "/dashboard" });
+  }
+};
+
 onMounted(async () => {
+  handleAuthParams();
   const init = async () => {
     try {
       handleQueryParams();

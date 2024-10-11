@@ -121,9 +121,9 @@ const handleAuthState = async () => {
   store.setOcAccessToken(authState.accessToken);
   store.setOcConnected(authState.isAuthenticated);
 
-  if (authState.isAuthenticated) {
-    await fetchUserInfo();
-  }
+  // if (authState.isAuthenticated) {
+  await fetchUserInfo();
+  // }
 };
 
 const fetchUserInfo = async () => {
