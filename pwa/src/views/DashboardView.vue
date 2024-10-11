@@ -217,9 +217,15 @@ import testLessons from "../data/lessons.json";
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
-const { loggedIn, account, balance, eduUsername, eduEthAddress, courses } = storeToRefs(
-  store
-);
+const {
+  loggedIn,
+  account,
+  balance,
+  eduUsername,
+  eduEthAddress,
+  ocAccessToken,
+  courses,
+} = storeToRefs(store);
 
 // let provider = <IProvider | null>null;
 
@@ -488,27 +494,46 @@ const checkIfWalletIsConnected = async () => {
 //   init();
 // });
 
-watch(
-  () => route.query.code,
-  (newCode, oldCode) => {
-    /* React to route changes */
-    console.log("Code", route.query.code);
-    console.log("State", route.query.state);
-  }
-);
+// watch(
+//   () => route.query.code,
+//   (newCode, oldCode) => {
+//     /* React to route changes */
+//     console.log("Code", route.query.code);
+//     console.log("State", route.query.state);
+//   }
+// );
 
-onBeforeRouteUpdate(async (to, from) => {
-  /* React to route changes */
-  /* React to route changes */
-  console.log("Code", route.query.code);
-  console.log("State", route.query.state);
-  await checkIfWalletIsConnected();
-  // userData.value = await fetchUser(to.params.id)
-});
+// onBeforeRouteUpdate(async (to, from) => {
+//   /* React to route changes */
+//   /* React to route changes */
+//   console.log("Code", route.query.code);
+//   console.log("State", route.query.state);
+//   await checkIfWalletIsConnected();
+//   // userData.value = await fetchUser(to.params.id)
+// });
+
+// Add this function to handle the query parameters
+const handleQueryParams = () => {
+  const code = route.query.code;
+  const state = route.query.state;
+
+  if (code && state) {
+    console.log("Received code:", code);
+    console.log("Received state:", state);
+    // Here you can add logic to handle the code and state
+    // For example, you might want to send these to your backend
+    // or use them to authenticate the user
+    // After handling, remove the query parameters from the URL
+    router.replace({ query: {} });
+    console.log("Received code:", ocAccessToken);
+    store.setLoggedIn(true);
+  }
+};
 
 onMounted(async () => {
   const init = async () => {
     try {
+      handleQueryParams();
       if (loggedIn.value) {
         console.log("MetaMask Connected", loggedIn.value);
         await checkIfWalletIsConnected();

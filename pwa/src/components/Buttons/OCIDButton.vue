@@ -19,14 +19,7 @@
       >
     </button>
     <button
-      v-else-if="eduUsername && ocConnected"
-      @click="fetchOCID()"
-      :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
-    >
-      <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Open Campus
-    </button>
-    <button
-      v-else="ocid && ocConnected"
+      v-else-if="ocid && ocConnected"
       @click="logout()"
       :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
@@ -49,18 +42,6 @@ defineProps({
     required: false,
   },
 });
-
-const store = useStore();
-const { loading, eduUsername, ocConnected, ocid } = storeToRefs(store);
-
-const opts = {
-  redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
-    ? process.env.VUE_APP_AUTH_REDIRECT_URI
-    : "https://grasp.academy/dashboard",
-  referralCode: "GRASP",
-};
-
-console.log("OCID Opts:", opts);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -103,6 +84,18 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const store = useStore();
+const { loading, ocConnected, ocid } = storeToRefs(store);
+
+const opts = {
+  redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
+    ? process.env.VUE_APP_AUTH_REDIRECT_URI
+    : "https://grasp.academy/dashboard",
+  referralCode: "GRASP",
+};
+
+console.log("OCID Opts:", opts);
+
 const authSdk = computed(() => new OCAuthSandbox(opts));
 
 const connect = async () => {
@@ -114,7 +107,7 @@ const connect = async () => {
     await handleAuthState();
   } catch (error) {
     console.error("Connection error:", error);
-    NotfyProvider.error("Error connecting Open Campus ID!");
+    NotfyProvider.error("Error connecting Open Campus ID");
   } finally {
     store.setLoading(false);
   }
@@ -124,8 +117,8 @@ const handleAuthState = async () => {
   const authState = await authSdk.value.getAuthState();
   console.log("Auth State:", authState);
 
-  store.setOcAccessToken(authState.idToken);
   store.setOcid(authState.idToken);
+  store.setOcAccessToken(authState.accessToken);
   store.setOcConnected(authState.isAuthenticated);
 
   if (authState.isAuthenticated) {
