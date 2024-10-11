@@ -25,18 +25,18 @@
     >
       <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Open Campus
     </button>
-    <!-- <button
+    <button
       v-else="ocid && ocConnected"
       @click="logout()"
       :class="btnSize === 'large' ? 'ocid-wallet-button' : 'ocid-wallet-small-button'"
     >
       <img src="../../assets/svgs/Open-Campus-Icon.svg" /> Logout
-    </button> -->
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { provide, onMounted } from "vue";
+import { provide, onMounted, computed } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { Notyf } from "notyf";
@@ -45,12 +45,13 @@ import { OCAuthSandbox } from "@opencampus/ocid-connect-js";
 defineProps({
   btnSize: {
     type: String,
+    default: "large",
     required: false,
   },
 });
 
 const store = useStore();
-const { loading, eduUsername, ocConnected } = storeToRefs(store);
+const { loading, eduUsername, ocConnected, ocid } = storeToRefs(store);
 
 const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
@@ -102,108 +103,73 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
+const authSdk = computed(() => new OCAuthSandbox(opts));
+
 const connect = async () => {
   console.log("Connect OCID");
-
   store.setLoading(true);
+
   try {
-    const authSdk = new OCAuthSandbox(opts);
-
-    /* This returns code and state as query params BREAKS Netlify currently */
-    // await authSdk.signInWithRedirect({
-    //   state: "opencampus",
-    // });
-
-    await authSdk.handleLoginRedirect({
-      state: "opencampus",
-    });
-
-    if (authSdk) {
-      /* Get Auth State from Open Campus ID sdk */
-      let authState = await authSdk.getAuthState();
-      console.log("Auth State:", authState);
-
-      let accessToken = authState.idToken;
-      store.setOcAccessToken(accessToken);
-      console.log("OC Access Token:", accessToken);
-
-      let idToken = authState.idToken;
-      store.setOcid(idToken);
-      console.log("OC ID:", idToken);
-
-      let ocConnected = authState.isAuthenticated;
-      store.setOcConnected(ocConnected);
-      console.log("OC Connected:", ocConnected);
-
-      if (idToken) {
-        /* Get Auth Info from Open Campus ID sdk */
-        const authInfo = await authSdk.getAuthInfo();
-
-        let eduUsername = authInfo.edu_username;
-        store.setEduUsername(eduUsername);
-        console.log("Edu Username:", eduUsername);
-
-        let ethAddress = authInfo.eth_address;
-        store.setEduEthAddress(ethAddress);
-        console.log("Edu Eth Address:", ethAddress);
-      }
-    } else {
-      NotfyProvider.error("Error connecting Open Campus ID!");
-    }
-    store.setLoading(false);
+    await authSdk.value.signInWithRedirect({ state: "opencampus" });
+    await handleAuthState();
   } catch (error) {
-    console.log("Error", error);
+    console.error("Connection error:", error);
+    NotfyProvider.error("Error connecting Open Campus ID!");
+  } finally {
     store.setLoading(false);
   }
+};
+
+const handleAuthState = async () => {
+  const authState = await authSdk.value.getAuthState();
+  console.log("Auth State:", authState);
+
+  store.setOcAccessToken(authState.idToken);
+  store.setOcid(authState.idToken);
+  store.setOcConnected(authState.isAuthenticated);
+
+  if (authState.isAuthenticated) {
+    await fetchUserInfo();
+  }
+};
+
+const fetchUserInfo = async () => {
+  const authInfo = await authSdk.value.getAuthInfo();
+  console.log("OC authInfo:", authInfo);
+
+  store.setEduUsername(authInfo.edu_username);
+  store.setEduEthAddress(authInfo.eth_address);
 };
 
 const fetchOCID = async () => {
   console.log("Fetch OCID");
-
   try {
-    const authSdk = new OCAuthSandbox(opts);
-
-    /* Get Auth State from Open Campus ID sdk */
-    let authState = await authSdk.getAuthState();
-
-    let accessToken = authState.idToken;
-    store.setOcAccessToken(accessToken);
-    console.log("OC Access Token:", accessToken);
-
-    let idToken = authState.idToken;
-    store.setOcid(idToken);
-    console.log("OC ID:", idToken);
-
-    let ocConnected = authState.isAuthenticated;
-    store.setOcConnected(ocConnected);
-    console.log("OC Connected:", ocConnected);
-
-    if (ocConnected) {
-      /* Get Auth Info from Open Campus ID sdk */
-      const authInfo = await authSdk.getAuthInfo();
-      console.log("OC authInfo:", authInfo);
-
-      let eduUsername = authInfo.edu_username;
-      store.setEduUsername(eduUsername);
-      console.log("EDU Username:", eduUsername);
-
-      let ethAddress = authInfo.eth_address;
-      store.setEduEthAddress(ethAddress);
-      console.log("EDU Eth Address:", ethAddress);
-    }
+    await handleAuthState();
   } catch (error) {
-    console.log("Error", error);
+    console.error("Fetch OCID error:", error);
+    NotfyProvider.error("Error fetching Open Campus ID information");
   }
 };
 
-// const logout = async () => {
-//   const authSdk = new OCAuthSandbox(opts);
-//   await authSdk.logout();
+const logout = async () => {
+  console.log("Logout OCID");
+  try {
+    await authSdk.value.logout();
+    clearOCIDState();
+    NotfyProvider.success("Successfully logged out from Open Campus ID");
+  } catch (error) {
+    console.error("Logout error:", error);
+    NotfyProvider.error("Error logging out from Open Campus ID");
+  }
+};
 
-//   store.setOcid("");
-//   store.setOcConnected(false);
-//   store.setOcAccessToken("");
-// };
+const clearOCIDState = () => {
+  store.setOcid("");
+  store.setOcConnected(false);
+  store.setOcAccessToken("");
+  store.setEduUsername("");
+  store.setEduEthAddress("");
+};
 
 onMounted(async () => {
   await fetchOCID();

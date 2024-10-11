@@ -22,33 +22,28 @@
       "sales" : 1000,
       "total" : 10000,
       "nft" : {
-        "image" : "Grasp-Icon.png",
-        "imageOriginal" : "Grasp-Icon.png",
-        "name" : "Course NFT",
-        "title" : "Grasp Education",
-        "description" : "Grasp Education course NFT",
+        "id": "course1_nft",
+        "image": "Image-1.png",
+        "imageOriginal": "Image-1_original.png",
+        "type": "ERC721",
+        "name": "EDU Chain Course NFT",
+        "title": "About EDU Chain Course NFT",
+        "description": "NFT for completing the 'About EDU Chain' course",
         "mint_date": "01/08/2024",
         "updated_date": "30/08/2024",
-        "file_url" : "Course NFT",
-        "animation_url" : "Course NFT",
-        "cached_file_url" : "Course NFT",
-        "cached_animation_url" : "Course NFT",
-        "creator_address" : "Course NFT",
-        "owner" : "Course NFT",
-        "attributes" : [
-          {
-            "trait_type" : "",
-            "display_type" : "",
-            "value" : "",
-            "key" : "",
-            "kind" : "",
-            "tokenCount" : 0,
-            "onSaleCount" : 0,
-            "floorAskPrice" : 0,
-            "topBidValue" : 0,
-            "createdAt" : ""
-          }
-        ]
+        "file_url": "https://example.com/nft/course1.json",
+        "animation_url": "https://example.com/nft/course1_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/course1.json",
+        "cached_animation_url": "https://cached.example.com/nft/course1_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Course", "value": "About EDU Chain" },
+          { "trait_type": "Category", "value": "EduChain" }
+        ],
+        "price": 10,
+        "discount": 0,
+        "sales": 1000
       },
       "token": "EDU",
       "links": [
@@ -90,33 +85,28 @@
       "sales" : 2000,
       "total" : 20000,
       "nft" : {
-        "image" : "Grasp-Icon.png",
-        "imageOriginal" : "Grasp-Icon.png",
-        "name" : "Course NFT",
-        "title" : "Grasp Education",
-        "description" : "Grasp Education course NFT",
+        "id": "course2_nft",
+        "image": "Image-2.png",
+        "imageOriginal": "Image-2_original.png",
+        "type": "ERC721",
+        "name": "Open Campus Course NFT",
+        "title": "Open Campus Course NFT",
+        "description": "NFT for completing the 'Open Campus' course",
         "mint_date": "01/08/2024",
         "updated_date": "30/08/2024",
-        "file_url" : "Course NFT",
-        "animation_url" : "Course NFT",
-        "cached_file_url" : "Course NFT",
-        "cached_animation_url" : "Course NFT",
-        "creator_address" : "Course NFT",
-        "owner" : "Course NFT",
-        "attributes" : [
-          {
-            "trait_type" : "",
-            "display_type" : "",
-            "value" : "",
-            "key" : "",
-            "kind" : "",
-            "tokenCount" : 0,
-            "onSaleCount" : 0,
-            "floorAskPrice" : 0,
-            "topBidValue" : 0,
-            "createdAt" : ""
-          }
-        ]
+        "file_url": "https://example.com/nft/course2.json",
+        "animation_url": "https://example.com/nft/course2_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/course2.json",
+        "cached_animation_url": "https://cached.example.com/nft/course2_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Course", "value": "Open Campus" },
+          { "trait_type": "Category", "value": "Open Campus" }
+        ],
+        "price": 10,
+        "discount": 10,
+        "sales": 2000
       },
       "token": "EDU",
       "links": [
@@ -156,33 +146,28 @@
       "sales" : 100000,
       "total" : 10000000,
       "nft" : {
-        "image" : "Grasp-Icon.png",
-        "imageOriginal" : "Grasp-Icon.png",
-        "name" : "Course NFT",
-        "title" : "Grasp Education",
-        "description" : "Grasp Education course NFT",
+        "id": "course3_nft",
+        "image": "Image-3.png",
+        "imageOriginal": "Image-3_original.png",
+        "type": "ERC721",
+        "name": "Time and Energy Course NFT",
+        "title": "Time and Energy Course NFT",
+        "description": "NFT for completing the 'Time and Energy' course",
         "mint_date": "01/08/2024",
         "updated_date": "30/08/2024",
-        "file_url" : "Course NFT",
-        "animation_url" : "Course NFT",
-        "cached_file_url" : "Course NFT",
-        "cached_animation_url" : "Course NFT",
-        "creator_address" : "Course NFT",
-        "owner" : "Course NFT",
-        "attributes" : [
-          {
-            "trait_type" : "",
-            "display_type" : "",
-            "value" : "",
-            "key" : "",
-            "kind" : "",
-            "tokenCount" : 0,
-            "onSaleCount" : 0,
-            "floorAskPrice" : 0,
-            "topBidValue" : 0,
-            "createdAt" : ""
-          }
-        ]
+        "file_url": "https://example.com/nft/course3.json",
+        "animation_url": "https://example.com/nft/course3_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/course3.json",
+        "cached_animation_url": "https://cached.example.com/nft/course3_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Course", "value": "Time and Energy" },
+          { "trait_type": "Category", "value": "Inspiration" }
+        ],
+        "price": 10,
+        "discount": 0,
+        "sales": 100000
       },
       "token": "EDU",
       "links": [

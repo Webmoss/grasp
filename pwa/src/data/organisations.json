@@ -28,6 +28,62 @@
       "enabled": true,
       "verified": false,
       "blocked": false
+    },
+    {
+      "id": "2",
+      "type": "university",
+      "category": "Education",
+      "categories": [
+        { "id": 3, "name": "Higher Education", "icon": "" },
+        { "id": 4, "name": "Research", "icon": "" }
+      ],
+      "banner": "OpenU-Banner.png",
+      "image": "OpenU-Icon.png",
+      "title": "Open University",
+      "description": "Open University is a leading institution in distance and online learning, offering a wide range of courses and degrees to students worldwide.",
+      "contact": "Jane Smith",
+      "email": "info@openuniversity.edu",
+      "phone": "987 654 3210",
+      "city": "Milton Keynes",
+      "country": "United Kingdom",
+      "website": { "title": "www.open.ac.uk", "url": "https://www.open.ac.uk/", "alt": "Open University", "icon": "website" },
+      "twitter": { "title": "@OpenUniversity", "url": "https://twitter.com/OpenUniversity", "alt": "Twitter Username", "icon": "twitter" },
+      "discord": { "title": "OpenU Community", "url": "https://discord.gg/openuniversity", "alt": "Discord Server", "icon": "discord" },
+      "telegram": { "title": "", "url": "", "alt": "Telegram Username", "icon": "telegram" },
+      "linkedin": { "title": "open-university", "url": "https://www.linkedin.com/school/open-university/", "alt": "LinkedIn Profile", "icon": "linkedin" },
+      "created_date": "01/01/2023",
+      "updated_date": "15/06/2024",
+      "enabled": true,
+      "verified": true,
+      "blocked": false
+    },
+    {
+      "id": "3",
+      "type": "company",
+      "category": "Technology",
+      "categories": [
+        { "id": 5, "name": "Blockchain", "icon": "" },
+        { "id": 6, "name": "EdTech", "icon": "" }
+      ],
+      "banner": "TechEd-Banner.png",
+      "image": "TechEd-Icon.png",
+      "title": "TechEd Solutions",
+      "description": "TechEd Solutions is a cutting-edge company specializing in blockchain technology for educational purposes, creating innovative learning platforms and tools.",
+      "contact": "Alex Johnson",
+      "email": "contact@techedsolutions.com",
+      "phone": "555 123 4567",
+      "city": "San Francisco",
+      "country": "United States",
+      "website": { "title": "www.techedsolutions.com", "url": "https://www.techedsolutions.com/", "alt": "TechEd Solutions", "icon": "website" },
+      "twitter": { "title": "@TechEdSolutions", "url": "https://twitter.com/TechEdSolutions", "alt": "Twitter Username", "icon": "twitter" },
+      "discord": { "title": "TechEd Community", "url": "https://discord.gg/techedsolutions", "alt": "Discord Server", "icon": "discord" },
+      "telegram": { "title": "@TechEdSolutionsOfficial", "url": "https://t.me/TechEdSolutionsOfficial", "alt": "Telegram Channel", "icon": "telegram" },
+      "linkedin": { "title": "techedsolutions", "url": "https://www.linkedin.com/company/techedsolutions/", "alt": "LinkedIn Profile", "icon": "linkedin" },
+      "created_date": "10/03/2024",
+      "updated_date": "20/07/2024",
+      "enabled": true,
+      "verified": true,
+      "blocked": false
     }
   ]
 }

@@ -16,11 +16,14 @@ export interface lessonObject {
   tasks: Array<object>;
   quests: Array<object>;
   price: number;
+  discount: number;
+  from_date: string;
+  to_date: string;
   sales: number;
   total: number;
   token: string;
   nft: metadataObject;
-  links: Array<string>;
+  links: Array<any>;
   step: number;
   isLive: boolean;
   created_date: string;

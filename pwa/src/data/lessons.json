@@ -18,10 +18,39 @@
       "content":
         "<h2>About EDU Chain</h2><p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...<br>There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec eros nec risus feugiat faucibus. Aenean nec enim nisi. Nam eget viverra ex, non hendrerit mi. In hac habitasse platea dictumst. Aenean at urna tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc blandit odio vitae felis blandit, eu vestibulum enim fringilla. Curabitur vitae est eget est lacinia mattis. In condimentum blandit eleifend. Suspendisse ut enim sollicitudin, mollis velit et, tincidunt eros. Aliquam ultrices sed lectus eu semper.</p><p>Phasellus mi urna, varius a enim suscipit, tincidunt vestibulum mi. Suspendisse finibus dolor nec sem bibendum laoreet. Nullam nec sem id mi condimentum luctus at eu mi. Vestibulum vel ipsum nunc. Duis luctus fermentum commodo. Nam a rhoncus quam, a luctus turpis. Suspendisse molestie malesuada nulla, sed facilisis dui eleifend vitae. Fusce porttitor ut dolor quis lobortis. Sed convallis nisl quis risus tristique ornare. Sed fringilla urna neque, quis varius nunc lobortis eget. Aliquam rhoncus ex sit amet lacus auctor, luctus vehicula libero iaculis. Etiam erat lectus, luctus ac mi in, tempus eleifend massa.</p><p>Sed nibh orci, porta non aliquam in, tincidunt vitae nisi. Etiam vel nibh in leo ultricies efficitur. Nunc elementum vehicula massa sed pretium. Praesent aliquam laoreet mi eget venenatis. Sed augue urna, blandit vitae accumsan at, rhoncus ac lectus. Integer in lorem aliquet, dapibus nulla id, tincidunt tortor. Morbi ultrices, velit ut mollis mollis, sem augue dapibus nulla, in pharetra erat massa sed dolor. Nam porttitor ex sed tortor eleifend dapibus. Sed egestas laoreet dui, sit amet ullamcorper quam gravida nec. Nulla ac blandit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur egestas consectetur sem sed gravida. Nam et nibh tempor, lobortis nulla at, ultricies nisi. In hac habitasse platea dictumst.</p><p>Quisque consequat dui quis metus feugiat, vehicula viverra felis suscipit. Donec at eros porttitor, finibus orci egestas, consectetur diam. Pellentesque leo felis, imperdiet ac orci ac, feugiat tempus odio. Maecenas tincidunt porta ante nec semper. Vivamus mollis condimentum luctus. Maecenas id justo quis enim laoreet tincidunt. Fusce pharetra maximus urna, at facilisis lorem. Nam nec enim urna.</p><p>Proin malesuada iaculis porttitor. Integer pretium commodo odio. Suspendisse ullamcorper dolor urna, vitae malesuada lectus pellentesque ultrices. Nulla feugiat elit et purus maximus sodales. Nam diam lectus, ultricies sit amet elementum a, vehicula eu turpis. Aliquam non eros at nisl tincidunt fringilla. Pellentesque nibh lorem, dignissim sollicitudin commodo a, imperdiet quis lacus. Mauris viverra sollicitudin metus, a condimentum augue.</p>",
       "video": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4",
+      "tasks": [],
+      "quests": [],
       "price" : 10,
+      "discount" : 0,
+      "from_date": "01/08/2024",
+      "to_date": "30/08/2024",
       "sales" : 1000,
       "total" : 10000,
       "token": "EDU",
+      "nft": {
+        "id": "lesson1_nft",
+        "image": "Image-5.png",
+        "imageOriginal": "Image-5_original.png",
+        "type": "ERC721",
+        "name": "EDU Chain Lesson 1 NFT",
+        "title": "About EDU Chain NFT",
+        "description": "NFT for completing the 'About EDU Chain' lesson",
+        "mint_date": "01/08/2024",
+        "updated_date": "17/07/2024",
+        "file_url": "https://example.com/nft/lesson1.json",
+        "animation_url": "https://example.com/nft/lesson1_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/lesson1.json",
+        "cached_animation_url": "https://cached.example.com/nft/lesson1_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Lesson", "value": "About EDU Chain" },
+          { "trait_type": "Category", "value": "EduChain" }
+        ],
+        "price": 10,
+        "discount": 0,
+        "sales": 1000
+      },
       "links": [
         { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
         { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
@@ -49,10 +78,39 @@
       "content":
         "<h2>About Open Campus</h2><p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...<br>There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec eros nec risus feugiat faucibus. Aenean nec enim nisi. Nam eget viverra ex, non hendrerit mi. In hac habitasse platea dictumst. Aenean at urna tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc blandit odio vitae felis blandit, eu vestibulum enim fringilla. Curabitur vitae est eget est lacinia mattis. In condimentum blandit eleifend. Suspendisse ut enim sollicitudin, mollis velit et, tincidunt eros. Aliquam ultrices sed lectus eu semper.</p><p>Phasellus mi urna, varius a enim suscipit, tincidunt vestibulum mi. Suspendisse finibus dolor nec sem bibendum laoreet. Nullam nec sem id mi condimentum luctus at eu mi. Vestibulum vel ipsum nunc. Duis luctus fermentum commodo. Nam a rhoncus quam, a luctus turpis. Suspendisse molestie malesuada nulla, sed facilisis dui eleifend vitae. Fusce porttitor ut dolor quis lobortis. Sed convallis nisl quis risus tristique ornare. Sed fringilla urna neque, quis varius nunc lobortis eget. Aliquam rhoncus ex sit amet lacus auctor, luctus vehicula libero iaculis. Etiam erat lectus, luctus ac mi in, tempus eleifend massa.</p><p>Sed nibh orci, porta non aliquam in, tincidunt vitae nisi. Etiam vel nibh in leo ultricies efficitur. Nunc elementum vehicula massa sed pretium. Praesent aliquam laoreet mi eget venenatis. Sed augue urna, blandit vitae accumsan at, rhoncus ac lectus. Integer in lorem aliquet, dapibus nulla id, tincidunt tortor. Morbi ultrices, velit ut mollis mollis, sem augue dapibus nulla, in pharetra erat massa sed dolor. Nam porttitor ex sed tortor eleifend dapibus. Sed egestas laoreet dui, sit amet ullamcorper quam gravida nec. Nulla ac blandit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur egestas consectetur sem sed gravida. Nam et nibh tempor, lobortis nulla at, ultricies nisi. In hac habitasse platea dictumst.</p><p>Quisque consequat dui quis metus feugiat, vehicula viverra felis suscipit. Donec at eros porttitor, finibus orci egestas, consectetur diam. Pellentesque leo felis, imperdiet ac orci ac, feugiat tempus odio. Maecenas tincidunt porta ante nec semper. Vivamus mollis condimentum luctus. Maecenas id justo quis enim laoreet tincidunt. Fusce pharetra maximus urna, at facilisis lorem. Nam nec enim urna.</p><p>Proin malesuada iaculis porttitor. Integer pretium commodo odio. Suspendisse ullamcorper dolor urna, vitae malesuada lectus pellentesque ultrices. Nulla feugiat elit et purus maximus sodales. Nam diam lectus, ultricies sit amet elementum a, vehicula eu turpis. Aliquam non eros at nisl tincidunt fringilla. Pellentesque nibh lorem, dignissim sollicitudin commodo a, imperdiet quis lacus. Mauris viverra sollicitudin metus, a condimentum augue.</p>",
       "video": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4",
+      "tasks": [],
+      "quests": [],
       "price" : 10,
+      "discount" : 0,
+      "from_date": "01/08/2024",
+      "to_date": "30/08/2024",
       "sales" : 1000,
       "total" : 10000,
       "token": "EDU",
+      "nft": {
+        "id": "lesson2_nft",
+        "image": "Image-3.png",
+        "imageOriginal": "Image-3_original.png",
+        "type": "ERC721",
+        "name": "Open Campus Lesson 2 NFT",
+        "title": "Open Campus NFT",
+        "description": "NFT for completing the 'Open Campus' lesson",
+        "mint_date": "01/08/2024",
+        "updated_date": "17/07/2024",
+        "file_url": "https://example.com/nft/lesson2.json",
+        "animation_url": "https://example.com/nft/lesson2_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/lesson2.json",
+        "cached_animation_url": "https://cached.example.com/nft/lesson2_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Lesson", "value": "Open Campus" },
+          { "trait_type": "Category", "value": "EduChain" }
+        ],
+        "price": 10,
+        "discount": 0,
+        "sales": 1000
+      },
       "links": [
         { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
         { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
@@ -80,10 +138,39 @@
       "content":
         "<h2>About Animoca Brands</h2><p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...<br>There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nec eros nec risus feugiat faucibus. Aenean nec enim nisi. Nam eget viverra ex, non hendrerit mi. In hac habitasse platea dictumst. Aenean at urna tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc blandit odio vitae felis blandit, eu vestibulum enim fringilla. Curabitur vitae est eget est lacinia mattis. In condimentum blandit eleifend. Suspendisse ut enim sollicitudin, mollis velit et, tincidunt eros. Aliquam ultrices sed lectus eu semper.</p><p>Phasellus mi urna, varius a enim suscipit, tincidunt vestibulum mi. Suspendisse finibus dolor nec sem bibendum laoreet. Nullam nec sem id mi condimentum luctus at eu mi. Vestibulum vel ipsum nunc. Duis luctus fermentum commodo. Nam a rhoncus quam, a luctus turpis. Suspendisse molestie malesuada nulla, sed facilisis dui eleifend vitae. Fusce porttitor ut dolor quis lobortis. Sed convallis nisl quis risus tristique ornare. Sed fringilla urna neque, quis varius nunc lobortis eget. Aliquam rhoncus ex sit amet lacus auctor, luctus vehicula libero iaculis. Etiam erat lectus, luctus ac mi in, tempus eleifend massa.</p><p>Sed nibh orci, porta non aliquam in, tincidunt vitae nisi. Etiam vel nibh in leo ultricies efficitur. Nunc elementum vehicula massa sed pretium. Praesent aliquam laoreet mi eget venenatis. Sed augue urna, blandit vitae accumsan at, rhoncus ac lectus. Integer in lorem aliquet, dapibus nulla id, tincidunt tortor. Morbi ultrices, velit ut mollis mollis, sem augue dapibus nulla, in pharetra erat massa sed dolor. Nam porttitor ex sed tortor eleifend dapibus. Sed egestas laoreet dui, sit amet ullamcorper quam gravida nec. Nulla ac blandit diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur egestas consectetur sem sed gravida. Nam et nibh tempor, lobortis nulla at, ultricies nisi. In hac habitasse platea dictumst.</p><p>Quisque consequat dui quis metus feugiat, vehicula viverra felis suscipit. Donec at eros porttitor, finibus orci egestas, consectetur diam. Pellentesque leo felis, imperdiet ac orci ac, feugiat tempus odio. Maecenas tincidunt porta ante nec semper. Vivamus mollis condimentum luctus. Maecenas id justo quis enim laoreet tincidunt. Fusce pharetra maximus urna, at facilisis lorem. Nam nec enim urna.</p><p>Proin malesuada iaculis porttitor. Integer pretium commodo odio. Suspendisse ullamcorper dolor urna, vitae malesuada lectus pellentesque ultrices. Nulla feugiat elit et purus maximus sodales. Nam diam lectus, ultricies sit amet elementum a, vehicula eu turpis. Aliquam non eros at nisl tincidunt fringilla. Pellentesque nibh lorem, dignissim sollicitudin commodo a, imperdiet quis lacus. Mauris viverra sollicitudin metus, a condimentum augue.</p>",
       "video": "https://res.cloudinary.com/demo/video/upload/q_auto,f_auto/dog.mp4",
+      "tasks": [],
+      "quests": [],
       "price" : 10,
+      "discount" : 0,
+      "from_date": "01/08/2024",
+      "to_date": "30/08/2024",
       "sales" : 1000,
       "total" : 10000,
       "token": "EDU",
+      "nft": {
+        "id": "lesson3_nft",
+        "image": "Image-2.png",
+        "imageOriginal": "Image-2_original.png",
+        "type": "ERC721",
+        "name": "Animoca Brands Lesson 3 NFT",
+        "title": "About Animoca Brands NFT",
+        "description": "NFT for completing the 'About Animoca Brands' lesson",
+        "mint_date": "01/08/2024",
+        "updated_date": "17/07/2024",
+        "file_url": "https://example.com/nft/lesson3.json",
+        "animation_url": "https://example.com/nft/lesson3_animation.mp4",
+        "cached_file_url": "https://cached.example.com/nft/lesson3.json",
+        "cached_animation_url": "https://cached.example.com/nft/lesson3_animation.mp4",
+        "creator_address": "0x1234567890123456789012345678901234567890",
+        "owner": "0x0987654321098765432109876543210987654321",
+        "attributes": [
+          { "trait_type": "Lesson", "value": "About Animoca Brands" },
+          { "trait_type": "Category", "value": "EduChain" }
+        ],
+        "price": 10,
+        "discount": 0,
+        "sales": 1000
+      },
       "links": [
         { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
         { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }

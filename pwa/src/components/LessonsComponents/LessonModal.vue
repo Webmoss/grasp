@@ -314,32 +314,33 @@
               />
             </div>
 
-            <div v-if="form.type === 'quest'" class="description-row mb-10">
-              <label for="questText">Quest Steps</label>
-              <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-20">
-                <img src="../../assets/svgs/socials/website.svg" alt="Step" />
-                <span class="link-text">{{ link.label }}</span>
+            <template v-if="form.type === 'quest'">
+              <div class="description-row mb-10">
+                <label for="questText">Add Quest Steps</label>
+                <div v-for="(link, i) in form.quests" :key="i" class="input-box mb-20">
+                  <img src="../../assets/svgs/link.svg" alt="Quest link" />
+                  <span class="link-text">{{ link.label }}</span>
+                </div>
               </div>
-              <div class="input-row mb-10">
-                <!-- <img src="../../assets/svgs/socials/website.svg" alt="Step" /> -->
-                <label for="questText">Quest Title</label>
-                <input
-                  type="text"
-                  name="questText"
-                  placeholder="Enter a name for the quest"
-                  v-model="questText"
-                />
-              </div>
-              <div class="input-box-column mb-10">
-                <label for="questStep">Quest Step</label>
+              <div class="input-row mb-5">
+                <label for="questStep">Step No</label>
                 <input
                   type="text"
                   name="questStep"
-                  placeholder="Quest step"
+                  placeholder="Enter Quest step number"
                   v-model="questStep"
                 />
               </div>
-              <div class="input-box-column mb-10">
+              <div class="input-row mb-5">
+                <label for="questText">Title</label>
+                <input
+                  type="text"
+                  name="questText"
+                  placeholder="Enter a name for the Quest"
+                  v-model="questText"
+                />
+              </div>
+              <div class="input-description mb-5">
                 <label for="questDetails">Description</label>
                 <textarea
                   rows="6"
@@ -350,21 +351,32 @@
                   v-model="questDetails"
                 />
               </div>
+              <div class="input-box mb-10">
+                <img src="../../assets/svgs/link.svg" alt="Quest Link" />
+                <input
+                  type="text"
+                  name="questType"
+                  placeholder="Enter the type of quest, eg. follow, like, share, etc."
+                  v-model="questType"
+                />
+              </div>
               <div class="input-row mb-10">
                 <button class="add-link-button" @click="addQuest()">
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add Quest Step" />
                 </button>
               </div>
-            </div>
+            </template>
 
             <!-- Lesson Task Content -->
-            <div v-if="form.type === 'task'" class="description-row mb-10">
-              <label for="links">Add Tasks</label>
-              <div v-for="(task, i) in form.tasks" :key="i" class="input-box mb-10">
-                <img src="../../assets/svgs/Check.svg" alt="Lesson Task" />
-                <span class="link-text">{{ task.label }}</span>
+            <template v-if="form.type === 'task'">
+              <div class="description-row mb-10">
+                <label for="links">Add Tasks</label>
+                <div v-for="(task, i) in form.tasks" :key="i" class="input-box mb-10">
+                  <img src="../../assets/svgs/Check.svg" alt="Lesson Task" />
+                  <span class="link-text">{{ task.label }}</span>
+                </div>
               </div>
-              <div class="input-box-column mb-10">
+              <div class="input-row mb-5">
                 <label for="price">Task Label</label>
                 <input
                   type="text"
@@ -373,7 +385,7 @@
                   v-model="taskText"
                 />
               </div>
-              <div class="input-box-column mb-10">
+              <div class="description mb-5">
                 <label for="price">Description</label>
                 <textarea
                   rows="6"
@@ -383,11 +395,13 @@
                   placeholder="Enter a description of the task"
                   v-model="taskStep"
                 />
+              </div>
+              <div class="input-row mb-5">
                 <button class="add-task-button" @click="addTask()">
                   <img src="../../assets/svgs/Add-Circle.svg" alt="Add Task" />
                 </button>
               </div>
-            </div>
+            </template>
           </div>
           <!-- Step 4 -->
           <div v-if="step === 4" class="form-container">
@@ -402,7 +416,7 @@
               />
             </div> -->
             <div class="input-row mb-10">
-              <label for="price">Course Price</label>
+              <label for="price">Lesson Price</label>
               <input
                 type="text"
                 name="price"
@@ -522,6 +536,7 @@
 <script setup lang="ts">
 import { ref, Ref, reactive } from "vue";
 import { useStore } from "../../store";
+import { metadataObject } from "src/models/metadata";
 import BuyButton from "../Buttons/BuyButton.vue";
 import CheckBoxGroup from "../CheckBox/CheckBoxGroup.vue";
 import VideoPlayer from "../Video/VideoPlayer.vue";
@@ -599,8 +614,9 @@ const linkURL = ref("");
 const taskText = ref("");
 const taskStep = ref("");
 
-const questText = ref("");
+const questType = ref("");
 const questStep = ref("");
+const questText = ref("");
 const questDetails = ref("");
 
 const vidPlayer = ref();
@@ -971,6 +987,12 @@ const nextStep = () => {
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      img,
+      svg {
+        width: 20px;
+        margin: 0 12px;
+      }
 
       .link-text {
         color: $black;

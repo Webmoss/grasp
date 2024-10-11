@@ -33,7 +33,7 @@
   },
   "//IMP END": "IMP END - Web3Auth Installation",
   "devDependencies": {
-    "@opencampus/ocid-connect-js": "^1.0.1",
+    "@opencampus/ocid-connect-js": "^1.2.1",
     "@types/lodash": "^4.17.10",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
