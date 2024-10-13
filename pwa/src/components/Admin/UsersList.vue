@@ -196,7 +196,6 @@ onMounted(() => {
   margin: 0 0 24px 0;
   padding: 12px 0 4px 12px;
 }
-
 .box-value {
   width: 100%;
   font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,

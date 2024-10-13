@@ -1,5 +1,8 @@
 import { categoryObject } from "./category";
+import { linkObject } from './link';
 import { metadataObject } from './metadata';
+import { attributeObject } from "src/models/attribute";
+import { lastSaleObject } from "src/models/lastSale";
 
 export interface lessonObject {
   id: string;
@@ -15,6 +18,7 @@ export interface lessonObject {
   video: any;
   tasks: Array<object>;
   quests: Array<object>;
+  lastSale: lastSaleObject | null;
   price: number;
   discount: number;
   from_date: string;
@@ -23,7 +27,8 @@ export interface lessonObject {
   total: number;
   token: string;
   nft: metadataObject;
-  links: Array<any>;
+  attributes: Array<attributeObject>;
+  links: Array<linkObject>;
   step: number;
   isLive: boolean;
   created_date: string;

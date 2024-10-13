@@ -52,13 +52,19 @@
         "sales": 1000
       },
       "links": [
-        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
-        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
+        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID", "target" : "_blank", "icon" : "" },
+        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain", "target" : "_blank", "icon" : "" }
       ],
       "step": 1,
       "isLive": true,
       "created_date": "15/07/2024",
-      "updated_date": "17/07/2024"
+      "updated_date": "17/07/2024",
+      "lastSale": {
+        "price": 8.75,
+        "currency": "EDU",
+        "date": "2024-07-19T10:15:00Z",
+        "buyer": "0x9876543210987654321098765432109876543210"
+      }
     },
     {
       "id": "2",
@@ -112,13 +118,14 @@
         "sales": 1000
       },
       "links": [
-        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
-        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
+        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID", "target" : "_blank", "icon" : "" },
+        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain", "target" : "_blank", "icon" : "" }
       ],
       "step": 2,
       "isLive": true,
       "created_date": "15/07/2024",
-      "updated_date": "17/07/2024"
+      "updated_date": "17/07/2024",
+      "lastSale": null
     },
     {
       "id": "3",
@@ -172,13 +179,19 @@
         "sales": 1000
       },
       "links": [
-        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID" },
-        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain" }
+        { "url" : "https://id.opencampus.xyz/", "title" : "Open Campus ID", "target" : "_blank", "icon" : "" },
+        { "url" : "https://id.opencampus.xyz/", "title" : "EDU Chain", "target" : "_blank", "icon" : "" }
       ],
       "step": 3,
       "isLive": true,
       "created_date": "15/07/2024",
-      "updated_date": "17/07/2024"
+      "updated_date": "17/07/2024",
+      "lastSale": {
+        "price": 7.5,
+        "currency": "EDU",
+        "date": "2024-07-18T14:20:00Z",
+        "buyer": "0xfedcba9876543210fedcba9876543210fedcba98"
+      }
     }
   ]
 }

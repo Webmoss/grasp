@@ -1,7 +1,8 @@
-import { attributeObject } from "src/models/attribute";
+
 import { collectionObject } from "src/models/collection";
 // import { mediaObject } from "src/models/media";
 import { metadataObject } from "src/models/metadata";
+import { attributeObject } from "src/models/attribute";
 import { lastSaleObject } from "src/models/lastSale";
 import { rarityObject } from "src/models/rarity";
 

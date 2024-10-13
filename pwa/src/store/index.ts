@@ -10,6 +10,7 @@ import { Filter } from 'src/models/filter';
 import { getBlankFilter } from '@/models/getBlankFilter';
 import { paginationObject } from 'src/models/pagination';
 import { initialPagination } from '@/models/initialPagination';
+import { transactionObject } from 'src/models/transaction';
 
 import reservoirApi from "@/services/reservoirApi";
 
@@ -74,6 +75,8 @@ export const useStore = defineStore({
     creator: <creatorObject>{},
     members: [] as userObject[],
     member: <userObject>{},
+    transactions: [] as transactionObject[],
+    transaction: <transactionObject>{},
     marketplace: [] as metadataObject[],
     nfts: [] as metadataObject[],
     nft: <metadataObject>{},
@@ -234,6 +237,12 @@ export const useStore = defineStore({
     },
     getNftView(state) {
       return state.nftView;
+    },
+    getTransactions(state) {
+      return state.transactions;
+    },
+    getTransaction(state) {
+      return state.transaction;
     },
   },
   actions: {
@@ -443,6 +452,12 @@ export const useStore = defineStore({
     },
     setMember(member: userObject) {
       this.member = member;
+    },
+    setTransactions(transactions: transactionObject[]) {
+      this.transactions = transactions;
+    },
+    setTransaction(transaction: transactionObject) {
+      this.transaction = transaction;
     },
     setNft(nft: metadataObject) {
       this.nft = nft;

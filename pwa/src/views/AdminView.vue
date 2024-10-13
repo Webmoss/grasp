@@ -43,6 +43,13 @@
           Lessons
         </div>
         <div
+          :class="tab === 'nfts' ? 'active' : ''"
+          class="tab-button"
+          @click="loadTab('nfts')"
+        >
+          NFTs
+        </div>
+        <div
           :class="tab === 'activity' ? 'active' : ''"
           class="tab-button"
           @click="loadTab('activity')"
@@ -51,24 +58,12 @@
         </div>
       </div>
 
-      <!-- Reporting Tab -->
-      <div v-if="tab === 'reporting'" class="tab-box">
-        <div class="box-header">Reporting</div>
-
-        <div class="box">
-          <div class="box-value">
-            <span class="box-label">Date</span>
-            {{ user?.created_date ? user.created_date : "" }}
-          </div>
-        </div>
-        <div class="line-divider"></div>
-      </div>
-      <!-- END Reporting Tab -->
-
+      <ReportingStats v-if="tab === 'reporting'" />
       <UsersList v-if="tab === 'users'" :label="'User'" />
       <ActivityList v-if="tab === 'activity'" />
-      <CoursesList v-if="tab === 'courses'" />
-      <LessonsList v-if="tab === 'lessons'" />
+      <CoursesList v-if="tab === 'courses'" :label="'All'" />
+      <LessonsList v-if="tab === 'lessons'" :label="'All'" />
+      <NftsList v-if="tab === 'nfts'" :label="'All'" />
     </div>
   </section>
 </template>
@@ -80,9 +75,11 @@ import { storeToRefs } from "pinia";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
+import ReportingStats from "@/components/Admin/ReportingStats.vue";
 import UsersList from "@/components/Admin/UsersList.vue";
 import CoursesList from "@/components/Admin/CoursesList.vue";
 import LessonsList from "@/components/Admin/LessonsList.vue";
+import NftsList from "@/components/Admin/NftsList.vue";
 import ActivityList from "@/components/Admin/ActivityList.vue";
 
 /* All Posts stored in a JSON */

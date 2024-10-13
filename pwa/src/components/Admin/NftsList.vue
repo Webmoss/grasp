@@ -1,6 +1,6 @@
 <template>
   <div class="tab-box">
-    <div class="box-header">{{ label }} Lesson Activity</div>
+    <div class="box-header">{{ label }} NFT Activity</div>
     <div class="box">
       <div class="box-value">
         <span class="box-label">From Date</span>
@@ -24,7 +24,7 @@
           <div class="list-item-header-organisation">Organisation</div>
         </div>
         <div class="list-item-box">
-          <div class="list-item-header-lessons">Lesson</div>
+          <div class="list-item-header-nfts">NFTs</div>
         </div>
         <div class="list-item-box">
           <div class="list-item-header-categories">Category</div>
@@ -54,8 +54,8 @@
             </div>
           </div>
           <div class="list-item-box">
-            <div class="list-item-lessons">
-              {{ transaction.lessonTitle ? transaction.lessonTitle : "-" }}
+            <div class="list-item-nfts">
+              {{ transaction.nftTitle ? transaction.nftTitle : "-" }}
             </div>
           </div>
           <div class="list-item-sales">
@@ -119,10 +119,6 @@ const newSearchTerm = computed(() => {
   return filter.value.search_term;
 });
 
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
 const total = computed(() => {
   return transactions.value ? transactions.value.length : 0;
 });
@@ -131,7 +127,7 @@ const fetchTransactions = () => {
   console.log("filter.value.search_term", filter.value.search_term);
 
   let filteredTransactions = testTransactions.data.filter(
-    (transaction) => transaction.lessonTitle
+    (transaction) => transaction.nftTitle
   );
 
   if (props.orgId) {
@@ -148,9 +144,7 @@ const fetchTransactions = () => {
 
   if (filter.value.search_term !== "") {
     filteredTransactions = filteredTransactions.filter((transaction) =>
-      transaction.lessonTitle
-        .toLowerCase()
-        .includes(filter.value.search_term.toLowerCase())
+      transaction.nftTitle.toLowerCase().includes(filter.value.search_term.toLowerCase())
     );
   }
   store.setTransactions(filteredTransactions as transactionObject[]);
@@ -340,7 +334,7 @@ onMounted(() => {
       margin: 0;
     }
 
-    .list-item-header-lessons {
+    .list-item-header-nfts {
       width: 100%;
       min-width: 120px;
       display: flex;
@@ -355,7 +349,7 @@ onMounted(() => {
       text-align: left;
       margin: 0;
     }
-    .list-item-lessons {
+    .list-item-nfts {
       width: 100%;
       min-width: 120px;
       display: flex;

@@ -208,6 +208,8 @@ import { ref, provide, onBeforeMount } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { userObject } from "src/models/user";
+import { organisationObject } from "src/models/organisation";
 import { prettyName } from "@/services/prettyName";
 import { Notyf } from "notyf";
 
@@ -281,19 +283,19 @@ const showHideModal = () => {
 };
 
 async function fetchUser() {
-  let filteredUser = testUsers.data.filter((user) => {
-    // console.log("route.params.id", route.params.id);
-    // return user.id === (route.params.id as string);
-    return user.id === "3";
-  });
-  store.setUser(filteredUser[0] as any);
+  const userId = (route.params.id as string) || "3"; // Use route param if available, otherwise default to "3"
+  const filteredUser = testUsers.data.find((user) => user.id === userId);
 
-  let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    console.log("User OrgId", filteredUser[0].orgId);
-    return organisation.id === filteredUser[0].orgId;
-  });
-  console.log("Organisation", filteredOrganisation[0]);
-  store.setOrganisation(filteredOrganisation[0] as any);
+  if (filteredUser) {
+    store.setUser((filteredUser as unknown) as userObject);
+
+    const filteredOrganisation = testOrganisation.data.find(
+      (org) => org.id === filteredUser.orgId
+    );
+    if (filteredOrganisation) {
+      store.setOrganisation((filteredOrganisation as unknown) as organisationObject);
+    }
+  }
 }
 
 onBeforeMount(async () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="tab-box">
-    <div class="box-header">{{ label }} Courses</div>
+    <div class="box-header">{{ label }} Course Activity</div>
     <div class="box">
       <div class="box-value">
         <span class="box-label">From Date</span>
@@ -15,7 +15,7 @@
     <div class="tab-box">
       <div class="list-item">
         <div class="list-item-box">
-          <div class="list-item-header-role">Role</div>
+          <div class="list-item-header-date">Date</div>
         </div>
         <div class="list-item-box">
           <div class="list-item-header-name">Full Name</div>
@@ -24,66 +24,54 @@
           <div class="list-item-header-organisation">Organisation</div>
         </div>
         <div class="list-item-box">
-          <div class="list-item-header-courses">Courses</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-lessons">Lessons</div>
-        </div>
-        <div class="list-item-box">
-          <div class="list-item-header-nfts">NFTs</div>
+          <div class="list-item-header-courses">Course</div>
         </div>
         <div class="list-item-box">
           <div class="list-item-header-categories">Category</div>
         </div>
         <div class="list-item-box">
-          <div class="list-item-header-sales">Sales</div>
+          <div class="list-item-header-sales">Price</div>
         </div>
       </div>
-      <template v-for="(user, index) in members" :key="index">
+      <template v-for="(transaction, index) in transactions" :key="index">
         <div class="list-item">
           <div class="list-item-box">
-            <div class="list-item-role">
+            <div class="list-item-date">
               <span class="list-item-index">{{ index + 1 }}.</span>
-              {{ user.role ? prettyName(user.role) : "-" }}
+              {{
+                transaction.date ? new Date(transaction.date).toLocaleDateString() : "-"
+              }}
             </div>
           </div>
           <div class="list-item-box">
             <div class="list-item-name">
-              {{ user.name ? user.name : "-" }}
+              {{ transaction.userName ? transaction.userName : "-" }}
             </div>
           </div>
           <div class="list-item-box">
             <div class="list-item-organisation">
-              {{ user.orgName ? user.orgName : "-" }}
+              {{ transaction.orgName ? transaction.orgName : "-" }}
             </div>
           </div>
           <div class="list-item-box">
             <div class="list-item-courses">
-              {{ courses ? courses : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-lessons">
-              {{ lessons ? lessons : "-" }}
-            </div>
-          </div>
-          <div class="list-item-box">
-            <div class="list-item-nfts">
-              {{ nfts ? nfts : "-" }}
+              {{ transaction.courseTitle ? transaction.courseTitle : "-" }}
             </div>
           </div>
           <div class="list-item-sales">
-            <div v-if="user && user.type" class="list-item-category">
-              <span class="category-indicator">{{ user.type ? user.type : "" }}</span>
+            <div class="list-item-category">
+              <span class="category-indicator">{{
+                transaction.transactionType ? transaction.transactionType : ""
+              }}</span>
             </div>
           </div>
           <div class="list-item-sales">
             <div class="sales">
-              <span class="list-item-index">Total </span
-              ><span class="sales-amount">
+              <span class="list-item-index">Price </span>
+              <span class="sales-amount">
                 <img src="../../assets/svgs/EduCoin.svg" />
-                {{ sales ? sales : "0.00" }}</span
-              >
+                {{ transaction.price ? transaction.price.toFixed(2) : "0.00" }}
+              </span>
             </div>
           </div>
         </div>
@@ -93,24 +81,24 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watchEffect } from "vue";
+import type { Ref } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { userObject } from "src/models/user";
-import { prettyName } from "@/services/prettyName";
+import { transactionObject } from "src/models/transaction";
 import AdminSearch from "@/components/Admin/AdminSearch.vue";
 import AdminPagination from "@/components/Admin/AdminPagination.vue";
 
-/* All Posts stored in a JSON */
-import testUsers from "../../data/users.json";
+/* All Transactions stored in a JSON */
+import testTransactions from "../../data/transactions.json";
 
 const store = useStore();
-const { members, pagination, filter } = storeToRefs(store);
+const { transactions, pagination, filter } = storeToRefs(store);
 
 const props = defineProps({
   label: {
     type: String,
-    default: "User",
+    default: "Transaction",
   },
   orgId: {
     type: String,
@@ -122,15 +110,10 @@ const props = defineProps({
   },
 });
 
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-const fromDate = ref("");
-const toDate = ref("");
-
-const courses = ref(0);
-const lessons = ref(0);
-const nfts = ref(0);
-const sales = ref(0);
+const lastPage: Ref<number> = ref(1);
+const lastSearchTerm: Ref<string> = ref("");
+const fromDate: Ref<string> = ref("");
+const toDate: Ref<string> = ref("");
 
 const newSearchTerm = computed(() => {
   return filter.value.search_term;
@@ -141,38 +124,47 @@ const shouldGetData = computed(() => {
 });
 
 const total = computed(() => {
-  return members.value ? members.value.length : 0;
+  return transactions.value ? transactions.value.length : 0;
 });
 
-const fetchMembers = () => {
+const fetchTransactions = () => {
   console.log("filter.value.search_term", filter.value.search_term);
-  let filteredMembers = testUsers.data;
+
+  let filteredTransactions = testTransactions.data.filter(
+    (transaction) => transaction.courseTitle
+  );
 
   if (props.orgId) {
-    filteredMembers = filteredMembers.filter((user) => user.orgId === props.orgId);
+    filteredTransactions = filteredTransactions.filter(
+      (transaction) => transaction.orgId === props.orgId
+    );
   }
 
   if (props.userId) {
-    filteredMembers = filteredMembers.filter((user) => user.id === props.userId);
+    filteredTransactions = filteredTransactions.filter(
+      (transaction) => transaction.userId === props.userId
+    );
   }
 
   if (filter.value.search_term !== "") {
-    filteredMembers = filteredMembers.filter((user) =>
-      user.name.toLowerCase().includes(filter.value.search_term.toLowerCase())
+    filteredTransactions = filteredTransactions.filter((transaction) =>
+      transaction.courseTitle
+        .toLowerCase()
+        .includes(filter.value.search_term.toLowerCase())
     );
   }
-  store.setMembers((filteredMembers as unknown) as userObject[]);
+  store.setTransactions(filteredTransactions as transactionObject[]);
 };
 
-watch(shouldGetData, async (newValue) => {
-  if (newValue) {
-    await fetchMembers();
+watchEffect(() => {
+  if (filter.value.search_term !== lastSearchTerm.value) {
+    fetchTransactions();
+    lastSearchTerm.value = filter.value.search_term;
   }
-  lastSearchTerm.value = newSearchTerm.value as string;
 });
 
 onMounted(() => {
-  fetchMembers();
+  fetchTransactions();
 });
 </script>
 
@@ -249,8 +241,8 @@ onMounted(() => {
     align-items: flex-start;
     padding: 0;
 
-    .list-item-header-role {
-      min-width: 50px;
+    .list-item-header-date {
+      min-width: 96px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -264,8 +256,8 @@ onMounted(() => {
       margin: 0;
       padding: 0 0 0 24px;
     }
-    .list-item-role {
-      min-width: 80px;
+    .list-item-date {
+      min-width: 120px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -348,9 +340,7 @@ onMounted(() => {
       margin: 0;
     }
 
-    .list-item-header-courses,
-    .list-item-header-lessons,
-    .list-item-header-nfts {
+    .list-item-header-courses {
       width: 100%;
       min-width: 120px;
       display: flex;
@@ -365,9 +355,7 @@ onMounted(() => {
       text-align: left;
       margin: 0;
     }
-    .list-item-courses,
-    .list-item-lessons,
-    .list-item-nfts {
+    .list-item-courses {
       width: 100%;
       min-width: 120px;
       display: flex;

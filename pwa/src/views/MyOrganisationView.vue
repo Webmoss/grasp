@@ -310,7 +310,7 @@ const fetchOrganisation = () => {
   let filteredUser = testUsers.data.filter((user) => {
     console.log("route.params.id", route.params.id);
     // return user.id === (route.params.id as string);
-    return user.id === "1";
+    return user.id === "3";
   });
   // console.log("filteredUser[0]", filteredUser[0]);
   user.value = filteredUser[0];
