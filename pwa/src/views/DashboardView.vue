@@ -33,11 +33,11 @@
           <!-- Courses Tab  -->
           <div v-if="tab === 'courses'" class="tab-box">
             <div class="my-courses-box">
-              <template v-for="(course, index) in courses" :key="index">
+              <template v-for="course in courses" :key="course.id">
                 <div class="list-item">
                   <div class="course-copy">
                     <div class="course-title">
-                      <span class="course-index">{{ index + 1 }}.</span>
+                      <span class="course-index">{{ course.id }}.</span>
                       {{ course.title ? course.title : "" }}
                     </div>
                   </div>
@@ -113,7 +113,7 @@
             </div>
             <div class="my-account">
               <div class="account-address">
-                {{ eduEthAddress ? formatAddress(eduEthAddress) : "0x000" }}
+                {{ formattedEduEthAddress }}
               </div>
               <button class="copy-button" @click="copyClipboard(eduEthAddress)">
                 <img src="../assets/svgs/ContentCopy.svg" />
@@ -121,27 +121,8 @@
             </div>
           </div>
 
-          <div class="my-balance-box">
-            <h2>Account</h2>
-            <div class="my-account">
-              <div class="account-address">
-                {{ account ? formatAddress(account) : "0x000" }}
-              </div>
-              <button class="copy-button" @click="copyClipboard(account)">
-                <img src="../assets/svgs/ContentCopy-White.svg" />
-              </button>
-            </div>
-            <div class="my-wallet">
-              <div class="my-wallet-amount">
-                <img src="../assets/svgs/EduCoin.svg" /><span class="">
-                  {{ balance ? truncate(balance, 10) : "0.00" }}</span
-                >
-              </div>
-              <button class="refresh-button" @click="checkEDUBalance(account)">
-                <img src="../assets/svgs/Refresh.svg" />
-              </button>
-            </div>
-          </div>
+          <MetaMaskWallet />
+          <Web3AuthWallet />
 
           <div class="my-sales-box">
             <h2>Total Income</h2>
@@ -175,44 +156,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, watch, onMounted, onBeforeMount } from "vue";
+import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
 import { Notyf } from "notyf";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
-import { useRoute, useRouter, onBeforeRouteUpdate } from "vue-router";
-// import { userObject } from "src/models/user";
+import { useRoute, useRouter } from "vue-router";
 import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
-import { ethers } from "ethers";
-
-// import { Web3Auth } from "@web3auth/modal";
-// import {
-//   CHAIN_NAMESPACES,
-//   IProvider,
-//   WEB3AUTH_NETWORK,
-//   CustomChainConfig,
-//   OPENLOGIN_NETWORK_TYPE,
-// } from "@web3auth/base";
-// import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
-// import { MetamaskAdapter } from "@web3auth/metamask-adapter";
-// import Web3 from "web3";
+import { copyClipboard } from "@/services/copyClipboard";
+import { formatAddress } from "@/services/formatAddress";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
 import OCIDButton from "@/components/Buttons/OCIDButton.vue";
 import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
+import MetaMaskWallet from "@/components/Wallets/MetaMaskWallet.vue";
+import Web3AuthWallet from "@/components/Wallets/Web3AuthWallet.vue";
 
 /* All Data stored in a JSON for now */
 import testCourses from "../data/courses.json";
 import testLessons from "../data/lessons.json";
 // import nfts from "../data/nfts.json";
-
-// interface BaseAdapterSettings {
-//   clientId?: string;
-//   sessionTime?: number;
-//   chainConfig?: CustomChainConfig;
-//   web3AuthNetwork?: OPENLOGIN_NETWORK_TYPE;
-// }
 
 const props = defineProps<{
   code?: string;
@@ -224,72 +188,18 @@ const route = useRoute();
 const router = useRouter();
 const {
   loggedIn,
+  web3AuthLoggedIn,
   account,
-  balance,
+  web3AuthAccount,
   eduUsername,
   eduEthAddress,
   ocAccessToken,
   courses,
 } = storeToRefs(store);
 
-// let provider = <IProvider | null>null;
-
 const tab = ref("courses");
 const sales = ref(0);
 const percentage = ref(0);
-
-/* Get from https://dashboard.web3auth.io */
-// const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
-//   ? process.env.VUE_APP_WEB3AUTH_CLIENTID
-//   : "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
-
-// const metamaskAdapter = new MetamaskAdapter({
-//   clientId,
-//   sessionTime: 3600, // 1 hour in seconds
-//   chainConfig: {
-//     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-//     chainId: "0xA045C",
-//     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-//     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
-//   },
-//   web3AuthNetwork: "sapphire_devnet",
-// });
-
-/* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
-// metamaskAdapter.setAdapterSettings({
-//   sessionTime: 86400, // 1 day in seconds
-//   chainConfig: {
-//     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-//     chainId: "0xA045C",
-//     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-//     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
-//   },
-//   web3AuthNetwork: "sapphire_devnet",
-// });
-
-// const chainConfig = {
-//   chainId: "0xA045C", // Chain Id 656476 in hex
-//   chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
-//   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-//   displayName: "Open Campus Codex",
-//   blockExplorer: "https://opencampus-codex.blockscout.com/",
-//   ticker: "EDU",
-//   tickerName: "EDU",
-//   logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",
-// };
-
-// const privateKeyProvider = new EthereumPrivateKeyProvider({
-//   config: { chainConfig: chainConfig },
-// });
-
-// const web3auth = new Web3Auth({
-//   clientId,
-//   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-//   privateKeyProvider: privateKeyProvider,
-// });
-
-// it will add/update  the metamask adapter in to web3auth class
-// web3auth.configureAdapter(metamaskAdapter);
 
 const NotfyProvider = new Notyf({
   duration: 2000,
@@ -332,55 +242,11 @@ const NotfyProvider = new Notyf({
 });
 provide("notyf", NotfyProvider);
 
-/**
- * Copy to Clipboard function
- */
-const copyClipboard = (value: string) => {
-  const textArea = document.createElement("textarea");
-  textArea.value = value;
-  document.body.appendChild(textArea);
-  textArea.select();
-  document.execCommand("copy");
-  textArea.remove();
-};
+const formattedEduEthAddress = computed(() => formatAddress(eduEthAddress.value));
 
 const loadTab = (value: string) => {
   tab.value = value;
 };
-
-const truncate = (data: string, num: number) => {
-  const reqdString = data.split("").slice(0, num).join("");
-  return reqdString;
-};
-
-/* Display a readable user address */
-const formatAddress = (addr: string) => {
-  const upperAfterLastTwo = addr.slice(0, 2) + addr.slice(2);
-  return `${upperAfterLastTwo.substring(0, 5)}...${upperAfterLastTwo.substring(39)}`;
-};
-
-// const getUserInfo = async () => {
-//   const user = await web3auth.getUserInfo();
-//   store.setUser(user as userObject);
-// };
-
-/* Web3 Auth Method to get Balance */
-// const getBalance = async () => {
-//   if (!provider) {
-//     NotfyProvider.error("Provider not initialized yet!");
-//     return;
-//   }
-//   const web3 = new Web3(provider as any);
-//   const address = (await web3.eth.getAccounts())[0];
-//   store.setAccount(address);
-
-//   /* Get user's balance in EDU Token */
-//   const balance = web3.utils.fromWei(
-//     await web3.eth.getBalance(address), // Balance is in wei
-//     "ether"
-//   );
-//   store.setBalance(balance);
-// };
 
 // const signMessage = async () => {
 //   provider = web3auth.provider;
@@ -437,87 +303,7 @@ async function fetchLessons() {
   store.setLessons((testLessons.data as unknown) as lessonObject[]);
 }
 
-/**
- * Get Account EDU Balance
- */
-const checkEDUBalance = async (account: string) => {
-  try {
-    const { ethereum } = window;
-    if (!ethereum) {
-      console.log(`Please connect 🦊 Metamask to continue!`);
-      return;
-    }
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const wei = await provider.getBalance(account);
-    const eduBalance = ethers.utils.formatEther(wei);
-    store.setBalance(eduBalance);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-/**
- * Check if our Wallet is Connected to 🦊 Metamask
- */
-const checkIfWalletIsConnected = async () => {
-  try {
-    const { ethereum } = window;
-    if (!ethereum) {
-      console.log(`Please connect 🦊 Metamask to continue!`);
-      return;
-    }
-    /* Get our Current Account */
-    const accounts = await ethereum.request({ method: "eth_accounts" });
-
-    /* Update our Current Account in the Store */
-    if (accounts.length !== 0) {
-      store.setAccount(accounts[0]);
-      /* Get our Account EDU Balance */
-      await checkEDUBalance(accounts[0]);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// onMounted(async () => {
-//   const init = async () => {
-//     try {
-//       await web3auth.initModal();
-//       provider = web3auth.provider;
-
-//       if (web3auth.connected) {
-//         console.log("Dashboard Web3Auth Connected", web3auth.connected);
-//         store.setLoggedIn(true);
-//         await getUserInfo();
-//         await getBalance();
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   init();
-// });
-
-// watch(
-//   () => route.query.code,
-//   (newCode, oldCode) => {
-//     /* React to route changes */
-//     console.log("Code", route.query.code);
-//     console.log("State", route.query.state);
-//   }
-// );
-
-// onBeforeRouteUpdate(async (to, from) => {
-//   /* React to route changes */
-//   /* React to route changes */
-//   console.log("Code", route.query.code);
-//   console.log("State", route.query.state);
-//   await checkIfWalletIsConnected();
-//   // userData.value = await fetchUser(to.params.id)
-// });
-
-// Add this function to handle the query parameters
+/* Function to handle the query parameters */
 const handleQueryParams = () => {
   const code = route.query.code;
   const state = route.query.state;
@@ -555,13 +341,6 @@ onMounted(async () => {
   const init = async () => {
     try {
       handleQueryParams();
-      if (loggedIn.value) {
-        console.log("MetaMask Connected", loggedIn.value);
-        await checkIfWalletIsConnected();
-      }
-      // } else {
-      //   router.push({ name: "home" });
-      // }
     } catch (error) {
       console.error(error);
     }
@@ -973,155 +752,6 @@ onBeforeMount(async () => {
       }
 
       .copy-button {
-        width: auto;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        justify-content: center;
-        color: $grasp-blue;
-        background: transparent;
-        border: none;
-        font-size: 14px;
-        font-weight: 600;
-        margin-right: -6px;
-        margin-left: 4px;
-        margin-bottom: 0;
-        cursor: pointer;
-
-        img,
-        svg {
-          width: 24px;
-          background: transparent;
-          object-fit: contain;
-          overflow: hidden;
-          margin-right: 0;
-          margin-left: 4px;
-        }
-      }
-    }
-  }
-
-  .my-balance-box {
-    width: calc(100% - 32px);
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    background: $grasp-blue;
-    border-radius: 8px;
-    border: 0.5px solid $grey-50;
-    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-    padding: 16px;
-    margin: 0 0 20px 0;
-
-    h2 {
-      width: 100%;
-      color: $white;
-      font-size: 19px;
-      font-weight: 600;
-      line-height: 26px;
-      font-style: normal;
-      text-align: left;
-      margin-block-start: 0;
-      margin-block-end: 0;
-      margin: 0 0 8px 0;
-    }
-
-    .my-account {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      align-items: center;
-      justify-content: space-between;
-      color: $white;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 4px 0;
-      transition: all 0.5s linear;
-
-      .account-address {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        justify-content: flex-start;
-        color: $white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 4px 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        cursor: pointer;
-      }
-
-      .copy-button {
-        width: auto;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        justify-content: center;
-        color: $white;
-        background: transparent;
-        border: none;
-        font-size: 14px;
-        font-weight: 600;
-        margin-right: -6px;
-        margin-left: 4px;
-        margin-bottom: 0;
-        cursor: pointer;
-
-        img,
-        svg {
-          width: 24px;
-          background: transparent;
-          object-fit: contain;
-          overflow: hidden;
-          margin-right: 0;
-          margin-left: 4px;
-        }
-      }
-    }
-
-    .my-wallet {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      align-items: center;
-      justify-content: space-between;
-      color: $black;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 4px 0;
-      transition: all 0.5s linear;
-
-      .my-wallet-amount {
-        display: flex;
-        flex-direction: row;
-        align-content: center;
-        align-items: center;
-        justify-content: center;
-        color: $white;
-        font-size: 19px;
-        font-weight: 600;
-      }
-
-      img,
-      svg {
-        width: 26px;
-        background: transparent;
-        object-fit: contain;
-        overflow: hidden;
-        margin-right: 8px;
-      }
-
-      .refresh-button {
         width: auto;
         display: flex;
         flex-direction: row;

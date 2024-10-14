@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/plugin-transform-private-methods": "^7.24.7",
     "@reservoir0x/sdk": "^0.0.370",
+    "@vueuse/core": "^11.1.0",
     "@web3auth/base": "^8.12.4",
     "@web3auth/ethereum-provider": "^8.12.4",
     "@web3auth/metamask-adapter": "^8.12.4",

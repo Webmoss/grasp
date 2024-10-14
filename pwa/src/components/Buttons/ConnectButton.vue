@@ -1,13 +1,13 @@
 <template>
   <div class="connect-wallet-container">
     <button
-      v-if="!loggedIn"
+      v-if="!web3AuthLoggedIn"
       @click="connect()"
       :class="
         btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
       "
     >
-      Connect
+      <img src="@/assets/svgs/Web3Auth-Dark.svg" /> Connect
     </button>
     <button
       v-else
@@ -16,7 +16,7 @@
         btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'
       "
     >
-      Logout
+      <img src="@/assets/svgs/Web3Auth-Dark.svg" /> Logout
     </button>
   </div>
 </template>
@@ -27,13 +27,13 @@ import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import { Web3Auth } from "@web3auth/modal";
-// import type { Web3AuthOptions } from "@web3auth/modal";
 import {
   CHAIN_NAMESPACES,
   IProvider,
   WEB3AUTH_NETWORK,
   CustomChainConfig,
   OPENLOGIN_NETWORK_TYPE,
+  WALLET_ADAPTERS,
 } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { MetamaskAdapter } from "@web3auth/metamask-adapter";
@@ -87,7 +87,7 @@ interface BaseAdapterSettings {
 
 const router = useRouter();
 const store = useStore();
-const { loggedIn } = storeToRefs(store);
+const { web3AuthLoggedIn } = storeToRefs(store);
 
 let provider = <IProvider | null>null;
 
@@ -105,7 +105,7 @@ const metamaskAdapter = new MetamaskAdapter({
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
   },
-  web3AuthNetwork: "sapphire_devnet",
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
 });
 
 /* You can change the adapter settings by calling the setAdapterSettings() function on the adapter instance. */
@@ -117,12 +117,12 @@ metamaskAdapter.setAdapterSettings({
     rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
     blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
   },
-  web3AuthNetwork: "sapphire_devnet",
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
 });
 
 const chainConfig = {
   chainId: "0xA045C", // Chain Id 656476 in hex
-  chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
+  chainNamespace: CHAIN_NAMESPACES.EIP155,
   rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
   displayName: "Open Campus Codex",
   blockExplorer: "https://opencampus-codex.blockscout.com/",
@@ -141,7 +141,7 @@ const web3auth = new Web3Auth({
   privateKeyProvider: privateKeyProvider,
 });
 
-// it will add/update  the metamask adapter in to web3auth class
+/* It will add/update  the metamask adapter in to web3auth class */
 web3auth.configureAdapter(metamaskAdapter);
 
 async function connect() {
@@ -149,23 +149,29 @@ async function connect() {
   try {
     provider = await web3auth.connect();
     if (web3auth.connected) {
-      store.setLoggedIn(true);
+      store.setWeb3AuthLoggedIn(true);
       store.setLoading(false);
       router.push({ name: "dashboard" });
+    } else {
+      throw new Error("Failed to connect");
     }
   } catch (error) {
-    console.log("Error", error);
+    console.log("Connection Error", error);
     store.setLoading(false);
   }
 }
 
 const logout = async () => {
-  if (web3auth.connected) {
-    await web3auth.logout();
+  try {
+    if (web3auth.connected) {
+      await web3auth.logout();
+    }
+    provider = null;
+    store.setWeb3AuthLoggedIn(false);
+    router.push({ name: "home" });
+  } catch (error) {
+    console.error("Logout error", error);
   }
-  provider = null;
-  store.setLoggedIn(false);
-  router.push({ name: "home" });
 };
 
 onMounted(async () => {
@@ -175,7 +181,7 @@ onMounted(async () => {
       provider = web3auth.provider;
 
       if (web3auth.connected) {
-        store.setLoggedIn(true);
+        store.setWeb3AuthLoggedIn(true);
       }
     } catch (error) {
       console.error("Error connecting to Web3Auth", error);
@@ -199,39 +205,67 @@ onMounted(async () => {
 .connect-wallet-button {
   width: auto;
   height: 55px;
+  display: flex;
+  flex-direction: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   color: $white;
   background-color: $grasp-blue;
   font-size: 18px;
   font-weight: bold;
   border: 1px solid $white;
   border-radius: 30px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
   transition: all 0.5s linear;
   cursor: pointer;
 
   &:hover {
     color: $grasp-cyan;
   }
+
+  img {
+    width: 24px;
+    margin: 0 auto;
+    @include breakpoint($break-sm) {
+      width: 22px;
+      margin: 0 auto;
+    }
+  }
 }
 
 .connect-wallet-small-button {
   width: auto;
   height: 35px;
+  display: flex;
+  flex-direction: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   color: $white;
   background-color: $grasp-blue;
   font-size: 16px;
   font-weight: 600;
   border: 1px solid $white;
   border-radius: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   margin-right: 15px;
   transition: all 0.5s linear;
   cursor: pointer;
 
   &:hover {
     color: $grasp-cyan;
+  }
+
+  img,
+  svg {
+    width: 20px;
+    background: transparent;
+    object-fit: contain;
+    overflow: hidden;
+    margin-right: 6px;
   }
 }
 </style>

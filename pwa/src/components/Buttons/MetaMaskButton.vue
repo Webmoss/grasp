@@ -18,7 +18,7 @@
     @click="logout()"
     :class="btnSize === 'large' ? 'connect-wallet-button' : 'connect-wallet-small-button'"
   >
-    Logout
+    <img src="@/assets/svgs/MetaMask.svg" /> Logout
   </button>
 </template>
 <script lang="ts" setup>
@@ -57,9 +57,9 @@ const connectWallet = async () => {
       return;
     }
 
-    const [accountAddress] = await ethereum.request({
+    const [accountAddress] = (await ethereum.request({
       method: "eth_requestAccounts",
-    }) as string;
+    })) as string;
 
     console.log("Metamask Account", accountAddress);
 
@@ -111,14 +111,19 @@ const logout = async () => {
 .connect-wallet-button {
   width: auto;
   height: 55px;
+  display: flex;
+  flex-direction: row nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
   color: $white;
   background-color: $grasp-blue;
   font-size: 18px;
   font-weight: bold;
   border: 1px solid $white;
   border-radius: 30px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
   transition: all 0.5s linear;
   cursor: pointer;
 
@@ -151,8 +156,8 @@ const logout = async () => {
   border: 1px solid $white;
   border-radius: 30px;
   margin-right: 15px;
-  padding-left: 11px;
-  padding-right: 11px;
+  padding-left: 10px;
+  padding-right: 10px;
   transition: all 0.5s linear;
   cursor: pointer;
 

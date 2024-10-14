@@ -27,8 +27,11 @@ export const useStore = defineStore({
   state: () => ({
     chainId: "",
     loggedIn: false,
+    web3AuthLoggedIn: false,
     account: "",
     balance: "",
+    web3AuthAccount: "",
+    web3AuthBalance: "",
     ethBalance: "",
     wethBalance: "",
     accountNfts: [] as tokenWrapperObject[],
@@ -91,11 +94,20 @@ export const useStore = defineStore({
     getLoggedIn(state) {
       return state.loggedIn;
     },
+    getWeb3AuthLoggedIn(state) {
+      return state.web3AuthLoggedIn;
+    },
     getAccount(state) {
       return state.account;
     },
+    getWeb3AuthAccount(state) {
+      return state.web3AuthAccount;
+    },
     getBalance(state) {
       return state.balance;
+    },
+    getWeb3AuthBalance(state) {
+      return state.web3AuthBalance;
     },
     getEthBalance(state) {
       return state.ethBalance;
@@ -252,11 +264,20 @@ export const useStore = defineStore({
     setLoggedIn(value: boolean) {
       this.loggedIn = value;
     },
+    setWeb3AuthLoggedIn(value: boolean) {
+      this.web3AuthLoggedIn = value;
+    },
     setAccount(account: string) {
       this.account = account;
     },
+    setWeb3AuthAccount(account: string) {
+      this.web3AuthAccount = account;
+    },
     setBalance(balance: string) {
       this.balance = balance;
+    },
+    setWeb3AuthBalance(balance: string) {
+      this.web3AuthBalance = balance;
     },
     updateEthBalance(balance: string) {
       this.ethBalance = balance;

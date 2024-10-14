@@ -232,6 +232,8 @@ import { ref, provide, onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { userObject } from "src/models/user";
+import { organisationObject } from "src/models/organisation";
 import { prettyName } from "@/services/prettyName";
 import { Notyf } from "notyf";
 
@@ -306,27 +308,24 @@ const showHideModal = () => {
   showModal.value = !showModal.value;
 };
 
-const fetchOrganisation = () => {
-  let filteredUser = testUsers.data.filter((user) => {
-    console.log("route.params.id", route.params.id);
-    // return user.id === (route.params.id as string);
-    return user.id === "3";
-  });
-  // console.log("filteredUser[0]", filteredUser[0]);
-  user.value = filteredUser[0];
-  // store.setUser(user.value);
-  // store.setUser(filteredUser[0] as any);
+async function fetchOrganisation() {
+  const userId = route.params.id || "1"; // DEV NOTE: Default to 1 for now
+  const filteredUser = testUsers.data.find((user) => user.id === userId);
 
-  let filteredOrganisation = testOrganisation.data.filter((organisation) => {
-    console.log("User OrgId", user.value.orgId);
-    return organisation.id === (user.value.orgId as string);
-  });
-  console.log("Organisation", filteredOrganisation[0]);
-  store.setOrganisation(filteredOrganisation[0] as any);
-};
+  if (filteredUser) {
+    store.setUser((filteredUser as unknown) as userObject);
 
-onMounted(() => {
-  fetchOrganisation();
+    const filteredOrganisation = testOrganisation.data.find(
+      (org) => org.id === filteredUser.orgId
+    );
+    if (filteredOrganisation) {
+      store.setOrganisation((filteredOrganisation as unknown) as organisationObject);
+    }
+  }
+}
+
+onMounted(async () => {
+  await fetchOrganisation();
 });
 </script>
 

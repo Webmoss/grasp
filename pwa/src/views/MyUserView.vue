@@ -283,7 +283,7 @@ const showHideModal = () => {
 };
 
 async function fetchUser() {
-  const userId = (route.params.id as string) || "3"; // Use route param if available, otherwise default to "3"
+  const userId = (route.params.id as string) || "1"; // DEV NOTE: Default to 1 for now
   const filteredUser = testUsers.data.find((user) => user.id === userId);
 
   if (filteredUser) {

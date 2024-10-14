@@ -73,7 +73,7 @@
         </div>
         <div class="right">
           <div class="connect-button-row">
-            <!-- <ConnectButton btnSize="small" /> -->
+            <ConnectButton btnSize="small" />
             <MetaMaskButton btnSize="small" />
           </div>
         </div>
@@ -86,7 +86,7 @@ import { computed } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
-// import ConnectButton from "@/components/Buttons/ConnectButton.vue";
+import ConnectButton from "@/components/Buttons/ConnectButton.vue";
 import MetaMaskButton from "@/components/Buttons/MetaMaskButton.vue";
 
 const route = useRoute();
