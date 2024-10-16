@@ -87,7 +87,7 @@ provide("notyf", NotfyProvider);
 const store = useStore();
 const { pagination, filter } = storeToRefs(store);
 
-const lessons = ref(testLessons.data as unknown as lessonObject[]);
+const lessons = ref((testLessons.data as unknown) as lessonObject[]);
 const showModal = ref(false);
 
 const showHideModal = () => {
@@ -102,7 +102,7 @@ if (!pagination.value.page) {
 const filteredLessons = computed(() => {
   let result = lessons.value;
 
-  if (filter.value.search_term && filter.value.search_term !== '') {
+  if (filter.value.search_term && filter.value.search_term !== "") {
     result = result.filter((lesson) =>
       lesson.title?.toLowerCase().includes(filter.value.search_term.toLowerCase())
     );
@@ -116,15 +116,20 @@ const filteredLessons = computed(() => {
   }
 
   if (filter.value.time_frame) {
-    console.log("Time frame", filter.value.time_frame);
     switch (filter.value.time_frame) {
-      case 'newest':
-        result.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
+      case "newest":
+        result.sort(
+          (a, b) =>
+            new Date(b.created_date).getTime() - new Date(a.created_date).getTime()
+        );
         break;
-      case 'oldest':
-        result.sort((a, b) => new Date(a.created_date).getTime() - new Date(b.created_date).getTime());
+      case "oldest":
+        result.sort(
+          (a, b) =>
+            new Date(a.created_date).getTime() - new Date(b.created_date).getTime()
+        );
         break;
-      case 'top-rated':
+      case "top-rated":
         result.sort((a, b) => b.sales - a.sales);
         break;
       // 'all' case doesn't need sorting
@@ -148,9 +153,13 @@ function handlePageChange(page: number) {
   pagination.value.page = page;
 }
 
-watch([filter, pagination], () => {
-  pagination.value.page = 1;
-}, { deep: true });
+watch(
+  [filter, pagination],
+  () => {
+    pagination.value.page = 1;
+  },
+  { deep: true }
+);
 
 onMounted(() => {
   store.setLessons(lessons.value);

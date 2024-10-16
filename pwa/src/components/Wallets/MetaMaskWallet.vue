@@ -130,12 +130,12 @@ const getTokenBalances = async (account: string) => {
         icon: new URL("../../assets/svgs/educhain-tokens/usdt.svg", import.meta.url).href,
       },
       // { address: '0xCef966528A867176BF3a575c9951f695e8eB77a3', symbol: 'ESD', decimals: 18, icon: new URL('../../assets/images/esd.webp', import.meta.url).href },
-      {
-        address: "0x81962760B26D4c2C6eD373F615310633abFd47c1",
-        symbol: "ADEX",
-        decimals: 18,
-        icon: new URL("../../assets/images/adexIcon.webp", import.meta.url).href,
-      },
+      // {
+      //   address: "0x81962760B26D4c2C6eD373F615310633abFd47c1",
+      //   symbol: "ADEX",
+      //   decimals: 18,
+      //   icon: new URL("../../assets/images/adexIcon.webp", import.meta.url).href,
+      // },
     ];
 
     const tokenBalances = await Promise.all(

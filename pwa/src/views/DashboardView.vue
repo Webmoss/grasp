@@ -158,8 +158,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeMount } from "vue";
-import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from "vue-router";
 import { courseObject } from "src/models/course";
 import { lessonObject } from "src/models/lesson";
@@ -190,8 +190,6 @@ const router = useRouter();
 const {
   loggedIn,
   web3AuthLoggedIn,
-  account,
-  web3AuthAccount,
   eduUsername,
   eduEthAddress,
   ocAccessToken,

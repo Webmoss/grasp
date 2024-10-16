@@ -4,10 +4,12 @@
       <SearchInput label="Nfts" />
       <DateSort class="hide-mobile" @sort-change="handleDateSort" />
       <CategorySort class="hide-mobile" @category-change="handleCategorySort" />
+      <ClearSearchButton class="hide-mobile" @clear-search="handleClearSearch" />
     </div>
     <div class="search-right">
       <DateSort class="show-mobile" @sort-change="handleDateSort" />
       <CategorySort class="show-mobile" @category-change="handleCategorySort" />
+      <ClearSearchButton class="show-mobile" @clear-search="handleClearSearch" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -22,6 +24,7 @@ import { useStore } from "@/store";
 import DateSort from "../Filters/DateSort.vue";
 import CategorySort from "../Filters/CategorySort.vue";
 import SearchInput from "../Filters/SearchInput.vue";
+import ClearSearchButton from "../Buttons/ClearSearchButton.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
@@ -34,6 +37,10 @@ const handleDateSort = (value: string) => {
 
 const handleCategorySort = (value: string) => {
   store.setSearchCategories(value);
+};
+
+const handleClearSearch = () => {
+  store.resetFilter();
 };
 </script>
 
@@ -58,7 +65,7 @@ section#nfts-search-bar {
   }
 
   .search-left {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -72,7 +79,6 @@ section#nfts-search-bar {
   }
 
   .search-right {
-    width: 10%;
     display: flex;
     flex-direction: row;
     align-content: center;

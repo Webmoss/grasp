@@ -1,6 +1,6 @@
 <template>
   <select
-    v-model="selected"
+    v-model="filter.time_frame"
     class="date-sort-by"
     name="date-sort"
     @change="sortByHandle($event)"
@@ -12,9 +12,14 @@
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
+import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
 
-const emit = defineEmits(['sort-change']);
-const selected = ref("top-rated");
+const store = useStore();
+const { filter } = storeToRefs(store);
+
+const emit = defineEmits(["sort-change"]);
+const selected = ref(filter.value.time_frame);
 
 const options = ref([
   { value: "top-rated", label: "Top Rated" },
@@ -28,7 +33,7 @@ const options = ref([
  */
 function sortByHandle(event: Event) {
   selected.value = (event.target as HTMLInputElement).value;
-  emit('sort-change', selected.value);
+  emit("sort-change", selected.value);
 }
 </script>
 

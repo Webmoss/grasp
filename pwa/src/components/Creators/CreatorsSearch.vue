@@ -3,11 +3,21 @@
     <div class="search-left">
       <SearchInput label="Creators" />
       <DateSort class="hide-mobile" @sort-change="handleDateSort" />
-      <TypeSort class="hide-mobile" @type-change="handleTypeSort" />
+      <TypeSort
+        class="hide-mobile"
+        v-model:selected="selectedType"
+        @type-change="handleTypeChange"
+      />
+      <ClearSearchButton class="hide-mobile" @clear-search="handleClearSearch" />
     </div>
     <div class="search-right">
       <DateSort class="show-mobile" @sort-change="handleDateSort" />
-      <TypeSort class="show-mobile" @type-change="handleTypeSort" />
+      <TypeSort
+        class="show-mobile"
+        v-model:selected="selectedType"
+        @type-change="handleTypeChange"
+      />
+      <ClearSearchButton class="show-mobile" @clear-search="handleClearSearch" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -18,22 +28,32 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "@/store";
 import DateSort from "../Filters/DateSort.vue";
 import TypeSort from "../Filters/TypeSort.vue";
 import SearchInput from "../Filters/SearchInput.vue";
+import ClearSearchButton from "../Buttons/ClearSearchButton.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
 
 const store = useStore();
 
+const selectedType = ref("");
+
 const handleDateSort = (value: string) => {
   store.setSearchDate(value);
 };
 
-const handleTypeSort = (value: string) => {
+const handleTypeChange = (value: string) => {
+  selectedType.value = value;
   store.setSearchTypes(value);
+};
+
+const handleClearSearch = () => {
+  selectedType.value = "";
+  store.resetFilter();
 };
 </script>
 
@@ -58,7 +78,7 @@ section#creators-search-bar {
   }
 
   .search-left {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -72,7 +92,6 @@ section#creators-search-bar {
   }
 
   .search-right {
-    width: 10%;
     display: flex;
     flex-direction: row;
     align-content: center;

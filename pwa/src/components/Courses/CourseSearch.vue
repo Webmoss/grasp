@@ -3,11 +3,21 @@
     <div class="search-left">
       <SearchInput label="Courses" />
       <DateSort class="hide-mobile" @sort-change="handleDateSort" />
-      <CategorySort class="hide-mobile" @category-change="handleCategorySort" />
+      <CategorySort
+        class="hide-mobile"
+        v-model:selected="selectedCategory"
+        @category-change="handleCategoryChange"
+      />
+      <ClearSearchButton class="hide-mobile" @clear-search="handleClearSearch" />
     </div>
     <div class="search-right">
       <DateSort class="show-mobile" @sort-change="handleDateSort" />
-      <CategorySort class="show-mobile" @category-change="handleCategorySort" />
+      <CategorySort
+        class="show-mobile"
+        v-model:selected="selectedCategory"
+        @category-change="handleCategoryChange"
+      />
+      <ClearSearchButton class="show-mobile" @clear-search="handleClearSearch" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -18,22 +28,32 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { useStore } from "@/store";
 import DateSort from "../Filters/DateSort.vue";
 import CategorySort from "../Filters/CategorySort.vue";
 import SearchInput from "../Filters/SearchInput.vue";
+import ClearSearchButton from "../Buttons/ClearSearchButton.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
 
 const store = useStore();
 
+const selectedCategory = ref("");
+
 const handleDateSort = (value: string) => {
   store.setSearchDate(value);
 };
 
-const handleCategorySort = (value: string) => {
+const handleCategoryChange = (value: string) => {
+  selectedCategory.value = value;
   store.setSearchCategories(value);
+};
+
+const handleClearSearch = () => {
+  selectedCategory.value = "";
+  store.resetFilter();
 };
 </script>
 
@@ -58,7 +78,7 @@ section#courses-search-bar {
   }
 
   .search-left {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -72,7 +92,6 @@ section#courses-search-bar {
   }
 
   .search-right {
-    width: 10%;
     display: flex;
     flex-direction: row;
     align-content: center;

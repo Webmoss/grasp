@@ -1,6 +1,6 @@
 <template>
   <select
-    v-model="selected"
+    :value="selected"
     class="pagination-sort-by"
     name="category"
     @change="sortByHandle($event)"
@@ -13,8 +13,11 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
-const emit = defineEmits(['category-change']);
-const selected = ref("");
+const emit = defineEmits(["category-change", "update:selected"]);
+
+defineProps<{
+  selected: string;
+}>();
 
 const options = ref([
   { value: "", label: "Choose Category" },
@@ -40,8 +43,9 @@ const options = ref([
  * * Update our Course Category and Pagination in Store
  */
 function sortByHandle(event: Event) {
-  selected.value = (event.target as HTMLInputElement).value;
-  emit('category-change', selected.value);
+  const value = (event.target as HTMLSelectElement).value;
+  emit("update:selected", value);
+  emit("category-change", value);
 }
 </script>
 
