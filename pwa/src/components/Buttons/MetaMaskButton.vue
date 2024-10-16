@@ -52,48 +52,58 @@ const connectWallet = async () => {
   store.setLoading(true);
   try {
     const { ethereum } = window;
-    if (!ethereum && !ethereum.isMetaMask) {
-      alert("Please connect 🦊 Metamask to continue!");
+    if (!ethereum || !ethereum.isMetaMask) {
+      alert("Please install or enable MetaMask to continue!");
+      store.setLoading(false);
       return;
     }
 
-    const [accountAddress] = (await ethereum.request({
+    const [accountAddress] = await ethereum.request({
       method: "eth_requestAccounts",
-    })) as string;
+    });
 
-    console.log("Metamask Account", accountAddress);
+    console.log("Connected MetaMask Account:", accountAddress);
 
     if (accountAddress) {
       store.setAccount(accountAddress);
       store.setLoggedIn(true);
-      router.push({ name: "dashboard" });
+      await router.push({ name: "dashboard" });
+    } else {
+      console.warn("No account selected in MetaMask");
     }
-    store.setLoading(false);
   } catch (error) {
-    console.log("Error", error);
+    console.error("MetaMask connection error:", error);
+    alert("Failed to connect to MetaMask. Please try again.");
+  } finally {
     store.setLoading(false);
   }
 };
 
 const logout = async () => {
   try {
-    // const { ethereum } = window;
-    // if (!ethereum && !ethereum.isMetaMask) {
-    //   alert("Please connect 🦊 Metamask to continue!");
-    //   return;
-    // }
+    const { ethereum } = window;
+    if (!ethereum || !ethereum.isMetaMask) {
+      console.warn("MetaMask is not detected");
+    } else {
+      /* Request to disconnect from MetaMask */
+      // await ethereum.request({
+      //   method: "wallet_requestPermissions",
+      //   params: [{ eth_accounts: {} }]
+      // });
 
-    // const [accountAddress] = await ethereum.request({
-    //   method: "eth_requestAccounts",
-    // });
+      /* Clear the selected account */
+      await ethereum.request({
+        method: "eth_requestAccounts",
+        params: [{ eth_accounts: {} }]
+      });
+    }
 
-    // console.log("Metamask Account Address", accountAddress);
-
+    /* Clear local state */
     store.setAccount("");
     store.setLoggedIn(false);
     router.push({ name: "home" });
   } catch (error) {
-    console.log("Error", error);
+    console.error("Logout Error", error);
   }
 };
 </script>

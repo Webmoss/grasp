@@ -1,11 +1,13 @@
 <template>
-  <section id="nfts-search-bar">
+  <section id="courses-search-bar">
     <div class="search-left">
-      <NftsSearchInput />
-      <NftsSortBy class="hide-mobile" />
+      <SearchInput label="Courses" />
+      <DateSort class="hide-mobile" @sort-change="handleDateSort" />
+      <CategorySort class="hide-mobile" @category-change="handleCategorySort" />
     </div>
     <div class="search-right">
-      <NftsSortBy class="show-mobile" />
+      <DateSort class="show-mobile" @sort-change="handleDateSort" />
+      <CategorySort class="show-mobile" @category-change="handleCategorySort" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -16,18 +18,30 @@
 </template>
 
 <script setup lang="ts">
-import NftsSortBy from "../NftsComponents/NftsSortBy.vue";
-import NftsSearchInput from "../NftsComponents/NftsSearchInput.vue";
+import { useStore } from "@/store";
+import DateSort from "../Filters/DateSort.vue";
+import CategorySort from "../Filters/CategorySort.vue";
+import SearchInput from "../Filters/SearchInput.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
+
+const store = useStore();
+
+const handleDateSort = (value: string) => {
+  store.setSearchDate(value);
+};
+
+const handleCategorySort = (value: string) => {
+  store.setSearchCategories(value);
+};
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
 
-section#nfts-search-bar {
+section#courses-search-bar {
   display: flex;
   flex-direction: row;
   align-content: center;

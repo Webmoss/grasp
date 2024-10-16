@@ -6,4 +6,3 @@ export const copyClipboard = (value: string) => {
   document.execCommand("copy");
   textArea.remove();
 }
-

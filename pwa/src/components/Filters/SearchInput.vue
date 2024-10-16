@@ -1,14 +1,14 @@
 <template>
-  <div class="search-collection-input">
+  <div class="search-input">
     <div class="search-icon">
       <img src="../../assets/svgs/SearchIcon.svg" height="24" />
     </div>
     <input
       v-model="filter.search_term"
-      name="searchCollectionInput"
+      name="searchInput"
       type="text"
       class="search-input"
-      placeholder="Search Creators"
+      :placeholder="`Search ${label}`"
       @change="searchHandle($event)"
     />
     <button class="search-clear-button" title="Clear search" @click="clearSearchTerm()">
@@ -22,6 +22,13 @@ import { storeToRefs } from "pinia";
 
 const store = useStore();
 const { filter } = storeToRefs(store);
+
+defineProps({
+  label: {
+    type: String,
+    default: 'Courses'
+  }
+});
 
 /**
  * Update our Filter Search Term in Store
@@ -42,7 +49,7 @@ function clearSearchTerm() {
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
 
-.search-collection-input {
+.search-input {
   width: 100%;
   display: flex;
   flex-direction: row;

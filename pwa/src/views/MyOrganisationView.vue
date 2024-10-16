@@ -241,7 +241,7 @@ import { Notyf } from "notyf";
 import SidebarView from "@/components/SidebarView.vue";
 import UsersList from "@/components/Admin/UsersList.vue";
 import ActivityList from "@/components/Admin/ActivityList.vue";
-import UserModal from "@/components/UserComponents/UserModal.vue";
+import UserModal from "@/components/User/UserModal.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";

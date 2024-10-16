@@ -1,6 +1,11 @@
 <template>
   <div class="my-balance-box">
-    <h2>Account</h2>
+    <h2>
+      Account
+      <button class="refresh-button" @click="refreshBalances()">
+        <img src="../../assets/svgs/Refresh.svg" alt="Refresh" />
+      </button>
+    </h2>
     <div class="my-account">
       <div class="account-address">
         {{ formattedAccount }}
@@ -15,15 +20,20 @@
           {{ truncatedBalance }}</span
         >
       </div>
-      <button class="refresh-button" @click="checkEDUBalance(account)">
-        <img src="../../assets/svgs/Refresh.svg" />
-      </button>
+    </div>
+    <div class="token-list">
+      <div class="token-list">
+        <div v-for="token in filteredTokens" :key="token.address" class="token-item">
+          <img :src="`${token.icon}`" :alt="token.symbol" />
+          <span>{{ token.balance }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { ref, Ref, computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { copyClipboard } from "@/services/copyClipboard";
@@ -32,9 +42,19 @@ import { truncateAddress } from "@/services/truncateAddress";
 import { ethers } from "ethers";
 
 const store = useStore();
-
 const { loggedIn, account, balance } = storeToRefs(store);
 
+interface Token {
+  balance: string;
+  address: string;
+  symbol: string;
+  decimals: number;
+  icon: string;
+}
+
+const tokens: Ref<Token[]> = ref([]);
+
+const filteredTokens = computed(() => tokens.value.filter(token => parseFloat(token.balance) > 0));
 const formattedAccount = computed(() => formatAddress(account.value));
 const truncatedBalance = computed(() => truncateAddress(balance.value, 10));
 
@@ -42,7 +62,6 @@ const truncatedBalance = computed(() => truncateAddress(balance.value, 10));
  * Get Account EDU Balance
  */
 const checkEDUBalance = async (account: string) => {
-  console.log("checkEDUBalance", account);
   try {
     const { ethereum } = window;
     if (!ethereum) {
@@ -55,6 +74,46 @@ const checkEDUBalance = async (account: string) => {
     store.setBalance(eduBalance);
   } catch (error) {
     console.log(error);
+  }
+};
+
+/**
+ * Get EDU Chain Tokens & Balance
+ */
+const getTokenBalances = async (account: string) => {
+  try {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log(`Please connect 🦊 Metamask to continue!`);
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(ethereum);
+
+    const tokenList = [
+      { address: '0xbe52762D8D68d183C7Cf4BB3e2aaa312e47C7084', symbol: 'WEDU', decimals: 18, icon: new URL('../../assets/svgs/EduCoin.svg', import.meta.url).href },
+      { address: '0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C', symbol: 'USDC', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/usdc.svg', import.meta.url).href },
+      { address: '0xeDFa3e28953bA25173baF11160D4aD435ec002b5', symbol: 'USDT', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/usdt.svg', import.meta.url).href },
+      { address: '0x06D837C1a3D8A86E82B676ACE6BDFAf4A51CD77D', symbol: 'Sail', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/sail.svg', import.meta.url).href },
+      { address: '0x2c2800995F2a8137EB9dd3Bfe88FABbBAe8b4958', symbol: 'veSail', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/vesail.svg', import.meta.url).href },
+      { address: '0x3eB2Eb8E2a0E26BEf3Dc3E78289Be7343355FeBC', symbol: 'GRASP', decimals: 18, icon: new URL('../../assets/images/Grasp-Icon.png', import.meta.url).href },
+      { address: '0xCef966528A867176BF3a575c9951f695e8eB77a3', symbol: 'ESD', decimals: 18, icon: new URL('../../assets/images/esd.webp', import.meta.url).href },
+      { address: '0x81962760B26D4c2C6eD373F615310633abFd47c1', symbol: 'ADEX', decimals: 18, icon: new URL('../../assets/images/adexIcon.webp', import.meta.url).href },
+    ];
+
+    const tokenBalances = await Promise.all(tokenList.map(async (token) => {
+      const contract = new ethers.Contract(token.address, ['function balanceOf(address) view returns (uint256)'], provider);
+      const balance = await contract.balanceOf(account);
+      const formattedBalance = ethers.utils.formatUnits(balance, token.decimals);
+      console.log("Token: ", token.symbol, formattedBalance);
+      return {
+        ...token,
+        balance: parseFloat(formattedBalance) > 0.000001 ? parseFloat(formattedBalance).toFixed(6) : '0'
+      };
+    }));
+
+    tokens.value = tokenBalances;
+  } catch (error) {
+    console.error('Error fetching token balances:', error);
   }
 };
 
@@ -74,11 +133,16 @@ const checkIfWalletIsConnected = async () => {
     /* Update our Current Account in the Store */
     if (accounts.length !== 0) {
       store.setAccount(accounts[0]);
-      /* Get our Account EDU Balance */
-      await checkEDUBalance(accounts[0]);
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+const refreshBalances = async () => {
+  if (account.value) {
+    await checkEDUBalance(account.value);
+    await getTokenBalances(account.value);
   }
 };
 
@@ -89,6 +153,7 @@ onMounted(async () => {
       if (loggedIn.value) {
         console.log("MetaMask Connected", loggedIn.value);
         await checkIfWalletIsConnected();
+        await refreshBalances();
       }
     } catch (error) {
       console.error(error);
@@ -114,10 +179,13 @@ onMounted(async () => {
   border: 0.5px solid $grey-50;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
   padding: 16px;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 
   h2 {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: $white;
     font-size: 19px;
     font-weight: 600;
@@ -127,6 +195,34 @@ onMounted(async () => {
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 0 0 8px 0;
+
+    .refresh-button {
+      width: auto;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      color: $grasp-blue;
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: -6px;
+      margin-left: 4px;
+      margin-bottom: 0;
+      cursor: pointer;
+
+      img,
+      svg {
+        width: 24px;
+        background: transparent;
+        object-fit: contain;
+        overflow: hidden;
+        margin-right: 0;
+        margin-left: 4px;
+      }
+    }
   }
 
   .my-account {
@@ -208,8 +304,8 @@ onMounted(async () => {
       align-items: center;
       justify-content: center;
       color: $white;
-      font-size: 19px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     img,
@@ -220,34 +316,29 @@ onMounted(async () => {
       overflow: hidden;
       margin-right: 8px;
     }
+  }
+}
 
-    .refresh-button {
-      width: auto;
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      align-items: center;
-      justify-content: center;
-      color: $grasp-blue;
-      background: transparent;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      margin-right: -6px;
-      margin-left: 4px;
-      margin-bottom: 0;
-      cursor: pointer;
+.token-list {
+  width: 100%;
+}
 
-      img,
-      svg {
-        width: 24px;
-        background: transparent;
-        object-fit: contain;
-        overflow: hidden;
-        margin-right: 0;
-        margin-left: 4px;
-      }
-    }
+.token-item {
+  display: flex;
+  align-items: center;
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+
+  img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: $white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
   }
 }
 </style>

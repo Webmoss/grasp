@@ -1,8 +1,8 @@
 <template>
   <select
     v-model="selected"
-    class="pagination-sort-by"
-    name="category"
+    class="type-sort-by"
+    name="type"
     @change="sortByHandle($event)"
   >
     <option v-for="option in options" :key="option.value" :value="option.value">
@@ -12,37 +12,26 @@
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useStore } from "@/store";
 
-const store = useStore();
+const emit = defineEmits(['type-change']);
 const selected = ref("");
 
 const options = ref([
-  { value: "", label: "Choose Category" },
-  { value: "animation", label: "Animation" },
-  { value: "ai", label: "Artificial Intelligence" },
-  { value: "architecture", label: "Architecture & Spaces" },
-  { value: "craft", label: "Craft" },
-  { value: "education", label: "Education" },
-  { value: "engineering", label: "Engineering" },
-  { value: "fashion", label: "Fashion" },
-  { value: "illustration", label: "Illustration" },
-  { value: "marketing", label: "Marketing & Business" },
-  { value: "music", label: "Music & Audio" },
-  { value: "photography", label: "Photography" },
-  { value: "video", label: "Video" },
-  { value: "development", label: "Software Development" },
-  { value: "web3", label: "Web3" },
-  { value: "writing", label: "Writing" },
+  { value: "", label: "Choose Profile Type" },
+  { value: "guest", label: "Guest" },
+  { value: "creator", label: "Creator" },
+  { value: "educator", label: "Educator" },
+  { value: "professor", label: "Professor" },
+  { value: "student", label: "Student" },
   { value: "other", label: "Other" },
 ]);
 
 /**
- * * Update our NFT Category and Pagination in Store
+ * * Update our User Type and Pagination in Store
  */
 function sortByHandle(event: Event) {
   selected.value = (event.target as HTMLInputElement).value;
-  store.setSearchCategories((event.target as HTMLInputElement).value);
+  emit('type-change', selected.value);
 }
 </script>
 
@@ -50,7 +39,7 @@ function sortByHandle(event: Event) {
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
 
-select.pagination-sort-by {
+select.type-sort-by {
   color: $grey-60;
   background: $white;
   border: 0.5px solid $grey-50;

@@ -121,8 +121,9 @@
             </div>
           </div>
 
-          <MetaMaskWallet />
-          <Web3AuthWallet />
+          <MetaMaskWallet v-if="loggedIn" />
+          <Web3AuthWallet v-if="web3AuthLoggedIn" />
+          <EduStakingWallet />
 
           <div class="my-sales-box">
             <h2>Total Income</h2>
@@ -156,8 +157,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, provide, onMounted, onBeforeMount } from "vue";
-import { Notyf } from "notyf";
+import { ref, computed, onMounted, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { useRoute, useRouter } from "vue-router";
@@ -172,6 +172,7 @@ import OCIDButton from "@/components/Buttons/OCIDButton.vue";
 import ViewNFTButton from "@/components/Buttons/ViewNFTButton.vue";
 import MetaMaskWallet from "@/components/Wallets/MetaMaskWallet.vue";
 import Web3AuthWallet from "@/components/Wallets/Web3AuthWallet.vue";
+import EduStakingWallet from "@/components/Wallets/EduStakingWallet.vue";
 
 /* All Data stored in a JSON for now */
 import testCourses from "../data/courses.json";
@@ -200,47 +201,6 @@ const {
 const tab = ref("courses");
 const sales = ref(0);
 const percentage = ref(0);
-
-const NotfyProvider = new Notyf({
-  duration: 2000,
-  position: {
-    x: "center",
-    y: "bottom",
-  },
-  types: [
-    {
-      type: "loading",
-      background: "orange",
-      duration: 0,
-      dismissible: true,
-      icon: {
-        className: "icon icon-loading",
-        tagName: "i",
-      },
-    },
-    {
-      type: "success",
-      background: "green",
-      duration: 20000,
-      dismissible: true,
-      icon: {
-        className: "icon icon-success",
-        tagName: "i",
-      },
-    },
-    {
-      type: "error",
-      background: "indianred",
-      duration: 10000,
-      dismissible: true,
-      icon: {
-        className: "icon icon-error",
-        tagName: "i",
-      },
-    },
-  ],
-});
-provide("notyf", NotfyProvider);
 
 const formattedEduEthAddress = computed(() => formatAddress(eduEthAddress.value));
 
@@ -689,7 +649,7 @@ onBeforeMount(async () => {
     border: 0.5px solid $grey-50;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     padding: 16px;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
 
     .open-campus {
       width: 100%;
@@ -793,7 +753,7 @@ onBeforeMount(async () => {
     border: 0.5px solid $grey-50;
     box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
     padding: 16px;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
 
     h2 {
       width: 100%;

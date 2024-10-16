@@ -1,8 +1,8 @@
 <template>
-  <div class="course-page">
-    <div :class="`${gridView}-course-list`">
-      <template v-for="(course, i) in courses" :key="i">
-        <CourseCard :course="course" :grid-view="gridView" />
+  <div class="nft-page">
+    <div :class="`${gridView}-nft-list`">
+      <template v-for="(nft, i) in nfts" :key="i">
+        <NftCard :nft="nft" :grid-view="gridView" />
       </template>
     </div>
   </div>
@@ -11,19 +11,19 @@
 <script setup lang="ts">
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { courseObject } from "src/models/course";
-import CourseCard from "../CoursesComponents/CourseCard.vue";
+import { metadataObject } from "src/models/metadata";
+import NftCard from "../Nfts/NftCard.vue";
 
 const store = useStore();
 const { gridView } = storeToRefs(store);
 
 export interface Props {
-  courses?: [];
+  nfts?: [];
 }
 
 defineProps({
-  courses: {
-    type: Array<courseObject>,
+  nfts: {
+    type: Array<metadataObject>,
     default: null,
   },
 });
@@ -33,18 +33,18 @@ defineProps({
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
-.course-page {
+.nft-page {
   position: relative;
   height: auto;
   overflow: scroll;
 
   @include breakpoint($break-sm) {
-    width: 94%;
-    padding: 0 3%;
+    width: 90%;
+    padding: 0 5%;
   }
 }
 
-.list-course-list {
+.list-nft-list {
   width: 100%;
   max-width: $max-width;
   display: grid;
@@ -69,7 +69,7 @@ defineProps({
   }
 }
 
-.grid-course-list {
+.grid-nft-list {
   width: 100%;
   max-width: $max-width;
   display: grid;
@@ -94,7 +94,7 @@ defineProps({
   }
 }
 
-.full-course-list {
+.full-nft-list {
   width: 100%;
   max-width: $max-width;
   display: grid;

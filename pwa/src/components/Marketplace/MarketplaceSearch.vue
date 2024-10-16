@@ -1,11 +1,12 @@
 <template>
-  <section id="lessons-search-bar">
+  <section id="marketplace-search-bar">
     <div class="search-left">
-      <LessonsSearchInput />
-      <LessonsSortBy class="hide-mobile" />
+      <MarketplaceFilterButton />
+      <MarketplacesSearchInput />
+      <MarketplacesSortBy class="hide-mobile" />
     </div>
     <div class="search-right">
-      <LessonsSortBy class="show-mobile" />
+      <MarketplacesSortBy class="show-mobile" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -16,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import LessonsSortBy from "../LessonsComponents/LessonsSortBy.vue";
-import LessonsSearchInput from "../LessonsComponents/LessonsSearchInput.vue";
+import MarketplaceFilterButton from "../Marketplace/MarketplaceFilterButton.vue";
+import MarketplacesSortBy from "../Marketplace/MarketplacesSortBy.vue";
+import MarketplacesSearchInput from "../Marketplace/MarketplacesSearchInput.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
@@ -27,7 +29,7 @@ import FullViewButton from "../Buttons/FullViewButton.vue";
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
 
-section#lessons-search-bar {
+section#marketplace-search-bar {
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -44,7 +46,7 @@ section#lessons-search-bar {
   }
 
   .search-left {
-    width: 90%;
+    width: 88%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -52,13 +54,13 @@ section#lessons-search-bar {
     justify-content: center;
 
     @include breakpoint($break-sm) {
-      width: 94%;
-      margin: 0 3% 16px;
+      width: 98%;
+      margin: 0 1% 16px;
     }
   }
 
   .search-right {
-    width: 10%;
+    width: 12%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -66,8 +68,8 @@ section#lessons-search-bar {
     justify-content: center;
 
     @include breakpoint($break-sm) {
-      width: 94%;
-      margin: 0 3%;
+      width: 98%;
+      margin: 0 1%;
       justify-content: space-between;
     }
   }

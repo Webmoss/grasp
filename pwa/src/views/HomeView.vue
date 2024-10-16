@@ -15,15 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import IntroSection from "@/components/HomeComponents/IntroSection.vue";
-import EarnLearn from "@/components/HomeComponents/EarnLearn.vue";
-import LearningManagement from "@/components/HomeComponents/LearningManagement.vue";
-import OpenCampus from "@/components/HomeComponents/OpenCampus.vue";
-import GoPlus from "@/components/HomeComponents/GoPlus.vue";
-import RoadMap from "@/components/HomeComponents/RoadMap.vue";
-import Tokenomics from "@/components/HomeComponents/Tokenomics.vue";
-import EduChain from "@/components/HomeComponents/EduChain.vue";
-import FooterSection from "@/components/HomeComponents/FooterSection.vue";
+import IntroSection from "@/components/Home/IntroSection.vue";
+import EarnLearn from "@/components/Home/EarnLearn.vue";
+import LearningManagement from "@/components/Home/LearningManagement.vue";
+import OpenCampus from "@/components/Home/OpenCampus.vue";
+import GoPlus from "@/components/Home/GoPlus.vue";
+import RoadMap from "@/components/Home/RoadMap.vue";
+import Tokenomics from "@/components/Home/Tokenomics.vue";
+import EduChain from "@/components/Home/EduChain.vue";
+import FooterSection from "@/components/Home/FooterSection.vue";
 </script>
 
 <style lang="scss" scoped>

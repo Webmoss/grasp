@@ -153,6 +153,7 @@ async function connect() {
       store.setLoading(false);
       router.push({ name: "dashboard" });
     } else {
+      store.setLoading(false);
       throw new Error("Failed to connect");
     }
   } catch (error) {

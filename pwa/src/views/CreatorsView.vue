@@ -3,69 +3,81 @@
     <div class="main">
       <CreatorsBanner />
       <CreatorsSearch />
-      <CreatorsList :creators="creators" />
-      <CreatorsPagination
-        :pagination="pagination"
-        :total="total"
+      <CreatorsList :creators="paginatedCreators" />
+      <Pagination
+        :current-page="pagination.page"
         :last-page="lastPage"
+        @page-changed="handlePageChange"
       />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, watch } from "vue";
-import { storeToRefs } from "pinia";
+import { ref, computed, onMounted, watch } from "vue";
 import { useStore } from "@/store";
-import { creatorObject } from "src/models/creator";
+import { storeToRefs } from "pinia";
+import { userObject } from "@/models/user";
+import { initialPagination } from "@/models/initialPagination";
 
 /* Components */
-import CreatorsBanner from "../components/CreatorsComponents/CreatorsBanner.vue";
-import CreatorsSearch from "../components/CreatorsComponents/CreatorsSearch.vue";
-import CreatorsList from "../components/CreatorsComponents/CreatorsList.vue";
-import CreatorsPagination from "../components/CreatorsComponents/CreatorsPagination.vue";
+import CreatorsBanner from "@/components/Creators/CreatorsBanner.vue";
+import CreatorsSearch from "@/components/Creators/CreatorsSearch.vue";
+import CreatorsList from "@/components/Creators/CreatorsList.vue";
+import Pagination from "@/components/Filters/Pagination.vue";
 
 /* All Posts stored in a JSON */
-import testCreators from "../data/creators.json";
+import testUsers from "../data/users.json";
 
 const store = useStore();
-const { creators, pagination, filter } = storeToRefs(store);
+const { pagination, filter } = storeToRefs(store);
 
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
+const creators = ref(testUsers.data as unknown as userObject[]);
 
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
-const total = computed(() => {
-  return creators.value ? creators.value.length : 0;
-});
-
-async function fetchCreators() {
-  if(filter.value.search_term !== '') {
-    let filteredCreators = testCreators.data.filter((creator) => {
-      return creator.name.toLowerCase().includes(filter.value.search_term.toLowerCase());
-    });
-    store.setCreators((filteredCreators as unknown) as creatorObject[]);
-  } else {
-    store.setCreators((testCreators.data as unknown) as creatorObject[]);
-  }
+// Initialize pagination if not already set
+if (!pagination.value.page) {
+  pagination.value = initialPagination();
 }
 
-watch(shouldGetData, (newValue) => {
-  if (newValue) {
-    fetchCreators();
+const filteredCreators = computed(() => {
+  let result = creators.value;
+
+  if (filter.value.search_term && filter.value.search_term !== '') {
+    result = result.filter((creator) =>
+      creator.name?.toLowerCase().includes(filter.value.search_term.toLowerCase())
+    );
   }
-  lastSearchTerm.value = newSearchTerm.value as string;
+
+  if (filter.value.search_types && filter.value.search_types.length > 0) {
+    console.log("Search User Type", filter.value.search_types);
+    result = result.filter((user) =>
+      filter.value.search_types.includes(user.type)
+    );
+  }
+  // Add more filters here if needed
+
+  return result;
 });
 
-onBeforeMount(async () => {
-  await fetchCreators();
+const lastPage = computed(() => Math.ceil(total.value / pagination.value.pageSize));
+const total = computed(() => filteredCreators.value.length);
+
+const paginatedCreators = computed(() => {
+  const start = (pagination.value.page - 1) * pagination.value.pageSize;
+  const end = start + pagination.value.pageSize;
+  return filteredCreators.value.slice(start, end);
+});
+
+function handlePageChange(page: number) {
+  pagination.value.page = page;
+}
+
+watch([filter, pagination], () => {
+  pagination.value.page = 1;
+}, { deep: true });
+
+onMounted(() => {
+  store.setCreators(creators.value);
 });
 </script>
 

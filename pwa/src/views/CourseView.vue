@@ -109,7 +109,7 @@ import { useRoute } from "vue-router";
 import { lessonObject } from "src/models/lesson";
 
 /* Components */
-import CourseHeader from "@/components/CoursesComponents/CourseHeader.vue";
+import CourseHeader from "@/components/Courses/CourseHeader.vue";
 import BuyButton from "@/components/Buttons/BuyButton.vue";
 
 /* All Posts stored in a JSON */

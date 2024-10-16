@@ -1,12 +1,13 @@
 <template>
-  <section id="marketplace-search-bar">
+  <section id="creators-search-bar">
     <div class="search-left">
-      <MarketplaceFilterButton />
-      <MarketplacesSearchInput />
-      <MarketplacesSortBy class="hide-mobile" />
+      <SearchInput label="Creators" />
+      <DateSort class="hide-mobile" @sort-change="handleDateSort" />
+      <TypeSort class="hide-mobile" @type-change="handleTypeSort" />
     </div>
     <div class="search-right">
-      <MarketplacesSortBy class="show-mobile" />
+      <DateSort class="show-mobile" @sort-change="handleDateSort" />
+      <TypeSort class="show-mobile" @type-change="handleTypeSort" />
       <div class="grid-buttons">
         <ListViewButton />
         <GridViewButton />
@@ -17,19 +18,30 @@
 </template>
 
 <script setup lang="ts">
-import MarketplaceFilterButton from "../MarketplaceComponents/MarketplaceFilterButton.vue";
-import MarketplacesSortBy from "../MarketplaceComponents/MarketplacesSortBy.vue";
-import MarketplacesSearchInput from "../MarketplaceComponents/MarketplacesSearchInput.vue";
+import { useStore } from "@/store";
+import DateSort from "../Filters/DateSort.vue";
+import TypeSort from "../Filters/TypeSort.vue";
+import SearchInput from "../Filters/SearchInput.vue";
 import ListViewButton from "../Buttons/ListViewButton.vue";
 import GridViewButton from "../Buttons/GridViewButton.vue";
 import FullViewButton from "../Buttons/FullViewButton.vue";
+
+const store = useStore();
+
+const handleDateSort = (value: string) => {
+  store.setSearchDate(value);
+};
+
+const handleTypeSort = (value: string) => {
+  store.setSearchTypes(value);
+};
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/mixins.scss";
 
-section#marketplace-search-bar {
+section#creators-search-bar {
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -46,7 +58,7 @@ section#marketplace-search-bar {
   }
 
   .search-left {
-    width: 88%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -54,13 +66,13 @@ section#marketplace-search-bar {
     justify-content: center;
 
     @include breakpoint($break-sm) {
-      width: 98%;
-      margin: 0 1% 16px;
+      width: 94%;
+      margin: 0 3% 16px;
     }
   }
 
   .search-right {
-    width: 12%;
+    width: 10%;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -68,8 +80,8 @@ section#marketplace-search-bar {
     justify-content: center;
 
     @include breakpoint($break-sm) {
-      width: 98%;
-      margin: 0 1%;
+      width: 94%;
+      margin: 0 3%;
       justify-content: space-between;
     }
   }

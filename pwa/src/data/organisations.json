@@ -23,8 +23,8 @@
       "discord": { "title": "", "url": "", "alt": "Dicord Username", "icon": "discord" },
       "telegram": { "title": "", "url": "", "alt": "Telegram Username", "icon": "telegram" },
       "linkedin": { "title": "", "url": "", "alt": "LinkedIn Profile", "icon": "linkedin" },
-      "created_date": "15/07/2024",
-      "updated_date": "17/07/2024",
+      "created_date": "2024-06-25",
+      "updated_date": "2024-07-15",
       "enabled": true,
       "verified": false,
       "blocked": false
@@ -51,8 +51,8 @@
       "discord": { "title": "OpenU Community", "url": "https://discord.gg/openuniversity", "alt": "Discord Server", "icon": "discord" },
       "telegram": { "title": "", "url": "", "alt": "Telegram Username", "icon": "telegram" },
       "linkedin": { "title": "open-university", "url": "https://www.linkedin.com/school/open-university/", "alt": "LinkedIn Profile", "icon": "linkedin" },
-      "created_date": "01/01/2023",
-      "updated_date": "15/06/2024",
+      "created_date": "2024-07-01",
+      "updated_date": "2024-07-15",
       "enabled": true,
       "verified": true,
       "blocked": false
@@ -79,8 +79,8 @@
       "discord": { "title": "TechEd Community", "url": "https://discord.gg/techedsolutions", "alt": "Discord Server", "icon": "discord" },
       "telegram": { "title": "@TechEdSolutionsOfficial", "url": "https://t.me/TechEdSolutionsOfficial", "alt": "Telegram Channel", "icon": "telegram" },
       "linkedin": { "title": "techedsolutions", "url": "https://www.linkedin.com/company/techedsolutions/", "alt": "LinkedIn Profile", "icon": "linkedin" },
-      "created_date": "10/03/2024",
-      "updated_date": "20/07/2024",
+      "created_date": "2024-07-10",
+      "updated_date": "2024-07-20",
       "enabled": true,
       "verified": true,
       "blocked": false

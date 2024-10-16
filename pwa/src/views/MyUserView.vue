@@ -216,7 +216,7 @@ import { Notyf } from "notyf";
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
 import ActivityList from "@/components/Admin/ActivityList.vue";
-import OrganisationModal from "@/components/OrganisationComponents/OrganisationModal.vue";
+import OrganisationModal from "@/components/Organisation/OrganisationModal.vue";
 
 /* All Posts stored in a JSON */
 import testUsers from "../data/users.json";

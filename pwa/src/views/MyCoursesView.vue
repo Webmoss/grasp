@@ -13,11 +13,11 @@
       </div>
       <div class="main">
         <CourseSearch />
-        <CoursesList :courses="courses" />
-        <CoursesPagination
-          :pagination="pagination"
-          :total="total"
+        <CoursesList :courses="paginatedCourses" />
+        <Pagination
+          :current-page="pagination.page"
           :last-page="lastPage"
+          @page-changed="handlePageChange"
         />
       </div>
     </div>
@@ -26,18 +26,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeMount, provide, watch } from "vue";
+import { ref, computed, onMounted, watch, provide } from "vue";
 import { Notyf } from "notyf";
-import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
+import { storeToRefs } from "pinia";
 import { courseObject } from "src/models/course";
+import { initialPagination } from "@/models/initialPagination";
 
 /* Components */
 import SidebarView from "@/components/SidebarView.vue";
-import CourseSearch from "@/components/CoursesComponents/CourseSearch.vue";
-import CoursesList from "@/components/CoursesComponents/CoursesList.vue";
-import CoursesPagination from "@/components/CoursesComponents/CoursesPagination.vue";
-import CourseModal from "@/components/CoursesComponents/CourseModal.vue";
+import CourseSearch from "@/components/Courses/CourseSearch.vue";
+import CoursesList from "@/components/Courses/CoursesList.vue";
+import Pagination from "@/components/Filters/Pagination.vue";
+import CourseModal from "@/components/Courses/CourseModal.vue";
 
 /* All Posts stored in a JSON */
 import testCourses from "../data/courses.json";
@@ -84,47 +85,74 @@ const NotfyProvider = new Notyf({
 provide("notyf", NotfyProvider);
 
 const store = useStore();
-const { courses, pagination, filter } = storeToRefs(store);
+const { pagination, filter } = storeToRefs(store);
 
+const courses = ref(testCourses.data as unknown as courseObject[]);
 const showModal = ref(false);
-const lastPage = ref(1);
-const lastSearchTerm = ref("");
-
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
-const total = computed(() => {
-  return courses.value ? courses.value.length : 0;
-});
 
 const showHideModal = () => {
   showModal.value = !showModal.value;
 };
 
-async function fetchCourses() {
-  if (filter.value.search_term !== "") {
-    let filteredCourses = testCourses.data.filter((course) => {
-      return course.title.toLowerCase().includes(filter.value.search_term.toLowerCase());
-    });
-    store.setCourses((filteredCourses as unknown) as courseObject[]);
-  } else {
-    store.setCourses((testCourses.data as unknown) as courseObject[]);
-  }
+// Initialize pagination if not already set
+if (!pagination.value.page) {
+  pagination.value = initialPagination();
 }
 
-watch(shouldGetData, async (newValue) => {
-  if (newValue) {
-    await fetchCourses();
+const filteredCourses = computed(() => {
+  let result = courses.value;
+
+  if (filter.value.search_term && filter.value.search_term !== '') {
+    result = result.filter((course) =>
+      course.title?.toLowerCase().includes(filter.value.search_term.toLowerCase())
+    );
   }
-  lastSearchTerm.value = newSearchTerm.value as string;
+
+  if (filter.value.search_categories && filter.value.search_categories.length > 0) {
+    console.log("Search categories", filter.value.search_categories);
+    result = result.filter((lesson) =>
+      filter.value.search_categories.includes(lesson.category)
+    );
+  }
+
+  if (filter.value.time_frame) {
+    console.log("Time frame", filter.value.time_frame);
+    switch (filter.value.time_frame) {
+      case 'newest':
+        result.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime());
+        break;
+      case 'oldest':
+        result.sort((a, b) => new Date(a.created_date).getTime() - new Date(b.created_date).getTime());
+        break;
+      case 'top-rated':
+        result.sort((a, b) => b.sales - a.sales);
+        break;
+      // 'all' case doesn't need sorting
+    }
+  }
+  console.log("Result", result);
+
+  return result;
 });
 
-onBeforeMount(async () => {
-  await fetchCourses();
+const lastPage = computed(() => Math.ceil(total.value / pagination.value.pageSize));
+const total = computed(() => filteredCourses.value.length);
+
+const paginatedCourses = computed(() => {
+  const start = (pagination.value.page - 1) * pagination.value.pageSize;
+  const end = start + pagination.value.pageSize;
+  return filteredCourses.value.slice(start, end);
+});
+
+function handlePageChange(page: number) {
+  pagination.value.page = page;
+}
+
+watch([filter, pagination], () => {
+  pagination.value.page = 1;
+}, { deep: true });
+
+onMounted(() => {
+  store.setCourses(courses.value);
 });
 </script>

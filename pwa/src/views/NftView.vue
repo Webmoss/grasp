@@ -31,8 +31,8 @@ import { storeToRefs } from "pinia";
 import { collectionObject } from "src/models/collection";
 
 /* Components */
-import MarketplacesBanner from "@/components/MarketplaceComponents/MarketplacesBanner.vue";
-import MarketplaceSidebarIntro from "@/components/MarketplaceComponents/MarketplaceSidebarIntro.vue";
+import MarketplacesBanner from "@/components/Marketplace/MarketplacesBanner.vue";
+import MarketplaceSidebarIntro from "@/components/Marketplace/MarketplaceSidebarIntro.vue";
 import SidebarIntro from "@/components/Sidebar/SidebarIntro.vue";
 import SidebarCollections from "@/components/Sidebar/SidebarCollections.vue";
 import SidebarSponsors from "@/components/Sidebar/SidebarSponsors.vue";

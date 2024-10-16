@@ -46,16 +46,16 @@ import { tokenWrapperObject } from "@/models/tokenWrapper";
 import { attributeSidebarObject } from "src/models/attributeSidebar";
 
 /* Components */
-import MarketplacesBanner from "@/components/MarketplaceComponents/MarketplacesBanner.vue";
-import MarketplaceSidebarIntro from "@/components/MarketplaceComponents/MarketplaceSidebarIntro.vue";
-import MarketplaceSidebar from "@/components/MarketplaceComponents/MarketplaceSidebar.vue";
+import MarketplacesBanner from "@/components/Marketplace/MarketplacesBanner.vue";
+import MarketplaceSidebarIntro from "@/components/Marketplace/MarketplaceSidebarIntro.vue";
+import MarketplaceSidebar from "@/components/Marketplace/MarketplaceSidebar.vue";
 import SidebarCollections from "@/components/Sidebar/SidebarCollections.vue";
 import SidebarIntro from "@/components/Sidebar/SidebarIntro.vue";
 import SidebarSponsors from "@/components/Sidebar/SidebarSponsors.vue";
-import MarketplaceSearch from "@/components/MarketplaceComponents/MarketplaceSearch.vue";
-import MarketplacesList from "@/components/MarketplaceComponents/MarketplacesList.vue";
-import MarketplacesNoReults from "@/components/MarketplaceComponents/MarketplacesNoReults.vue";
-import MarketplacesPagination from "@/components/MarketplaceComponents/MarketplacesPagination.vue";
+import MarketplaceSearch from "@/components/Marketplace/MarketplaceSearch.vue";
+import MarketplacesList from "@/components/Marketplace/MarketplacesList.vue";
+import MarketplacesNoReults from "@/components/Marketplace/MarketplacesNoReults.vue";
+import MarketplacesPagination from "@/components/Marketplace/MarketplacesPagination.vue";
 
 /* Init Pinia Store Values and Methods */
 const route = useRoute();

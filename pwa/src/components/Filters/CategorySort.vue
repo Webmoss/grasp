@@ -12,9 +12,8 @@
 </template>
 <script lang="ts" setup>
 import { ref } from "vue";
-import { useStore } from "@/store";
 
-const store = useStore();
+const emit = defineEmits(['category-change']);
 const selected = ref("");
 
 const options = ref([
@@ -38,11 +37,11 @@ const options = ref([
 ]);
 
 /**
- * * Update our Lesson Category and Pagination in Store
+ * * Update our Course Category and Pagination in Store
  */
 function sortByHandle(event: Event) {
   selected.value = (event.target as HTMLInputElement).value;
-  store.setSearchCategories((event.target as HTMLInputElement).value);
+  emit('category-change', selected.value);
 }
 </script>
 

@@ -163,11 +163,11 @@ import { useRoute } from "vue-router";
 import { creatorObject } from "src/models/creator";
 
 /* Components */
-import CreatorHeader from "@/components/CreatorsComponents/CreatorHeader.vue";
+import CreatorHeader from "@/components/Creators/CreatorHeader.vue";
 import BuyButton from "@/components/Buttons/BuyButton.vue";
 
 /* All Posts stored in a JSON */
-import testCreators from "../data/creators.json";
+import testUsers from "../data/users.json";
 import testCourses from "../data/courses.json";
 
 const store = useStore();
@@ -175,21 +175,21 @@ const route = useRoute();
 const { creator } = storeToRefs(store);
 
 async function followCreator() {
-  // let filteredCreator = testCreators.data.filter((creator) => {
+  // let filteredCreator = testUsers.data.filter((creator) => {
   //   return creator.id === route.params.id;
   // });
   // store.setCreator((filteredCreator[0] as unknown) as creatorObject);
 }
 
 async function likeCreator() {
-  // let filteredCreator = testCreators.data.filter((creator) => {
+  // let filteredCreator = testUsers.data.filter((creator) => {
   //   return creator.id === route.params.id;
   // });
   // store.setCreator((filteredCreator[0] as unknown) as creatorObject);
 }
 
 async function fetchCreator() {
-  let filteredCreator = testCreators.data.filter((creator) => {
+  let filteredCreator = testUsers.data.filter((creator) => {
     return creator.id === route.params.id;
   });
   store.setCreator((filteredCreator[0] as unknown) as creatorObject);

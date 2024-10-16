@@ -22,8 +22,8 @@ export interface userObject {
   discord: linkObject;
   telegram: linkObject;
   linkedin: linkObject;
-  facebook: string | null | undefined;
-  instagram: string | null | undefined;
+  facebook: linkObject;
+  instagram: linkObject;
   followers: number | null;
   following: number | null;
   likes: number | null;

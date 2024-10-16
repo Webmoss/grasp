@@ -74,8 +74,8 @@ export const useStore = defineStore({
     course: <courseObject>{},
     lessons: [] as lessonObject[],
     lesson: <lessonObject>{},
-    creators: [] as creatorObject[],
-    creator: <creatorObject>{},
+    creators: [] as userObject[],
+    creator: <userObject>{},
     members: [] as userObject[],
     member: <userObject>{},
     transactions: [] as transactionObject[],
@@ -367,7 +367,27 @@ export const useStore = defineStore({
     setSearchTerm(value: string) {
       this.filter.search_term = value;
     },
+    setSearchDate(value: string) {
+      this.filter.time_frame = value;
+    },
+    setSearchTypes(value: string) {
+      if (!this.filter.search_types) {
+        this.filter.search_types = [];
+      }
+      const result = this.filter.search_types.includes(value);
+      if (!result) {
+        /* Value not found in our Array, so add it */
+        this.filter.search_types.push(value);
+      } else {
+        /* Find and Remove item from the Array by Index */
+        const index = this.filter.search_types.indexOf(value);
+        this.filter.search_types.splice(index, 1);
+      }
+    },
     setSearchCategories(value: string) {
+      if (!this.filter.search_categories) {
+        this.filter.search_categories = [];
+      }
       const result = this.filter.search_categories.includes(value);
       if (!result) {
         /* Value not found in our Array, so add it */
@@ -379,6 +399,9 @@ export const useStore = defineStore({
       }
     },
     setSearchTraits(value: string) {
+      if (!this.filter.search_traits) {
+        this.filter.search_traits = [];
+      }
       const result = this.filter.search_traits.includes(value);
       if (!result) {
         /* Value not found in our Array, so add it */
@@ -450,7 +473,7 @@ export const useStore = defineStore({
     setLessons(lessons: lessonObject[]) {
       this.lessons = lessons;
     },
-    setCreators(creators: creatorObject[]) {
+    setCreators(creators: userObject[]) {
       this.creators = creators;
     },
     setMembers(members: userObject[]) {
@@ -468,7 +491,7 @@ export const useStore = defineStore({
     setLesson(lesson: lessonObject) {
       this.lesson = lesson;
     },
-    setCreator(creator: creatorObject) {
+    setCreator(creator: userObject) {
       this.creator = creator;
     },
     setMember(member: userObject) {

@@ -3,10 +3,10 @@
     {
       "id": "1",
       "type": "article",
-      "category": "EduChain",
+      "category": "web3",
       "categories": [
-        { "id": 1, "name" : "EduChain", "icon" : "" },
-        { "id": 2, "name" : "Open Campus ID", "icon" : "" }
+        { "id": 1, "name": "Web3", "icon": "" },
+        { "id": 2, "name": "Education", "icon": "" }
       ],
       "banner": "banner1.png",
       "image": "Image-5.png",
@@ -57,8 +57,8 @@
       ],
       "step": 1,
       "isLive": true,
-      "created_date": "15/07/2024",
-      "updated_date": "17/07/2024",
+      "created_date": "2024-07-15",
+      "updated_date": "2024-07-17",
       "lastSale": {
         "price": 8.75,
         "currency": "EDU",
@@ -69,10 +69,10 @@
     {
       "id": "2",
       "type": "article",
-      "category": "EduChain",
+      "category": "education",
       "categories": [
-        { "id": 1, "name" : "EduChain", "icon" : "" },
-        { "id": 2, "name" : "Open Campus ID", "icon" : "" }
+        { "id": 1, "name": "Education", "icon": "" },
+        { "id": 2, "name": "Web3", "icon": "" }
       ],
       "banner": "banner1.png",
       "image": "Image-3.png",
@@ -123,17 +123,17 @@
       ],
       "step": 2,
       "isLive": true,
-      "created_date": "15/07/2024",
-      "updated_date": "17/07/2024",
+      "created_date": "2024-07-02",
+      "updated_date": "2024-07-17",
       "lastSale": null
     },
     {
       "id": "3",
       "type": "article",
-      "category": "EduChain",
+      "category": "other",
       "categories": [
-        { "id": 1, "name" : "EduChain", "icon" : "" },
-        { "id": 2, "name" : "Open Campus ID", "icon" : "" }
+        { "id": 1, "name": "Other", "icon": "" },
+        { "id": 2, "name": "Web3", "icon": "" }
       ],
       "banner": "banner1.png",
       "image": "Image-2.png",
@@ -184,8 +184,8 @@
       ],
       "step": 3,
       "isLive": true,
-      "created_date": "15/07/2024",
-      "updated_date": "17/07/2024",
+      "created_date": "2024-06-28",
+      "updated_date": "2024-07-17",
       "lastSale": {
         "price": 7.5,
         "currency": "EDU",

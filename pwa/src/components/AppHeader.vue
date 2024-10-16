@@ -6,7 +6,7 @@
         ><h1>Grasp</h1>
       </router-link>
       <div class="mobile-connect">
-        <!-- <ConnectButton btnSize="small" /> -->
+        <ConnectButton btnSize="small" />
         <MetaMaskButton btnSize="small" />
       </div>
     </div>

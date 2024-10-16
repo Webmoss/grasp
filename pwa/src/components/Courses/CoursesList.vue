@@ -1,8 +1,8 @@
 <template>
-  <div class="creator-page">
-    <div :class="`${gridView}-creator-list`">
-      <template v-for="(creator, i) in creators" :key="i">
-        <CreatorCard :creator="creator" :grid-view="gridView" />
+  <div class="course-page">
+    <div :class="`${gridView}-course-list`">
+      <template v-for="(course, i) in courses" :key="i">
+        <CourseCard :course="course" :grid-view="gridView" />
       </template>
     </div>
   </div>
@@ -11,19 +11,19 @@
 <script setup lang="ts">
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
-import { creatorObject } from "src/models/creator";
-import CreatorCard from "../CreatorsComponents/CreatorCard.vue";
+import { courseObject } from "src/models/course";
+import CourseCard from "../Courses/CourseCard.vue";
 
 const store = useStore();
 const { gridView } = storeToRefs(store);
 
 export interface Props {
-  creators?: [];
+  courses?: [];
 }
 
 defineProps({
-  creators: {
-    type: Array<creatorObject>,
+  courses: {
+    type: Array<courseObject>,
     default: null,
   },
 });
@@ -33,7 +33,7 @@ defineProps({
 @import "../../assets/styles/variables.scss";
 @import "../../assets/styles/mixins.scss";
 
-.creator-page {
+.course-page {
   position: relative;
   height: auto;
   overflow: scroll;
@@ -44,7 +44,7 @@ defineProps({
   }
 }
 
-.list-creator-list {
+.list-course-list {
   width: 100%;
   max-width: $max-width;
   display: grid;
@@ -69,11 +69,11 @@ defineProps({
   }
 }
 
-.grid-creator-list {
+.grid-course-list {
   width: 100%;
   max-width: $max-width;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   align-content: center;
   justify-content: center;
@@ -94,7 +94,7 @@ defineProps({
   }
 }
 
-.full-creator-list {
+.full-course-list {
   width: 100%;
   max-width: $max-width;
   display: grid;

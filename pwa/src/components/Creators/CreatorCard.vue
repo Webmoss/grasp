@@ -18,8 +18,8 @@
     <div class="creator-list-buttons">
       <div class="creator-socials">
         <a
-          v-if="creator.website"
-          :href="creator.website"
+          v-if="creator.website?.url"
+          :href="creator.website?.url ?? undefined"
           alt="Website"
           target="_blank"
           rel="noopener"
@@ -27,7 +27,7 @@
         /></a>
         <a
           v-if="creator.twitter"
-          :href="creator.twitter"
+          :href="creator.twitter?.url ?? undefined"
           alt="Twitter"
           target="_blank"
           rel="noopener"
@@ -35,7 +35,7 @@
         /></a>
         <a
           v-if="creator.facebook"
-          :href="creator.facebook"
+          :href="creator.facebook?.url ?? undefined"
           alt="Facebook"
           target="_blank"
           rel="noopener"
@@ -43,7 +43,7 @@
         /></a>
         <a
           v-if="creator.linkedin"
-          :href="creator.linkedin"
+          :href="creator.linkedin?.url ?? undefined"
           alt="LinkedIn"
           target="_blank"
           rel="noopener"
@@ -51,7 +51,7 @@
         /></a>
         <a
           v-if="creator.instagram"
-          :href="creator.instagram"
+          :href="creator.instagram?.url ?? undefined"
           alt="Instagram"
           target="_blank"
           rel="noopener"
@@ -59,9 +59,7 @@
         /></a>
       </div>
       <div class="creator-category">
-        <template v-for="(category, i) in creator.categories" :key="i">
-          <span class="category-indicator">{{ category.name ? category.name : "" }}</span>
-        </template>
+        <span class="category-indicator">{{ creator.type ? creator.type : "" }}</span>
       </div>
       <div class="button-row">
         <ViewCreatorButton :btn-size="'small'" :color="'blue'" :creatorId="creator.id" />
@@ -87,7 +85,7 @@
       <div class="creator-socials">
         <a
           v-if="creator.website"
-          :href="creator.website"
+          :href="creator.website?.url ?? undefined"
           alt="Website"
           target="_blank"
           rel="noopener"
@@ -95,7 +93,7 @@
         /></a>
         <a
           v-if="creator.twitter"
-          :href="creator.twitter"
+          :href="creator.twitter?.url ?? undefined"
           alt="Twitter"
           target="_blank"
           rel="noopener"
@@ -103,7 +101,7 @@
         /></a>
         <a
           v-if="creator.facebook"
-          :href="creator.facebook"
+          :href="creator.facebook?.url ?? undefined"
           alt="Facebook"
           target="_blank"
           rel="noopener"
@@ -111,7 +109,7 @@
         /></a>
         <a
           v-if="creator.linkedin"
-          :href="creator.linkedin"
+          :href="creator.linkedin?.url ?? undefined"
           alt="LinkedIn"
           target="_blank"
           rel="noopener"
@@ -119,7 +117,7 @@
         /></a>
         <a
           v-if="creator.instagram"
-          :href="creator.instagram"
+          :href="creator.instagram?.url ?? undefined"
           alt="Instagram"
           target="_blank"
           rel="noopener"
@@ -129,9 +127,7 @@
     </div>
     <div class="creator-card-row">
       <div class="creator-category">
-        <template v-for="(category, i) in creator.categories" :key="i">
-          <span class="category-indicator">{{ category.name ? category.name : "" }}</span>
-        </template>
+        <span class="category-indicator">{{ creator.type ? creator.type : "" }}</span>
       </div>
       <div class="button-column">
         <ViewCreatorButton :btn-size="'small'" :color="'blue'" :creatorId="creator.id" />
@@ -142,10 +138,10 @@
 </template>
 
 <script lang="ts" setup>
-import { creatorObject } from "src/models/creator";
+import { userObject } from "src/models/user";
 import ViewCreatorButton from "../Buttons/ViewCreatorButton.vue";
 
-defineProps<{ creator: creatorObject; gridView: string }>();
+defineProps<{ creator: userObject; gridView: string }>();
 </script>
 
 <style lang="scss">
