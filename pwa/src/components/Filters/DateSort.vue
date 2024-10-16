@@ -60,8 +60,7 @@ select.date-sort-by {
   }
 
   @include breakpoint($break-sm) {
-    width: 100%;
-    min-width: 220px;
+    min-width: 140px;
   }
 }
 </style>

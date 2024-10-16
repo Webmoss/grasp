@@ -439,7 +439,7 @@ section#tokenomics {
       margin-bottom: 30px;
 
       @include breakpoint($break-sm) {
-        margin-left: 5%;
+        margin-left: 15%;
       }
     }
 
@@ -459,7 +459,7 @@ section#tokenomics {
 
       @include breakpoint($break-sm) {
         flex-direction: column;
-        font-size: 18px;
+        font-size: 24px;
         padding: 10px 0;
         margin: 0;
       }
@@ -498,7 +498,7 @@ section#tokenomics {
         flex-direction: column;
         font-size: 18px;
         padding: 10px 3%;
-        margin: 0;
+        margin: 0 0 30px 0;
       }
 
       .tokenomics-chart {

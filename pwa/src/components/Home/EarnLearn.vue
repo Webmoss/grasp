@@ -158,6 +158,7 @@ section#solutions {
     width: 70%;
     float: left;
     padding: 0;
+    background: $grasp-blue;
 
     @include breakpoint($break-sm) {
       width: 100%;

@@ -17,7 +17,7 @@ const emit = defineEmits(['type-change']);
 const selected = ref("");
 
 const options = ref([
-  { value: "", label: "Choose Profile Type" },
+  { value: "", label: "Choose Type" },
   { value: "guest", label: "Guest" },
   { value: "creator", label: "Creator" },
   { value: "educator", label: "Educator" },
@@ -64,7 +64,7 @@ select.type-sort-by {
 
   @include breakpoint($break-sm) {
     width: 100%;
-    min-width: 220px;
+    min-width: 130px;
   }
 }
 </style>

@@ -6,7 +6,7 @@
         ><h1>Grasp</h1>
       </router-link>
       <div class="mobile-connect">
-        <ConnectButton btnSize="small" />
+        <ConnectButton v-if="isMetaMaskAvailable" btnSize="small" />
         <MetaMaskButton btnSize="small" />
       </div>
     </div>
@@ -73,7 +73,7 @@
         </div>
         <div class="right">
           <div class="connect-button-row">
-            <ConnectButton btnSize="small" />
+            <ConnectButton v-if="isMetaMaskAvailable" btnSize="small" />
             <MetaMaskButton btnSize="small" />
           </div>
         </div>
@@ -82,7 +82,7 @@
   </header>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useStore } from "@/store";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
@@ -92,6 +92,8 @@ import MetaMaskButton from "@/components/Buttons/MetaMaskButton.vue";
 const route = useRoute();
 const store = useStore();
 const { loggedIn } = storeToRefs(store);
+
+const isMetaMaskAvailable = ref(false);
 
 const homeLink = computed(() => {
   return route.name === "home" ? true : false;
@@ -119,6 +121,16 @@ function navigateAndScroll(to: any) {
     scrolltoId(to);
   }
 }
+
+const checkMetaMaskAvailability = () => {
+  if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+    isMetaMaskAvailable.value = true;
+  }
+};
+
+onMounted(() => {
+  checkMetaMaskAvailability();
+});
 </script>
 <style lang="scss" scoped>
 @import "../assets/styles/variables.scss";
@@ -243,7 +255,7 @@ function navigateAndScroll(to: any) {
           display: inline-block;
 
           @include breakpoint($break-sm) {
-            margin: 0 2px;
+            margin: 0 5px;
           }
         }
 
@@ -260,7 +272,7 @@ function navigateAndScroll(to: any) {
           cursor: pointer;
 
           @include breakpoint($break-sm) {
-            font-size: 15px !important;
+            font-size: 16px !important;
           }
 
           &:hover,

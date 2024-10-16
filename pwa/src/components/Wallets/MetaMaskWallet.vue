@@ -16,16 +16,21 @@
     </div>
     <div class="my-wallet">
       <div class="my-wallet-amount">
-        <img src="../../assets/svgs/EduCoin.svg" /><span class="">
-          {{ truncatedBalance }}</span
-        >
+        <div class="tooltip">
+          <img src="../../assets/svgs/EduCoin.svg" />
+          <span class="tooltiptext">EDU</span>
+        </div>
+        <span class="token-balance"> {{ truncatedBalance }}</span>
       </div>
     </div>
     <div class="token-list">
       <div class="token-list">
         <div v-for="token in filteredTokens" :key="token.address" class="token-item">
-          <img :src="`${token.icon}`" :alt="token.symbol" />
-          <span>{{ token.balance }}</span>
+          <div class="tooltip">
+            <img :src="`${token.icon}`" :alt="token.symbol" />
+            <span class="tooltiptext">{{ token.symbol }}</span>
+          </div>
+          <span class="token-balance">{{ token.balance }}</span>
         </div>
       </div>
     </div>
@@ -54,7 +59,9 @@ interface Token {
 
 const tokens: Ref<Token[]> = ref([]);
 
-const filteredTokens = computed(() => tokens.value.filter(token => parseFloat(token.balance) > 0));
+const filteredTokens = computed(() =>
+  tokens.value.filter((token) => parseFloat(token.balance) > 0)
+);
 const formattedAccount = computed(() => formatAddress(account.value));
 const truncatedBalance = computed(() => truncateAddress(balance.value, 10));
 
@@ -90,30 +97,70 @@ const getTokenBalances = async (account: string) => {
     const provider = new ethers.providers.Web3Provider(ethereum);
 
     const tokenList = [
-      { address: '0xbe52762D8D68d183C7Cf4BB3e2aaa312e47C7084', symbol: 'WEDU', decimals: 18, icon: new URL('../../assets/svgs/EduCoin.svg', import.meta.url).href },
-      { address: '0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C', symbol: 'USDC', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/usdc.svg', import.meta.url).href },
-      { address: '0xeDFa3e28953bA25173baF11160D4aD435ec002b5', symbol: 'USDT', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/usdt.svg', import.meta.url).href },
-      { address: '0x06D837C1a3D8A86E82B676ACE6BDFAf4A51CD77D', symbol: 'Sail', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/sail.svg', import.meta.url).href },
-      { address: '0x2c2800995F2a8137EB9dd3Bfe88FABbBAe8b4958', symbol: 'veSail', decimals: 18, icon: new URL('../../assets/svgs/educhain-tokens/vesail.svg', import.meta.url).href },
-      { address: '0x3eB2Eb8E2a0E26BEf3Dc3E78289Be7343355FeBC', symbol: 'GRASP', decimals: 18, icon: new URL('../../assets/images/Grasp-Icon.png', import.meta.url).href },
-      { address: '0xCef966528A867176BF3a575c9951f695e8eB77a3', symbol: 'ESD', decimals: 18, icon: new URL('../../assets/images/esd.webp', import.meta.url).href },
-      { address: '0x81962760B26D4c2C6eD373F615310633abFd47c1', symbol: 'ADEX', decimals: 18, icon: new URL('../../assets/images/adexIcon.webp', import.meta.url).href },
+      {
+        address: "0x3eB2Eb8E2a0E26BEf3Dc3E78289Be7343355FeBC",
+        symbol: "GRASP",
+        decimals: 18,
+        icon: new URL("../../assets/images/Grasp-Icon.png", import.meta.url).href,
+      },
+      // { address: '0xbe52762D8D68d183C7Cf4BB3e2aaa312e47C7084', symbol: 'WEDU', decimals: 18, icon: new URL('../../assets/svgs/EduCoin.svg', import.meta.url).href },
+      {
+        address: "0x06D837C1a3D8A86E82B676ACE6BDFAf4A51CD77D",
+        symbol: "Sail",
+        decimals: 18,
+        icon: new URL("../../assets/svgs/educhain-tokens/sail.svg", import.meta.url).href,
+      },
+      {
+        address: "0x2c2800995F2a8137EB9dd3Bfe88FABbBAe8b4958",
+        symbol: "veSail",
+        decimals: 18,
+        icon: new URL("../../assets/svgs/educhain-tokens/vesail.svg", import.meta.url)
+          .href,
+      },
+      {
+        address: "0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C",
+        symbol: "USDC",
+        decimals: 18,
+        icon: new URL("../../assets/svgs/educhain-tokens/usdc.svg", import.meta.url).href,
+      },
+      {
+        address: "0xeDFa3e28953bA25173baF11160D4aD435ec002b5",
+        symbol: "USDT",
+        decimals: 18,
+        icon: new URL("../../assets/svgs/educhain-tokens/usdt.svg", import.meta.url).href,
+      },
+      // { address: '0xCef966528A867176BF3a575c9951f695e8eB77a3', symbol: 'ESD', decimals: 18, icon: new URL('../../assets/images/esd.webp', import.meta.url).href },
+      {
+        address: "0x81962760B26D4c2C6eD373F615310633abFd47c1",
+        symbol: "ADEX",
+        decimals: 18,
+        icon: new URL("../../assets/images/adexIcon.webp", import.meta.url).href,
+      },
     ];
 
-    const tokenBalances = await Promise.all(tokenList.map(async (token) => {
-      const contract = new ethers.Contract(token.address, ['function balanceOf(address) view returns (uint256)'], provider);
-      const balance = await contract.balanceOf(account);
-      const formattedBalance = ethers.utils.formatUnits(balance, token.decimals);
-      console.log("Token: ", token.symbol, formattedBalance);
-      return {
-        ...token,
-        balance: parseFloat(formattedBalance) > 0.000001 ? parseFloat(formattedBalance).toFixed(6) : '0'
-      };
-    }));
+    const tokenBalances = await Promise.all(
+      tokenList.map(async (token) => {
+        const contract = new ethers.Contract(
+          token.address,
+          ["function balanceOf(address) view returns (uint256)"],
+          provider
+        );
+        const balance = await contract.balanceOf(account);
+        const formattedBalance = ethers.utils.formatUnits(balance, token.decimals);
+        console.log("Token: ", token.symbol, formattedBalance);
+        return {
+          ...token,
+          balance:
+            parseFloat(formattedBalance) > 0.000001
+              ? parseFloat(formattedBalance).toFixed(6)
+              : "0",
+        };
+      })
+    );
 
     tokens.value = tokenBalances;
   } catch (error) {
-    console.error('Error fetching token balances:', error);
+    console.error("Error fetching token balances:", error);
   }
 };
 
@@ -317,6 +364,13 @@ onMounted(async () => {
       margin-right: 8px;
     }
   }
+
+  .token-balance {
+    color: $white;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 4px;
+  }
 }
 
 .token-list {
@@ -339,6 +393,7 @@ onMounted(async () => {
     background: $white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     object-fit: cover;
+    cursor: pointer;
   }
 }
 </style>
