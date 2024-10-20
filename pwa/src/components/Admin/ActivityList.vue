@@ -143,7 +143,6 @@ const total = computed(() => {
 });
 
 const fetchTransactions = () => {
-  console.log("filter.value.search_term", filter.value.search_term);
   let filteredTransactions = testTransactions.data;
 
   if (props.orgId) {

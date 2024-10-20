@@ -104,6 +104,7 @@ const connect = async () => {
 
   try {
     await authSdk.value.signInWithRedirect({ state: "opencampus" });
+    // await authSdk.value.handleLoginRedirect({ state: "opencampus" });
     await handleAuthState();
   } catch (error) {
     console.error("Connection error:", error);

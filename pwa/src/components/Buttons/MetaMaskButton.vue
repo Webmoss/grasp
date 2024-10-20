@@ -62,8 +62,6 @@ const connectWallet = async () => {
       method: "eth_requestAccounts",
     });
 
-    console.log("Connected MetaMask Account:", accountAddress);
-
     if (accountAddress) {
       store.setAccount(accountAddress);
       store.setLoggedIn(true);
@@ -85,16 +83,10 @@ const logout = async () => {
     if (!ethereum || !ethereum.isMetaMask) {
       console.warn("MetaMask is not detected");
     } else {
-      /* Request to disconnect from MetaMask */
-      // await ethereum.request({
-      //   method: "wallet_requestPermissions",
-      //   params: [{ eth_accounts: {} }]
-      // });
-
       /* Clear the selected account */
       await ethereum.request({
         method: "eth_requestAccounts",
-        params: [{ eth_accounts: {} }]
+        params: [{ eth_accounts: {} }],
       });
     }
 

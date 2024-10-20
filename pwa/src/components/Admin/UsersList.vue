@@ -141,7 +141,6 @@ const total = computed(() => {
 });
 
 const fetchMembers = () => {
-  console.log("filter.value.search_term", filter.value.search_term);
   let filteredMembers = testUsers.data;
 
   if (props.orgId) {

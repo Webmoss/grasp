@@ -6,8 +6,8 @@
         ><h1>Grasp</h1>
       </router-link>
       <div class="mobile-connect">
-        <ConnectButton v-if="isMetaMaskAvailable" btnSize="small" />
-        <MetaMaskButton btnSize="small" />
+        <ConnectButton btnSize="small" />
+        <MetaMaskButton v-if="isMetaMaskAvailable" btnSize="small" />
       </div>
     </div>
     <div class="header-menu">
@@ -73,8 +73,8 @@
         </div>
         <div class="right">
           <div class="connect-button-row">
-            <ConnectButton v-if="isMetaMaskAvailable" btnSize="small" />
-            <MetaMaskButton btnSize="small" />
+            <ConnectButton btnSize="small" />
+            <MetaMaskButton v-if="isMetaMaskAvailable" btnSize="small" />
           </div>
         </div>
       </nav>
@@ -123,7 +123,7 @@ function navigateAndScroll(to: any) {
 }
 
 const checkMetaMaskAvailability = () => {
-  if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+  if (typeof window.ethereum !== "undefined" && window.ethereum.isMetaMask) {
     isMetaMaskAvailable.value = true;
   }
 };

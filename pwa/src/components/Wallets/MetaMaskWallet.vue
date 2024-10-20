@@ -103,7 +103,6 @@ const getTokenBalances = async (account: string) => {
         decimals: 18,
         icon: new URL("../../assets/images/Grasp-Icon.png", import.meta.url).href,
       },
-      // { address: '0xbe52762D8D68d183C7Cf4BB3e2aaa312e47C7084', symbol: 'WEDU', decimals: 18, icon: new URL('../../assets/svgs/EduCoin.svg', import.meta.url).href },
       {
         address: "0x06D837C1a3D8A86E82B676ACE6BDFAf4A51CD77D",
         symbol: "Sail",
@@ -147,7 +146,6 @@ const getTokenBalances = async (account: string) => {
         );
         const balance = await contract.balanceOf(account);
         const formattedBalance = ethers.utils.formatUnits(balance, token.decimals);
-        console.log("Token: ", token.symbol, formattedBalance);
         return {
           ...token,
           balance:
@@ -198,7 +196,7 @@ onMounted(async () => {
     try {
       /* Check if MetaMask is connected */
       if (loggedIn.value) {
-        console.log("MetaMask Connected", loggedIn.value);
+        // console.log("MetaMask Connected", loggedIn.value);
         await checkIfWalletIsConnected();
         await refreshBalances();
       }

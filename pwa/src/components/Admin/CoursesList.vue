@@ -115,21 +115,11 @@ const lastSearchTerm: Ref<string> = ref("");
 const fromDate: Ref<string> = ref("");
 const toDate: Ref<string> = ref("");
 
-const newSearchTerm = computed(() => {
-  return filter.value.search_term;
-});
-
-const shouldGetData = computed(() => {
-  return newSearchTerm.value !== lastSearchTerm.value;
-});
-
 const total = computed(() => {
   return transactions.value ? transactions.value.length : 0;
 });
 
 const fetchTransactions = () => {
-  console.log("filter.value.search_term", filter.value.search_term);
-
   let filteredTransactions = testTransactions.data.filter(
     (transaction) => transaction.courseTitle
   );
