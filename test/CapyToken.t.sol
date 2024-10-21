@@ -2,22 +2,22 @@
 pragma solidity ^0.8.20;
 
 import { Test } from "forge-std/Test.sol";
-import { GraspToken } from "src/GraspToken.sol";
+import { CapyToken } from "src/CapyToken.sol";
 
-contract GraspTokenTest is Test {
-  GraspToken public instance;
+contract CapyTokenTest is Test {
+  CapyToken public instance;
 
   function setUp() public {
     address initialOwner = vm.addr(1);
-    instance = new GraspToken(initialOwner);
+    instance = new CapyToken(initialOwner);
   }
 
   function testName() public view {
-    assertEq(instance.name(), "Grasp");
+    assertEq(instance.name(), "Capy");
   }
 
   function testSymbol() public view {
-    assertEq(instance.symbol(), "GRASP");
+    assertEq(instance.symbol(), "CAPY");
   }
 
   function testDecimals() public view {
@@ -25,7 +25,7 @@ contract GraspTokenTest is Test {
   }
 
   function testTotalSupply() public view {
-    assertEq(instance.totalSupply(), 42000000000 * 10**18);
+    assertEq(instance.totalSupply(), 21000000 * 10**18);
   }
 
   function testInitialOwner() public view {
@@ -33,6 +33,6 @@ contract GraspTokenTest is Test {
   }
 
   function testInitialBalance() public view {
-    assertEq(instance.balanceOf(vm.addr(1)), 42000000000 * 10**18);
+    assertEq(instance.balanceOf(vm.addr(1)), 21000000 * 10**18);
   }
 }

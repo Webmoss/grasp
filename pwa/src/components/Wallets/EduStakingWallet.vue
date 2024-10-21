@@ -36,6 +36,14 @@
         Stake {{ activeTab === "edu" ? "EDU" : "Grasp" }}
       </button>
 
+      <!-- Add new buttons for withdraw and claim rewards -->
+      <button class="withdraw-button" v-if="loggedIn" @click="withdraw">
+        Withdraw {{ activeTab === "edu" ? "EDU" : "Grasp" }}
+      </button>
+      <button class="claim-button" v-if="loggedIn" @click="claimRewards">
+        Claim Rewards
+      </button>
+
       <div class="staking-info">
         <div class="info-row">
           <span class="info-label">Stake Amount</span>
@@ -61,6 +69,18 @@
           <span class="info-label">Transaction Fee</span>
           <span class="info-value">${{ transactionFeeUSD }}</span>
         </div>
+        <div class="info-row">
+          <span class="info-label">Staked Balance</span>
+          <span class="info-value"
+            >{{ stakedBalance }} {{ activeTab === "edu" ? "EDU" : "Grasp" }}</span
+          >
+        </div>
+        <div class="info-row">
+          <span class="info-label">Earned Rewards</span>
+          <span class="info-value"
+            >{{ earnedRewards }} {{ activeTab === "edu" ? "EDU" : "Grasp" }}</span
+          >
+        </div>
       </div>
 
       <div class="staking-summary">
@@ -78,10 +98,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@/store";
 import { ethers } from "ethers";
+import GraspTokenStakingABI from "@/contracts/GraspTokenStaking/GraspTokenStaking.json"; // Make sure to create this ABI file
+
+const stakingContractAddress = process.env.VUE_APP_GRASP_TOKEN_STAKING_CONTRACT
+  ? process.env.VUE_APP_GRASP_TOKEN_STAKING_CONTRACT
+  : "0x7E1b9c7E32Ce56B6035AEf77633dD27834B93080";
 
 const store = useStore();
 const { loggedIn, account, balance } = storeToRefs(store);
@@ -93,6 +118,8 @@ const eduPrice = 1; // Assuming 1 EDU = $1 USD
 const graspPrice = 0.5; // Assuming 1 Grasp = $0.5 USD
 const rewardPercentageEdu = 3.09;
 const rewardPercentageGrasp = 2.75;
+const stakedBalance = ref("0");
+const earnedRewards = ref("0");
 
 const stakeAmountUSD = computed(() => {
   const amount = parseFloat(stakeAmount.value) || 0;
@@ -121,11 +148,82 @@ const calculatedReward = computed(() => {
   } (${percentage}%)`;
 });
 
-/**
- * Stake Selected Token
- */
-const stake = () => {
-  // Implement staking logic
+const getStakingContract = () => {
+  const { ethereum } = window;
+  if (ethereum) {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    return new ethers.Contract(stakingContractAddress, GraspTokenStakingABI.abi, signer);
+  }
+  return null;
+};
+
+const updateStakingInfo = async () => {
+  if (!loggedIn.value || !account.value) return;
+
+  const contract = getStakingContract();
+  if (contract) {
+    try {
+      const staked = await contract.balanceOf(account.value);
+      const earned = await contract.earned(account.value);
+      stakedBalance.value = ethers.utils.formatEther(staked);
+      earnedRewards.value = ethers.utils.formatEther(earned);
+    } catch (error) {
+      console.error("Error updating staking info:", error);
+    }
+  }
+};
+
+const stake = async () => {
+  if (!loggedIn.value) return;
+
+  const contract = getStakingContract();
+  if (contract) {
+    try {
+      const amount = ethers.utils.parseEther(stakeAmount.value);
+      const tx = await contract.stake(amount);
+      await tx.wait();
+      await updateStakingInfo();
+      stakeAmount.value = "";
+    } catch (error) {
+      console.error("Error staking:", error);
+      alert("Failed to stake. Please try again.");
+    }
+  }
+};
+
+const withdraw = async () => {
+  if (!loggedIn.value) return;
+
+  const contract = getStakingContract();
+  if (contract) {
+    try {
+      const amount = ethers.utils.parseEther(stakeAmount.value);
+      const tx = await contract.withdraw(amount);
+      await tx.wait();
+      await updateStakingInfo();
+      stakeAmount.value = "";
+    } catch (error) {
+      console.error("Error withdrawing:", error);
+      alert("Failed to withdraw. Please try again.");
+    }
+  }
+};
+
+const claimRewards = async () => {
+  if (!loggedIn.value) return;
+
+  const contract = getStakingContract();
+  if (contract) {
+    try {
+      const tx = await contract.getReward();
+      await tx.wait();
+      await updateStakingInfo();
+    } catch (error) {
+      console.error("Error claiming rewards:", error);
+      alert("Failed to claim rewards. Please try again.");
+    }
+  }
 };
 
 const connectWallet = async () => {
@@ -213,6 +311,19 @@ onMounted(async () => {
     }
   };
   init();
+  await updateStakingInfo();
+});
+
+watch(loggedIn, async (newValue) => {
+  if (newValue) {
+    await updateStakingInfo();
+  }
+});
+
+watch(account, async (newValue) => {
+  if (newValue) {
+    await updateStakingInfo();
+  }
 });
 </script>
 
@@ -413,5 +524,20 @@ onMounted(async () => {
       }
     }
   }
+}
+
+.withdraw-button,
+.claim-button {
+  // Add styles similar to .stake-button
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 10px auto;
+  cursor: pointer;
+  background-color: $grasp-blue;
+  color: $white;
 }
 </style>

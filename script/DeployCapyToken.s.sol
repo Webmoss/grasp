@@ -3,9 +3,9 @@ pragma solidity ^0.8.25;
 
 import { Script } from "forge-std/Script.sol";
 import { console } from "forge-std/console.sol";
-import { GraspToken } from "src/GraspToken.sol";
+import { CapyToken } from "src/CapyToken.sol";
 
-contract GraspTokenScript is Script {
+contract CapyTokenScript is Script {
 
   function run() external {
         // Load the deployer's private key from the environment variables
@@ -17,14 +17,14 @@ contract GraspTokenScript is Script {
         // Load the initial owner address from the environment variables
         address initialOwner = vm.envAddress("INITIAL_OWNER");
 
-        // Deploy the GraspToken contract
-        GraspToken graspToken = new GraspToken(initialOwner);
+        // Deploy the CapyToken contract with the configurable initial owner
+        CapyToken capyToken = new CapyToken(initialOwner);
 
         // End broadcasting the transaction
         vm.stopBroadcast();
 
         // Log the address of the deployed contract
-        console.log("Grasp Token Contract deployed to:", address(graspToken));
+        console.log("Capy Token Contract deployed to:", address(capyToken));
         console.log("Initial owner set to:", initialOwner);
     }
 }

@@ -91,7 +91,9 @@ const opts = {
   redirectUri: process.env.VUE_APP_AUTH_REDIRECT_URI
     ? process.env.VUE_APP_AUTH_REDIRECT_URI
     : "https://grasp.academy/dashboard",
-  referralCode: "GRASP",
+  // referralCode: "GRASP",
+  // clientId: process.env.VUE_APP_OCID_CLIENT_ID,
+  // scope: "openid profile email",
 };
 
 console.log("OCID Opts:", opts);
@@ -103,8 +105,9 @@ const connect = async () => {
   store.setLoading(true);
 
   try {
-    await authSdk.value.signInWithRedirect({ state: "opencampus" });
-    // await authSdk.value.handleLoginRedirect({ state: "opencampus" });
+    // await authSdk.value.signInWithRedirect({ state: "opencampus" });
+    await authSdk.value.handleLoginRedirect({ state: "opencampus" });
+
     await handleAuthState();
   } catch (error) {
     console.error("Connection error:", error);
@@ -118,13 +121,14 @@ const handleAuthState = async () => {
   const authState = await authSdk.value.getAuthState();
   console.log("Auth State:", authState);
 
-  store.setOcid(authState.idToken);
-  store.setOcAccessToken(authState.accessToken);
-  store.setOcConnected(authState.isAuthenticated);
-
-  // if (authState.isAuthenticated) {
-  await fetchUserInfo();
-  // }
+  if (authState.isAuthenticated) {
+    store.setOcid(authState.idToken);
+    store.setOcAccessToken(authState.accessToken);
+    store.setOcConnected(true);
+    await fetchUserInfo();
+  } else {
+    clearOCIDState();
+  }
 };
 
 const fetchUserInfo = async () => {

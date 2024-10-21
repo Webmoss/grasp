@@ -7,13 +7,13 @@ import "openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol"
 import "openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
-contract GraspToken is ERC20, ERC20Permit, ERC20Votes, Ownable {
+contract CapyToken is ERC20, ERC20Permit, ERC20Votes, Ownable {
     constructor(address initialOwner)
-        ERC20("Grasp", "GRASP")
-        ERC20Permit("Grasp")
+        ERC20("Capy", "CAPY")
+        ERC20Permit("Capy")
         Ownable(initialOwner)
     {
-        _mint(initialOwner, 42000000000 * 10 ** decimals());
+        _mint(initialOwner, 21000000 * 10 ** decimals());
     }
 
     function _update(address from, address to, uint256 value)

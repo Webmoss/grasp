@@ -123,7 +123,6 @@
 
           <MetaMaskWallet v-if="loggedIn" />
           <Web3AuthWallet v-if="web3AuthLoggedIn" />
-          <EduStakingWallet />
 
           <div class="my-sales-box">
             <h2>Total Income</h2>
@@ -138,6 +137,8 @@
               </div>
             </div>
           </div>
+
+          <EduStakingWallet />
         </div>
       </div>
 

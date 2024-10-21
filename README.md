@@ -193,7 +193,21 @@ forge script script/DeployGraspToken.s.sol --broadcast --rpc-url https://rpc.ope
 ```
 
 ```sh
+forge script script/DeployGraspTokenStaking.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 50000000 --with-gas-price 5gwei --skip-simulation
+```
+
+```sh
 forge script script/DeployGraspNFT.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+```
+
+```sh
+forge script script/DeployGraspNFTStaking.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+```
+
+Capy Token Contract:
+
+```sh
+forge script script/DeployCapyToken.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
 ```
 
 ### Verifying the smart contracts
@@ -212,8 +226,37 @@ forge verify-contract \
   --rpc-url https://rpc.open-campus-codex.gelato.digital \
   --verifier blockscout \
   --verifier-url 'https://opencampus-codex.blockscout.com/api/' \
+  0x7E1b9c7E32Ce56B6035AEf77633dD27834B93080 \
+  src/GraspTokenStaking.sol:GraspTokenStaking
+```
+
+```sh
+forge verify-contract \
+  --rpc-url https://rpc.open-campus-codex.gelato.digital \
+  --verifier blockscout \
+  --verifier-url 'https://opencampus-codex.blockscout.com/api/' \
   0x7E97F031Aab9F389BD3C8Cd1ae8eF98C8a15b5f6 \
   src/GraspNFT.sol:GraspNFT
+```
+
+```sh
+forge verify-contract \
+  --rpc-url https://rpc.open-campus-codex.gelato.digital \
+  --verifier blockscout \
+  --verifier-url 'https://opencampus-codex.blockscout.com/api/' \
+  0x7E97F031Aab9F389BD3C8Cd1ae8eF98C8a15b5f6 \
+  src/GraspNFTStaking.sol:GraspNFTStaking
+```
+
+Capy Token Contract:
+
+```sh
+forge verify-contract \
+  --rpc-url https://rpc.open-campus-codex.gelato.digital \
+  --verifier blockscout \
+  --verifier-url 'https://opencampus-codex.blockscout.com/api/' \
+  0x06b9755fDC47d1fDA162CCd0B2684148303720c5 \
+  src/CapyToken.sol:CapyToken
 ```
 
 ## Deploy Confirmations
