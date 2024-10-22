@@ -106,14 +106,28 @@ const connect = async () => {
 
   try {
     await authSdk.value.signInWithRedirect({ state: "opencampus" });
-    await authSdk.value.handleLoginRedirect({ state: "opencampus" });
-
-    await handleAuthState();
   } catch (error) {
     console.error("Connection error:", error);
     NotfyProvider.error("Error connecting Open Campus ID");
   } finally {
     store.setLoading(false);
+  }
+};
+
+// Add this method to handle the redirect
+const handleRedirect = async () => {
+  try {
+    const authState = await authSdk.value.handleLoginRedirect();
+    if (authState.idToken) {
+      // Login process is completed
+      await handleAuthState();
+    } else {
+      // Login process is not completed
+      console.log("Login process not completed");
+    }
+  } catch (error) {
+    console.error("Redirect handling error:", error);
+    NotfyProvider.error("Error handling Open Campus ID redirect");
   }
 };
 
@@ -171,6 +185,10 @@ const clearOCIDState = () => {
 
 onMounted(async () => {
   await fetchOCID();
+  // Check if we're on the redirect page and handle the redirect if necessary
+  if (window.location.pathname === "/dashboard") {
+    await handleRedirect();
+  }
 });
 </script>
 
