@@ -138,19 +138,12 @@ const handleAuthState = async () => {
   if (authState.isAuthenticated) {
     store.setOcid(authState.idToken);
     store.setOcAccessToken(authState.accessToken);
+    store.setEduUsername(authState.OCId);
+    store.setEduEthAddress(authState.ethAddress);
     store.setOcConnected(true);
-    await fetchUserInfo();
   } else {
     clearOCIDState();
   }
-};
-
-const fetchUserInfo = async () => {
-  const authInfo = await authSdk.value.getAuthInfo();
-  console.log("OC authInfo:", authInfo);
-
-  store.setEduUsername(authInfo.edu_username);
-  store.setEduEthAddress(authInfo.eth_address);
 };
 
 const fetchOCID = async () => {
@@ -166,7 +159,7 @@ const fetchOCID = async () => {
 const logout = async () => {
   console.log("Logout OCID");
   try {
-    await authSdk.value.logout();
+    // await authSdk.value.logout();
     clearOCIDState();
     NotfyProvider.success("Successfully logged out from Open Campus ID");
   } catch (error) {
