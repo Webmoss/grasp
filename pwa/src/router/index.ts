@@ -4,7 +4,7 @@ import { nextTick } from "vue";
 
 import routes from "./routes";
 
-const baseURL = "";
+const baseURL = process.env.VUE_APP_BASE_URL ? process.env.VUE_APP_BASE_URL : "";
 const baseTitle = "Grasp Academy";
 
 const router = createRouter({
@@ -25,7 +25,7 @@ const router = createRouter({
       document
         .getElementById("app")
         ?.scrollIntoView({ behavior: "smooth" });
-    } 
+    }
   },
   routes,
 });
@@ -37,7 +37,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   nextTick(() => {
     document.title = to.meta.title
-      ? `${to.meta.title} - ${baseTitle}`
+      ? `${baseTitle} - ${to.meta.title}`
       : baseTitle;
   });
 });

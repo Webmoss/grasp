@@ -5,6 +5,7 @@ const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave: false,
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
 
   // IMP START - Bundler Issues
   configureWebpack: (config) => {
@@ -39,8 +40,19 @@ module.exports = defineConfig({
       })
       return definitions
     })
+
+    // Add the new HTML plugin configuration
+    config.plugin('html').tap(args => {
+      args[0].title = 'Grasp Academy';
+      return args;
+    });
   },
 
   crossorigin: "anonymous",
-  assetsDir: 'src/assets/'
+  assetsDir: 'src/assets/',
+
+  // Add the devServer configuration
+  devServer: {
+    historyApiFallback: true
+  }
 });

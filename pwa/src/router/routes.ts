@@ -196,6 +196,10 @@ const routes = [
     },
     component: () => import("@/views/ErrorNotFound.vue"),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/dashboard'
+  }
 ];
 
 export default routes;

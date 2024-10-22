@@ -1,4 +1,15 @@
 [[plugins]]
 package = "@netlify/plugin-sitemap"
   [plugins.inputs]
-  buildDir = "."
+  buildDir = "dist"
+  exclude = [
+    './dist/admin/**',
+    './dist/404.html'
+  ]
+  changeFreq = "weekly"
+  priority = 0.5
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
