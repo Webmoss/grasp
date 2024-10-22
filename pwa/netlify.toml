@@ -11,5 +11,12 @@ package = "@netlify/plugin-sitemap"
 
 [[redirects]]
   from = "/*"
+  to = "/dashboard"
+  status = 200
+  force = false
+  query = {path = ":path"}
+
+[[redirects]]
+  from = "/*"
   to = "/index.html"
   status = 200
