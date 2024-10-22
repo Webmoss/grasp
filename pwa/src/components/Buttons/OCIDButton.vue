@@ -96,12 +96,12 @@ const opts = {
   // scope: "openid profile email",
 };
 
-console.log("OCID Opts:", opts);
+// console.log("OCID Opts:", opts);
 
 const authSdk = computed(() => new OCAuthSandbox(opts));
 
 const connect = async () => {
-  console.log("Connect OCID");
+  // console.log("Connect OCID");
   store.setLoading(true);
 
   try {
@@ -133,7 +133,7 @@ const handleRedirect = async () => {
 
 const handleAuthState = async () => {
   const authState = await authSdk.value.getAuthState();
-  console.log("Auth State:", authState);
+  // console.log("Auth State:", authState);
 
   if (authState.isAuthenticated) {
     store.setOcid(authState.idToken);
@@ -147,7 +147,7 @@ const handleAuthState = async () => {
 };
 
 const fetchOCID = async () => {
-  console.log("Fetch OCID");
+  // console.log("Fetch OCID");
   try {
     await handleAuthState();
   } catch (error) {
@@ -157,7 +157,7 @@ const fetchOCID = async () => {
 };
 
 const logout = async () => {
-  console.log("Logout OCID");
+  // console.log("Logout OCID");
   try {
     // await authSdk.value.logout();
     clearOCIDState();

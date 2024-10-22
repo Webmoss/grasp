@@ -1,6 +1,11 @@
 <template>
   <div class="my-balance-box">
-    <h2>Web3Auth Account</h2>
+    <h2>
+      <span><img src="@/assets/svgs/Web3Auth-Dark.svg" /> Account</span>
+      <button class="refresh-button" @click="getBalance()">
+        <img src="../../assets/svgs/Refresh.svg" />
+      </button>
+    </h2>
     <div class="my-account">
       <div class="account-address">
         {{ formattedWeb3AuthAccount }}
@@ -11,13 +16,12 @@
     </div>
     <div class="my-wallet">
       <div class="my-wallet-amount">
-        <img src="../../assets/svgs/EduCoin.svg" /><span class="">
-          {{ truncatedWeb3AuthBalance }}</span
-        >
+        <div class="tooltip">
+          <img src="../../assets/svgs/EduCoin.svg" />
+          <span class="tooltiptext">EDU</span>
+        </div>
+        <span class="token-balance"> {{ truncatedWeb3AuthBalance }}</span>
       </div>
-      <button class="refresh-button" @click="getBalance()">
-        <img src="../../assets/svgs/Refresh.svg" />
-      </button>
     </div>
   </div>
 </template>
@@ -231,6 +235,9 @@ onMounted(async () => {
 
   h2 {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: $white;
     font-size: 19px;
     font-weight: 600;
@@ -240,6 +247,45 @@ onMounted(async () => {
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 0 0 8px 0;
+
+    span {
+      img,
+      svg {
+        width: 20px;
+        background: transparent;
+        object-fit: contain;
+        overflow: hidden;
+        margin: 0 4px -2px 0;
+      }
+    }
+
+    .refresh-button {
+      width: auto;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      color: $grasp-blue;
+      background: transparent;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-right: -6px;
+      margin-left: 4px;
+      margin-bottom: 0;
+      cursor: pointer;
+
+      img,
+      svg {
+        width: 22px;
+        background: transparent;
+        object-fit: contain;
+        overflow: hidden;
+        margin-right: 0;
+        margin-left: 4px;
+      }
+    }
   }
 
   .my-account {
@@ -291,7 +337,7 @@ onMounted(async () => {
 
       img,
       svg {
-        width: 24px;
+        width: 22px;
         background: transparent;
         object-fit: contain;
         overflow: hidden;
@@ -321,45 +367,24 @@ onMounted(async () => {
       align-items: center;
       justify-content: center;
       color: $white;
-      font-size: 19px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 500;
     }
 
     img,
     svg {
-      width: 26px;
+      width: 22px;
       background: transparent;
       object-fit: contain;
       overflow: hidden;
       margin-right: 8px;
     }
 
-    .refresh-button {
-      width: auto;
-      display: flex;
-      flex-direction: row;
-      align-content: center;
-      align-items: center;
-      justify-content: center;
-      color: $grasp-blue;
-      background: transparent;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
-      margin-right: -6px;
+    .token-balance {
+      color: $white;
+      font-size: 15px;
+      font-weight: 500;
       margin-left: 4px;
-      margin-bottom: 0;
-      cursor: pointer;
-
-      img,
-      svg {
-        width: 24px;
-        background: transparent;
-        object-fit: contain;
-        overflow: hidden;
-        margin-right: 0;
-        margin-left: 4px;
-      }
     }
   }
 }

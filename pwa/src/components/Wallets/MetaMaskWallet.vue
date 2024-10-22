@@ -1,7 +1,7 @@
 <template>
   <div class="my-balance-box">
     <h2>
-      Account
+      <span><img src="@/assets/svgs/MetaMask.svg" /> Account</span>
       <button class="refresh-button" @click="refreshBalances()">
         <img src="../../assets/svgs/Refresh.svg" alt="Refresh" />
       </button>
@@ -241,6 +241,17 @@ onMounted(async () => {
     margin-block-end: 0;
     margin: 0 0 8px 0;
 
+    span {
+      img,
+      svg {
+        width: 22px;
+        background: transparent;
+        object-fit: contain;
+        overflow: hidden;
+        margin: 0 4px -4px 0;
+      }
+    }
+
     .refresh-button {
       width: auto;
       display: flex;
@@ -260,7 +271,7 @@ onMounted(async () => {
 
       img,
       svg {
-        width: 24px;
+        width: 22px;
         background: transparent;
         object-fit: contain;
         overflow: hidden;
@@ -319,7 +330,7 @@ onMounted(async () => {
 
       img,
       svg {
-        width: 24px;
+        width: 22px;
         background: transparent;
         object-fit: contain;
         overflow: hidden;
@@ -355,7 +366,7 @@ onMounted(async () => {
 
     img,
     svg {
-      width: 26px;
+      width: 22px;
       background: transparent;
       object-fit: contain;
       overflow: hidden;
@@ -384,8 +395,8 @@ onMounted(async () => {
   margin-bottom: 8px;
 
   img {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     margin-right: 8px;
     border-radius: 50%;
     background: $white;
