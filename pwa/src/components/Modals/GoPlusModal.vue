@@ -269,7 +269,7 @@ const mintNFT = async () => {
            */
           const stylesBlockscout = ["color: white", "background: #141BEB"].join(";");
           console.log(
-            `%cNFT minted on Blockscout, see transaction: https://opencampus-codex.blockscout.com/tx/${nftTxn.hash} %s`,
+            `%cNFT minted on Blockscout, see transaction: https://edu-chain-testnet.blockscout.com/tx/${nftTxn.hash} %s`,
             stylesBlockscout,
             nftTxn.hash
           );

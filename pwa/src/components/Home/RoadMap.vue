@@ -19,8 +19,8 @@
             <li>2. Build user interface and journey</li>
             <li>3. Onboard Advisors, Partners &amp; Investors</li>
             <li>4. Finalise integrations with EDU Chain &amp; OCID</li>
-            <li>5. $GRASP tokenomics and governance planning</li>
-            <li>6. Launch $GRASP token on EDU Chain mainnet</li>
+            <li>5. $GRASP tokenomics and planning</li>
+            <li>6. Launch $GRASP on EDU Chain mainnet</li>
           </ul>
         </div>
       </div>

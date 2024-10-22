@@ -105,7 +105,7 @@ const connect = async () => {
   store.setLoading(true);
 
   try {
-    // await authSdk.value.signInWithRedirect({ state: "opencampus" });
+    await authSdk.value.signInWithRedirect({ state: "opencampus" });
     await authSdk.value.handleLoginRedirect({ state: "opencampus" });
 
     await handleAuthState();

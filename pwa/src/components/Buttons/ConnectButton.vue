@@ -94,7 +94,16 @@ let provider = <IProvider | null>null;
 /* Get from https://dashboard.web3auth.io */
 const clientId = process.env.VUE_APP_WEB3AUTH_CLIENTID
   ? process.env.VUE_APP_WEB3AUTH_CLIENTID
-  : "BCBiVM2Lq64l2CrPepvXIYpGFgRYScs4V4pURqood6-0QNL2rnfL685dIemTQAZY5AUMIJBdPXUEijLORlSAfZA";
+  : "";
+
+/* Open Campus Codex RPC EDU Chain */
+const rpcTarget = process.env.VUE_APP_PUBLIC_RPC_OPEN_CAMPUS
+  ? process.env.VUE_APP_PUBLIC_RPC_OPEN_CAMPUS
+  : "";
+
+const blockExplorerUrl = process.env.VUE_APP_PUBLIC_BROWSER_URL_OPEN_CAMPUS
+  ? process.env.VUE_APP_PUBLIC_BROWSER_URL_OPEN_CAMPUS
+  : "";
 
 const metamaskAdapter = new MetamaskAdapter({
   clientId,
@@ -102,8 +111,8 @@ const metamaskAdapter = new MetamaskAdapter({
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
-    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+    rpcTarget: rpcTarget,
+    blockExplorerUrl: blockExplorerUrl,
   },
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
 });
@@ -114,8 +123,8 @@ metamaskAdapter.setAdapterSettings({
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155 ? CHAIN_NAMESPACES.EIP155 : "eip155",
     chainId: "0xA045C",
-    rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
-    blockExplorerUrl: "https://opencampus-codex.blockscout.com/",
+    rpcTarget: rpcTarget,
+    blockExplorerUrl: blockExplorerUrl,
   },
   web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
 });
@@ -123,9 +132,9 @@ metamaskAdapter.setAdapterSettings({
 const chainConfig = {
   chainId: "0xA045C", // Chain Id 656476 in hex
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  rpcTarget: "https://rpc.open-campus-codex.gelato.digital",
+  rpcTarget: rpcTarget,
   displayName: "Open Campus Codex",
-  blockExplorer: "https://opencampus-codex.blockscout.com/",
+  blockExplorer: blockExplorerUrl,
   ticker: "EDU",
   tickerName: "EDU",
   logo: "https://cryptologos.cc/logos/open-campus-edu-logo.png",

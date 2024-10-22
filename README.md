@@ -189,7 +189,7 @@ forge build
 Deploy to Open Campus:
 
 ```sh
-forge script script/DeployGraspToken.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+forge script script/DeployGraspToken.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 50000000 --with-gas-price 5gwei --skip-simulation
 ```
 
 ```sh
@@ -197,17 +197,17 @@ forge script script/DeployGraspTokenStaking.s.sol --broadcast --rpc-url https://
 ```
 
 ```sh
-forge script script/DeployGraspNFT.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+forge script script/DeployGraspNFT.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 50000000 --with-gas-price 5gwei --skip-simulation
 ```
 
 ```sh
-forge script script/DeployGraspNFTStaking.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+forge script script/DeployGraspNFTStaking.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 50000000 --with-gas-price 5gwei --skip-simulation
 ```
 
 Capy Token Contract:
 
 ```sh
-forge script script/DeployCapyToken.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 30000000 --with-gas-price 5gwei --skip-simulation
+forge script script/DeployCapyToken.s.sol --broadcast --rpc-url https://rpc.open-campus-codex.gelato.digital --gas-limit 50000000 --with-gas-price 5gwei --skip-simulation
 ```
 
 ### Verifying the smart contracts
